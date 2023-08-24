@@ -1,0 +1,967 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="leekos">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1、参数提交注入    1.1 明确参数类型1数字，字符，搜索，JSON等      1.2 明确提交方式1GET, POST,COOKIE,REQUEST，HTTP头等  可能有些网站是以Request的方式接受参数，所以GET和POST都行  注入的地方可能在User-Agent、cookie上，关键是看是否带入数据库查询。 1.3 如何去闭合sqlsql语句干扰符号: ‘   ,”">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小迪-day14(注入类型之提交注入)">
+<meta property="og:url" content="https://leekosss.github.io/2023/08/24/%E5%B0%8F%E8%BF%AA-day14(%E6%B3%A8%E5%85%A5%E7%B1%BB%E5%9E%8B%E4%B9%8B%E6%8F%90%E4%BA%A4%E6%B3%A8%E5%85%A5)/index.html">
+<meta property="og:site_name" content="Tranquility">
+<meta property="og:description" content="1、参数提交注入    1.1 明确参数类型1数字，字符，搜索，JSON等      1.2 明确提交方式1GET, POST,COOKIE,REQUEST，HTTP头等  可能有些网站是以Request的方式接受参数，所以GET和POST都行  注入的地方可能在User-Agent、cookie上，关键是看是否带入数据库查询。 1.3 如何去闭合sqlsql语句干扰符号: ‘   ,”">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/TJljdeBycEXGHws.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/cABjIFzxgrvDRXo.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/LnlATbSg5rIQfEy.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/9qTPdjeROkhY5rE.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/oQ2XjM8aHJTKGD3.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/9slvAFxVELGP3Nh.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/vBAcmFonUjrZqix.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/W1xNr4bjeT8RHBY.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/vAPVr7XcqKy1ZsJ.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/w9LtCc3yjgn1deb.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/BbtR789cFmz5AMh.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/w9LtCc3yjgn1deb.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/Onx9P2aLqrAjEfK.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/wFb2gn1GxjZ7St9.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/6l1WBMvbrD3YyOi.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/lvkgDMPJm2Bnt9E.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/FWCBLzraMKYGnHc.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/iUdMaE4scTJo8h5.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/soUX6mkABYJvney.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/ySknmRIdiMzWhsl.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/Qd5UjWlzZJONuoA.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/5kZOoAV4IQFPtde.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/rnvUALcIQPG3F9e.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/MPOraCKRGsoA4YN.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/ZQgVsirqkl67Mvo.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/2VHSaUesGZpfw4N.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/9UI2h6czwdGkBNQ.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/VHmOiGSINZ8nsWU.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/tpUYKlqZuTyaDAG.png">
+<meta property="article:published_time" content="2023-08-24T14:38:04.699Z">
+<meta property="article:modified_time" content="2023-06-05T06:58:40.623Z">
+<meta property="article:author" content="leekos">
+<meta property="article:tag" content="小迪-day14(注入类型之提交注入)">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2022/11/25/TJljdeBycEXGHws.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>小迪-day14(注入类型之提交注入) - Tranquility</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Tranquility</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="小迪-day14(注入类型之提交注入)"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-24 22:38" pubdate>
+          2023年8月24日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          37 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">小迪-day14(注入类型之提交注入)</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年6月5日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="1、参数提交注入"><a href="#1、参数提交注入" class="headerlink" title="1、参数提交注入"></a>1、参数提交注入</h1><img src="https://s2.loli.net/2022/11/25/TJljdeBycEXGHws.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom: 50%;" />
+
+
+
+<h2 id="1-1-明确参数类型"><a href="#1-1-明确参数类型" class="headerlink" title="1.1 明确参数类型"></a>1.1 明确参数类型</h2><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript">数字，字符，搜索，<span class="hljs-built_in">JSON</span>等<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="1-2-明确提交方式"><a href="#1-2-明确提交方式" class="headerlink" title="1.2 明确提交方式"></a>1.2 明确提交方式</h2><figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vbscript"><span class="hljs-keyword">GET</span>, POST,COOKIE,<span class="hljs-built_in">REQUEST</span>，HTTP头等<br></code></pre></td></tr></table></figure>
+
+<p>可能有些网站是以Request的方式接受参数，所以GET和POST都行 </p>
+<p>注入的地方可能在User-Agent、cookie上，关键是看是否带入数据库查询。</p>
+<h2 id="1-3-如何去闭合sql"><a href="#1-3-如何去闭合sql" class="headerlink" title="1.3 如何去闭合sql"></a>1.3 如何去闭合sql</h2><p>sql语句干扰符号: ‘   ,”     ,    )  ,  }    % 等，具体需看写法</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-string">&#x27;  &quot;  将sql字符串包裹，可以相应使用&#x27;</span> <span class="hljs-comment">&quot;  去闭合原sql语句，使插入的sql语句生效</span><br>% 出现在like  模糊查询<br>(  )	可能出现在<span class="hljs-keyword">insert</span>等语句中<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="1-4-注入中注释的使用"><a href="#1-4-注入中注释的使用" class="headerlink" title="1.4 注入中注释的使用"></a>1.4 注入中注释的使用</h2><p><strong>–+</strong> 在get请求方式放在url中可以使用，相当于sql中的注释，–+相当于 – （–空格），可以使后面的sql语句被注释</p>
+<p><strong>#</strong> 也可当作注释使用，post中不用 （–+），用#注释后面的sql语句</p>
+<h1 id="2、参数字符型注入测试"><a href="#2、参数字符型注入测试" class="headerlink" title="2、参数字符型注入测试"></a>2、参数字符型注入测试</h1><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">sqlilabs <span class="hljs-comment">-- less5、6</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-1-less5"><a href="#2-1-less5" class="headerlink" title="2.1 less5"></a>2.1 less5</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">$<span class="hljs-keyword">sql</span><span class="hljs-operator">=</span>&quot;SELECT * FROM users WHERE id=&#x27;$id&#x27; LIMIT 0,1&quot;;<br></code></pre></td></tr></table></figure>
+
+<p>SQL执行的语句是采用了  ‘  单引号闭合,</p>
+<p>我们要是直接使用?id&#x3D;1 and 1&#x3D;1相当于执行的是<code>SELECT * FROM users WHERE id=&#39;1 and 1=1&#39; LIMIT 0,1;</code>是不会有任何的反应。</p>
+<p>正确写法：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">?<span class="hljs-built_in">id</span>=1<span class="hljs-string">&#x27; and &#x27;</span>1<span class="hljs-string">&#x27;=&#x27;</span>1<br>?<span class="hljs-built_in">id</span>=1<span class="hljs-string">&#x27; and &#x27;</span>1<span class="hljs-string">&#x27;=&#x27;</span>2<br></code></pre></td></tr></table></figure>
+
+<p>或者：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs routeros">?<span class="hljs-attribute">id</span>=1&#x27; <span class="hljs-keyword">and</span> <span class="hljs-attribute">1</span>=1 --+<br>?<span class="hljs-attribute">id</span>=1&#x27; <span class="hljs-keyword">and</span> <span class="hljs-attribute">1</span>=2 --+<br>--+ 将后面的sql语句进行注释<br></code></pre></td></tr></table></figure>
+
+<img src="https://s2.loli.net/2022/11/25/cABjIFzxgrvDRXo.png" srcset="/img/loading.gif" lazyload alt="image-20221111090609506" style="zoom:25%;" />
+
+<img src="https://s2.loli.net/2022/11/25/LnlATbSg5rIQfEy.png" srcset="/img/loading.gif" lazyload alt="image-20221111090627247" style="zoom:25%;" />
+
+<p>使用 order by 3 查询出字段数为3</p>
+<h2 id="2-2-less-6"><a href="#2-2-less-6" class="headerlink" title="2.2 less 6"></a>2.2 less 6</h2><p>源码：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$</span><span class="language-bash"><span class="hljs-built_in">id</span> = <span class="hljs-string">&#x27;&quot;&#x27;</span>.<span class="hljs-variable">$id</span>.<span class="hljs-string">&#x27;&quot;&#x27;</span>;</span><br><span class="hljs-meta prompt_">$</span><span class="language-bash">sql=<span class="hljs-string">&quot;SELECT * FROM users WHERE id=<span class="hljs-variable">$id</span> LIMIT 0,1&quot;</span>;</span><br></code></pre></td></tr></table></figure>
+
+<img src="https://s2.loli.net/2022/11/25/9qTPdjeROkhY5rE.png" srcset="/img/loading.gif" lazyload alt="image-20221111090758354" style="zoom:25%;" />
+
+
+
+<p>换成了双引号闭合</p>
+<h1 id="3、POST数据提交注入测试"><a href="#3、POST数据提交注入测试" class="headerlink" title="3、POST数据提交注入测试"></a>3、POST数据提交注入测试</h1><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">sqlilabs</span> less11<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-1-less11"><a href="#3-1-less11" class="headerlink" title="3.1 less11"></a>3.1 less11</h2><p>源码：</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs n1ql">@$sql=&quot;<span class="hljs-keyword">SELECT</span> username, <span class="hljs-keyword">password</span> <span class="hljs-keyword">FROM</span> users <span class="hljs-keyword">WHERE</span> username=<span class="hljs-string">&#x27;$uname&#x27;</span> <span class="hljs-keyword">and</span> <span class="hljs-keyword">password</span>=<span class="hljs-string">&#x27;$passwd&#x27;</span> <span class="hljs-keyword">LIMIT</span> <span class="hljs-number">0</span>,<span class="hljs-number">1</span><span class="hljs-string">&quot;;</span><br></code></pre></td></tr></table></figure>
+
+<p>为了实验方便，回显sql语句：</p>
+<p><img src="https://s2.loli.net/2022/11/25/oQ2XjM8aHJTKGD3.png" srcset="/img/loading.gif" lazyload alt="image-20221111091623571"></p>
+<p>如图：</p>
+<img src="https://s2.loli.net/2022/11/25/9slvAFxVELGP3Nh.png" srcset="/img/loading.gif" lazyload alt="image-20221111091736725" style="zoom:25%;" />
+
+
+
+<p>在bp中抓包</p>
+<img src="https://s2.loli.net/2022/11/25/vBAcmFonUjrZqix.png" srcset="/img/loading.gif" lazyload alt="image-20221111092213722" style="zoom:33%;" />
+
+<p>测试：</p>
+<img src="https://s2.loli.net/2022/11/25/W1xNr4bjeT8RHBY.png" srcset="/img/loading.gif" lazyload alt="image-20221111092423253" style="zoom: 33%;" />
+
+<p>发现可以注入</p>
+<p>查询字段：</p>
+<p><img src="https://s2.loli.net/2022/11/25/vAPVr7XcqKy1ZsJ.png" srcset="/img/loading.gif" lazyload alt="image-20221125093658144"></p>
+<p><img src="https://s2.loli.net/2022/11/25/w9LtCc3yjgn1deb.png" srcset="/img/loading.gif" lazyload alt="image-20221111092720877"></p>
+<p><img src="https://s2.loli.net/2022/11/25/BbtR789cFmz5AMh.png" srcset="/img/loading.gif" lazyload alt="image-20221111092644052" style="zoom: 33%;" /><img src="https://s2.loli.net/2022/11/25/w9LtCc3yjgn1deb.png" srcset="/img/loading.gif" lazyload alt="image-20221111092720877"></p>
+<p>发现字段数只有俩列</p>
+<p>查询回显字段：</p>
+<img src="https://s2.loli.net/2022/11/25/Onx9P2aLqrAjEfK.png" srcset="/img/loading.gif" lazyload alt="image-20221111093042771" style="zoom:33%;" />
+
+<p>发现第一个字段显示用户名，第二个显示密码</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">要回显出字段，首先应该令前一个查询条件为假，这样<span class="hljs-keyword">union</span>之后才会显示第二天<span class="hljs-keyword">select</span>语句结果。<br>或者使用<span class="hljs-keyword">limit</span> <span class="hljs-number">1</span>,<span class="hljs-number">1</span> 显示出第二条数据，如下图：<br></code></pre></td></tr></table></figure>
+
+<img src="https://s2.loli.net/2022/11/25/wFb2gn1GxjZ7St9.png" srcset="/img/loading.gif" lazyload alt="image-20221111093304480" style="zoom:33%;" />
+
+
+
+
+
+<p>回显出数据库名，和mysql版本号：</p>
+<img src="https://s2.loli.net/2022/11/25/6l1WBMvbrD3YyOi.png" srcset="/img/loading.gif" lazyload alt="image-20221111093339377" style="zoom:33%;" />
+
+<p>查询出用户，操作系统</p>
+<img src="https://s2.loli.net/2022/11/25/lvkgDMPJm2Bnt9E.png" srcset="/img/loading.gif" lazyload alt="image-20221111093423979" style="zoom:33%;" />
+
+<p>然后就可以使用 </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql">information_schema.tables  		查询表名称<br>information_schema.columns		查询表中字段<br>information_schema.schemata		查询数据库名称<br></code></pre></td></tr></table></figure>
+
+
+<p>查询所有数据库(group_concat())：</p>
+<img src="https://s2.loli.net/2022/11/25/FWCBLzraMKYGnHc.png" srcset="/img/loading.gif" lazyload alt="image-20221111093911511" style="zoom:33%;" />
+
+
+
+<p>查询security下的表：</p>
+<img src="https://s2.loli.net/2022/11/25/iUdMaE4scTJo8h5.png" srcset="/img/loading.gif" lazyload alt="image-20221111094119732" style="zoom: 50%;" />
+
+
+
+<p>查询users下面的字段：</p>
+<p><img src="https://s2.loli.net/2022/11/25/soUX6mkABYJvney.png" srcset="/img/loading.gif" lazyload alt="image-20221111094247447"></p>
+<p>查询username、password字段的数据：</p>
+<p><img src="https://s2.loli.net/2022/11/25/ySknmRIdiMzWhsl.png" srcset="/img/loading.gif" lazyload alt="image-20221111094610329"></p>
+<h1 id="4、JSON注入"><a href="#4、JSON注入" class="headerlink" title="4、JSON注入"></a>4、JSON注入</h1><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">	<span class="hljs-type">JSON</span>注入是指应用程序所解析的<span class="hljs-type">JSON</span>数据来源于不可信赖的数据源，程序没有对这些不可信赖的数据进行验证、过滤，如果应用程序使用未经验证的输入构造 <span class="hljs-type">JSON</span>，则可以更改 <span class="hljs-type">JSON</span> 数据的语义。在相对理想的情况下，攻击者可能会插入无关的元素，导致应用程序在解析 <span class="hljs-type">JSON</span>数据时抛出异常。<br>	<br>	在<span class="hljs-type">JSON</span>中是根据引号（“）、冒号（:）、逗号（,）、花括号（&#123;&#125;）来区分各字符的意义的。如果向<span class="hljs-type">JSON</span>中注入恶意字符，那么<span class="hljs-type">JSON</span>将解析失败。<br>	<br><span class="hljs-type">JSON</span>注入和<span class="hljs-type">XML</span>注入、<span class="hljs-keyword">SQL</span>注入一样，都需要对影响语句的内容进行转义，如双引号、花括号等。<br></code></pre></td></tr></table></figure>
+
+<p>和SQL注入一样（只是传入的形式变了），插入注入语句。但要注意一点是对影响json语句的要进行转义，如双引号、花括号等。</p>
+<p><img src="https://s2.loli.net/2022/11/25/Qd5UjWlzZJONuoA.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>注入方式：如果是数字的可以不加  ‘  闭合， 如果是字符的话，加上引号闭合</p>
+<p>JSON格式： 	使用双引号 “ “	键值对形式</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>	<span class="hljs-attr">&quot;username&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;admin&quot;</span><span class="hljs-punctuation">,</span><br>	<span class="hljs-attr">&quot;password&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;admin&quot;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>当需要表示一组值时，JSON 不但能够提高可读性，而且可以减少复杂性。</p>
+<p><strong>值的数组</strong> 形式：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span> <span class="hljs-attr">&quot;programmers&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>  <span class="hljs-punctuation">&#123;</span> <span class="hljs-attr">&quot;firstName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Brett&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;lastName&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;McLaughlin&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;email&quot;</span><span class="hljs-punctuation">:</span> 			      <span class="hljs-string">&quot;brett@newInstance.com&quot;</span> <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-punctuation">&#123;</span> <span class="hljs-attr">&quot;firstName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Jason&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;lastName&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;Hunter&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;email&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;jason@servlets.com&quot;</span> <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-punctuation">&#123;</span> <span class="hljs-attr">&quot;firstName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Elliotte&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;lastName&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;Harold&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;email&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;elharo@macfaq.com&quot;</span> <span class="hljs-punctuation">&#125;</span><br> <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br><span class="hljs-attr">&quot;authors&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>  <span class="hljs-punctuation">&#123;</span> <span class="hljs-attr">&quot;firstName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Isaac&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;lastName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Asimov&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;genre&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;science fiction&quot;</span> <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-punctuation">&#123;</span> <span class="hljs-attr">&quot;firstName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Tad&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;lastName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Williams&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;genre&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;fantasy&quot;</span> <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-punctuation">&#123;</span> <span class="hljs-attr">&quot;firstName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Frank&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;lastName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Peretti&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;genre&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;christian fiction&quot;</span> <span class="hljs-punctuation">&#125;</span><br> <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br><span class="hljs-attr">&quot;musicians&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>  <span class="hljs-punctuation">&#123;</span> <span class="hljs-attr">&quot;firstName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Eric&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;lastName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Clapton&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;instrument&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;guitar&quot;</span> <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-punctuation">&#123;</span> <span class="hljs-attr">&quot;firstName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Sergei&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;lastName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Rachmaninoff&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;instrument&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;piano&quot;</span> <span class="hljs-punctuation">&#125;</span><br> <span class="hljs-punctuation">]</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="5、COOKIE数据提交注入测试"><a href="#5、COOKIE数据提交注入测试" class="headerlink" title="5、COOKIE数据提交注入测试"></a>5、COOKIE数据提交注入测试</h1><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">sqlilabs</span> less <span class="hljs-number">20</span><br></code></pre></td></tr></table></figure>
+<p>网站传递参数的方式：</p>
+<table>
+<thead>
+<tr>
+<th><strong>参数类型</strong></th>
+<th><strong>含义</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>get型</td>
+<td>一般访问网页的行为</td>
+</tr>
+<tr>
+<td>cookie型 （不是请求方式）</td>
+<td>伴随着所有访问网页的行为</td>
+</tr>
+<tr>
+<td>post型</td>
+<td>上传文件，登陆</td>
+</tr>
+</tbody></table>
+<p><strong>cookie注入原理：</strong>对get传递来的参数进行了过滤，但是忽略了cookie也可以传递参数。</p>
+<p>【cookie注入的原理在于更改本地的cookie，从而利用cookie来提交非法语句。】 </p>
+<table>
+<thead>
+<tr>
+<th>条件</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>条件1</td>
+<td align="center">程序对get和post方式提交的数据进行了过滤，但未对cookie提交的数据库进行过滤</td>
+</tr>
+<tr>
+<td>条件2</td>
+<td align="center">条件1的基础上还需要程序对提交数据获取方式是直接request(“xxx”)的方式，未指明使用request对象的具体方法进行获取，也就是说用request这个方法的时候获取的参数可以是是在URL后面的参数也可以是cookie里面的参数这里没有做筛选，之后的原理就像我们的sql注入一样了</td>
+</tr>
+</tbody></table>
+<p>通过分析源码可知，当我们使用正确的用户名密码登录成功后，就会产生一个cookie值（记录了username值），再次登录后就会携带这个cookie值，通过cookie查询用户名，但是源码对cookie存在 sql 注入</p>
+<p>源码cookie查询语句：</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs n1ql">$sql=&quot;<span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> users <span class="hljs-keyword">WHERE</span> username=<span class="hljs-string">&#x27;$cookee&#x27;</span> <span class="hljs-keyword">LIMIT</span> <span class="hljs-number">0</span>,<span class="hljs-number">1</span><span class="hljs-string">&quot;;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<img src="https://s2.loli.net/2022/11/25/5kZOoAV4IQFPtde.png" srcset="/img/loading.gif" lazyload alt="image-20221111103503806" style="zoom:50%;" />
+
+<p>使用正确用户名、密码登录</p>
+<p><img src="https://s2.loli.net/2022/11/25/rnvUALcIQPG3F9e.png" srcset="/img/loading.gif" lazyload alt="image-20221111103526706"></p>
+<p>成功登录后，抓取到一个数据包携带cookie</p>
+<p>查询到字段数为3</p>
+<img src="https://s2.loli.net/2022/11/25/MPOraCKRGsoA4YN.png" srcset="/img/loading.gif" lazyload alt="image-20221111103906699" style="zoom: 33%;" />
+
+
+
+
+
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros">修改cookie参数<br>Cookie: <span class="hljs-attribute">uname</span>=admin&#x27; <span class="hljs-keyword">and</span> <span class="hljs-attribute">1</span>=2 union select database(),user(),version() #<br></code></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://s2.loli.net/2022/11/25/ZQgVsirqkl67Mvo.png" srcset="/img/loading.gif" lazyload alt="image-20221111104029499"></p>
+<h1 id="6、HTTP头部参数数据注入测试"><a href="#6、HTTP头部参数数据注入测试" class="headerlink" title="6、HTTP头部参数数据注入测试"></a>6、HTTP头部参数数据注入测试</h1><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">sqlilabs</span> less <span class="hljs-number">18</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>分析源码，可以看到，源码对</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql">$uagent <span class="hljs-operator">=</span> $_SERVER[<span class="hljs-string">&#x27;HTTP_USER_AGENT&#x27;</span>];<br>$IP <span class="hljs-operator">=</span> $_SERVER[<span class="hljs-string">&#x27;REMOTE_ADDR&#x27;</span>];<br>...<br>$<span class="hljs-keyword">insert</span><span class="hljs-operator">=</span>&quot;INSERT INTO `security`.`uagents` (`uagent`, `ip_address`, `username`) VALUES (&#x27;$uagent&#x27;, &#x27;$IP&#x27;, $uname)&quot;;<br></code></pre></td></tr></table></figure>
+
+<p>UA,和ip没有进行限制，可以进行注入。</p>
+<p>也就是说我们通过修改http的头部信息可以达到SQL注入的效果。</p>
+<p>登录之后，修改UA数值为：fuck 可得</p>
+<img src="https://s2.loli.net/2022/11/25/2VHSaUesGZpfw4N.png" srcset="/img/loading.gif" lazyload alt="image-20221111105655834" style="zoom: 50%;" />
+
+
+
+<p><img src="https://s2.loli.net/2022/11/25/9UI2h6czwdGkBNQ.png" srcset="/img/loading.gif" lazyload alt="image-20221111105719610"></p>
+<p>那我们将 user-agent 修改为注入语句呢？<br>将 user-agent 修改为</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada"><span class="hljs-symbol">&#x27;and</span> extractvalue(<span class="hljs-number">1</span>,concat(<span class="hljs-number">0</span>x7e,(<span class="hljs-keyword">select</span> @@version),<span class="hljs-number">0</span>x7e)) <span class="hljs-keyword">and</span> <span class="hljs-string">&#x27;1&#x27;</span>=&#x27;<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+
+<img src="https://s2.loli.net/2022/11/25/VHmOiGSINZ8nsWU.png" srcset="/img/loading.gif" lazyload alt="image-20221111105850994" style="zoom:50%;" />
+
+
+
+<p>可以看到我们已经得到了版本号。</p>
+<p><img src="https://s2.loli.net/2022/11/25/tpUYKlqZuTyaDAG.png" srcset="/img/loading.gif" lazyload alt="image-20221111105937233"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%B0%8F%E8%BF%AA-day14-%E6%B3%A8%E5%85%A5%E7%B1%BB%E5%9E%8B%E4%B9%8B%E6%8F%90%E4%BA%A4%E6%B3%A8%E5%85%A5/" class="print-no-link">#小迪-day14(注入类型之提交注入)</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>小迪-day14(注入类型之提交注入)</div>
+      <div>https://leekosss.github.io/2023/08/24/小迪-day14(注入类型之提交注入)/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>leekos</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年8月24日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年6月5日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/08/24/%E6%B0%B8%E6%81%92%E4%B9%8B%E8%93%9D%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" title="永恒之蓝漏洞复现">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">永恒之蓝漏洞复现</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/24/%E5%B0%8F%E8%BF%AA-day15(Oracle%EF%BC%8CMongoDB%E3%80%81access%E3%80%81msSQL%E3%80%81postgresql%E6%B3%A8%E5%85%A5)/" title="小迪-day15(Oracle，MongoDB、access、msSQL、postgresql注入)">
+                        <span class="hidden-mobile">小迪-day15(Oracle，MongoDB、access、msSQL、postgresql注入)</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"e5J90iDkXMWhU5UNlEX1I2hO-gzGzoHsz","appKey":"esLROw9j3xLk2nV4tQkKaih1","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      赣ICP备2022008842号-2
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

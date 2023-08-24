@@ -1,0 +1,971 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="leekos">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1、相关sql函数、语句1.1  count()1.1.1 count(column_name)​	count(column_name)是计算数据库表中指定列有多少行， ​	例：  1SELECT COUNT(column_name) FROM table_name    1.1.2 count(*)可以计算表中有多少行（有多少条数据）表中记录数 1.2 sum()返回数值列的总和（只能运用于">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小迪-day12(SQL注入简要概述)">
+<meta property="og:url" content="https://leekosss.github.io/2023/08/24/%E5%B0%8F%E8%BF%AA-day12(SQL%E6%B3%A8%E5%85%A5%E7%AE%80%E8%A6%81%E6%A6%82%E8%BF%B0)/index.html">
+<meta property="og:site_name" content="Tranquility">
+<meta property="og:description" content="1、相关sql函数、语句1.1  count()1.1.1 count(column_name)​	count(column_name)是计算数据库表中指定列有多少行， ​	例：  1SELECT COUNT(column_name) FROM table_name    1.1.2 count(*)可以计算表中有多少行（有多少条数据）表中记录数 1.2 sum()返回数值列的总和（只能运用于">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/ZX8G9bETWCt2VRM.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/qovjMO68S4bLWhY.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/o5WOMmjNvEsld94.jpg">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/vAiHyD2wtX8fjOK.jpg">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/cBtN5WGTurUaIXA.jpg">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/RJhjsC491y2wVmS.jpg">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/ftb8u9nkSK6M1PI.jpg">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/qpZzRKdtLDJEGkN.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/e2zLhvIgK85MciB.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/wKnEYINf7lFbuto.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/u3E6FPSwCkJGqht.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/sOTHxQ46W8lVZBa.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/bwNR8rjmUo6yW3g.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/zErfVLBxQ1FMUSe.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/3M2mwQZk7EUi9Hv.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/5lObDYhqiHEAjkt.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/WGoCr5suKFZRzcN.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/ebXK7rvldyH52pM.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/NldjoUX49qRnT1G.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/b28opylBXFtmKGs.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/w3BdS2XZFJgMKci.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/km8XslvoFJxdYIh.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/DkSZCU4KTyxIV8p.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/YuT9EOB1eGHplLD.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/ClKgmyNZRYX3eGj.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/P5Fr1KVsv3lX8fO.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/PlDuWjIcGMyhVs1.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/FqsIH8TzhcjtLZx.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/YVedQtBSIXWk46O.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/o1VfsFgqildNHt7.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/6gdXVcsDljPRSEY.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/1qg6PfX7FmprV9H.png">
+<meta property="og:image" content="https://s2.loli.net/2022/11/25/ur6RBKVqYSpvLTf.png">
+<meta property="article:published_time" content="2023-08-24T14:38:04.694Z">
+<meta property="article:modified_time" content="2023-06-05T06:58:40.599Z">
+<meta property="article:author" content="leekos">
+<meta property="article:tag" content="小迪-day12(SQL注入简要概述)">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2022/11/25/ZX8G9bETWCt2VRM.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>小迪-day12(SQL注入简要概述) - Tranquility</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Tranquility</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="小迪-day12(SQL注入简要概述)"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-24 22:38" pubdate>
+          2023年8月24日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          36 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">小迪-day12(SQL注入简要概述)</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年6月5日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <img src="https://s2.loli.net/2022/11/25/ZX8G9bETWCt2VRM.png" srcset="/img/loading.gif" lazyload alt="web-漏洞小迪安全.png" style="zoom:67%;" />
+
+<h1 id="1、相关sql函数、语句"><a href="#1、相关sql函数、语句" class="headerlink" title="1、相关sql函数、语句"></a>1、相关sql函数、语句</h1><h2 id="1-1-count"><a href="#1-1-count" class="headerlink" title="1.1  count()"></a>1.1  count()</h2><h3 id="1-1-1-count-column-name"><a href="#1-1-1-count-column-name" class="headerlink" title="1.1.1 count(column_name)"></a>1.1.1 count(<em>column_name</em>)</h3><p>​	count(<em>column_name</em>)是计算数据库表中指定列有多少行，</p>
+<p>​	例： </p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">SELECT</span> COUNT(<span class="hljs-built_in">column_name</span>) <span class="hljs-keyword">FROM</span> <span class="hljs-built_in">table_name</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="1-1-2-count"><a href="#1-1-2-count" class="headerlink" title="1.1.2 count(*)"></a>1.1.2 count(*)</h3><p>可以计算表中有多少行（有多少条数据）表中记录数</p>
+<h2 id="1-2-sum"><a href="#1-2-sum" class="headerlink" title="1.2 sum()"></a>1.2 sum()</h2><p>返回数值列的总和（只能运用于数值列）</p>
+<h2 id="1-3-exists"><a href="#1-3-exists" class="headerlink" title="1.3 exists()"></a>1.3 exists()</h2><p>exists()用于判断查询字句是否有记录，如果有一条或多条记录，则返回True，没有记录则返回False</p>
+<h3 id="EXISTS-语法"><a href="#EXISTS-语法" class="headerlink" title="EXISTS 语法"></a>EXISTS 语法</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> column_name(s)<br><span class="hljs-keyword">FROM</span> table_name<br><span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">EXISTS</span><br>(<span class="hljs-keyword">SELECT</span> column_name <span class="hljs-keyword">FROM</span> table_name <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">condition</span>);<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="1-4-order-by"><a href="#1-4-order-by" class="headerlink" title="1.4 order by"></a>1.4 order by</h2><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs crmsh"><span class="hljs-keyword">ORDER</span> <span class="hljs-title">BY</span> 语句用于根据指定的  列  对结果集进行排序。<br><br><span class="hljs-keyword">ORDER</span> <span class="hljs-title">BY</span> 语句默认按照升序对记录进行排序。<br><br>如果您希望按照降序对记录进行排序，可以使用 DESC 关键字。<br></code></pre></td></tr></table></figure>
+
+<p>order by 根据<strong>列</strong>来进行排序，后面跟上    列名 asc(升序，默认)&#x2F;desc（降序）</p>
+<p>例如：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> Company, OrderNumber <span class="hljs-keyword">FROM</span> Orders <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> Company<br></code></pre></td></tr></table></figure>
+
+<p>如果order by 后面的列数，大于表的列数，就会报错。</p>
+<p>可以在order by 后面写数字，代表一个临时的列（详见标题2），如果数字数大于表的列数就会报错</p>
+<p>例如：</p>
+<img src="https://s2.loli.net/2022/11/25/qovjMO68S4bLWhY.png" srcset="/img/loading.gif" lazyload alt="image-20221108183335707" style="zoom:33%;" />
+
+<p>此时有1，2，3，4四个数字代表四个临时列，由于表只有三个列，所以报错</p>
+<h2 id="1-5-union"><a href="#1-5-union" class="headerlink" title="1.5 union"></a>1.5 union</h2><p>union 联合查询，将多条查询语句的结果集放在一个表中</p>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs gauss"><span class="hljs-built_in">UNION</span> 操作符用于合并两个或多个 <span class="hljs-built_in">SELECT</span> 语句的结果集。<br><br>请注意，<span class="hljs-built_in">UNION</span> 内部的每个 <span class="hljs-built_in">SELECT</span> 语句必须拥有相同数量的列。列也必须拥有相似的数据类型。同时，每个 <span class="hljs-built_in">SELECT</span> 语句中的列的顺序必须相同。<br></code></pre></td></tr></table></figure>
+
+<h3 id="SQL-UNION-语法"><a href="#SQL-UNION-语法" class="headerlink" title="SQL UNION 语法"></a>SQL UNION 语法</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> column_name(s) <span class="hljs-keyword">FROM</span> table1<br><span class="hljs-keyword">UNION</span><br><span class="hljs-keyword">SELECT</span> column_name(s) <span class="hljs-keyword">FROM</span> table2;<br></code></pre></td></tr></table></figure>
+
+<p><strong>注释：</strong>默认地，UNION 操作符选取不同的值（结果集中没有重复的）。</p>
+<p>​			如果允许重复的值，请使用 <strong>UNION ALL</strong>。</p>
+<h3 id="SQL-UNION-ALL-语法"><a href="#SQL-UNION-ALL-语法" class="headerlink" title="SQL UNION ALL 语法"></a>SQL UNION ALL 语法</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span>column_name(s)<span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> <span class="hljs-operator">*</span>table1<span class="hljs-operator">*</span><br><span class="hljs-keyword">UNION</span> <span class="hljs-keyword">ALL</span><br><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span>column_name(s)<span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> <span class="hljs-operator">*</span>table2<span class="hljs-operator">*</span>;<br></code></pre></td></tr></table></figure>
+
+<p><strong>注释：</strong>UNION 结果集中的列名总是等于 UNION 中第一个 SELECT 语句中的列名。</p>
+<h2 id="1-6-group-concat"><a href="#1-6-group-concat" class="headerlink" title="1.6 group_concat()"></a>1.6 group_concat()</h2><p>group_concat()函数可以将组中的字符串连接成为具有各种选项的单个字符串。</p>
+<p>最简单用法，可以把多个结果用逗号分开，形成一个字符串</p>
+<h1 id="2、语句-select-1-from-是什么？"><a href="#2、语句-select-1-from-是什么？" class="headerlink" title="2、语句 select 1 from  是什么？"></a>2、语句 select 1 from  是什么？</h1><figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs axapta"><span class="hljs-keyword">select</span> <span class="hljs-number">1</span> <span class="hljs-keyword">from</span> ...   与 <span class="hljs-keyword">select</span> anycol(目的表集合中的任意一行）<span class="hljs-keyword">from</span> ...  <br>与 <span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> ...  都可以用来查询数据是否有记录<br></code></pre></td></tr></table></figure>
+
+<p>select 1 from 中的1是一常量（可以为任意数值），查到的所有行的值都是它，<strong>但从效率上来说，1&gt;anycol&gt;*，因为不用查字典表</strong>。</p>
+<h2 id="测试场景："><a href="#测试场景：" class="headerlink" title="测试场景："></a><strong>测试场景：</strong></h2><p>kc表是一个数据表，假设表的行数为10行。</p>
+<p><img src="https://s2.loli.net/2022/11/25/o5WOMmjNvEsld94.jpg" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><strong>1：select 1 from kc   增加临时列，每行的列值是写在select后的数，这条sql语句中是1</strong></p>
+<p><strong>2：select count(1) from kc  不管count(a)的a值如何变化，得出的值总是kc表的行数</strong></p>
+<p><strong>3：select sum(1) from kc  计算临时列的和</strong></p>
+<p> 在MySQL中用 1 测试了一下，发现结果如下：</p>
+<p>1：测试结果，得出一个行数和kc表行数一样的临时列（暂且这么叫，我也不知道该叫什么），每行的列值是1；</p>
+<p>2：得出一个数，该数是kc表的行数；</p>
+<p>3：得出一个数，该数是kc表的行数；</p>
+<p>然后我又用“2”测试，结果如下：</p>
+<p>1：得出一个行数和kc表行数一样的临时列，每行的列值是2；</p>
+<p>2：得出一个数，该数是kc表的行数；</p>
+<p>3：得出一个数，该数是kc表的行数×2的数</p>
+<p>然后我又用更大的数测试：</p>
+<p>1：得出一个行数和kc表行数一样的临时列，每行的列值是我写在select后的数；</p>
+<p>2：还是得出一个数，该数是kc表的行数；</p>
+<p>3：得出一个数，该数是table表的行数×写在select后的数</p>
+<p><strong>结果图：</strong></p>
+<p><strong><img src="https://s2.loli.net/2022/11/25/vAiHyD2wtX8fjOK.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:50%;" /></strong></p>
+<p><strong><img src="https://s2.loli.net/2022/11/25/cBtN5WGTurUaIXA.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:50%;" /><br> 注意观察下面的两幅图的区别。</strong></p>
+<p>**<img src="https://s2.loli.net/2022/11/25/RJhjsC491y2wVmS.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:50%;" /><br>** </p>
+<p>**<img src="https://s2.loli.net/2022/11/25/ftb8u9nkSK6M1PI.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:50%;" /></p>
+<p>** </p>
+<h2 id="综上所述："><a href="#综上所述：" class="headerlink" title="综上所述："></a><strong>综上所述：</strong></h2><p>​	<strong>第一种的写法是增加临时列，每行的列值是写在select后的数；第二种是不管count(a)的a值如何变化，得出的值总是table表的行数；第三种是计算临时列的和</strong>。</p>
+<p>​	当不需要知道结果是什么，只需要知道有没有结果的时候，可以使用select 1 作为子查询结果是否存在判断，这样可以提高性能。</p>
+<h1 id="3、SQL注入"><a href="#3、SQL注入" class="headerlink" title="3、SQL注入"></a>3、SQL注入</h1><h2 id="1-1-前言"><a href="#1-1-前言" class="headerlink" title="1.1 前言"></a>1.1 前言</h2><p>​	SQL注入漏洞将是重点部分，其中SQL注入又非常复杂，区分各种数据库类型，提交方法，数据类型等注入，我们需要按部就班的学习，才能学会相关SQL注入的核心。同样此类漏洞是WEB安全中严重的安全漏洞，学习如何利用，挖掘，修复也是很重要的。</p>
+<img src="https://s2.loli.net/2022/11/25/qpZzRKdtLDJEGkN.png" srcset="/img/loading.gif" lazyload alt="SQL注入-小迪安全.png" style="zoom: 50%;" />
+
+
+
+<p>​	SQL注入简单的说就是，通过添加一些sql语句在一些原有sql语句中可注入的地方，达到改写sql语句功能的目的，从而获取到数据库相关信息（高危）</p>
+<h2 id="1-2-MySQL注入"><a href="#1-2-MySQL注入" class="headerlink" title="1.2 MySQL注入"></a>1.2 MySQL注入</h2><img src="https://s2.loli.net/2022/11/25/e2zLhvIgK85MciB.png" srcset="/img/loading.gif" lazyload alt="mysql注入-小迪.png" style="zoom:50%;" />
+
+
+
+
+
+<h2 id="1-3-sqlilabs靶场搭建"><a href="#1-3-sqlilabs靶场搭建" class="headerlink" title="1.3 sqlilabs靶场搭建"></a>1.3 sqlilabs靶场搭建</h2><p>下载文件放进phpstudy的www文件下，然后该配置文件，更改数据库用户名，密码，</p>
+<p>然后进入靶场初始化数据库</p>
+<h3 id="实例：less-2"><a href="#实例：less-2" class="headerlink" title="实例：less-2"></a>实例：less-2</h3><p><img src="https://s2.loli.net/2022/11/25/wKnEYINf7lFbuto.png" srcset="/img/loading.gif" lazyload alt="image-20221108184147135"></p>
+<p>查看源码：</p>
+<img src="https://s2.loli.net/2022/11/25/u3E6FPSwCkJGqht.png" srcset="/img/loading.gif" lazyload alt="image-20221108184248152" style="zoom: 33%;" />
+
+<p>发现源码中$id变量接受后没有做任何限制，为恶意sql注入创造了条件。</p>
+<p>查询数据库security可知，该数据库有4张表。</p>
+<img src="https://s2.loli.net/2022/11/25/sOTHxQ46W8lVZBa.png" srcset="/img/loading.gif" lazyload alt="image-20221108184544871" style="zoom:50%;" />
+
+<p>查询users表：</p>
+<img src="https://s2.loli.net/2022/11/25/bwNR8rjmUo6yW3g.png" srcset="/img/loading.gif" lazyload alt="image-20221108184651816" style="zoom:33%;" />
+
+<p>查询emails表：</p>
+<img src="https://s2.loli.net/2022/11/25/zErfVLBxQ1FMUSe.png" srcset="/img/loading.gif" lazyload alt="image-20221108184723978" style="zoom:33%;" />
+
+<p>在数据库中执行如下语句：</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs n1ql"><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> users <span class="hljs-keyword">where</span> id=<span class="hljs-number">-1</span> <span class="hljs-keyword">union</span> <span class="hljs-keyword">select</span> <span class="hljs-number">1</span>,email_id,<span class="hljs-number">3</span> <span class="hljs-keyword">from</span> emails <span class="hljs-keyword">limit</span> <span class="hljs-number">0</span>,<span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure>
+
+<p>可得：</p>
+<img src="https://s2.loli.net/2022/11/25/3M2mwQZk7EUi9Hv.png" srcset="/img/loading.gif" lazyload alt="image-20221108184916746" style="zoom:50%;" />
+
+
+
+<p>***	如果执行如下语句：</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs n1ql"><span class="hljs-keyword">select</span> <span class="hljs-number">1</span>,email_id,<span class="hljs-number">3</span> <span class="hljs-keyword">from</span> emails <span class="hljs-keyword">union</span> <span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> users;<br></code></pre></td></tr></table></figure>
+
+<p>则表结构为:</p>
+<img src="https://s2.loli.net/2022/11/25/5lObDYhqiHEAjkt.png" srcset="/img/loading.gif" lazyload alt="image-20221108190740724" style="zoom:50%;" />
+
+
+
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gauss">说明：如果使用<span class="hljs-built_in">union</span>联合查询，产生表的列名为第一条<span class="hljs-built_in">select</span>语句查询表的列名<br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">解释：<br>(<span class="hljs-built_in">limit</span> 只显示第一条)<br>此处令<span class="hljs-built_in">id</span> = -1 目的是使前一条<span class="hljs-keyword">select</span>语句查询不到结果,然后显示出后面的<span class="hljs-keyword">select</span>语句<br><br>语句：<span class="hljs-keyword">select</span> 1,email_id,3 from emails <br>1：代表临时产生的一列，放在结果集的第一列，列中的值为1<br>email_id： 放在第二列<br>3：代表临时产生的一列，放在结果集的第一列，列中的值为3<br><br></code></pre></td></tr></table></figure>
+
+
+
+<p>将上述代码放在url中执行：可以将email查询到用户名中。</p>
+<p><img src="https://s2.loli.net/2022/11/25/WGoCr5suKFZRzcN.png" srcset="/img/loading.gif" lazyload alt="image-20221108191426881"></p>
+<img src="https://s2.loli.net/2022/11/25/ebXK7rvldyH52pM.png" srcset="/img/loading.gif" lazyload alt="image-20221108191320683" style="zoom: 33%;" />
+
+
+
+<p>注： url中 <strong>%20</strong> 代表空格</p>
+<h2 id="1-4-测试题"><a href="#1-4-测试题" class="headerlink" title="1.4 测试题:"></a>1.4 测试题:</h2><p>参数x有注入，以下那个注入测试正确?           a,b,c</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">a</span>. www.xiaodi8.com/news.php?y=<span class="hljs-number">1</span> and <span class="hljs-number">1</span>=<span class="hljs-number">1</span>&amp;x=<span class="hljs-number">2</span><br><br><span class="hljs-attribute">b</span>. www.xiaodi8.com/news.php?y=<span class="hljs-number">1</span>&amp;x=<span class="hljs-number">2</span> and <span class="hljs-number">1</span>=<span class="hljs-number">1</span><br><br><span class="hljs-attribute">c</span>. www .xiaodi8.com/news.php?y=<span class="hljs-number">1</span> and <span class="hljs-number">1</span>=<span class="hljs-number">1</span>&amp;x=<span class="hljs-number">2</span> and <span class="hljs-number">1</span>=<span class="hljs-number">1</span><br><br><span class="hljs-attribute">d</span>. www .xiaodi8.com/news.php?xx=<span class="hljs-number">1</span> and <span class="hljs-number">1</span>=<span class="hljs-number">1</span>&amp;xxx=<span class="hljs-number">2</span> and <span class="hljs-number">1</span>=<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>总结：</strong>可控变量，带入数据库查询，变量未存在过滤或过滤不严谨。</p>
+<h2 id="1-5-判断是否存在注入点？"><a href="#1-5-判断是否存在注入点？" class="headerlink" title="1.5 判断是否存在注入点？"></a>1.5 判断是否存在注入点？</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-number">1</span>、逻辑值<br>    <span class="hljs-keyword">and</span> <span class="hljs-number">1</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>		页面正常<br>    <span class="hljs-keyword">and</span> <span class="hljs-number">1</span> <span class="hljs-operator">=</span> <span class="hljs-number">2</span>		页面异常<br>    则可能存在注入点<br>(在url中加入)<br><br><br><span class="hljs-number">2</span>、<span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span><br>		通过<span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> 判断注入的字段数<br>	<br>	<span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> <span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span> 如果<span class="hljs-number">1</span>，<span class="hljs-number">2</span>，<span class="hljs-number">3</span>不报错，<span class="hljs-number">1</span>，<span class="hljs-number">2</span>，<span class="hljs-number">3</span>，<span class="hljs-number">4</span>报错，说明该表中只有三列，存在<span class="hljs-keyword">sql</span>注入<br>    <br></code></pre></td></tr></table></figure>
+
+<img src="https://s2.loli.net/2022/11/25/NldjoUX49qRnT1G.png" srcset="/img/loading.gif" lazyload alt="image-20221108192257428" style="zoom:33%;" />
+
+<img src="https://s2.loli.net/2022/11/25/b28opylBXFtmKGs.png" srcset="/img/loading.gif" lazyload alt="image-20221108192154448" style="zoom:33%;" />
+
+
+
+
+
+<h2 id="1-6-信息收集"><a href="#1-6-信息收集" class="headerlink" title="1.6 信息收集"></a>1.6 信息收集</h2><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs scss">sql获得相关信息<br>数据库版本：<span class="hljs-built_in">version</span>()<br>数据库名字：<span class="hljs-built_in">database</span>()<br>数据库用户：<span class="hljs-built_in">user</span>()<br>操作系统：@<span class="hljs-keyword">@version</span>_compile_os   		没有括号！<br></code></pre></td></tr></table></figure>
+
+<img src="https://s2.loli.net/2022/11/25/w3BdS2XZFJgMKci.png" srcset="/img/loading.gif" lazyload alt="image-20221108192754857" style="zoom:33%;" />
+
+<p>直接在sql语句中写</p>
+<h2 id="1-7-MySQL-5-0-版本探测"><a href="#1-7-MySQL-5-0-版本探测" class="headerlink" title="1.7 MySQL 5.0+版本探测"></a>1.7 MySQL 5.0+版本探测</h2><p>在mysql5.0以后的版本</p>
+<p>存在一个<strong>information_schema</strong>数据库、里面有 所有<em>存储记录</em> 的  <strong>数据库名</strong>、<strong>表名</strong>、<strong>列名</strong>的数据库<br>相当于可以通过information_schema这个数据库获取到数据库下面的表名和列名。</p>
+<h3 id="1-7-1-获取相关信息"><a href="#1-7-1-获取相关信息" class="headerlink" title="1.7.1 获取相关信息"></a>1.7.1 获取相关信息</h3><p>可以使用 .  来调用子类</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sql">information_schema.tables			#information_schema下面的所有表名<br>information_schema.columns			#information_schema下面所有的列名<br>table_name										#表名<br>column_name										#列名<br>table_schema									#数据库名<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="1、查询security数据库下的所有表"><a href="#1、查询security数据库下的所有表" class="headerlink" title="1、查询security数据库下的所有表"></a>1、查询security数据库下的所有表</h4><img src="https://s2.loli.net/2022/11/25/km8XslvoFJxdYIh.png" srcset="/img/loading.gif" lazyload alt="image-20221108194456608" style="zoom: 33%;" />
+
+<h4 id="2、查询users表下的所有列名"><a href="#2、查询users表下的所有列名" class="headerlink" title="2、查询users表下的所有列名"></a>2、查询users表下的所有列名</h4><img src="https://s2.loli.net/2022/11/25/DkSZCU4KTyxIV8p.png" srcset="/img/loading.gif" lazyload alt="image-20221108195011327" style="zoom: 33%;" />
+
+
+
+
+
+<h2 id="1-8-墨者学院例题"><a href="#1-8-墨者学院例题" class="headerlink" title="1.8 墨者学院例题"></a>1.8 墨者学院例题</h2><img src="https://s2.loli.net/2022/11/25/YuT9EOB1eGHplLD.png" srcset="/img/loading.gif" lazyload alt="image-20221109185634955" style="zoom:33%;" />
+
+
+
+<p>点进去发现里面有个公告</p>
+<img src="https://s2.loli.net/2022/11/25/ClKgmyNZRYX3eGj.png" srcset="/img/loading.gif" lazyload alt="image-20221109185824251" style="zoom:33%;" />
+
+
+
+<img src="https://s2.loli.net/2022/11/25/P5Fr1KVsv3lX8fO.png" srcset="/img/loading.gif" lazyload alt="image-20221109185845745" style="zoom: 25%;" />
+
+<p><strong>?id&#x3D;1</strong>	疑似sql注入点</p>
+<p>判断是否有sql注入：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros">?<span class="hljs-attribute">id</span>=1 <span class="hljs-keyword">and</span> <span class="hljs-attribute">1</span>=1	正常<br>?<span class="hljs-attribute">id</span>=1 <span class="hljs-keyword">and</span> <span class="hljs-attribute">1</span>=2 	异常<br></code></pre></td></tr></table></figure>
+
+<img src="https://s2.loli.net/2022/11/25/PlDuWjIcGMyhVs1.png" srcset="/img/loading.gif" lazyload alt="image-20221109190047798" style="zoom:25%;" />
+
+<p>说明存在sql注入</p>
+<p>然后判断该表的字段数</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">?<span class="hljs-attr">id=</span><span class="hljs-number">1</span> <span class="hljs-keyword">order</span> <span class="hljs-title">by</span> <span class="hljs-number">1</span>		...		?<span class="hljs-attr">id=</span><span class="hljs-number">1</span> <span class="hljs-keyword">order</span> <span class="hljs-title">by</span> <span class="hljs-number">4</span><br></code></pre></td></tr></table></figure>
+
+<p>当by后面的数字为5时，页面不正常，说明字段数为4</p>
+<img src="https://s2.loli.net/2022/11/25/FqsIH8TzhcjtLZx.png" srcset="/img/loading.gif" lazyload alt="image-20221109190305924" style="zoom: 25%;" />
+
+<p>然后判断回显的字段是哪几个？</p>
+<img src="https://s2.loli.net/2022/11/25/YVedQtBSIXWk46O.png" srcset="/img/loading.gif" lazyload alt="image-20221109190440960" style="zoom:25%;" />
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">使用union联合查询，注意此时让<span class="hljs-built_in">id</span>=-1 查询不到前面的数据，则会把后半段<span class="hljs-keyword">select</span>语句显示出来<br>此处说明第二列和第三列会被显示<br></code></pre></td></tr></table></figure>
+
+
+
+<p>信息搜集：</p>
+<img src="https://s2.loli.net/2022/11/25/o1VfsFgqildNHt7.png" srcset="/img/loading.gif" lazyload alt="image-20221109190650848" style="zoom:25%;" />
+
+<p><strong>version()</strong>	查询mysql版本号，5.0+说明此处可以使用数据库	information_schema.tables&#x2F;columns</p>
+<p><strong>database()</strong>	查询此数据库名称</p>
+<img src="https://s2.loli.net/2022/11/25/6gdXVcsDljPRSEY.png" srcset="/img/loading.gif" lazyload alt="image-20221109190909704" style="zoom:25%;" />
+
+<p><strong>user()</strong>	查询数据库用户名</p>
+<p><strong>@@version_compile_os</strong>	查询操作系统名称</p>
+<img src="https://s2.loli.net/2022/11/25/1qg6PfX7FmprV9H.png" srcset="/img/loading.gif" lazyload alt="image-20221109191151942" style="zoom:25%;" />
+
+
+
+<p>查询该数据库下的所有表，</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">table_name</span> 代表	表   table_schema代表数据库,<br><span class="hljs-attribute">information_schema</span>.tables	存储了所有表信息（<span class="hljs-number">5</span>.<span class="hljs-number">0</span>+）<br></code></pre></td></tr></table></figure>
+
+<p>查询该表下的所有字段(列)</p>
+<p><img src="https://s2.loli.net/2022/11/25/ur6RBKVqYSpvLTf.png" srcset="/img/loading.gif" lazyload alt="image-20221109191553480"></p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">column_name</span> 代表列名<br><span class="hljs-attribute">information_schema</span>.columns	存储了所有列信息（<span class="hljs-number">5</span>.<span class="hljs-number">0</span>+）<br></code></pre></td></tr></table></figure>
+
+<p>group_concat(列名)	把所有结果拼接</p>
+<h2 id="1-9-链接"><a href="#1-9-链接" class="headerlink" title="1.9 链接"></a>1.9 链接</h2><h3 id="1-9-1sqlilabs靶场相关解答"><a href="#1-9-1sqlilabs靶场相关解答" class="headerlink" title="1.9.1sqlilabs靶场相关解答"></a>1.9.1sqlilabs靶场相关解答</h3><p><a target="_blank" rel="noopener" href="https://www.yuque.com/office/yuque/0/2022/pdf/2476579/1647239035090-84752d34-43a3-4d21-953e-612760a5e4d7.pdf?from=https://www.yuque.com/weiker/xiaodi/geg7au">https://www.yuque.com/office/yuque/0/2022/pdf/2476579/1647239035090-84752d34-43a3-4d21-953e-612760a5e4d7.pdf?from=https%3A%2F%2Fwww.yuque.com%2Fweiker%2Fxiaodi%2Fgeg7au</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%B0%8F%E8%BF%AA-day12-SQL%E6%B3%A8%E5%85%A5%E7%AE%80%E8%A6%81%E6%A6%82%E8%BF%B0/" class="print-no-link">#小迪-day12(SQL注入简要概述)</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>小迪-day12(SQL注入简要概述)</div>
+      <div>https://leekosss.github.io/2023/08/24/小迪-day12(SQL注入简要概述)/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>leekos</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年8月24日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年6月5日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/08/24/%E5%B0%8F%E8%BF%AA-day16%EF%BC%88%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5%EF%BC%8C%E5%BB%B6%E6%97%B6%E3%80%81%E5%B8%83%E5%B0%94%E7%9B%B2%E6%B3%A8%EF%BC%89/" title="小迪-day16（报错注入，延时、布尔盲注）">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">小迪-day16（报错注入，延时、布尔盲注）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/24/%E5%B0%8F%E8%BF%AA-day13(MySQL%E6%B3%A8%E5%85%A5)/" title="小迪-day13(MySQL注入)">
+                        <span class="hidden-mobile">小迪-day13(MySQL注入)</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"e5J90iDkXMWhU5UNlEX1I2hO-gzGzoHsz","appKey":"esLROw9j3xLk2nV4tQkKaih1","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      赣ICP备2022008842号-2
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

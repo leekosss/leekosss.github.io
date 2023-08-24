@@ -1,0 +1,970 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="leekos">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="xss-labs 先讲讲什么是跨站脚本攻击XSS(Cross Site Scripting)  XSS原理 本质上是针对html的一种注入攻击，没有遵循数据与代码分离的原则，把用户输入的数据当作代码来执行xss跨站脚本攻击是指恶意攻击者往Web页面里插入恶意脚本代码（包括当不限于js，flash等等），当用户浏览该页面时，嵌入其中Web里面的脚本代码会被执行，从而达到恶意攻击用户的目的。为了不和层">
+<meta property="og:type" content="article">
+<meta property="og:title" content="xss-labs(WriteUp)">
+<meta property="og:url" content="https://leekosss.github.io/2023/08/24/xss-labs(WriteUp)/index.html">
+<meta property="og:site_name" content="Tranquility">
+<meta property="og:description" content="xss-labs 先讲讲什么是跨站脚本攻击XSS(Cross Site Scripting)  XSS原理 本质上是针对html的一种注入攻击，没有遵循数据与代码分离的原则，把用户输入的数据当作代码来执行xss跨站脚本攻击是指恶意攻击者往Web页面里插入恶意脚本代码（包括当不限于js，flash等等），当用户浏览该页面时，嵌入其中Web里面的脚本代码会被执行，从而达到恶意攻击用户的目的。为了不和层">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/12/16/NphayjE4T9H8VGX.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/16/JD5QfXOSxCWrKnE.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/16/vtEimOkYP2IuRF1.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/16/HTpciYNWoZj2Abz.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/16/aOt1r5LvuAqBh3Q.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/16/9t8DmKISxgbC4MP.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/16/FvCEX6om7c2SVA1.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/16/i2mNbr3qDsjYIM1.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/16/l85KPkep6hUqtWA.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/16/HK5bgCrGZYXcfnE.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/16/wijDoOcJybC8UaZ.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/16/k4OSlw2bzWrC8vB.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/16/AOsm1hyJkvLPiUC.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/16/lwGdT4LMQicnHuf.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/16/TZCfbcpD3YH5sGz.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/16/ClqQ4MReETmf7pb.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/16/vI72DbydkQp8ZJ1.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/16/WoTpE6GDnc29zxM.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/16/wUvW6c3qKbCOEJy.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/16/jte8obr5QPARxOd.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/16/KMrCpYguPnbNsJq.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/16/2UzTWPfC8FaynuH.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/16/HRO8Jz2XPnFAkM5.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/16/QNczWPfLryZTpUi.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/16/WMEzZ791lRpkJst.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/16/LNJQ9MABwG1YRak.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/16/DiXYrtRF2IZw4VG.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/16/T1MRsJo8ECgl67q.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/16/DOwaFXVn8B4e369.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/16/OpUA2KIQFk9onaT.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/16/SkomEfxwVBsqdJz.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/16/f5G7dKJQBZ8pPMi.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/16/iZfs3EXmhdFt2l7.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/16/Vln4xw39Z1KB2au.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/16/FvaVjmQJ6wLd3Ic.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/16/nlYeDauG91IhBpF.png">
+<meta property="article:published_time" content="2023-08-24T14:38:04.667Z">
+<meta property="article:modified_time" content="2023-06-05T06:58:40.551Z">
+<meta property="article:author" content="leekos">
+<meta property="article:tag" content="xss-labs(WriteUp)">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2022/12/16/NphayjE4T9H8VGX.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>xss-labs(WriteUp) - Tranquility</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Tranquility</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="xss-labs(WriteUp)"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-24 22:38" pubdate>
+          2023年8月24日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          32 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">xss-labs(WriteUp)</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年6月5日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="xss-labs"><a href="#xss-labs" class="headerlink" title="xss-labs"></a>xss-labs</h2><ul>
+<li>先讲讲什么是跨站脚本攻击XSS(Cross Site Scripting)</li>
+</ul>
+<h3 id="XSS原理"><a href="#XSS原理" class="headerlink" title="XSS原理"></a>XSS原理</h3><ul>
+<li><strong>本质上是针对html的一种注入攻击</strong>，没有遵循数据与代码分离的原则，把用户输入的数据当作代码来执行<br>xss跨站脚本攻击是指恶意攻击者往Web页面里插入恶意脚本代码（包括当不限于<strong>js，flash</strong>等等），当用户浏览该页面时，嵌入其中Web里面的脚本代码会被执行，从而达到恶意攻击用户的目的。为了不和层叠样式表(Cascading Style Sheets, CSS)的缩写混淆，所以将跨站脚本攻击缩写为XSS。</li>
+</ul>
+<hr>
+<h3 id="level1"><a href="#level1" class="headerlink" title="level1"></a>level1</h3><img src="https://s2.loli.net/2022/12/16/NphayjE4T9H8VGX.png" srcset="/img/loading.gif" lazyload alt="image-20221216130147548" style="zoom: 25%;" />
+
+<p>查看题目发现，url中可以使用name传参，并且参数会回显在页面上，这就满足了xss的要求</p>
+<p>查看源码：只要出发了alert就可以过关，于是我们构造代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">&lt;script&gt;<span class="hljs-title function_">alert</span>(<span class="hljs-number">1</span>)&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+<img src="https://s2.loli.net/2022/12/16/JD5QfXOSxCWrKnE.png" srcset="/img/loading.gif" lazyload alt="image-20221216130702842" style="zoom: 25%;" />
+
+<p>成功过关</p>
+<img src="https://s2.loli.net/2022/12/16/vtEimOkYP2IuRF1.png" srcset="/img/loading.gif" lazyload alt="image-20221216130830506" style="zoom: 25%;" />
+
+<p>如图，恶意代码回显，导致恶意代码执行，造成xss漏洞</p>
+<h3 id="level2"><a href="#level2" class="headerlink" title="level2"></a>level2</h3><img src="https://s2.loli.net/2022/12/16/HTpciYNWoZj2Abz.png" srcset="/img/loading.gif" lazyload alt="image-20221216130953292" style="zoom: 25%;" />
+
+<img src="https://s2.loli.net/2022/12/16/aOt1r5LvuAqBh3Q.png" srcset="/img/loading.gif" lazyload alt="image-20221216131015739" style="zoom: 33%;" />
+
+<p>input输入框输入的值被回显到value之中，我们可以使用双引号闭合value，再使用onclick等相关事件函数进行触发相关代码：</p>
+<img src="https://s2.loli.net/2022/12/16/9t8DmKISxgbC4MP.png" srcset="/img/loading.gif" lazyload alt="image-20221216131238635" style="zoom:33%;" />
+
+<p><img src="https://s2.loli.net/2022/12/16/FvCEX6om7c2SVA1.png" srcset="/img/loading.gif" lazyload alt="image-20221216131306391"></p>
+<p>此时，当我们点击input框，即可触发事件</p>
+<img src="https://s2.loli.net/2022/12/16/i2mNbr3qDsjYIM1.png" srcset="/img/loading.gif" lazyload alt="image-20221216131346797" style="zoom:25%;" />
+
+<p>方法二：</p>
+<p>可以将input框闭合，使用新的标签：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-string">&quot;&gt;&lt;a onclick=alert(1)&gt;hacker&lt;/a&gt;//</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2022/12/16/l85KPkep6hUqtWA.png" srcset="/img/loading.gif" lazyload alt="image-20221216131730043"></p>
+<p><img src="https://s2.loli.net/2022/12/16/HK5bgCrGZYXcfnE.png" srcset="/img/loading.gif" lazyload></p>
+<p>此时，我们将input框闭合了,并且回显了一个新的a标签，点击即可触发事件</p>
+<p>(使用其他的标签或事件亦可，如：img body svg input button标签等等，onload,onerror,onfocus,onmouseover 事件 等等)</p>
+<h3 id="level3"><a href="#level3" class="headerlink" title="level3"></a>level3</h3><p>本关把尖括号转移了，所以我们不能闭合标签，</p>
+<p>我们可以闭合单引号，使用onfocus等事件</p>
+<p><img src="https://s2.loli.net/2022/12/16/wijDoOcJybC8UaZ.png" srcset="/img/loading.gif" lazyload alt="image-20221216132341214"></p>
+<p>xss代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-string">&#x27; onfocus=alert(1) &#x27;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://s2.loli.net/2022/12/16/k4OSlw2bzWrC8vB.png" srcset="/img/loading.gif" lazyload alt="image-20221216132607274"></p>
+<p>当焦点在input框中即可触发事件</p>
+<h3 id="level4"><a href="#level4" class="headerlink" title="level4"></a>level4</h3><p>和上一关一样，只不过闭合双引号</p>
+<p><img src="https://s2.loli.net/2022/12/16/AOsm1hyJkvLPiUC.png" srcset="/img/loading.gif" lazyload alt="image-20221216132833965"></p>
+<h3 id="level5"><a href="#level5" class="headerlink" title="level5"></a>level5</h3><p>这一关把on给过滤了</p>
+<p><img src="https://s2.loli.net/2022/12/16/lwGdT4LMQicnHuf.png" srcset="/img/loading.gif" lazyload alt="image-20221216133058825"></p>
+<p>&lt; script 也过滤了</p>
+<p><img src="https://s2.loli.net/2022/12/16/TZCfbcpD3YH5sGz.png" srcset="/img/loading.gif" lazyload alt="image-20221216133403349"></p>
+<p>我们可以使用JavaScript伪协议</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js">伪协议是为关联应用程序而使用的，<span class="hljs-title class_">JavaScript</span>伪协议实际上是把<br><span class="hljs-attr">javascript</span>:后面的代码当<span class="hljs-title class_">JavaScript</span>来执行，并将结果值返回给当前页面。 将javascript代码添加到客户端的方法是把它放置在伪协议说明符<br><span class="hljs-attr">javascript</span>:后的<span class="hljs-variable constant_">URL</span>中。 这个特殊的协议类型声明了<span class="hljs-variable constant_">URL</span>的主体是任意的javascript代码，它由javascript<br>的解释器运行。<br></code></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://s2.loli.net/2022/12/16/ClqQ4MReETmf7pb.png" srcset="/img/loading.gif" lazyload alt="image-20221216133834460"></p>
+<p>xss代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-string">&quot;&gt;&lt;a href=javascript:alert(1)&gt;hacker&lt;/a&gt;//</span><br><span class="hljs-string">或</span><br><span class="hljs-string">&quot;</span>&gt;<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">iframe</span> <span class="hljs-attr">src</span>=<span class="hljs-string">javascript:alert(1)</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">iframe</span>&gt;</span></span><span class="hljs-comment">//</span><br></code></pre></td></tr></table></figure>
+
+<p>此处js伪协议写在a标签的href属性中，将Javascript后面的代码当作js代码执行</p>
+<p><img src="https://s2.loli.net/2022/12/16/vI72DbydkQp8ZJ1.png" srcset="/img/loading.gif" lazyload alt="image-20221216134224702"></p>
+<h3 id="level6"><a href="#level6" class="headerlink" title="level6"></a>level6</h3><p>过滤更多了，我们尝试上一题方法，发现href被过滤，我们尝试大小写绕过：hRef发现可行</p>
+<p><img src="https://s2.loli.net/2022/12/16/WoTpE6GDnc29zxM.png" srcset="/img/loading.gif" lazyload alt="image-20221216134918561"></p>
+<p><img src="https://s2.loli.net/2022/12/16/wUvW6c3qKbCOEJy.png" srcset="/img/loading.gif" lazyload alt="image-20221216135032318"></p>
+<p>xss:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-string">&quot;&gt;&lt;a hRef=javascript:alert(1)&gt;hacker&lt;/a&gt;//</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="level7"><a href="#level7" class="headerlink" title="level7"></a>level7</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-string">&quot; oonnclick=alert(1) &quot;</span><br>或<br><span class="hljs-string">&quot;&gt;&lt;scrscriptipt&gt;alert(1)&lt;/scrscriptipt&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>双写绕过，此处将on，script替换为空</p>
+<p><img src="https://s2.loli.net/2022/12/16/jte8obr5QPARxOd.png" srcset="/img/loading.gif" lazyload alt="image-20221216140256840"></p>
+<h3 id="level8"><a href="#level8" class="headerlink" title="level8"></a>level8</h3><p>这一关我们输入的参数会当作下面a标签的href地址，于是我们可以使用js伪协议：</p>
+<figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs isbl"><span class="hljs-variable">javascript</span>:<span class="hljs-function"><span class="hljs-title">alert</span>(<span class="hljs-number">1</span>)</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2022/12/16/KMrCpYguPnbNsJq.png" srcset="/img/loading.gif" lazyload alt="image-20221216140901188"></p>
+<p>但是查看源码发现：</p>
+<p><img src="https://s2.loli.net/2022/12/16/2UzTWPfC8FaynuH.png" srcset="/img/loading.gif" lazyload alt="image-20221216141207967"></p>
+<p>script被过滤了</p>
+<p>于是我们想到了<strong>html实体编码</strong>：</p>
+<p>将s进行编码，可得：&amp;# x0073;</p>
+<p>html会将该编码识别为字母： s</p>
+<p>于是xss代码为：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">java&amp;#x0073;<span class="hljs-attr">cript</span>:<span class="hljs-title function_">alert</span>(<span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/aleave/article/details/119853620">参考链接：</a></p>
+<h4 id="什么是html实体编码？"><a href="#什么是html实体编码？" class="headerlink" title="什么是html实体编码？"></a>什么是html实体编码？</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs html">HTML 实体是一段以连字号（&amp;）开头、以分号（;）结尾的字符串。用以显示不可见字符及保留字符 (如 HTML 标<br>签)<br>在前端，一般为了避免 XSS 攻击，会将 &lt; &gt; 编码为 <span class="hljs-symbol">&amp;lt;</span> 与 <span class="hljs-symbol">&amp;gt;</span>，这些就是 HTML 实体编码。<br></code></pre></td></tr></table></figure>
+
+<p>实体编码后，字符就变成了普通的字符，引号不能去闭合其他的引号，只是一个普通字符。</p>
+<h4 id="HTML编码有以下几种方式"><a href="#HTML编码有以下几种方式" class="headerlink" title="HTML编码有以下几种方式"></a>HTML编码有以下几种方式</h4><ol>
+<li><p>​    HTML实体编码，格式    <code>以&amp;符号开头，以;分号结尾的</code>   </p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;textarea&quot;</span> <span class="hljs-attr">cols</span>=<span class="hljs-string">&quot;30&quot;</span> <span class="hljs-attr">rows</span>=<span class="hljs-string">&quot;10&quot;</span>&gt;</span><br>    <span class="hljs-symbol">&amp;lt;</span>img src=<span class="hljs-symbol">&amp;quot;</span>localhost<span class="hljs-symbol">&amp;quot;</span><span class="hljs-symbol">&amp;gt;</span><br> <span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>结果是：   </p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;localhost&quot;</span>&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>​    十进制的ASCLL编码,格式:    <code>以符号&amp;#开头，分号;结尾</code></p>
+</li>
+</ol>
+<p>​    ascll编码对照表   </p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;textarea&quot;</span> <span class="hljs-attr">cols</span>=<span class="hljs-string">&quot;30&quot;</span> <span class="hljs-attr">rows</span>=<span class="hljs-string">&quot;10&quot;</span>&gt;</span><br>    <span class="hljs-symbol">&amp;#60;</span><span class="hljs-symbol">&amp;#105;</span>mg src<span class="hljs-symbol">&amp;#61;</span>&quot;localhost&quot;<span class="hljs-symbol">&amp;#62;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>3、Unicode字符编码,格式:    <code>以符号&amp;#开头，分号;结尾</code></p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs lasso">&lt;textarea name=<span class="hljs-string">&quot;&quot;</span> id=<span class="hljs-string">&quot;textarea&quot;</span> cols=<span class="hljs-string">&quot;30&quot;</span> <span class="hljs-keyword">rows</span>=<span class="hljs-string">&quot;10&quot;</span>&gt;<br>  &lt;img src&amp;#0061;&amp;#0034;localhost&amp;#0034;&gt;<br>&lt;/textarea&gt;<br></code></pre></td></tr></table></figure>
+
+<p>4、十六进制的ascll码，格式：    <code>以&amp;#x开头，分号;结尾</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;textarea&quot;</span> <span class="hljs-attr">cols</span>=<span class="hljs-string">&quot;30&quot;</span> <span class="hljs-attr">rows</span>=<span class="hljs-string">&quot;10&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>&amp;#<span class="hljs-attr">x3D</span>;&amp;#<span class="hljs-attr">x0022</span>;<span class="hljs-attr">localhost</span>&amp;#<span class="hljs-attr">x0022</span>;&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h3 id="level9"><a href="#level9" class="headerlink" title="level9"></a>level9</h3><p>题目描述与上题类似，但是查看源码，</p>
+<p><img src="https://s2.loli.net/2022/12/16/HRO8Jz2XPnFAkM5.png" srcset="/img/loading.gif" lazyload alt="image-20221216142830957"></p>
+<p>提示链接不合法，于是我们推断可能链接需要有 http:&#x2F;&#x2F;  标识</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-attr">javascript</span>:<span class="hljs-title function_">alert</span>(<span class="hljs-string">&#x27;http://&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>并且将 s 进行编码：</p>
+<p>xss：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">java&amp;#x0073;<span class="hljs-attr">cript</span>:<span class="hljs-title function_">alert</span>(<span class="hljs-string">&#x27;http://&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="http://www.jsons.cn/unicode">编码网址</a></p>
+<h3 id="level10"><a href="#level10" class="headerlink" title="level10"></a>level10</h3><p>查看源代码：</p>
+<p><img src="https://s2.loli.net/2022/12/16/QNczWPfLryZTpUi.png" srcset="/img/loading.gif" lazyload alt="image-20221216151725316"></p>
+<p>经过尝试，我们可以向 t_sort 输入框传入值，将 “  进行闭合，使用 onclick事件，并且将type进行显示</p>
+<p>xss代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">?t_sort=<span class="hljs-string">&quot; onclick=alert(1) type=&quot;</span>text<span class="hljs-string">&quot; &quot;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>前面的type将后面的type给覆盖了，于是input框就回显出来了</p>
+<p><img src="https://s2.loli.net/2022/12/16/WMEzZ791lRpkJst.png" srcset="/img/loading.gif" lazyload alt="image-20221216152135827"></p>
+<h3 id="level11"><a href="#level11" class="headerlink" title="level11"></a>level11</h3><p>查看源码：</p>
+<p><img src="https://s2.loli.net/2022/12/16/LNJQ9MABwG1YRak.png" srcset="/img/loading.gif" lazyload alt="image-20221216152300184"></p>
+<p>发现，t_ref 输入框的value值为 前一个页面的url值</p>
+<p>有经验可知，该value值应该为请求头中的 Referer</p>
+<p>于是我们使用bp抓包</p>
+<img src="https://s2.loli.net/2022/12/16/DiXYrtRF2IZw4VG.png" srcset="/img/loading.gif" lazyload alt="image-20221216152619800" style="zoom: 33%;" />
+
+
+
+<p>我们可以修改Referer值，将引号闭合，使用相关事件：</p>
+<p><img src="https://s2.loli.net/2022/12/16/T1MRsJo8ECgl67q.png" srcset="/img/loading.gif" lazyload alt="image-20221216152809029"></p>
+<p><img src="https://s2.loli.net/2022/12/16/DOwaFXVn8B4e369.png" srcset="/img/loading.gif" lazyload alt="image-20221216152828401"></p>
+<p>xss代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-string">&quot; onmouseover=alert(1) type=&quot;</span>text<span class="hljs-string">&quot; &quot;</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="level12"><a href="#level12" class="headerlink" title="level12"></a>level12</h3><p>查看源码：</p>
+<p><img src="https://s2.loli.net/2022/12/16/OpUA2KIQFk9onaT.png" srcset="/img/loading.gif" lazyload alt="image-20221216152916353"></p>
+<p>发现value值为 UA，于是bp抓包修改ua头即可，与上题类似</p>
+<h3 id="level13"><a href="#level13" class="headerlink" title="level13"></a>level13</h3><p>bp抓包</p>
+<p><img src="https://s2.loli.net/2022/12/16/SkomEfxwVBsqdJz.png" srcset="/img/loading.gif" lazyload alt="image-20221216153048456"></p>
+<p>该题为注入点在cookie</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-string">&quot; onmouseover=alert(1) type=&quot;</span>text<span class="hljs-string">&quot; &quot;</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="level14"><a href="#level14" class="headerlink" title="level14"></a>level14</h3><p>加载不了</p>
+<h3 id="level15"><a href="#level15" class="headerlink" title="level15"></a>level15</h3><p>查看源码：</p>
+<p><img src="https://s2.loli.net/2022/12/16/f5G7dKJQBZ8pPMi.png" srcset="/img/loading.gif" lazyload alt="image-20221216154043491"></p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/angularjs/ng-ng-include.html">AngularJS <code>ng-include</code> 指令</a></p>
+<p><strong>ng-include</strong>指令用于包含外部的 HTML 文件。</p>
+<p>包含的内容将作为指定元素的子节点。</p>
+<p><code>ng-include</code>属性的值可以是一个表达式，返回一个文件名。</p>
+<p>默认情况下，包含的文件需要包含在同一个域名下。</p>
+<p>**payload ** 我们包含第一关的漏洞即可</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">?src=<span class="hljs-string">&#x27;level1.php?name=&lt;a href=javascript:alert(1)&gt;aa&lt;/a&gt;&#x27;</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="level16"><a href="#level16" class="headerlink" title="level16"></a>level16</h3><p>查看源码：</p>
+<p><img src="https://s2.loli.net/2022/12/16/iZfs3EXmhdFt2l7.png" srcset="/img/loading.gif" lazyload alt="image-20221216155234482"></p>
+<p>过滤了一些符号，以及script</p>
+<p>由于过滤了 &#x2F; 斜杠，我们可以使用单标签，如 img，但是此处将空格过滤了，我们可以使用 %0a，%0c，%0d等等  进行分隔</p>
+<p>于是构造xss</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">?keyword=<span class="language-xml">&lt;img%0Dsrc=x%0Aonerror=alert(1)&gt;</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="level17"><a href="#level17" class="headerlink" title="level17"></a>level17</h3><p>我们发现，参数的值都传入了 src 中</p>
+<p><img src="https://s2.loli.net/2022/12/16/Vln4xw39Z1KB2au.png" srcset="/img/loading.gif" lazyload alt="image-20221216160006380"></p>
+<p>观察可知，该处src 没有加引号，可以使用空格分隔，利用拼接，巧妙解题</p>
+<p>构造xss</p>
+<p><img src="https://s2.loli.net/2022/12/16/FvaVjmQJ6wLd3Ic.png" srcset="/img/loading.gif" lazyload alt="image-20221216160748771"></p>
+<p>我们使用google查看，鼠标移入该区域即可过关</p>
+<p><img src="https://s2.loli.net/2022/12/16/nlYeDauG91IhBpF.png" srcset="/img/loading.gif" lazyload alt="image-20221216160829527"></p>
+<h3 id="level18"><a href="#level18" class="headerlink" title="level18"></a>level18</h3><p>与上题一样</p>
+<h3 id="level19，20"><a href="#level19，20" class="headerlink" title="level19，20"></a>level19，20</h3><p>先放着</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/xss-labs-WriteUp/" class="print-no-link">#xss-labs(WriteUp)</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>xss-labs(WriteUp)</div>
+      <div>https://leekosss.github.io/2023/08/24/xss-labs(WriteUp)/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>leekos</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年8月24日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年6月5日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/08/24/xss%E6%BC%8F%E6%B4%9E/" title="xss漏洞">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">xss漏洞</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/24/web/" title="web">
+                        <span class="hidden-mobile">web</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"e5J90iDkXMWhU5UNlEX1I2hO-gzGzoHsz","appKey":"esLROw9j3xLk2nV4tQkKaih1","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      赣ICP备2022008842号-2
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

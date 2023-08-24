@@ -1,0 +1,1360 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="leekos">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="[TOC] [SUCTF2018]single dog我们使用foremost分离jpg图片     打开txt文件：  发现是js颜文字加密（AAEncode） ，使用   AAEncode解密  我吃三明治我们在图片中发现了一串类似base32加密的串：  使用base32网站解密  sqltest我们使用 wireshark 打开 pcapng 文件，然后导出http对象：   我们发现有很">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MISC(第3页wp)">
+<meta property="og:url" content="https://leekosss.github.io/2023/08/24/MISC(%E7%AC%AC3%E9%A1%B5wp)/index.html">
+<meta property="og:site_name" content="Tranquility">
+<meta property="og:description" content="[TOC] [SUCTF2018]single dog我们使用foremost分离jpg图片     打开txt文件：  发现是js颜文字加密（AAEncode） ，使用   AAEncode解密  我吃三明治我们在图片中发现了一串类似base32加密的串：  使用base32网站解密  sqltest我们使用 wireshark 打开 pcapng 文件，然后导出http对象：   我们发现有很">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/4pye7Ha9sRUoP3L.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/iJjDoBt7nhcO4Xk.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/1bsAPcFRYyUWJBu.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/yxczdZtf3l6GvkD.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/HpNRE237dyMKjoY.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/W4Kr3c6sYpgvbGM.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/CSUWw6JXykMqrDb.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/gYeHybsL3ujhQVW.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/Oo8LIjX6UsuCQEG.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/Bv3cCr2JMqOyziZ.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/ITQdGHvURAbfjCs.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/J2Ly9PKbxE36slC.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/ayYFBrxgfs1tpZO.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/EXapkQ3VoixnJLO.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/fLzHXeiIu91UkJc.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/EVfvZzF74TKWDIj.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/hswVknj4FlmUaC7.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/whK9lVmRtvgyqFQ.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/XurikSsWEwb4nt3.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/SOIJpt5xB6NGEDe.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/AyO5EtucQeYvRmj.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/mLVM8NTHy9oGK1a.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/YZqwnRGkVS6Qr8b.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/rGksuZiIpUQEAol.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/9nomXfUzig6HxA8.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/jYLKMo6P91bEBdn.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/xDzOYmRZadl8cXI.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/ph5EcqVtMl1OdGZ.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/MDyLHjtuaVPsObi.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/mZ3aqPFosLKg2UE.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/RmEQuUtcDFOyCqs.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/KfLDg5Sdvh9U2EX.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/veOU8t2zPIbGM9m.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/tVPqH7x49Wvnz1N.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/WD8iXESyUIm6lhb.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/kqTV67FbeWlapyN.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/ECi13l6GyFp2nDI.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/cWYaSI5dbtqs6fC.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/dk9hErL6b2Pc3vm.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/PRSxa3VlINj1tnE.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/QHZROMB7Pyt3NaF.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/RbBhVvl9drJ7xCi.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/dYCVXvzfi7s5NLj.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/Cqe5nVZGN8hxoyW.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/TJSYmItdsByf8l5.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/YUlmigLazKbqN4G.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/mdtQfyVkawM3NG6.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/QAj4ge3MqwnlI9p.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/6FAbfD7LNPJXKud.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/17mIZoxvWGEO2Qn.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/EhnF9THOq3RfeBC.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/2uks9onH8gTiJIy.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/tCKrGhYQUBWFfHm.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/IHPCgNmsy7ZbKl3.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/Z3BxFwYmvQpdGhN.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/Mfpqst4L1WnQNjC.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/GeoaAEmsLZk27VY.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/L9pnyPCzxwcuifb.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/CJrMUKPq73jgWVf.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/hq9HS2B3eXDEYpd.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/7Cp4x8nK5Xa19hB.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/sQY3obJCjHFVEUc.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/QpkAuGnf31JZ2vP.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/bY8mU1pOVPHQ2SK.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/QhSa6b8pqzcxgI9.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/QMq5Stx2eiC1kY6.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/sIQmRbXYTWVi43e.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/UfZhNQyuMKSpcwG.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/hgxV3GdXKsz1o4J.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/8eRtNGjH6gZ9slh.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/NQoxW36UOMc87lR.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/8wSVmq5MXygxERL.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/JGuoldMmHgP1wLk.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/V7voIlNgR2OuyeY.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/rUFC6Is8AozVT9m.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/Gzw13utN8UdTSDf.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/HvoJkdmypfluQcB.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/qFlTKoPOBA7zfjd.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/6HhxYwsLqVcekuW.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/Jzlp1TPLsixgrN3.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/ZI4BUx9Kwt1dav3.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/Gl3fE1ICn9jFr4d.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/3GAEKh6SJjPiC4Y.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/jaSVPu361YUyIfe.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/1Nryh7p9oKxOsba.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/nHSXJRM7QWZvq5V.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/BhlKkHmq6W5Yic4.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/vgzrs6y2bo9FUDB.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/8BQXLSUN6oKdh2A.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/ywU2EqugIQZ7aRr.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/QCXj3ytWwiOz2ke.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/lidRkDQeEj687Jw.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/29/CWhzHfplN1D5TRZ.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/30/FLZo3l1ujKTkYcf.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/30/FYb7HC1GMt23XTf.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/30/swnj6HXWrCRkh5y.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/30/mPu1yQUsJX4Iqir.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/30/9QbhtGMnc1iljZw.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/30/klf5H12GsyAPza9.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/30/B3yQKfiEDznSmo9.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/30/GSaAxcBLdJuHDt2.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/30/SNV5zr2qUKEMkbH.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/30/zpBJjgPOyGQbLit.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/30/dR5XjmE8wD9sepQ.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/30/vUZHM8kNfecmSQx.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/30/S8XtvyFAhOjKUNp.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/30/7R8zFoOWGvp5VaI.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/30/EBrxc6APsOGKvzl.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/30/E3ebm4GlRLHT5qP.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/30/eCHlJzgISx2pPZG.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/30/Re5TmkMrgq9PAIv.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/30/Gb2NnwPHVudrU4I.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/30/awKjpyJdzfgXexR.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/30/9iLV3dbj6Q4gswA.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/30/3FOonBsW4yzqluM.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/30/hzVg76wmdoFRKvL.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/30/3QU1oKmEbgXWOhf.png">
+<meta property="article:published_time" content="2023-08-24T14:38:04.598Z">
+<meta property="article:modified_time" content="2023-06-05T06:58:40.039Z">
+<meta property="article:author" content="leekos">
+<meta property="article:tag" content="MISC(第3页wp)">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2023/01/29/4pye7Ha9sRUoP3L.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>MISC(第3页wp) - Tranquility</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Tranquility</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="MISC(第3页wp)"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-24 22:38" pubdate>
+          2023年8月24日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          22k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          181 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">MISC(第3页wp)</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年6月5日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>[TOC]</p>
+<h2 id="SUCTF2018-single-dog"><a href="#SUCTF2018-single-dog" class="headerlink" title="[SUCTF2018]single dog"></a>[SUCTF2018]single dog</h2><p>我们使用<code>foremost</code>分离jpg图片</p>
+<img src="https://s2.loli.net/2023/01/29/4pye7Ha9sRUoP3L.png" srcset="/img/loading.gif" lazyload alt="image-20230129103003958" style="zoom:33%;" />
+
+
+
+<p>打开txt文件：</p>
+<p><img src="https://s2.loli.net/2023/01/29/iJjDoBt7nhcO4Xk.png" srcset="/img/loading.gif" lazyload alt="image-20230129103110636"></p>
+<p>发现是js颜文字加密（<code>AAEncode</code>） ，使用   <a target="_blank" rel="noopener" href="http://www.atoolbox.net/Tool.php?Id=703">AAEncode解密</a></p>
+<p><img src="https://s2.loli.net/2023/01/29/1bsAPcFRYyUWJBu.png" srcset="/img/loading.gif" lazyload alt="image-20230129104030772"></p>
+<h2 id="我吃三明治"><a href="#我吃三明治" class="headerlink" title="我吃三明治"></a>我吃三明治</h2><p>我们在图片中发现了一串类似base32加密的串：</p>
+<p><img src="https://s2.loli.net/2023/01/29/yxczdZtf3l6GvkD.png" srcset="/img/loading.gif" lazyload alt="image-20230129104715887"></p>
+<p>使用base32网站解密</p>
+<p><img src="https://s2.loli.net/2023/01/29/HpNRE237dyMKjoY.png" srcset="/img/loading.gif" lazyload alt="image-20230129104540410"></p>
+<h2 id="sqltest"><a href="#sqltest" class="headerlink" title="sqltest"></a>sqltest</h2><h3 id=""><a href="#" class="headerlink" title=""></a></h3><p>我们使用 <code>wireshark</code> 打开 <code>pcapng</code> 文件，然后导出http对象：</p>
+<img src="https://s2.loli.net/2023/01/29/W4Kr3c6sYpgvbGM.png" srcset="/img/loading.gif" lazyload alt="image-20230129105328438" style="zoom:33%;" />
+
+<p>我们发现有很多 sql注入的测试，我们可以通过这些sql注入来判断flag</p>
+<p><img src="https://s2.loli.net/2023/01/29/CSUWw6JXykMqrDb.png" srcset="/img/loading.gif" lazyload alt="image-20230129105400454"></p>
+<p>我们一个一个判断，得出flag的ascii值：</p>
+<p><img src="https://s2.loli.net/2023/01/29/gYeHybsL3ujhQVW.png" srcset="/img/loading.gif" lazyload alt="image-20230129105926330"></p>
+<p><code>102 108 97 103 123 52 55 101 100 98 56 51 48 48 101 100 53 102 57 98 50  56 102 99 53 52 98 48 100 48 57 101 99 100 101 102 55 125</code></p>
+<p>我们将其转化为字符：</p>
+<p><img src="https://s2.loli.net/2023/01/29/Oo8LIjX6UsuCQEG.png" srcset="/img/loading.gif" lazyload alt="image-20230129110200781"></p>
+<h2 id="SWPU2019-你有没有好好看网课"><a href="#SWPU2019-你有没有好好看网课" class="headerlink" title="[SWPU2019]你有没有好好看网课?"></a>[SWPU2019]你有没有好好看网课?</h2><p><img src="https://s2.loli.net/2023/01/29/Bv3cCr2JMqOyziZ.png" srcset="/img/loading.gif" lazyload alt="image-20230129110358654"></p>
+<p>我们使用 <code>ARCHPR</code> 爆破密码：</p>
+<img src="https://s2.loli.net/2023/01/29/ITQdGHvURAbfjCs.png" srcset="/img/loading.gif" lazyload alt="image-20230129110446883" style="zoom:33%;" />
+
+<p>打开文件夹：</p>
+<img src="https://s2.loli.net/2023/01/29/J2Ly9PKbxE36slC.png" srcset="/img/loading.gif" lazyload alt="image-20230129111232307" style="zoom:33%;" />
+
+<p>我们打开 word文档：</p>
+<img src="https://s2.loli.net/2023/01/29/ayYFBrxgfs1tpZO.png" srcset="/img/loading.gif" lazyload alt="image-20230129111309981" style="zoom: 33%;" />
+
+<p><code>5.20 7.11</code>这个猜测是视频的秒数，我们使用 <code>Kinovea</code> 打开视频（可以一帧一帧的看视频）：</p>
+<p>在 5.66秒处发现提示</p>
+<p><img src="https://s2.loli.net/2023/01/29/EXapkQ3VoixnJLO.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p><strong>敲击码</strong>：</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-string">.....</span> <span class="hljs-string">../...</span> <span class="hljs-string">./...</span> <span class="hljs-string">./...</span> <span class="hljs-string">../</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/01/29/fLzHXeiIu91UkJc.png" srcset="/img/loading.gif" lazyload alt="image-20230129111924224"></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">..... ..<span class="hljs-regexp">/... ./</span>... .<span class="hljs-regexp">/... ../</span>	通过斜杠分为不同的组<br> <span class="hljs-number">5</span>  <span class="hljs-number">2</span> <span class="hljs-regexp">/ 3 1 /</span> <span class="hljs-number">3</span> <span class="hljs-number">1</span><span class="hljs-regexp">/ 3 2/</span><br>  W      L    L    M<br></code></pre></td></tr></table></figure>
+
+<p>在 7.36 秒 发现第二段信息：</p>
+<p><img src="https://s2.loli.net/2023/01/29/EVfvZzF74TKWDIj.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p>base64解密，我们可以使用 <code>php -r</code> 在命令行执行php代码</p>
+<p><img src="https://s2.loli.net/2023/01/29/hswVknj4FlmUaC7.png" srcset="/img/loading.gif" lazyload alt="image-20230129112446845"></p>
+<p>两段密码拼接一下得到 flag1 压缩包密码。</p>
+<p><code>010Editor</code> 打开图片得到flag</p>
+<p><img src="https://s2.loli.net/2023/01/29/whK9lVmRtvgyqFQ.png" srcset="/img/loading.gif" lazyload alt="image-20230129112653089"></p>
+<h2 id="ACTF新生赛2020-NTFS数据流"><a href="#ACTF新生赛2020-NTFS数据流" class="headerlink" title="[ACTF新生赛2020]NTFS数据流"></a>[ACTF新生赛2020]NTFS数据流</h2><blockquote>
+<p>NTFS交换数据流（alternate data streams，简称<strong>ADS</strong>）是NTFS磁盘格式的一个特性，在NTFS文件系统下，每个文件都可以存在多个数据流，就是说除了主文件流之外还可以有许多非主文件流寄宿在主文件流中。它使用资源派生来维持与文件相关的信息，虽然我们无法看到数据流文件，但是它却是真实存在于我们的系统中的。创建一个数据交换流文件的方法很简单，命令为“宿主文件：准备与宿主文件关联的数据流文件”。————百度百科</p>
+</blockquote>
+<p>我们打开文件夹，发现一个大小不一样的文件：</p>
+<p><img src="https://s2.loli.net/2023/01/29/XurikSsWEwb4nt3.png" srcset="/img/loading.gif" lazyload alt="image-20230129113028979"></p>
+<img src="https://s2.loli.net/2023/01/29/SOIJpt5xB6NGEDe.png" srcset="/img/loading.gif" lazyload alt="image-20230129113049930" style="zoom:33%;" />
+
+<p><strong>注意：这里解压的时候使用Win RAR解压，涉及NTFS流的都需要Win RAR解压</strong></p>
+<p>然后我们使用工具 ：<code>NtfsStreamsEditor</code>  扫描txt文件：</p>
+<img src="https://s2.loli.net/2023/01/29/AyO5EtucQeYvRmj.png" srcset="/img/loading.gif" lazyload alt="image-20230129114158966" style="zoom: 33%;" />
+
+<p>发现 293.txt 文件中 还存在一个flag.txt 文件，直接打开获得flag。</p>
+<p>或者，使用命令 <code>notepad</code> 打开：</p>
+<img src="https://s2.loli.net/2023/01/29/mLVM8NTHy9oGK1a.png" srcset="/img/loading.gif" lazyload alt="image-20230129114339368" style="zoom:33%;" />
+
+
+
+<h2 id="john-in-the-middle"><a href="#john-in-the-middle" class="headerlink" title="john-in-the-middle"></a>john-in-the-middle</h2><p>使用 wireshark 带出http对象：</p>
+<p><img src="https://s2.loli.net/2023/01/29/YZqwnRGkVS6Qr8b.png" srcset="/img/loading.gif" lazyload alt="image-20230129115118464"></p>
+<p>使用 stegsolve分析，得到flag</p>
+<img src="https://s2.loli.net/2023/01/29/rGksuZiIpUQEAol.png" srcset="/img/loading.gif" lazyload alt="image-20230129115054515" style="zoom:50%;" />
+
+
+
+
+
+<h2 id="ACTF新生赛2020-swp"><a href="#ACTF新生赛2020-swp" class="headerlink" title="[ACTF新生赛2020]swp"></a>[ACTF新生赛2020]swp</h2><p>我们导出 http 对象，发现一个 <code>secret.zip</code> 压缩包</p>
+<img src="https://s2.loli.net/2023/01/29/9nomXfUzig6HxA8.png" srcset="/img/loading.gif" lazyload alt="image-20230129122549451" style="zoom:33%;" />
+
+<p>然后发现是 zip 伪加密，我们可以使用工具：<code>ZipCenOp</code> 修复：</p>
+<p><img src="https://s2.loli.net/2023/01/29/jYLKMo6P91bEBdn.png" srcset="/img/loading.gif" lazyload alt="image-20230129122731337"></p>
+<p>搜索 <code>ctf</code> 发现 flag：</p>
+<img src="https://s2.loli.net/2023/01/29/xDzOYmRZadl8cXI.png" srcset="/img/loading.gif" lazyload alt="image-20230129122827157" style="zoom:33%;" />
+
+
+
+<h2 id="喵喵喵"><a href="#喵喵喵" class="headerlink" title="喵喵喵"></a>喵喵喵</h2><p>首先我们使用 <code>Stegsolve</code> 打开：</p>
+<p>发现图片 <code>Blue 0通道</code> 有问题</p>
+<img src="https://s2.loli.net/2023/01/29/ph5EcqVtMl1OdGZ.png" srcset="/img/loading.gif" lazyload alt="image-20230129132510580" style="zoom:33%;" />
+
+
+
+<p>我们使用 <code>Data Extract</code> ，<strong>LSB隐写</strong>，我们使用 <code>BGR</code> 的<code>位平面顺序:</code></p>
+<img src="https://s2.loli.net/2023/01/29/MDyLHjtuaVPsObi.png" srcset="/img/loading.gif" lazyload alt="image-20230129132711620" style="zoom:33%;" />
+
+<p>保存为 png 图片，一张不全的二维码，我们改一下高度：</p>
+<img src="https://s2.loli.net/2023/01/29/mZ3aqPFosLKg2UE.png" srcset="/img/loading.gif" lazyload alt="image-20230129132854243" style="zoom:33%;" />
+
+<p>扫码获得一个链接，下载得到一个txt文件：</p>
+<p><img src="https://s2.loli.net/2023/01/29/RmEQuUtcDFOyCqs.png" srcset="/img/loading.gif" lazyload alt="image-20230129133014277"></p>
+<p>说flag不在这里，但是肯定在这里，只是我们看不到而已看，我们想到了 <strong>NTFS数据流隐写</strong> ，我们使用工具：<code>NtfsStreamsEditor2</code> </p>
+<p><img src="https://s2.loli.net/2023/01/29/KfLDg5Sdvh9U2EX.png" srcset="/img/loading.gif" lazyload alt="image-20230129133239370"></p>
+<p>发现隐藏了一个 flag.pyc 文件，我们导出该文件。</p>
+<blockquote>
+<p><strong>pyc文件</strong>就是由Python文件经过编译后所生成的文件，py文件编译成pyc文件后加载速度更快而且提高了代码的安全性。</p>
+</blockquote>
+<p>我们知道 pyc 文件是 python经过编译后的文件，我们可以使用  <a target="_blank" rel="noopener" href="https://tool.lu/pyc/">反编译</a></p>
+<img src="https://s2.loli.net/2023/01/29/veOU8t2zPIbGM9m.png" srcset="/img/loading.gif" lazyload alt="image-20230129133514859" style="zoom:33%;" />
+
+<p>获得 py文件，我们只需要将代码反过来，自己写一个解码函数，将其解码即可：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">decode</span>(<span class="hljs-params">ciphertext</span>):<br>    ciphertext = ciphertext[::-<span class="hljs-number">1</span>]<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(ciphertext)):<br>        ciphertext[i] = <span class="hljs-built_in">int</span>(ciphertext[i])<br>        <span class="hljs-keyword">if</span> i % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>:<br>            ciphertext[i] = <span class="hljs-built_in">chr</span>(ciphertext[i] - <span class="hljs-number">10</span>) <br>        <span class="hljs-keyword">else</span>:<br>            ciphertext[i] = <span class="hljs-built_in">chr</span>(ciphertext[i] + <span class="hljs-number">10</span>) <br><br>        s = <span class="hljs-built_in">chr</span>(<span class="hljs-built_in">ord</span>(ciphertext[i]) ^ i)<br>        <span class="hljs-built_in">print</span>(s,end=<span class="hljs-string">&quot;&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/01/29/tVPqH7x49Wvnz1N.png" srcset="/img/loading.gif" lazyload alt="image-20230129134333993"></p>
+<h2 id="GXYCTF2019-SXMgdGhpcyBiYXNlPw"><a href="#GXYCTF2019-SXMgdGhpcyBiYXNlPw" class="headerlink" title="[GXYCTF2019]SXMgdGhpcyBiYXNlPw&#x3D;&#x3D;"></a>[GXYCTF2019]SXMgdGhpcyBiYXNlPw&#x3D;&#x3D;</h2><p>打开txt文件，发现很多base64编码</p>
+<img src="https://s2.loli.net/2023/01/29/WD8iXESyUIm6lhb.png" srcset="/img/loading.gif" lazyload alt="image-20230129134446387" style="zoom:33%;" />
+
+<p>我们怀疑这可能是<strong>base64隐写</strong>，我们使用脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs python"><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_base64_diff_value</span>(<span class="hljs-params">s1, s2</span>):<br>    base64chars = <span class="hljs-string">&#x27;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/&#x27;</span><br>    res = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> xrange(<span class="hljs-built_in">len</span>(s2)):<br>        <span class="hljs-keyword">if</span> s1[i] != s2[i]:<br>            <span class="hljs-keyword">return</span> <span class="hljs-built_in">abs</span>(base64chars.index(s1[i]) - base64chars.index(s2[i]))<br>    <span class="hljs-keyword">return</span> res<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">solve_stego</span>():<br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;C://Users/LIKE/Desktop/base64.txt&#x27;</span>, <span class="hljs-string">&#x27;rb&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>        file_lines = f.readlines()<br>        bin_str = <span class="hljs-string">&#x27;&#x27;</span><br>        <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> file_lines:<br>            steg_line = line.replace(<span class="hljs-string">&#x27;\n&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>)<br>            norm_line = line.replace(<span class="hljs-string">&#x27;\n&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>).decode(<span class="hljs-string">&#x27;base64&#x27;</span>).encode(<span class="hljs-string">&#x27;base64&#x27;</span>).replace(<span class="hljs-string">&#x27;\n&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>)<br>            diff = get_base64_diff_value(steg_line, norm_line)<br>            <span class="hljs-built_in">print</span> diff<br>            pads_num = steg_line.count(<span class="hljs-string">&#x27;=&#x27;</span>)<br>            <span class="hljs-keyword">if</span> diff:<br>                bin_str += <span class="hljs-built_in">bin</span>(diff)[<span class="hljs-number">2</span>:].zfill(pads_num * <span class="hljs-number">2</span>)<br>            <span class="hljs-keyword">else</span>:<br>                bin_str += <span class="hljs-string">&#x27;0&#x27;</span> * pads_num * <span class="hljs-number">2</span><br>            <span class="hljs-built_in">print</span> goflag(bin_str)<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">goflag</span>(<span class="hljs-params">bin_str</span>):<br>    res_str = <span class="hljs-string">&#x27;&#x27;</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> xrange(<span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(bin_str), <span class="hljs-number">8</span>):<br>        res_str += <span class="hljs-built_in">chr</span>(<span class="hljs-built_in">int</span>(bin_str[i:i + <span class="hljs-number">8</span>], <span class="hljs-number">2</span>))<br>    <span class="hljs-keyword">return</span> res_str<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    solve_stego()<br></code></pre></td></tr></table></figure>
+
+<p>解密得到flag：</p>
+<p><img src="https://s2.loli.net/2023/01/29/kqTV67FbeWlapyN.png" srcset="/img/loading.gif" lazyload alt="image-20230129134948748"></p>
+<h2 id="间谍启示录"><a href="#间谍启示录" class="headerlink" title="间谍启示录"></a>间谍启示录</h2><blockquote>
+<p>在城际公路的小道上，罪犯G正在被警方追赶。警官X眼看他正要逃脱，于是不得已开枪击中了罪犯G。罪犯G情急之下将一个物体抛到了前方湍急的河流中，便头一歪突然倒地。警官X接近一看，目标服毒身亡。数分钟后，警方找到了罪犯遗失物体，是一个U盘，可惜警方只来得及复制镜像，U盘便报废了。警方现在拜托你在这个镜像中找到罪犯似乎想隐藏的秘密。 注意：得到的 flag 请包上 flag{} 提交</p>
+</blockquote>
+<p>下载得到一个 <strong>iso</strong> 文件，我们使用foremost分离，发现一个压缩包：</p>
+<p><img src="https://s2.loli.net/2023/01/29/ECi13l6GyFp2nDI.png" srcset="/img/loading.gif" lazyload alt="image-20230129135458553"></p>
+<p>双击运行<code>flag.exe</code>，获得一个txt文件，得到flag：</p>
+<p><img src="https://s2.loli.net/2023/01/29/cWYaSI5dbtqs6fC.png" srcset="/img/loading.gif" lazyload alt="image-20230129135553032"></p>
+<h2 id="UTCTF2020-docx"><a href="#UTCTF2020-docx" class="headerlink" title="[UTCTF2020]docx"></a>[UTCTF2020]docx</h2><p>下载后获得一个 word文档，我们将其后缀改为 <code>zip</code> 解压：</p>
+<img src="https://s2.loli.net/2023/01/29/dk9hErL6b2Pc3vm.png" srcset="/img/loading.gif" lazyload alt="image-20230129140058666" style="zoom:33%;" />
+
+<p>然后我们在： <code>word/media</code> 文件夹中发现flag</p>
+<p><img src="https://s2.loli.net/2023/01/29/PRSxa3VlINj1tnE.png" srcset="/img/loading.gif" lazyload alt="image-20230129140120297"></p>
+<h2 id="Mysterious"><a href="#Mysterious" class="headerlink" title="Mysterious"></a>Mysterious</h2><blockquote>
+<p>自从报名了CTF竞赛后，小明就辗转于各大论坛，但是对于逆向题目仍是一知半解。有一天，一个论坛老鸟给小明发了一个神秘的盒子，里面有开启逆向思维的秘密。小明如获至宝，三天三夜，终于解答出来了，聪明的你能搞定这个神秘盒子么？ 注意：得到的 flag 请包上 flag{} 提交</p>
+</blockquote>
+<p>下载后获得一个 <code>exe</code> 文件：</p>
+<p>使用记事本打开：</p>
+<img src="https://s2.loli.net/2023/01/29/QHZROMB7Pyt3NaF.png" srcset="/img/loading.gif" lazyload alt="image-20230129141140114" style="zoom:33%;" />
+
+<p><code>PE...L...</code> 说明是32位。</p>
+<p>或者linux使用<strong>file命令</strong>：</p>
+<p><img src="https://s2.loli.net/2023/01/29/RbBhVvl9drJ7xCi.png" srcset="/img/loading.gif" lazyload alt="image-20230129141401253"></p>
+<p>此处是32位，所以我们使用逆向工具 :<code>ida</code>打开</p>
+<p><code>Shift+F12</code> 查看字符串：</p>
+<p><img src="https://s2.loli.net/2023/01/29/dYCVXvzfi7s5NLj.png" srcset="/img/loading.gif" lazyload alt="image-20230129141544996"></p>
+<p>发现 <code>well_done</code> 可疑，我们点进去：</p>
+<p><img src="https://s2.loli.net/2023/01/29/Cqe5nVZGN8hxoyW.png" srcset="/img/loading.gif" lazyload alt="image-20230129141654568"></p>
+<p>疑似flag的字符串，我们找到这个地址 <code>sub_401090</code> ，点击后，<strong>按 F5 进行反汇编</strong>：</p>
+<p><img src="https://s2.loli.net/2023/01/29/TJSYmItdsByf8l5.png" srcset="/img/loading.gif" lazyload alt="image-20230129141834441"></p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-keyword">if</span> ( a3 == <span class="hljs-number">1000</span> )<br>    &#123;<br>      <span class="hljs-built_in">GetDlgItemTextA</span>(hWnd, <span class="hljs-number">1002</span>, <span class="hljs-type">String</span>, <span class="hljs-number">260</span>);<br>      <span class="hljs-built_in">strlen</span>(<span class="hljs-type">String</span>);<br>      <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">strlen</span>(<span class="hljs-type">String</span>) &gt; <span class="hljs-number">6</span> )<br>        <span class="hljs-built_in">ExitProcess</span>(<span class="hljs-number">0</span>);<br>      v4 = <span class="hljs-built_in">atoi</span>(<span class="hljs-type">String</span>);<br>      Value = v4 + <span class="hljs-number">1</span>;<br>      <span class="hljs-keyword">if</span> ( v4 == <span class="hljs-number">122</span> &amp;&amp; <span class="hljs-type">String</span>[<span class="hljs-number">3</span>] == <span class="hljs-number">120</span> &amp;&amp; <span class="hljs-type">String</span>[<span class="hljs-number">5</span>] == <span class="hljs-number">122</span> &amp;&amp; <span class="hljs-type">String</span>[<span class="hljs-number">4</span>] == <span class="hljs-number">121</span> )<br>      &#123;<br>        <span class="hljs-built_in">strcpy</span>(Text, <span class="hljs-string">&quot;flag&quot;</span>);<br>        <span class="hljs-built_in">memset</span>(&amp;Text[<span class="hljs-number">5</span>], <span class="hljs-number">0</span>, <span class="hljs-number">0xFC</span>u);<br>        v8 = <span class="hljs-number">0</span>;<br>        v9 = <span class="hljs-number">0</span>;<br>        _itoa(Value, Source, <span class="hljs-number">10</span>);<br>        <span class="hljs-built_in">strcat</span>(Text, <span class="hljs-string">&quot;&#123;&quot;</span>);<br>        <span class="hljs-built_in">strcat</span>(Text, Source);<br>        <span class="hljs-built_in">strcat</span>(Text, <span class="hljs-string">&quot;_&quot;</span>);<br>        <span class="hljs-built_in">strcat</span>(Text, <span class="hljs-string">&quot;Buff3r_0v3rf|0w&quot;</span>);<br>        <span class="hljs-built_in">strcat</span>(Text, <span class="hljs-string">&quot;&#125;&quot;</span>);<br>        <span class="hljs-built_in">MessageBoxA</span>(<span class="hljs-number">0</span>, Text, <span class="hljs-string">&quot;well done&quot;</span>, <span class="hljs-number">0</span>);<br>      &#125;<br>      <span class="hljs-built_in">SetTimer</span>(hWnd, <span class="hljs-number">1u</span>, <span class="hljs-number">0x3E8</span>u, TimerFunc);<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/01/29/YUlmigLazKbqN4G.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p>根据分析 我们输入 <code>122xyz</code> 可以获得flag：</p>
+<img src="https://s2.loli.net/2023/01/29/mdtQfyVkawM3NG6.png" srcset="/img/loading.gif" lazyload alt="image-20230129142112395" style="zoom:33%;" />
+
+
+
+<h2 id="弱口令"><a href="#弱口令" class="headerlink" title="弱口令"></a>弱口令</h2><blockquote>
+<p>老菜鸡，伤了神，别灰心，莫放弃，试试弱口令 注意：得到的 flag 请包上 flag{} 提交</p>
+</blockquote>
+<p>下载后得到zip压缩包，在注释中藏有信息。</p>
+<img src="https://s2.loli.net/2023/01/29/QAj4ge3MqwnlI9p.png" srcset="/img/loading.gif" lazyload alt="image-20230129161114294" style="zoom:33%;" />
+
+<p>我们把它复制到 <code>sublime</code> 中：</p>
+<img src="https://s2.loli.net/2023/01/29/6FAbfD7LNPJXKud.png" srcset="/img/loading.gif" lazyload alt="image-20230129161219999" style="zoom: 50%;" />
+
+<p>这时莫斯电码，我们把空格看成 <strong>.</strong> tab键看成 <strong>-</strong> </p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-string">....</span> . <span class="hljs-string">.-..</span> <span class="hljs-string">.-..</span> <span class="hljs-params">-----</span> <span class="hljs-string">..-.</span> <span class="hljs-params">---</span> <span class="hljs-string">.-.</span> <span class="hljs-string">..-</span> --<br></code></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="http://www.all-tool.cn/Tools/morse/">摩斯电码解密</a></p>
+<p><img src="https://s2.loli.net/2023/01/29/17mIZoxvWGEO2Qn.png" srcset="/img/loading.gif" lazyload alt="image-20230129161539201"></p>
+<p>使用该密码将压缩包进行解密，得到一张图片：</p>
+<p><img src="https://s2.loli.net/2023/01/29/EhnF9THOq3RfeBC.png" srcset="/img/loading.gif" lazyload alt="image-20230129161707353"></p>
+<p>然后这里的考点是 <strong>弱口令LSB隐写</strong>，我们使用工具 ： <code>cloacked-pixel</code></p>
+<p><code>这个工具要安装好多模块，容易报错..</code></p>
+<p>由于是弱口令，我们猜测密码为 <code>123456</code></p>
+<img src="https://s2.loli.net/2023/01/29/2uks9onH8gTiJIy.png" srcset="/img/loading.gif" lazyload alt="image-20230129162240130" style="zoom:50%;" />
+
+<p><code>flag.txt</code>文件包含flag</p>
+<h2 id="RoarCTF2019-黄金6年"><a href="#RoarCTF2019-黄金6年" class="headerlink" title="[RoarCTF2019]黄金6年"></a>[RoarCTF2019]黄金6年</h2><p>下载mp4文件，我们使用 <code>Kinovea</code> 打开：</p>
+<p>发现有几个二维码</p>
+<img src="https://s2.loli.net/2023/01/29/tCKrGhYQUBWFfHm.png" srcset="/img/loading.gif" lazyload alt="image-20230129164331996" style="zoom:33%;" />
+
+<img src="https://s2.loli.net/2023/01/29/IHPCgNmsy7ZbKl3.png" srcset="/img/loading.gif" lazyload alt="image-20230129164508418" style="zoom:33%;" />
+
+
+
+<img src="https://s2.loli.net/2023/01/29/Z3BxFwYmvQpdGhN.png" srcset="/img/loading.gif" lazyload alt="image-20230129164608100" style="zoom:33%;" />
+
+
+
+<p><img src="https://s2.loli.net/2023/01/29/Mfpqst4L1WnQNjC.png" srcset="/img/loading.gif" lazyload alt="image-20230129165105841"></p>
+<p><code>Kinovea</code>没有key4，我们可以使用<code>potplayer</code> : F键前进一帧，D键倒退一帧，空格键正常播放</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">key:</span> iwantplayctf<br></code></pre></td></tr></table></figure>
+
+<p><code>010Editor</code> 打开MP4：</p>
+<img src="https://s2.loli.net/2023/01/29/GeoaAEmsLZk27VY.png" srcset="/img/loading.gif" lazyload alt="image-20230129165305523" style="zoom:33%;" />
+
+<p> <a target="_blank" rel="noopener" href="https://the-x.cn/base64">base64解码</a></p>
+<p><img src="https://s2.loli.net/2023/01/29/L9pnyPCzxwcuifb.png" srcset="/img/loading.gif" lazyload alt="image-20230129165437932"></p>
+<p>另存为 rar，使用key解压，得到flag</p>
+<h2 id="小易的U盘"><a href="#小易的U盘" class="headerlink" title="小易的U盘"></a>小易的U盘</h2><blockquote>
+<p>小易的U盘中了一个奇怪的病毒，电脑中莫名其妙会多出来东西。小易重装了系统，把U盘送到了攻防实验室，希望借各位的知识分析出里面有啥。请大家加油噢，不过他特别关照，千万别乱点他U盘中的资料，那是机密。 注意：得到的 flag 请包上 flag{} 提交</p>
+</blockquote>
+<p>我们使用 <code>foremost</code> 分离 iso文件，然后在 <code>autorun.inf</code> 文件中发现：</p>
+<img src="https://s2.loli.net/2023/01/29/CJrMUKPq73jgWVf.png" srcset="/img/loading.gif" lazyload alt="image-20230129170342951" style="zoom:33%;" />
+
+<p>flag与 <code>autoflag - 副本 (32).exe</code> 文件有关，我们可以使用 <code>ida</code> 打开exe文件获得flag，</p>
+<p>或者使用 strings命令获得flag：<code>strings 32.exe | grep &quot;flag&quot;</code></p>
+<p><img src="https://s2.loli.net/2023/01/29/hq9HS2B3eXDEYpd.png" srcset="/img/loading.gif" lazyload alt="image-20230129170507991"></p>
+<h2 id="WUSTCTF2020-alison-likes-jojo"><a href="#WUSTCTF2020-alison-likes-jojo" class="headerlink" title="[WUSTCTF2020]alison_likes_jojo"></a>[WUSTCTF2020]alison_likes_jojo</h2><p>首先下载获得两个jpg图片，然后使用<code>foremost</code>分离其中一张图片，得到一个加密压缩包：</p>
+<img src="https://s2.loli.net/2023/01/29/7Cp4x8nK5Xa19hB.png" srcset="/img/loading.gif" lazyload alt="image-20230129172919702" style="zoom:33%;" />
+
+
+
+<p>使用 <code>ARCHPR</code> 爆破 ，得到密码：<code>888866</code></p>
+<p>打开获得base64加密字符串，三次解码：<code>killerqueen</code></p>
+<p>由于是 jpg 图片隐写，所以我们尝试几次 ：<a target="_blank" rel="noopener" href="https://juejin.cn/post/7122075372283232293">那些图片隐写中的神操作之JPG</a></p>
+<p>我们发现这里是 <strong>outguess 隐写</strong>，我们使用key解密：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">outguess</span> -k <span class="hljs-string">&quot;killerqueen&quot;</span> -r <span class="hljs-string">&quot;jljy.jpg&quot;</span> flag.txt<br></code></pre></td></tr></table></figure>
+
+<img src="https://s2.loli.net/2023/01/29/sQY3obJCjHFVEUc.png" srcset="/img/loading.gif" lazyload alt="image-20230129173200034" style="zoom:50%;" />
+
+<p>获得flag</p>
+<h2 id="安洵杯-2019-吹着贝斯扫二维码"><a href="#安洵杯-2019-吹着贝斯扫二维码" class="headerlink" title="[安洵杯 2019]吹着贝斯扫二维码"></a>[安洵杯 2019]吹着贝斯扫二维码</h2><p>下载后得到一个文件夹，里面有很多文件，我们使用 <code>010Editor</code>打开后发现都是jpg图片，我们使用脚本改后缀：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br><br>path = <span class="hljs-string">r&#x27;C:\Users\LIKE\Desktop\dir&#x27;</span>  <br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> os.listdir(path):  <span class="hljs-comment"># 路径最好用绝对路径，不会出错</span><br>    oldname = os.path.join(path, i)<br>    newname = os.path.join(path, i + <span class="hljs-string">&#x27;.jpg&#x27;</span>)<br>    os.rename(oldname, newname)<br></code></pre></td></tr></table></figure>
+
+<p>我们发现都是二维码，我们需要拼图，</p>
+<p><img src="https://s2.loli.net/2023/01/29/QpkAuGnf31JZ2vP.png" srcset="/img/loading.gif" lazyload alt="image-20230129180236440"></p>
+<p>每一个图片最后都有顺序，我们按照这个顺序使用ps进行拼图：</p>
+<img src="https://s2.loli.net/2023/01/29/bY8mU1pOVPHQ2SK.png" srcset="/img/loading.gif" lazyload alt="image-20230129180318512" style="zoom:50%;" />
+
+<p>如下：</p>
+<img src="https://s2.loli.net/2023/01/29/QhSa6b8pqzcxgI9.png" srcset="/img/loading.gif" lazyload alt="202011032138450" style="zoom:33%;" />
+
+<p>扫码得到：</p>
+<img src="https://s2.loli.net/2023/01/29/QMq5Stx2eiC1kY6.png" srcset="/img/loading.gif" lazyload alt="image-20230129180440758" style="zoom:33%;" />
+
+<p>（这个编码应该从右往左读）</p>
+<p>我们打开zip文件：显然这是base32编码</p>
+<p><img src="https://s2.loli.net/2023/01/29/sIQmRbXYTWVi43e.png" srcset="/img/loading.gif" lazyload alt="image-20230129180534458"></p>
+<p>base32解码： <code>3A715D3E574E36326F733C5E625D213B2C62652E3D6E3B7640392F3137274038624148</code></p>
+<p>然后转为 16进制字符串： <code>:q]&gt;WN62os&lt;^b]!;,be.=n;v@9/17&#39;@8bAH</code></p>
+<p>然后这里提示一个 13编码，这里为 rot13，我们解密：</p>
+<p><code>:d]&gt;JA62bf&lt;^o]!;,or.=a;i@9/17&#39;@8oNU</code></p>
+<p><img src="https://s2.loli.net/2023/01/29/UfZhNQyuMKSpcwG.png" srcset="/img/loading.gif" lazyload alt="image-20230129180709031"></p>
+<p>然后base85解密：</p>
+<p><code>PCtvdWU4VFJnQUByYy4mK1lraTA=</code></p>
+<img src="https://s2.loli.net/2023/01/29/hgxV3GdXKsz1o4J.png" srcset="/img/loading.gif" lazyload alt="image-20230129180739966" style="zoom:33%;" />
+
+<p>base64解密： <code>&lt;+oue8TRgA@rc.&amp;+Yki0</code></p>
+<p>最后base85解密：<code>ThisIsSecret!233</code></p>
+<p>解压zip获得flag</p>
+<h2 id="WUSTCTF2020-爬"><a href="#WUSTCTF2020-爬" class="headerlink" title="[WUSTCTF2020]爬"></a>[WUSTCTF2020]爬</h2><p>下载一个文件，使用 <code>010Editor</code> 打开，发现是一个pdf文件，改后缀为pdf，然后打开：</p>
+<img src="https://s2.loli.net/2023/01/29/8eRtNGjH6gZ9slh.png" srcset="/img/loading.gif" lazyload alt="image-20230129195440509" style="zoom:33%;" />
+
+<p>说flag被遮住了，我们使用 pdf编辑器删除上面的图片，里面还有一张图片：</p>
+<p><img src="https://s2.loli.net/2023/01/29/NQoxW36UOMc87lR.png" srcset="/img/loading.gif" lazyload alt="image-20230129195613084"></p>
+<p>发现是16进制，我们将其转化为字符串即可得到flag。</p>
+<p><code>flag&#123;th1s_1s_@_pdf_and_y0u_can_use_phot0sh0p&#125;</code></p>
+<h2 id="zip"><a href="#zip" class="headerlink" title="zip"></a>zip</h2><p>我们首先下载，然后得到一个文件夹里面有很多 zip 文件，全被加密了：</p>
+<img src="https://s2.loli.net/2023/01/29/8wSVmq5MXygxERL.png" srcset="/img/loading.gif" lazyload alt="image-20230129204116237" style="zoom:33%;" />
+
+<p>但是我们发现每一个压缩包里的txt文件内容很小，都只有 <code>4字节</code>，于是我们可以使用crc32值进行</p>
+<p><strong>crc32 4字节爆破</strong></p>
+<p><img src="https://s2.loli.net/2023/01/29/JGuoldMmHgP1wLk.png" srcset="/img/loading.gif" lazyload alt="image-20230129204143111"></p>
+<p>我们使用脚本爆破（也可以使用github上的脚本）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># python3</span><br><span class="hljs-keyword">import</span> zipfile<br><span class="hljs-keyword">import</span> string<br><span class="hljs-keyword">import</span> binascii<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">CrackCrc</span>(<span class="hljs-params">crc</span>):<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> dic:<br>        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> dic:<br>            <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> dic:<br>                <span class="hljs-keyword">for</span> h <span class="hljs-keyword">in</span> dic:<br>                    s = i + j + k + h<br>                    <span class="hljs-keyword">if</span> crc == (binascii.crc32(s.encode())):<br>                        f.write(s)<br>                        <span class="hljs-keyword">return</span><br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">CrackZip</span>():<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, <span class="hljs-number">68</span>):<br>        file = <span class="hljs-string">r&quot;C://Users/LIKE/Desktop/dir/&quot;</span> + <span class="hljs-string">&#x27;out&#x27;</span> + <span class="hljs-built_in">str</span>(i) + <span class="hljs-string">&#x27;.zip&#x27;</span><br>        crc = zipfile.ZipFile(file, <span class="hljs-string">&#x27;r&#x27;</span>).getinfo(<span class="hljs-string">&#x27;data.txt&#x27;</span>).CRC <span class="hljs-comment"># 获得crc值</span><br>        CrackCrc(crc)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;\r&#x27;</span> + <span class="hljs-string">&quot;loading：&#123;:%&#125;&quot;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-built_in">float</span>((i + <span class="hljs-number">1</span>) / <span class="hljs-number">68</span>)), end=<span class="hljs-string">&#x27;&#x27;</span>)<br><br><br>dic = string.ascii_letters + string.digits + <span class="hljs-string">&#x27;+/=&#x27;</span><br>f = <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;out.txt&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\nCRC32begin&quot;</span>)<br>CrackZip()<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;CRC32finished&quot;</span>)<br>f.close()<br></code></pre></td></tr></table></figure>
+
+<p>获得一串base64编码，我们解密一下：</p>
+<p><img src="https://s2.loli.net/2023/01/29/V7voIlNgR2OuyeY.png" srcset="/img/loading.gif" lazyload alt="image-20230129204930639"></p>
+<p>这16进制结尾应该是<code>rar文件</code> ，缺少文件头 <code>52 61 72 21 1A 07 00</code> ，我们补上，打开rar文件：</p>
+<p><img src="https://s2.loli.net/2023/01/29/rUFC6Is8AozVT9m.png" srcset="/img/loading.gif" lazyload alt="image-20230129205107425"></p>
+<h2 id="从娃娃抓起"><a href="#从娃娃抓起" class="headerlink" title="从娃娃抓起"></a>从娃娃抓起</h2><blockquote>
+<p>题目描述：伟人的一句话，标志着一个时代的开始。那句熟悉的话，改变了许多人的一生，为中国三十年来计算机产业发展铺垫了道路。两种不同的汉字编码分别代表了汉字信息化道路上的两座伟大里程碑。请将你得到的话转为md5提交，md5统一为32位小写。</p>
+</blockquote>
+<p>打开txt文件，第2行应该是<code>五笔输入法</code>，第一行是 <code>中文电码</code>。</p>
+<img src="https://s2.loli.net/2023/01/29/Gzw13utN8UdTSDf.png" srcset="/img/loading.gif" lazyload alt="image-20230129211039984" style="zoom:50%;" />
+
+<p><a target="_blank" rel="noopener" href="http://code.mcdvisa.com/">中文电码解密</a></p>
+<img src="https://s2.loli.net/2023/01/29/HvoJkdmypfluQcB.png" srcset="/img/loading.gif" lazyload alt="image-20230129211305496" style="zoom:33%;" />
+
+<p> <a target="_blank" rel="noopener" href="http://life.chacuo.net/convertwubi">在线五笔输入</a></p>
+<p><img src="https://s2.loli.net/2023/01/29/qFlTKoPOBA7zfjd.png" srcset="/img/loading.gif" lazyload alt="image-20230129211512925"></p>
+<p><code>人工智能也要从娃娃抓起</code></p>
+<p>md5加密</p>
+<p><img src="https://s2.loli.net/2023/01/29/6HhxYwsLqVcekuW.png" srcset="/img/loading.gif" lazyload alt="image-20230129211647824"></p>
+<h2 id="GUET-CTF2019-zips"><a href="#GUET-CTF2019-zips" class="headerlink" title="[GUET-CTF2019]zips"></a>[GUET-CTF2019]zips</h2><p>首先下载得到 zip压缩包 <code>222.zip</code> ，发现需要密码，但是我们不知道，我们只能使用 <code>ARCHPR</code> 爆破，获得密码，解压缩得到 <code>111.zip</code></p>
+<p>发现是伪加密，我们可以使用工具 <code>ZipCenOp</code> 修复伪加密</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-keyword">java </span>-<span class="hljs-keyword">jar </span>ZipCenOp.<span class="hljs-keyword">jar </span>r <span class="hljs-number">111</span>.zip<br></code></pre></td></tr></table></figure>
+
+<p>打开，发现 <code>setup.sh</code> 文件：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-meta">#!/bin/bash</span><br><span class="hljs-comment">#</span><br>zip -e --password=`python -c <span class="hljs-string">&quot;print(__import__(&#x27;time&#x27;).time())&quot;</span>` flag.zip flag<br></code></pre></td></tr></table></figure>
+
+<p>这里使用了 时间戳当作压缩包密码进行解压，但是我们不知道时间是多少。</p>
+<p>我们先查看一下当前的时间戳（注意是python2）：</p>
+<img src="https://s2.loli.net/2023/01/29/Jzlp1TPLsixgrN3.png" srcset="/img/loading.gif" lazyload alt="image-20230129213208408" style="zoom:50%;" />
+
+<p>我们通过文件修改日期推测 时间戳是 15…..</p>
+<p>我们可以使用<code>掩码爆破</code> ，进行解压：</p>
+<img src="https://s2.loli.net/2023/01/29/ZI4BUx9Kwt1dav3.png" srcset="/img/loading.gif" lazyload alt="image-20230129213704650" style="zoom:50%;" />
+
+<p>获得时间戳，我们进行解压，得到flag</p>
+<h2 id="DDCTF2018-╯°□°）╯︵-┻━┻"><a href="#DDCTF2018-╯°□°）╯︵-┻━┻" class="headerlink" title="[DDCTF2018](╯°□°）╯︵ ┻━┻"></a>[DDCTF2018](╯°□°）╯︵ ┻━┻</h2><p>打开txt文件：</p>
+<p><img src="https://s2.loli.net/2023/01/29/Gl3fE1ICn9jFr4d.png" srcset="/img/loading.gif" lazyload alt="image-20230129213835221"></p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs llvm">d<span class="hljs-number">4e8</span>e<span class="hljs-number">1</span>f<span class="hljs-number">4</span>a<span class="hljs-number">0</span>f<span class="hljs-number">7e1</span>f<span class="hljs-number">3</span>a<span class="hljs-number">0e6</span>e<span class="hljs-number">1</span>f<span class="hljs-number">3</span>f<span class="hljs-number">4</span>a<span class="hljs-number">1</span>a<span class="hljs-number">0</span>d<span class="hljs-number">4e8</span>e<span class="hljs-number">5</span>a<span class="hljs-number">0e6</span>ece<span class="hljs-number">1e7</span>a<span class="hljs-number">0e9</span>f<span class="hljs-number">3</span>baa<span class="hljs-number">0</span><span class="hljs-keyword">c</span><span class="hljs-number">4</span><span class="hljs-keyword">c</span><span class="hljs-number">4</span><span class="hljs-keyword">c</span><span class="hljs-number">3</span>d<span class="hljs-number">4</span><span class="hljs-keyword">c</span><span class="hljs-number">6</span>fbb<span class="hljs-number">9</span>b<span class="hljs-number">2</span>b<span class="hljs-number">2e1</span>e<span class="hljs-number">2</span>b<span class="hljs-number">9</span>b<span class="hljs-number">9</span>b<span class="hljs-number">7</span>b<span class="hljs-number">4e1</span>b<span class="hljs-number">4</span>b<span class="hljs-number">7e3</span>e<span class="hljs-number">4</span>b<span class="hljs-number">3</span>b<span class="hljs-number">2</span>b<span class="hljs-number">2e3</span>e<span class="hljs-number">6</span>b<span class="hljs-number">4</span>b<span class="hljs-number">3e2</span>b<span class="hljs-number">5</span>b<span class="hljs-number">0</span>b<span class="hljs-number">6</span>b<span class="hljs-number">1</span>b<span class="hljs-number">0e6</span>e<span class="hljs-number">1e5</span>e<span class="hljs-number">1</span>b<span class="hljs-number">5</span>fd<br></code></pre></td></tr></table></figure>
+<p>长度134的字16进制符串，每两位进行截取</p>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs scheme">[<span class="hljs-symbol">&#x27;d4</span>&#x27;, <span class="hljs-symbol">&#x27;e8</span>&#x27;, <span class="hljs-symbol">&#x27;e1</span>&#x27;, <span class="hljs-symbol">&#x27;f4</span>&#x27;, <span class="hljs-symbol">&#x27;a0</span>&#x27;, <span class="hljs-symbol">&#x27;f7</span>&#x27;, <span class="hljs-symbol">&#x27;e1</span>&#x27;, <span class="hljs-symbol">&#x27;f3</span>&#x27;, <span class="hljs-symbol">&#x27;a0</span>&#x27;, <span class="hljs-symbol">&#x27;e6</span>&#x27;, <span class="hljs-symbol">&#x27;e1</span>&#x27;, <span class="hljs-symbol">&#x27;f3</span>&#x27;, <span class="hljs-symbol">&#x27;f4</span>&#x27;, <span class="hljs-symbol">&#x27;a1</span>&#x27;, <span class="hljs-symbol">&#x27;a0</span>&#x27;, <span class="hljs-symbol">&#x27;d4</span>&#x27;, <span class="hljs-symbol">&#x27;e8</span>&#x27;, <span class="hljs-symbol">&#x27;e5</span>&#x27;, <span class="hljs-symbol">&#x27;a0</span>&#x27;, <span class="hljs-symbol">&#x27;e6</span>&#x27;, <span class="hljs-symbol">&#x27;ec</span>&#x27;, <span class="hljs-symbol">&#x27;e1</span>&#x27;, <span class="hljs-symbol">&#x27;e7</span>&#x27;, <span class="hljs-symbol">&#x27;a0</span>&#x27;, <span class="hljs-symbol">&#x27;e9</span>&#x27;, <span class="hljs-symbol">&#x27;f3</span>&#x27;, <span class="hljs-symbol">&#x27;ba</span>&#x27;, <span class="hljs-symbol">&#x27;a0</span>&#x27;, <span class="hljs-symbol">&#x27;c4</span>&#x27;, <span class="hljs-symbol">&#x27;c4</span>&#x27;, <span class="hljs-symbol">&#x27;c3</span>&#x27;, <span class="hljs-symbol">&#x27;d4</span>&#x27;, <span class="hljs-symbol">&#x27;c6</span>&#x27;, <span class="hljs-symbol">&#x27;fb</span>&#x27;, <span class="hljs-symbol">&#x27;b9</span>&#x27;, <span class="hljs-symbol">&#x27;b2</span>&#x27;, <span class="hljs-symbol">&#x27;b2</span>&#x27;, <span class="hljs-symbol">&#x27;e1</span>&#x27;, <span class="hljs-symbol">&#x27;e2</span>&#x27;, <span class="hljs-symbol">&#x27;b9</span>&#x27;, <span class="hljs-symbol">&#x27;b9</span>&#x27;, <span class="hljs-symbol">&#x27;b7</span>&#x27;, <span class="hljs-symbol">&#x27;b4</span>&#x27;, <span class="hljs-symbol">&#x27;e1</span>&#x27;, <span class="hljs-symbol">&#x27;b4</span>&#x27;, <span class="hljs-symbol">&#x27;b7</span>&#x27;, <span class="hljs-symbol">&#x27;e3</span>&#x27;, <span class="hljs-symbol">&#x27;e4</span>&#x27;, <span class="hljs-symbol">&#x27;b3</span>&#x27;, <span class="hljs-symbol">&#x27;b2</span>&#x27;, <span class="hljs-symbol">&#x27;b2</span>&#x27;, <span class="hljs-symbol">&#x27;e3</span>&#x27;, <span class="hljs-symbol">&#x27;e6</span>&#x27;, <span class="hljs-symbol">&#x27;b4</span>&#x27;, <span class="hljs-symbol">&#x27;b3</span>&#x27;, <span class="hljs-symbol">&#x27;e2</span>&#x27;, <span class="hljs-symbol">&#x27;b5</span>&#x27;, <span class="hljs-symbol">&#x27;b0</span>&#x27;, <span class="hljs-symbol">&#x27;b6</span>&#x27;, <span class="hljs-symbol">&#x27;b1</span>&#x27;, <span class="hljs-symbol">&#x27;b0</span>&#x27;, <span class="hljs-symbol">&#x27;e6</span>&#x27;, <span class="hljs-symbol">&#x27;e1</span>&#x27;, <span class="hljs-symbol">&#x27;e5</span>&#x27;, <span class="hljs-symbol">&#x27;e1</span>&#x27;, <span class="hljs-symbol">&#x27;b5</span>&#x27;, <span class="hljs-symbol">&#x27;fd</span>&#x27;]<br></code></pre></td></tr></table></figure>
+
+<p>转为10进制：</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs accesslog"><span class="hljs-string">[212, 232, 225, 244, 160, 247, 225, 243, 160, 230, 225, 243, 244, 161, 160, 212, 232, 229, 160, 230, 236, 225, 231, 160, 233, 243, 186, 160, 196, 196, 195, 212, 198, 251, 185, 178, 178, 225, 226, 185, 185, 183, 180, 225, 180, 183, 227, 228, 179, 178, 178, 227, 230, 180, 179, 226, 181, 176, 182, 177, 176, 230, 225, 229, 225, 181, 253]</span><br></code></pre></td></tr></table></figure>
+
+<p>将大于 128的数字减128得到ascii码：</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs accesslog"><span class="hljs-string">[84, 104, 97, 116, 32, 119, 97, 115, 32, 102, 97, 115, 116, 33, 32, 84, 104, 101, 32, 102, 108, 97, 103, 32, 105, 115, 58, 32, 68, 68, 67, 84, 70, 123, 57, 50, 50, 97, 98, 57, 57, 55, 52, 97, 52, 55, 99, 100, 51, 50, 50, 99, 102, 52, 51, 98, 53, 48, 54, 49, 48, 102, 97, 101, 97, 53, 125]</span><br></code></pre></td></tr></table></figure>
+
+<p>全部转为字符：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs actionscript">That was fast! The flag <span class="hljs-keyword">is</span>: DDCTF&#123;<span class="hljs-number">922</span>ab9974a47cd322cf43b50610faea5&#125;<br></code></pre></td></tr></table></figure>
+
+<p>脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># -*- coding:utf-8 -*-</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">hex_str</span>(<span class="hljs-params"><span class="hljs-built_in">str</span></span>):<span class="hljs-comment">#对字符串进行切片操作，每两位截取</span><br>    hex_str_list=[]<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,<span class="hljs-built_in">len</span>(<span class="hljs-built_in">str</span>)-<span class="hljs-number">1</span>,<span class="hljs-number">2</span>):<br>        hex_str=<span class="hljs-built_in">str</span>[i:i+<span class="hljs-number">2</span>]<br>        hex_str_list.append(hex_str)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;hex列表：%s\n&quot;</span>%hex_str_list)<br>    hex_to_str(hex_str_list)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">hex_to_str</span>(<span class="hljs-params">hex_str_list</span>):<br>    int_list=[]<br>    dec_list=[]<br>    flag=<span class="hljs-string">&#x27;&#x27;</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,<span class="hljs-built_in">len</span>(hex_str_list)):<span class="hljs-comment">#把16进制转化为10进制</span><br>        int_str=<span class="hljs-built_in">int</span>(<span class="hljs-string">&#x27;0x%s&#x27;</span>%hex_str_list[i],<span class="hljs-number">16</span>)<br>        int_list.append(int_str)<br>        dec_list.append(int_str-<span class="hljs-number">128</span>)<span class="hljs-comment">#-128得到正确的ascii码</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,<span class="hljs-built_in">len</span>(dec_list)):<span class="hljs-comment">#ascii码转化为字符串</span><br>        flag += <span class="hljs-built_in">chr</span>(dec_list[i])<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;转化为十进制int列表：%s\n&quot;</span>%int_list)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;-128得到ASCII十进制dec列表：%s\n&quot;</span>%dec_list)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;最终答案：%s&#x27;</span>%flag)<br><br><span class="hljs-keyword">if</span> __name__==<span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    <span class="hljs-built_in">str</span>=<span class="hljs-string">&#x27;d4e8e1f4a0f7e1f3a0e6e1f3f4a1a0d4e8e5a0e6ece1e7a0e9f3baa0c4c4c3d4c6fbb9b2b2e1e2b9b9b7b4e1b4b7e3e4b3b2b2e3e6b4b3e2b5b0b6b1b0e6e1e5e1b5fd&#x27;</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;字符串长度：%s&quot;</span>%<span class="hljs-built_in">len</span>(<span class="hljs-built_in">str</span>))<br>    hex_str(<span class="hljs-built_in">str</span>)<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="WUSTCTF2020-girlfriend"><a href="#WUSTCTF2020-girlfriend" class="headerlink" title="[WUSTCTF2020]girlfriend"></a>[WUSTCTF2020]girlfriend</h2><p>下载获得一个 wav音频文件，播放一下，听起来像打电话，于是我们可以使用工具 <code>dtmf2num</code>，进行拨号音识别：</p>
+<p><img src="https://s2.loli.net/2023/01/29/3GAEKh6SJjPiC4Y.png" srcset="/img/loading.gif" lazyload alt="image-20230129215340438"></p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">999</span>*<span class="hljs-number">666</span>*<span class="hljs-number">88</span>*<span class="hljs-number">2</span>*<span class="hljs-number">777</span>*<span class="hljs-number">33</span>*<span class="hljs-number">6</span>*<span class="hljs-number">999</span>*<span class="hljs-number">4</span>*<span class="hljs-number">444</span>*<span class="hljs-number">777</span>*<span class="hljs-number">555</span>*<span class="hljs-number">333</span>*<span class="hljs-number">777</span>*<span class="hljs-number">444</span>*<span class="hljs-number">33</span>*<span class="hljs-number">66</span>*<span class="hljs-number">3</span>*<span class="hljs-number">7777</span><br></code></pre></td></tr></table></figure>
+
+<p>看这一串数字，应该是手机键盘加密。</p>
+<p><img src="https://s2.loli.net/2023/01/29/jaSVPu361YUyIfe.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p><code>999</code>就是指按三下数字9得到的字母也就是<code>y</code>，以此类推，数字对应手机的每个键位，几个数字代表按几下</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs ada"><span class="hljs-number">999</span>     <span class="hljs-comment">---&gt;   y</span><br><span class="hljs-number">666</span>     <span class="hljs-comment">---&gt;   o</span><br><span class="hljs-number">88</span>      <span class="hljs-comment">---&gt;   u</span><br><span class="hljs-number">2</span>       <span class="hljs-comment">---&gt;   a</span><br><span class="hljs-number">777</span>     <span class="hljs-comment">---&gt;   r</span><br><span class="hljs-number">33</span>      <span class="hljs-comment">---&gt;   e</span><br><span class="hljs-number">6</span>       <span class="hljs-comment">---&gt;   m</span><br><span class="hljs-number">999</span>     <span class="hljs-comment">---&gt;   y</span><br><span class="hljs-number">4</span>       <span class="hljs-comment">---&gt;   g</span><br><span class="hljs-number">4444</span>    <span class="hljs-comment">---&gt;   i</span><br><span class="hljs-number">777</span>     <span class="hljs-comment">---&gt;   r</span><br><span class="hljs-number">555</span>     <span class="hljs-comment">---&gt;   l</span><br><span class="hljs-number">333</span>     <span class="hljs-comment">---&gt;   f</span><br><span class="hljs-number">777</span>     <span class="hljs-comment">---&gt;   r</span><br><span class="hljs-number">444</span>     <span class="hljs-comment">---&gt;   i</span><br><span class="hljs-number">33</span>      <span class="hljs-comment">---&gt;   e</span><br><span class="hljs-number">66</span>      <span class="hljs-comment">---&gt;   n</span><br><span class="hljs-number">3</span>       <span class="hljs-comment">---&gt;   d</span><br><span class="hljs-number">7777</span>    <span class="hljs-comment">---&gt;   s</span><br><br>youaremygirlfriends<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="MRCTF2020-千层套路"><a href="#MRCTF2020-千层套路" class="headerlink" title="[MRCTF2020]千层套路"></a>[MRCTF2020]千层套路</h2><p>这一题是一个 zip无线套娃题</p>
+<img src="https://s2.loli.net/2023/01/29/1Nryh7p9oKxOsba.png" srcset="/img/loading.gif" lazyload alt="image-20230129215712623" style="zoom:33%;" />
+
+<p>脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> zipfile<br><br>filepath = <span class="hljs-string">&quot;0573.zip&quot;</span><br><br><span class="hljs-keyword">while</span> zipfile.is_zipfile(<span class="hljs-string">&quot;zip/&quot;</span> + filepath): <span class="hljs-comment"># 当文件是zip文件时</span><br>    pwd = filepath.split(<span class="hljs-string">&quot;.&quot;</span>)[<span class="hljs-number">0</span>] <span class="hljs-comment">#获得解压密码</span><br>    file = zipfile.ZipFile(<span class="hljs-string">&quot;zip/&quot;</span> + filepath) <span class="hljs-comment"># 创建一个ZipFile对象，表示一个zip文件</span><br>    filepath = file.namelist().pop() <span class="hljs-comment"># namelist()获取zip文档内所有文件的名称列表</span><br>    file.extract(filepath, <span class="hljs-string">r&quot;D:\Applications\CTF\phpstudy_pro\WWW\scripts_py\BUUCTF\zip&quot;</span>, pwd=pwd.encode(<span class="hljs-string">&#x27;utf-8&#x27;</span>))<br>    file.close()<br>    <span class="hljs-built_in">print</span>(filepath)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;解压成功！&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="XMAN2018排位赛-通行证"><a href="#XMAN2018排位赛-通行证" class="headerlink" title="[XMAN2018排位赛]通行证"></a>[XMAN2018排位赛]通行证</h2><p>首先base64解密：</p>
+<img src="https://s2.loli.net/2023/01/29/nHSXJRM7QWZvq5V.png" srcset="/img/loading.gif" lazyload alt="image-20230129220121336" style="zoom:33%;" />
+
+<p>得到： <code>kanbbrgghjl&#123;zb____&#125;vtlaln</code> ，这个可能是<code>栅栏密码</code>。</p>
+<p><code>注意：此处是栅栏加密，不是解密</code> <a target="_blank" rel="noopener" href="http://www.hiencode.com/railfence.html">栅栏密码</a></p>
+<img src="https://s2.loli.net/2023/01/29/BhlKkHmq6W5Yic4.png" srcset="/img/loading.gif" lazyload alt="image-20230129220435582" style="zoom:33%;" />
+
+<p>每组字数为7。</p>
+<p>然后发现应该<code>凯撒解密</code>，得到flag</p>
+<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dust"><span class="language-xml">xman</span><span class="hljs-template-variable">&#123;oyay_now_you_get_it&#125;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="百里挑一"><a href="#百里挑一" class="headerlink" title="百里挑一"></a>百里挑一</h2><p>下载得到一个 pcapng文件，我们使用 wireshark导出 http对象，发现一堆图片。</p>
+<p>然后我们使用 <code>exiftool</code> 工具 ，查看所有图片的 详细信息，并且过滤出带有 { 的字段</p>
+<p><img src="https://s2.loli.net/2023/01/29/vgzrs6y2bo9FUDB.png" srcset="/img/loading.gif" lazyload alt="image-20230129221834003"></p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gradle">exiftool * | <span class="hljs-keyword">grep</span> <span class="hljs-string">&#x27;&#123;&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>我们得到了一半的 flag</p>
+<p>我们我们在 wireshark 中过滤，查找字符串 <code>Exif</code>：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript">tcp <span class="hljs-keyword">contains</span> <span class="hljs-string">&quot;Exif&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/01/29/8BQXLSUN6oKdh2A.png" srcset="/img/loading.gif" lazyload alt="image-20230129222327838"></p>
+<p>找到另一半flag：</p>
+<p><img src="https://s2.loli.net/2023/01/29/ywU2EqugIQZ7aRr.png" srcset="/img/loading.gif" lazyload alt="image-20230129222415741"></p>
+<h2 id="SUCTF2018-followme"><a href="#SUCTF2018-followme" class="headerlink" title="[SUCTF2018]followme"></a>[SUCTF2018]followme</h2><p>我们使用 wireshark 导出 http对象：</p>
+<p>一大串登录的东西</p>
+<p><img src="https://s2.loli.net/2023/01/29/QCXj3ytWwiOz2ke.png" srcset="/img/loading.gif" lazyload alt="image-20230129232915858"></p>
+<p>我们使用 linux <code>grep</code> 命令</p>
+<p><code>grep -r &quot;CTF&quot;</code> 查找整个目录下的字符串，得到flag</p>
+<p><img src="https://s2.loli.net/2023/01/29/lidRkDQeEj687Jw.png" srcset="/img/loading.gif" lazyload alt="image-20230129232701324"></p>
+<h2 id="UTCTF2020-file-header"><a href="#UTCTF2020-file-header" class="headerlink" title="[UTCTF2020]file header"></a>[UTCTF2020]file header</h2><p>使用 010Editor 改一下文件头即可</p>
+<p><img src="https://s2.loli.net/2023/01/29/CWhzHfplN1D5TRZ.png" srcset="/img/loading.gif" lazyload alt="image-20230129233235714"></p>
+<h2 id="MRCTF2020-CyberPunk"><a href="#MRCTF2020-CyberPunk" class="headerlink" title="[MRCTF2020]CyberPunk"></a>[MRCTF2020]CyberPunk</h2><p>下载后获得一个exe程序，打开：</p>
+<img src="https://s2.loli.net/2023/01/30/FLZo3l1ujKTkYcf.png" srcset="/img/loading.gif" lazyload alt="image-20230130104633584" style="zoom:33%;" />
+
+<p>提示说，只要我们时间是 <code>2020.9.17</code> 就能得到flag。</p>
+<p>我们只需要修改计算机系统时间为 <code>2020.9.17</code> 即可</p>
+<h2 id="安洵杯-2019-Attack"><a href="#安洵杯-2019-Attack" class="headerlink" title="[安洵杯 2019]Attack"></a>[安洵杯 2019]Attack</h2><p>首先使用 <code>foremost</code> 分离 pcap 文件，得到一个压缩包：</p>
+<p><img src="https://s2.loli.net/2023/01/30/FYb7HC1GMt23XTf.png" srcset="/img/loading.gif" lazyload alt="image-20230130114755836"></p>
+<p>然后查看wp后，发现这个需要获取到管理员的密码去解压。</p>
+<p>我们这里需要用到一个工具： <code>mimikatz</code></p>
+<blockquote>
+<p><code>mimikatz</code> 在内网渗透中是个很有用的工具。<code>mimikatz</code>可以在内存中爬取到<strong>明文密码</strong></p>
+</blockquote>
+<p>下载：<br> <a target="_blank" rel="noopener" href="https://github.com/gentilkiwi/mimikatz/releases/">https://github.com/gentilkiwi/mimikatz/releases/</a></p>
+<p>然后我们可以使用 wireshark 去导出 <code>lsass.dmp</code> 内存镜像</p>
+<p><img src="https://s2.loli.net/2023/01/30/swnj6HXWrCRkh5y.png" srcset="/img/loading.gif" lazyload alt="image-20230130115322693"></p>
+<blockquote>
+<p><strong>关于lsass</strong></p>
+<p> <strong>lsass</strong>是windows系统的一个进程，用于本地安全和登陆策略。</p>
+<p><code>mimikatz</code>可以从 lsass.exe 里获取windows处于<strong>active状态账号明文密码</strong>。</p>
+</blockquote>
+<p>本题的<code>lsass.dmp</code>就是内存运行的镜像，也可以提取到账户密码</p>
+<p>如何使用？我们可以先将 <code>lsass.dmp</code> 复制到<code>mimikatz</code>目录下</p>
+<p><img src="https://s2.loli.net/2023/01/30/mPu1yQUsJX4Iqir.png" srcset="/img/loading.gif" lazyload alt="image-20230130115531772"></p>
+<p>然后右键<strong>管理员运行</strong> <code>mimikatz.exe</code>：（不用会报错）</p>
+<p><img src="https://s2.loli.net/2023/01/30/9QbhtGMnc1iljZw.png" srcset="/img/loading.gif" lazyload alt="image-20230130115615175"></p>
+<p>输入：</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs lasso"><span class="hljs-comment">//提升权限</span><br>privilege<span class="hljs-type">::debug</span><br><span class="hljs-comment">//载入dmp文件</span><br>sekurlsa<span class="hljs-type">::minidump</span> lsass.dmp<br><span class="hljs-comment">//读取登陆密码</span><br>sekurlsa<span class="hljs-type">::logonpasswords</span> <span class="hljs-literal">full</span><br></code></pre></td></tr></table></figure>
+
+<p>得到：</p>
+<p><img src="https://s2.loli.net/2023/01/30/klf5H12GsyAPza9.png" srcset="/img/loading.gif" lazyload alt="image-20230130115822351"></p>
+<p>密码： <code>W3lc0meToD0g3</code></p>
+<p>解压zip得到flag</p>
+<h2 id="SUCTF-2019-Game"><a href="#SUCTF-2019-Game" class="headerlink" title="[SUCTF 2019]Game"></a>[SUCTF 2019]Game</h2><p>下载后得到一个游戏源码和一张图片。</p>
+<p>在游戏源码 <code>index.html</code> 中，我们发现了一个fake flag：</p>
+<p><img src="https://s2.loli.net/2023/01/30/B3yQKfiEDznSmo9.png" srcset="/img/loading.gif" lazyload alt="image-20230130124848144"></p>
+<p>这是base32编码，我们解码： <code>suctf&#123;hAHaha_Fak3_F1ag&#125; </code> 一个假的flag</p>
+<p>然后我们去分析图片：</p>
+<img src="https://s2.loli.net/2023/01/30/GSaAxcBLdJuHDt2.png" srcset="/img/loading.gif" lazyload alt="image-20230130125013103" style="zoom:33%;" />
+
+<p>我们发现了 LSB隐写：</p>
+ <img src="https://s2.loli.net/2023/01/30/SNV5zr2qUKEMkbH.png" srcset="/img/loading.gif" lazyload alt="image-20230130125055316" style="zoom:33%;" />
+
+
+
+<p>这一串看着像 base64，但是我们解码一下： <code>Salted__³4yíYRÁ|ÜTVK»¤&amp;Ñ:?)ëËÊkU</code></p>
+<p><code>Salted</code>开头，一个是 AES、DES等编码，经过测试，发现是 <code>3DES</code> 即：<code>TripleDES</code></p>
+<p>密钥就是：<code>suctf&#123;hAHaha_Fak3_F1ag&#125;</code>，</p>
+<p>解密得到flag：<a target="_blank" rel="noopener" href="https://www.sojson.com/encrypt_triple_des.html">https://www.sojson.com/encrypt_triple_des.html</a></p>
+<p><img src="https://s2.loli.net/2023/01/30/zpBJjgPOyGQbLit.png" srcset="/img/loading.gif" lazyload alt="image-20230130125545910"></p>
+<h2 id="USB"><a href="#USB" class="headerlink" title="USB"></a>USB</h2><blockquote>
+<p>Do your konw usb?? 注意：得到的 flag 请包上 flag{} 提交</p>
+</blockquote>
+<p>下载后得到一个 <code>rar压缩包</code> 和 <code>key.ftm</code> 文件</p>
+<p><img src="https://s2.loli.net/2023/01/30/dR5XjmE8wD9sepQ.png" srcset="/img/loading.gif" lazyload alt="image-20230130134615328"></p>
+<p>使用 <code>010Editor</code> 打开 <code>key.ftm</code> ：</p>
+<img src="https://s2.loli.net/2023/01/30/vUZHM8kNfecmSQx.png" srcset="/img/loading.gif" lazyload alt="image-20230130134738445" style="zoom: 50%;" />
+
+<p>我们发现其中隐藏着 zip压缩包，我们使用 <code>foremost</code> 分离得到 流量包文件：</p>
+<p><img src="https://s2.loli.net/2023/01/30/S8XtvyFAhOjKUNp.png" srcset="/img/loading.gif" lazyload alt="image-20230130134834406"></p>
+<p>观察可知，这是<code>USB流量包分析</code> ，这一题是 <code>USB键盘流量分析</code>.</p>
+<blockquote>
+<p><strong>USB流量</strong>指的是USB设备接口的流量，攻击者能够通过监听usb接口流量获取键盘敲击键、鼠标移动与点击、存储设备的铭文传输通信、USB无线网卡网络传输内容等等。在CTF中，USB流量分析主要以键盘和鼠标流量为主。</p>
+</blockquote>
+<blockquote>
+<p><strong>键盘流量</strong></p>
+<p>USB协议数据部分在Leftover Capture Data域中，数据长度为<code>八个字节</code>。其中键盘击键信息集中在第三个字节中。</p>
+</blockquote>
+<img src="https://s2.loli.net/2023/01/30/7R8zFoOWGvp5VaI.png" srcset="/img/loading.gif" lazyload alt="image-20230130135235146" style="zoom:50%;" />
+
+<p>如图，发现击键信息为0x06，即对应的按键为<code>C</code><br>键位映射关系参考：<a target="_blank" rel="noopener" href="https://wenku.baidu.com/view/9050c3c3af45b307e971971e.html">《USB键盘协议中键码》中的HID Usage ID</a></p>
+<p>我们可以使用 linux 的 <code>tshark</code>命令 把usb流量包key.pcap中 <code>capdata</code> 读取出来：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh">tshark -r key.pcap -T fields -e usb.capdata &gt; usbdata.txt<br>tshark -r key.pcap -T fields -e usb.capdata | sed <span class="hljs-string">&#x27;/^\s*$/d&#x27;</span> &gt; usbdata.txt <span class="hljs-comment">#提取并去除空行</span><br></code></pre></td></tr></table></figure>
+
+<p>我们查看一下txt文件：</p>
+<img src="https://s2.loli.net/2023/01/30/EBrxc6APsOGKvzl.png" srcset="/img/loading.gif" lazyload alt="image-20230130135745207" style="zoom:33%;" />
+
+<p>提取出来的数据可能会带<strong>冒号</strong>，也可能不带（有可能和wireshark的版本相关），但是一般的脚本都会按照有冒号的数据来识别</p>
+<blockquote>
+<p>有冒号时提取数据的<code>[6:8]</code><br>无冒号时数据在<code>[4:6]</code></p>
+</blockquote>
+<p>可以用脚本来加上冒号：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># -*- coding = utf-8 -*-</span><br><span class="hljs-comment"># @Time : 2023/1/30 13:59</span><br><span class="hljs-comment"># @Author : Leekos</span><br><span class="hljs-comment"># @File : USB_tshark_键盘capdata添加冒号.py</span><br><span class="hljs-comment"># @Software : PyCharm</span><br>f = <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;C://Users/LIKE/Desktop/data.txt&#x27;</span>, <span class="hljs-string">&#x27;r&#x27;</span>)<br>fi = <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;C://Users/LIKE/Desktop/out.txt&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>)<br><span class="hljs-keyword">while</span> <span class="hljs-number">1</span>:<br>    a = f.readline().strip()<br>    <span class="hljs-keyword">if</span> a:<br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(a) == <span class="hljs-number">16</span>:  <span class="hljs-comment"># 鼠标流量的话len改为8</span><br>            out = <span class="hljs-string">&#x27;&#x27;</span><br>            <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(a), <span class="hljs-number">2</span>):<br>                <span class="hljs-keyword">if</span> i + <span class="hljs-number">2</span> != <span class="hljs-built_in">len</span>(a):<br>                    out += a[i] + a[i + <span class="hljs-number">1</span>] + <span class="hljs-string">&quot;:&quot;</span><br>                <span class="hljs-keyword">else</span>:<br>                    out += a[i] + a[i + <span class="hljs-number">1</span>]<br>            fi.write(out)<br>            fi.write(<span class="hljs-string">&#x27;\n&#x27;</span>)<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">break</span><br><br>fi.close()<br></code></pre></td></tr></table></figure>
+
+<p>如图：</p>
+<img src="https://s2.loli.net/2023/01/30/E3ebm4GlRLHT5qP.png" srcset="/img/loading.gif" lazyload alt="image-20230130140736769" style="zoom:33%;" />
+
+<p>此时对应的第三字节，也就是**[6:8]**就代表了击键信息</p>
+<p>提取出键盘流量后需要用<strong>脚本还原数据对应的信息</strong>。同时找到两个还原信息的脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># python2</span><br>mappings = &#123; <span class="hljs-number">0x04</span>:<span class="hljs-string">&quot;A&quot;</span>,  <span class="hljs-number">0x05</span>:<span class="hljs-string">&quot;B&quot;</span>,  <span class="hljs-number">0x06</span>:<span class="hljs-string">&quot;C&quot;</span>, <span class="hljs-number">0x07</span>:<span class="hljs-string">&quot;D&quot;</span>, <span class="hljs-number">0x08</span>:<span class="hljs-string">&quot;E&quot;</span>, <span class="hljs-number">0x09</span>:<span class="hljs-string">&quot;F&quot;</span>, <span class="hljs-number">0x0A</span>:<span class="hljs-string">&quot;G&quot;</span>,  <span class="hljs-number">0x0B</span>:<span class="hljs-string">&quot;H&quot;</span>, <span class="hljs-number">0x0C</span>:<span class="hljs-string">&quot;I&quot;</span>,  <span class="hljs-number">0x0D</span>:<span class="hljs-string">&quot;J&quot;</span>, <span class="hljs-number">0x0E</span>:<span class="hljs-string">&quot;K&quot;</span>, <span class="hljs-number">0x0F</span>:<span class="hljs-string">&quot;L&quot;</span>, <span class="hljs-number">0x10</span>:<span class="hljs-string">&quot;M&quot;</span>, <span class="hljs-number">0x11</span>:<span class="hljs-string">&quot;N&quot;</span>,<span class="hljs-number">0x12</span>:<span class="hljs-string">&quot;O&quot;</span>,  <span class="hljs-number">0x13</span>:<span class="hljs-string">&quot;P&quot;</span>, <span class="hljs-number">0x14</span>:<span class="hljs-string">&quot;Q&quot;</span>, <span class="hljs-number">0x15</span>:<span class="hljs-string">&quot;R&quot;</span>, <span class="hljs-number">0x16</span>:<span class="hljs-string">&quot;S&quot;</span>, <span class="hljs-number">0x17</span>:<span class="hljs-string">&quot;T&quot;</span>, <span class="hljs-number">0x18</span>:<span class="hljs-string">&quot;U&quot;</span>,<span class="hljs-number">0x19</span>:<span class="hljs-string">&quot;V&quot;</span>, <span class="hljs-number">0x1A</span>:<span class="hljs-string">&quot;W&quot;</span>, <span class="hljs-number">0x1B</span>:<span class="hljs-string">&quot;X&quot;</span>, <span class="hljs-number">0x1C</span>:<span class="hljs-string">&quot;Y&quot;</span>, <span class="hljs-number">0x1D</span>:<span class="hljs-string">&quot;Z&quot;</span>, <span class="hljs-number">0x1E</span>:<span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-number">0x1F</span>:<span class="hljs-string">&quot;2&quot;</span>, <span class="hljs-number">0x20</span>:<span class="hljs-string">&quot;3&quot;</span>, <span class="hljs-number">0x21</span>:<span class="hljs-string">&quot;4&quot;</span>, <span class="hljs-number">0x22</span>:<span class="hljs-string">&quot;5&quot;</span>,  <span class="hljs-number">0x23</span>:<span class="hljs-string">&quot;6&quot;</span>, <span class="hljs-number">0x24</span>:<span class="hljs-string">&quot;7&quot;</span>, <span class="hljs-number">0x25</span>:<span class="hljs-string">&quot;8&quot;</span>, <span class="hljs-number">0x26</span>:<span class="hljs-string">&quot;9&quot;</span>, <span class="hljs-number">0x27</span>:<span class="hljs-string">&quot;0&quot;</span>, <span class="hljs-number">0x28</span>:<span class="hljs-string">&quot;\n&quot;</span>, <span class="hljs-number">0x2a</span>:<span class="hljs-string">&quot;[DEL]&quot;</span>,  <span class="hljs-number">0X2B</span>:<span class="hljs-string">&quot;    &quot;</span>, <span class="hljs-number">0x2C</span>:<span class="hljs-string">&quot; &quot;</span>,  <span class="hljs-number">0x2D</span>:<span class="hljs-string">&quot;-&quot;</span>, <span class="hljs-number">0x2E</span>:<span class="hljs-string">&quot;=&quot;</span>, <span class="hljs-number">0x2F</span>:<span class="hljs-string">&quot;[&quot;</span>,  <span class="hljs-number">0x30</span>:<span class="hljs-string">&quot;]&quot;</span>,  <span class="hljs-number">0x31</span>:<span class="hljs-string">&quot;\\&quot;</span>, <span class="hljs-number">0x32</span>:<span class="hljs-string">&quot;~&quot;</span>, <span class="hljs-number">0x33</span>:<span class="hljs-string">&quot;;&quot;</span>,  <span class="hljs-number">0x34</span>:<span class="hljs-string">&quot;&#x27;&quot;</span>, <span class="hljs-number">0x36</span>:<span class="hljs-string">&quot;,&quot;</span>,  <span class="hljs-number">0x37</span>:<span class="hljs-string">&quot;.&quot;</span> &#125;<br><br>nums = []<br>keys = <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;C://Users/LIKE/Desktop/out.txt&#x27;</span>)<br><span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> keys:<br>    <span class="hljs-keyword">if</span> line[<span class="hljs-number">0</span>]!=<span class="hljs-string">&#x27;0&#x27;</span> <span class="hljs-keyword">or</span> line[<span class="hljs-number">1</span>]!=<span class="hljs-string">&#x27;0&#x27;</span> <span class="hljs-keyword">or</span> line[<span class="hljs-number">3</span>]!=<span class="hljs-string">&#x27;0&#x27;</span> <span class="hljs-keyword">or</span> line[<span class="hljs-number">4</span>]!=<span class="hljs-string">&#x27;0&#x27;</span> <span class="hljs-keyword">or</span> line[<span class="hljs-number">9</span>]!=<span class="hljs-string">&#x27;0&#x27;</span> <span class="hljs-keyword">or</span> line[<span class="hljs-number">10</span>]!=<span class="hljs-string">&#x27;0&#x27;</span> <span class="hljs-keyword">or</span> line[<span class="hljs-number">12</span>]!=<span class="hljs-string">&#x27;0&#x27;</span> <span class="hljs-keyword">or</span> line[<span class="hljs-number">13</span>]!=<span class="hljs-string">&#x27;0&#x27;</span> <span class="hljs-keyword">or</span> line[<span class="hljs-number">15</span>]!=<span class="hljs-string">&#x27;0&#x27;</span> <span class="hljs-keyword">or</span> line[<span class="hljs-number">16</span>]!=<span class="hljs-string">&#x27;0&#x27;</span> <span class="hljs-keyword">or</span> line[<span class="hljs-number">18</span>]!=<span class="hljs-string">&#x27;0&#x27;</span> <span class="hljs-keyword">or</span> line[<span class="hljs-number">19</span>]!=<span class="hljs-string">&#x27;0&#x27;</span> <span class="hljs-keyword">or</span> line[<span class="hljs-number">21</span>]!=<span class="hljs-string">&#x27;0&#x27;</span> <span class="hljs-keyword">or</span> line[<span class="hljs-number">22</span>]!=<span class="hljs-string">&#x27;0&#x27;</span>:<br>         <span class="hljs-keyword">continue</span><br>    nums.append(<span class="hljs-built_in">int</span>(line[<span class="hljs-number">6</span>:<span class="hljs-number">8</span>],<span class="hljs-number">16</span>))<br><br>keys.close()<br><br>output = <span class="hljs-string">&quot;&quot;</span><br><span class="hljs-keyword">for</span> n <span class="hljs-keyword">in</span> nums:<br>    <span class="hljs-keyword">if</span> n == <span class="hljs-number">0</span> :<br>        <span class="hljs-keyword">continue</span><br>    <span class="hljs-keyword">if</span> n <span class="hljs-keyword">in</span> mappings:<br>        output += mappings[n]<br>    <span class="hljs-keyword">else</span>:<br>        output += <span class="hljs-string">&#x27;[unknown]&#x27;</span><br><br><span class="hljs-built_in">print</span> <span class="hljs-string">&#x27;output :\n&#x27;</span> + output<br></code></pre></td></tr></table></figure>
+
+<p>脚本2（两个都可以）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># python3</span><br><br>normalKeys = &#123;<br>    <span class="hljs-string">&quot;04&quot;</span>:<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;05&quot;</span>:<span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-string">&quot;06&quot;</span>:<span class="hljs-string">&quot;c&quot;</span>, <span class="hljs-string">&quot;07&quot;</span>:<span class="hljs-string">&quot;d&quot;</span>, <span class="hljs-string">&quot;08&quot;</span>:<span class="hljs-string">&quot;e&quot;</span>,<br>    <span class="hljs-string">&quot;09&quot;</span>:<span class="hljs-string">&quot;f&quot;</span>, <span class="hljs-string">&quot;0a&quot;</span>:<span class="hljs-string">&quot;g&quot;</span>, <span class="hljs-string">&quot;0b&quot;</span>:<span class="hljs-string">&quot;h&quot;</span>, <span class="hljs-string">&quot;0c&quot;</span>:<span class="hljs-string">&quot;i&quot;</span>, <span class="hljs-string">&quot;0d&quot;</span>:<span class="hljs-string">&quot;j&quot;</span>,<br>     <span class="hljs-string">&quot;0e&quot;</span>:<span class="hljs-string">&quot;k&quot;</span>, <span class="hljs-string">&quot;0f&quot;</span>:<span class="hljs-string">&quot;l&quot;</span>, <span class="hljs-string">&quot;10&quot;</span>:<span class="hljs-string">&quot;m&quot;</span>, <span class="hljs-string">&quot;11&quot;</span>:<span class="hljs-string">&quot;n&quot;</span>, <span class="hljs-string">&quot;12&quot;</span>:<span class="hljs-string">&quot;o&quot;</span>,<br>      <span class="hljs-string">&quot;13&quot;</span>:<span class="hljs-string">&quot;p&quot;</span>, <span class="hljs-string">&quot;14&quot;</span>:<span class="hljs-string">&quot;q&quot;</span>, <span class="hljs-string">&quot;15&quot;</span>:<span class="hljs-string">&quot;r&quot;</span>, <span class="hljs-string">&quot;16&quot;</span>:<span class="hljs-string">&quot;s&quot;</span>, <span class="hljs-string">&quot;17&quot;</span>:<span class="hljs-string">&quot;t&quot;</span>,<br>       <span class="hljs-string">&quot;18&quot;</span>:<span class="hljs-string">&quot;u&quot;</span>, <span class="hljs-string">&quot;19&quot;</span>:<span class="hljs-string">&quot;v&quot;</span>, <span class="hljs-string">&quot;1a&quot;</span>:<span class="hljs-string">&quot;w&quot;</span>, <span class="hljs-string">&quot;1b&quot;</span>:<span class="hljs-string">&quot;x&quot;</span>, <span class="hljs-string">&quot;1c&quot;</span>:<span class="hljs-string">&quot;y&quot;</span>,<br>        <span class="hljs-string">&quot;1d&quot;</span>:<span class="hljs-string">&quot;z&quot;</span>,<span class="hljs-string">&quot;1e&quot;</span>:<span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-string">&quot;1f&quot;</span>:<span class="hljs-string">&quot;2&quot;</span>, <span class="hljs-string">&quot;20&quot;</span>:<span class="hljs-string">&quot;3&quot;</span>, <span class="hljs-string">&quot;21&quot;</span>:<span class="hljs-string">&quot;4&quot;</span>,<br>         <span class="hljs-string">&quot;22&quot;</span>:<span class="hljs-string">&quot;5&quot;</span>, <span class="hljs-string">&quot;23&quot;</span>:<span class="hljs-string">&quot;6&quot;</span>,<span class="hljs-string">&quot;24&quot;</span>:<span class="hljs-string">&quot;7&quot;</span>,<span class="hljs-string">&quot;25&quot;</span>:<span class="hljs-string">&quot;8&quot;</span>,<span class="hljs-string">&quot;26&quot;</span>:<span class="hljs-string">&quot;9&quot;</span>,<br>         <span class="hljs-string">&quot;27&quot;</span>:<span class="hljs-string">&quot;0&quot;</span>,<span class="hljs-string">&quot;28&quot;</span>:<span class="hljs-string">&quot;&lt;RET&gt;&quot;</span>,<span class="hljs-string">&quot;29&quot;</span>:<span class="hljs-string">&quot;&lt;ESC&gt;&quot;</span>,<span class="hljs-string">&quot;2a&quot;</span>:<span class="hljs-string">&quot;&lt;DEL&gt;&quot;</span>, <span class="hljs-string">&quot;2b&quot;</span>:<span class="hljs-string">&quot;\t&quot;</span>,<br>         <span class="hljs-string">&quot;2c&quot;</span>:<span class="hljs-string">&quot;&lt;SPACE&gt;&quot;</span>,<span class="hljs-string">&quot;2d&quot;</span>:<span class="hljs-string">&quot;-&quot;</span>,<span class="hljs-string">&quot;2e&quot;</span>:<span class="hljs-string">&quot;=&quot;</span>,<span class="hljs-string">&quot;2f&quot;</span>:<span class="hljs-string">&quot;[&quot;</span>,<span class="hljs-string">&quot;30&quot;</span>:<span class="hljs-string">&quot;]&quot;</span>,<span class="hljs-string">&quot;31&quot;</span>:<span class="hljs-string">&quot;\\&quot;</span>,<br>         <span class="hljs-string">&quot;32&quot;</span>:<span class="hljs-string">&quot;&lt;NON&gt;&quot;</span>,<span class="hljs-string">&quot;33&quot;</span>:<span class="hljs-string">&quot;;&quot;</span>,<span class="hljs-string">&quot;34&quot;</span>:<span class="hljs-string">&quot;&#x27;&quot;</span>,<span class="hljs-string">&quot;35&quot;</span>:<span class="hljs-string">&quot;&lt;GA&gt;&quot;</span>,<span class="hljs-string">&quot;36&quot;</span>:<span class="hljs-string">&quot;,&quot;</span>,<span class="hljs-string">&quot;37&quot;</span>:<span class="hljs-string">&quot;.&quot;</span>,<br>         <span class="hljs-string">&quot;38&quot;</span>:<span class="hljs-string">&quot;/&quot;</span>,<span class="hljs-string">&quot;39&quot;</span>:<span class="hljs-string">&quot;&lt;CAP&gt;&quot;</span>,<span class="hljs-string">&quot;3a&quot;</span>:<span class="hljs-string">&quot;&lt;F1&gt;&quot;</span>,<span class="hljs-string">&quot;3b&quot;</span>:<span class="hljs-string">&quot;&lt;F2&gt;&quot;</span>, <span class="hljs-string">&quot;3c&quot;</span>:<span class="hljs-string">&quot;&lt;F3&gt;&quot;</span>,<span class="hljs-string">&quot;3d&quot;</span>:<span class="hljs-string">&quot;&lt;F4&gt;&quot;</span>,<br>         <span class="hljs-string">&quot;3e&quot;</span>:<span class="hljs-string">&quot;&lt;F5&gt;&quot;</span>,<span class="hljs-string">&quot;3f&quot;</span>:<span class="hljs-string">&quot;&lt;F6&gt;&quot;</span>,<span class="hljs-string">&quot;40&quot;</span>:<span class="hljs-string">&quot;&lt;F7&gt;&quot;</span>,<span class="hljs-string">&quot;41&quot;</span>:<span class="hljs-string">&quot;&lt;F8&gt;&quot;</span>,<span class="hljs-string">&quot;42&quot;</span>:<span class="hljs-string">&quot;&lt;F9&gt;&quot;</span>,<span class="hljs-string">&quot;43&quot;</span>:<span class="hljs-string">&quot;&lt;F10&gt;&quot;</span>,<br>         <span class="hljs-string">&quot;44&quot;</span>:<span class="hljs-string">&quot;&lt;F11&gt;&quot;</span>,<span class="hljs-string">&quot;45&quot;</span>:<span class="hljs-string">&quot;&lt;F12&gt;&quot;</span>&#125;<br>shiftKeys = &#123;<br>    <span class="hljs-string">&quot;04&quot;</span>:<span class="hljs-string">&quot;A&quot;</span>, <span class="hljs-string">&quot;05&quot;</span>:<span class="hljs-string">&quot;B&quot;</span>, <span class="hljs-string">&quot;06&quot;</span>:<span class="hljs-string">&quot;C&quot;</span>, <span class="hljs-string">&quot;07&quot;</span>:<span class="hljs-string">&quot;D&quot;</span>, <span class="hljs-string">&quot;08&quot;</span>:<span class="hljs-string">&quot;E&quot;</span>,<br>     <span class="hljs-string">&quot;09&quot;</span>:<span class="hljs-string">&quot;F&quot;</span>, <span class="hljs-string">&quot;0a&quot;</span>:<span class="hljs-string">&quot;G&quot;</span>, <span class="hljs-string">&quot;0b&quot;</span>:<span class="hljs-string">&quot;H&quot;</span>, <span class="hljs-string">&quot;0c&quot;</span>:<span class="hljs-string">&quot;I&quot;</span>, <span class="hljs-string">&quot;0d&quot;</span>:<span class="hljs-string">&quot;J&quot;</span>,<br>      <span class="hljs-string">&quot;0e&quot;</span>:<span class="hljs-string">&quot;K&quot;</span>, <span class="hljs-string">&quot;0f&quot;</span>:<span class="hljs-string">&quot;L&quot;</span>, <span class="hljs-string">&quot;10&quot;</span>:<span class="hljs-string">&quot;M&quot;</span>, <span class="hljs-string">&quot;11&quot;</span>:<span class="hljs-string">&quot;N&quot;</span>, <span class="hljs-string">&quot;12&quot;</span>:<span class="hljs-string">&quot;O&quot;</span>,<br>       <span class="hljs-string">&quot;13&quot;</span>:<span class="hljs-string">&quot;P&quot;</span>, <span class="hljs-string">&quot;14&quot;</span>:<span class="hljs-string">&quot;Q&quot;</span>, <span class="hljs-string">&quot;15&quot;</span>:<span class="hljs-string">&quot;R&quot;</span>, <span class="hljs-string">&quot;16&quot;</span>:<span class="hljs-string">&quot;S&quot;</span>, <span class="hljs-string">&quot;17&quot;</span>:<span class="hljs-string">&quot;T&quot;</span>,<br>        <span class="hljs-string">&quot;18&quot;</span>:<span class="hljs-string">&quot;U&quot;</span>, <span class="hljs-string">&quot;19&quot;</span>:<span class="hljs-string">&quot;V&quot;</span>, <span class="hljs-string">&quot;1a&quot;</span>:<span class="hljs-string">&quot;W&quot;</span>, <span class="hljs-string">&quot;1b&quot;</span>:<span class="hljs-string">&quot;X&quot;</span>, <span class="hljs-string">&quot;1c&quot;</span>:<span class="hljs-string">&quot;Y&quot;</span>,<br>         <span class="hljs-string">&quot;1d&quot;</span>:<span class="hljs-string">&quot;Z&quot;</span>,<span class="hljs-string">&quot;1e&quot;</span>:<span class="hljs-string">&quot;!&quot;</span>, <span class="hljs-string">&quot;1f&quot;</span>:<span class="hljs-string">&quot;@&quot;</span>, <span class="hljs-string">&quot;20&quot;</span>:<span class="hljs-string">&quot;#&quot;</span>, <span class="hljs-string">&quot;21&quot;</span>:<span class="hljs-string">&quot;$&quot;</span>,<br>          <span class="hljs-string">&quot;22&quot;</span>:<span class="hljs-string">&quot;%&quot;</span>, <span class="hljs-string">&quot;23&quot;</span>:<span class="hljs-string">&quot;^&quot;</span>,<span class="hljs-string">&quot;24&quot;</span>:<span class="hljs-string">&quot;&amp;&quot;</span>,<span class="hljs-string">&quot;25&quot;</span>:<span class="hljs-string">&quot;*&quot;</span>,<span class="hljs-string">&quot;26&quot;</span>:<span class="hljs-string">&quot;(&quot;</span>,<span class="hljs-string">&quot;27&quot;</span>:<span class="hljs-string">&quot;)&quot;</span>,<br>          <span class="hljs-string">&quot;28&quot;</span>:<span class="hljs-string">&quot;&lt;RET&gt;&quot;</span>,<span class="hljs-string">&quot;29&quot;</span>:<span class="hljs-string">&quot;&lt;ESC&gt;&quot;</span>,<span class="hljs-string">&quot;2a&quot;</span>:<span class="hljs-string">&quot;&lt;DEL&gt;&quot;</span>, <span class="hljs-string">&quot;2b&quot;</span>:<span class="hljs-string">&quot;\t&quot;</span>,<span class="hljs-string">&quot;2c&quot;</span>:<span class="hljs-string">&quot;&lt;SPACE&gt;&quot;</span>,<br>          <span class="hljs-string">&quot;2d&quot;</span>:<span class="hljs-string">&quot;_&quot;</span>,<span class="hljs-string">&quot;2e&quot;</span>:<span class="hljs-string">&quot;+&quot;</span>,<span class="hljs-string">&quot;2f&quot;</span>:<span class="hljs-string">&quot;&#123;&quot;</span>,<span class="hljs-string">&quot;30&quot;</span>:<span class="hljs-string">&quot;&#125;&quot;</span>,<span class="hljs-string">&quot;31&quot;</span>:<span class="hljs-string">&quot;|&quot;</span>,<span class="hljs-string">&quot;32&quot;</span>:<span class="hljs-string">&quot;&lt;NON&gt;&quot;</span>,<span class="hljs-string">&quot;33&quot;</span>:<span class="hljs-string">&quot;\&quot;&quot;</span>,<br>          <span class="hljs-string">&quot;34&quot;</span>:<span class="hljs-string">&quot;:&quot;</span>,<span class="hljs-string">&quot;35&quot;</span>:<span class="hljs-string">&quot;&lt;GA&gt;&quot;</span>,<span class="hljs-string">&quot;36&quot;</span>:<span class="hljs-string">&quot;&lt;&quot;</span>,<span class="hljs-string">&quot;37&quot;</span>:<span class="hljs-string">&quot;&gt;&quot;</span>,<span class="hljs-string">&quot;38&quot;</span>:<span class="hljs-string">&quot;?&quot;</span>,<span class="hljs-string">&quot;39&quot;</span>:<span class="hljs-string">&quot;&lt;CAP&gt;&quot;</span>,<span class="hljs-string">&quot;3a&quot;</span>:<span class="hljs-string">&quot;&lt;F1&gt;&quot;</span>,<br>          <span class="hljs-string">&quot;3b&quot;</span>:<span class="hljs-string">&quot;&lt;F2&gt;&quot;</span>, <span class="hljs-string">&quot;3c&quot;</span>:<span class="hljs-string">&quot;&lt;F3&gt;&quot;</span>,<span class="hljs-string">&quot;3d&quot;</span>:<span class="hljs-string">&quot;&lt;F4&gt;&quot;</span>,<span class="hljs-string">&quot;3e&quot;</span>:<span class="hljs-string">&quot;&lt;F5&gt;&quot;</span>,<span class="hljs-string">&quot;3f&quot;</span>:<span class="hljs-string">&quot;&lt;F6&gt;&quot;</span>,<span class="hljs-string">&quot;40&quot;</span>:<span class="hljs-string">&quot;&lt;F7&gt;&quot;</span>,<br>          <span class="hljs-string">&quot;41&quot;</span>:<span class="hljs-string">&quot;&lt;F8&gt;&quot;</span>,<span class="hljs-string">&quot;42&quot;</span>:<span class="hljs-string">&quot;&lt;F9&gt;&quot;</span>,<span class="hljs-string">&quot;43&quot;</span>:<span class="hljs-string">&quot;&lt;F10&gt;&quot;</span>,<span class="hljs-string">&quot;44&quot;</span>:<span class="hljs-string">&quot;&lt;F11&gt;&quot;</span>,<span class="hljs-string">&quot;45&quot;</span>:<span class="hljs-string">&quot;&lt;F12&gt;&quot;</span>&#125;<br>output = []<br>keys = <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;C://Users/LIKE/Desktop/out.txt&#x27;</span>)<br><span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> keys:<br>    <span class="hljs-keyword">try</span>:<br>        <span class="hljs-keyword">if</span> line[<span class="hljs-number">0</span>]!=<span class="hljs-string">&#x27;0&#x27;</span> <span class="hljs-keyword">or</span> (line[<span class="hljs-number">1</span>]!=<span class="hljs-string">&#x27;0&#x27;</span> <span class="hljs-keyword">and</span> line[<span class="hljs-number">1</span>]!=<span class="hljs-string">&#x27;2&#x27;</span>) <span class="hljs-keyword">or</span> line[<span class="hljs-number">3</span>]!=<span class="hljs-string">&#x27;0&#x27;</span> <span class="hljs-keyword">or</span> line[<span class="hljs-number">4</span>]!=<span class="hljs-string">&#x27;0&#x27;</span> <span class="hljs-keyword">or</span> line[<span class="hljs-number">9</span>]!=<span class="hljs-string">&#x27;0&#x27;</span> <span class="hljs-keyword">or</span> line[<span class="hljs-number">10</span>]!=<span class="hljs-string">&#x27;0&#x27;</span> <span class="hljs-keyword">or</span> line[<span class="hljs-number">12</span>]!=<span class="hljs-string">&#x27;0&#x27;</span> <span class="hljs-keyword">or</span> line[<span class="hljs-number">13</span>]!=<span class="hljs-string">&#x27;0&#x27;</span> <span class="hljs-keyword">or</span> line[<span class="hljs-number">15</span>]!=<span class="hljs-string">&#x27;0&#x27;</span> <span class="hljs-keyword">or</span> line[<span class="hljs-number">16</span>]!=<span class="hljs-string">&#x27;0&#x27;</span> <span class="hljs-keyword">or</span> line[<span class="hljs-number">18</span>]!=<span class="hljs-string">&#x27;0&#x27;</span> <span class="hljs-keyword">or</span> line[<span class="hljs-number">19</span>]!=<span class="hljs-string">&#x27;0&#x27;</span> <span class="hljs-keyword">or</span> line[<span class="hljs-number">21</span>]!=<span class="hljs-string">&#x27;0&#x27;</span> <span class="hljs-keyword">or</span> line[<span class="hljs-number">22</span>]!=<span class="hljs-string">&#x27;0&#x27;</span> <span class="hljs-keyword">or</span> line[<span class="hljs-number">6</span>:<span class="hljs-number">8</span>]==<span class="hljs-string">&quot;00&quot;</span>:<br>             <span class="hljs-keyword">continue</span><br>        <span class="hljs-keyword">if</span> line[<span class="hljs-number">6</span>:<span class="hljs-number">8</span>] <span class="hljs-keyword">in</span> normalKeys.keys():<br>            output += [[normalKeys[line[<span class="hljs-number">6</span>:<span class="hljs-number">8</span>]]],[shiftKeys[line[<span class="hljs-number">6</span>:<span class="hljs-number">8</span>]]]][line[<span class="hljs-number">1</span>]==<span class="hljs-string">&#x27;2&#x27;</span>]<br>        <span class="hljs-keyword">else</span>:<br>            output += [<span class="hljs-string">&#x27;[unknown]&#x27;</span>]<br>    <span class="hljs-keyword">except</span>:<br>        <span class="hljs-keyword">pass</span><br><br>keys.close()<br><br>flag=<span class="hljs-number">0</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&quot;</span>.join(output))<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(output)):<br>    <span class="hljs-keyword">try</span>:<br>        a=output.index(<span class="hljs-string">&#x27;&lt;DEL&gt;&#x27;</span>)<br>        <span class="hljs-keyword">del</span> output[a]<br>        <span class="hljs-keyword">del</span> output[a-<span class="hljs-number">1</span>]<br>    <span class="hljs-keyword">except</span>:<br>        <span class="hljs-keyword">pass</span><br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(output)):<br>    <span class="hljs-keyword">try</span>:<br>        <span class="hljs-keyword">if</span> output[i]==<span class="hljs-string">&quot;&lt;CAP&gt;&quot;</span>:<br>            flag+=<span class="hljs-number">1</span><br>            output.pop(i)<br>            <span class="hljs-keyword">if</span> flag==<span class="hljs-number">2</span>:<br>                flag=<span class="hljs-number">0</span><br>        <span class="hljs-keyword">if</span> flag!=<span class="hljs-number">0</span>:<br>            output[i]=output[i].upper()<br>    <span class="hljs-keyword">except</span>:<br>        <span class="hljs-keyword">pass</span><br><br><span class="hljs-built_in">print</span> (<span class="hljs-string">&#x27;output :&#x27;</span> + <span class="hljs-string">&quot;&quot;</span>.join(output))<br></code></pre></td></tr></table></figure>
+
+<p>运行脚本：</p>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gauss">输出：<br><span class="hljs-keyword">output</span> :<span class="hljs-built_in">key</span>&#123;xinan&#125;<br></code></pre></td></tr></table></figure>
+
+<p>于是我们得到密钥：<code>xinan</code></p>
+<p><a target="_blank" rel="noopener" href="https://qwzf.github.io/2020/08/01/CTF%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90%E5%B8%B8%E8%A7%81%E9%A2%98%E5%9E%8B(%E4%BA%8C)-USB%E6%B5%81%E9%87%8F/">参考：USB流量分析</a></p>
+<p>我们也可以使用工具: <code>UsbKeyboardDataHacker</code></p>
+<p><img src="https://s2.loli.net/2023/01/30/eCHlJzgISx2pPZG.png" srcset="/img/loading.gif" lazyload alt="image-20230130141107287"></p>
+<p>接着我们再分析那一个rar压缩包：</p>
+<p><img src="https://s2.loli.net/2023/01/30/Re5TmkMrgq9PAIv.png" srcset="/img/loading.gif" lazyload alt="image-20230130141213163"></p>
+<p>发现文件头损坏，于是查资料进行对照，</p>
+<p><img src="https://s2.loli.net/2023/01/30/Gb2NnwPHVudrU4I.png" srcset="/img/loading.gif" lazyload alt="image-20230130141414932"></p>
+<p>将这里改为 <code>74</code> 即可：</p>
+<p><img src="https://s2.loli.net/2023/01/30/awKjpyJdzfgXexR.png" srcset="/img/loading.gif" lazyload alt="image-20230130141452506"></p>
+<p>我们得到一张 png 图片，使用 <code>stegsolve</code> 在<code>blue 0 通道</code> 发现二维码：</p>
+<img src="https://s2.loli.net/2023/01/30/9iLV3dbj6Q4gswA.png" srcset="/img/loading.gif" lazyload alt="image-20230130141605723" style="zoom: 25%;" />
+
+<p>扫码获得：<code>ci&#123;v3erf_0tygidv2_fc0&#125;</code></p>
+<p>可能是栅栏密码，我们解密一下，得到：<code>cyig&#123;ivd3ve2r_ff_c00t&#125;</code></p>
+<p>这个很想<code>凯撒密码</code>，但是不是，</p>
+<p>查阅资料得知了一个密码：**<code>维吉尼亚密码</code>**</p>
+<blockquote>
+<p><strong>凯撒密码</strong>中，字母表中的每一字母都会作一定的偏移。<br> 当偏移量为3时，A就转换为了D、B转换为了E……因为凯撒密码中所有字母的偏移量是一样的</p>
+<p>【<strong>维吉尼亚密码</strong>】则是由一些偏移量不同的恺撒密码组成</p>
+<p>为了生成密码，需要使用<strong>表格法</strong>。</p>
+<p>这一表格包括了26行字母表，每一行都由前一行向左偏移一位得到。具体使用哪一行字母表进行编译是基于密钥进行的，在过程中会不断地变换。</p>
+</blockquote>
+<p><img src="https://s2.loli.net/2023/01/30/3FOonBsW4yzqluM.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<blockquote>
+<p>例如，假设<strong>明文</strong>为：HEETIAN</p>
+<p>  然后选择<strong>某一关键词并重复</strong>而得到<strong>密钥</strong>，如关键词为LAB时，密钥为：LABLABL</p>
+<p>  对于明文的第一个字母H，对应密钥的第一个字母L，于是使用表格中L行字母表进行加密，得到密文第一个字母S。<br>  类似地，明文第二个字母为E，在表格中使用对应的A行进行加密，得到密文第二个字母E。以此类推，可以得到：</p>
+<p>  明文：HEETIAN</p>
+<p>  密钥：LABLABL</p>
+<p>  密文：SEFEIBY</p>
+<p>  <strong>解密的过程则与加密相反。</strong><br>  例如：根据密钥第一个字母L所对应的L行字母表，发现密文第一个字母S位于H列，因而明文第一个字母为H。<br>  密钥第二个字母A对应A行字母表，而密文第二个字母E位于此行E列，因而明文第二个字母为E。以此类推便可得到明文。</p>
+</blockquote>
+<p>简单地说:【<strong>维吉尼亚密码</strong>】是由一些<strong>偏移量不同</strong>的恺撒密码组成，解密需要密钥。</p>
+<p>因此我们可以进行解密，但是尝试之后，我们发现需要：先维吉尼亚密码解密，再栅栏解密。</p>
+<img src="https://s2.loli.net/2023/01/30/hzVg76wmdoFRKvL.png" srcset="/img/loading.gif" lazyload alt="image-20230130142443064" style="zoom:33%;" />
+
+<p>然后栅栏解密：</p>
+<img src="https://s2.loli.net/2023/01/30/3QU1oKmEbgXWOhf.png" srcset="/img/loading.gif" lazyload alt="image-20230130142527956" style="zoom:33%;" />
+
+
+
+
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/MISC-%E7%AC%AC3%E9%A1%B5wp/" class="print-no-link">#MISC(第3页wp)</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>MISC(第3页wp)</div>
+      <div>https://leekosss.github.io/2023/08/24/MISC(第3页wp)/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>leekos</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年8月24日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年6月5日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/08/24/MISC(%E7%AC%AC4%E9%A1%B5wp)/" title="MISC(第4页wp)">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">MISC(第4页wp)</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/24/MISC(%E7%AC%AC1%E9%A1%B5wp)/" title="MISC(第1页wp)">
+                        <span class="hidden-mobile">MISC(第1页wp)</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"e5J90iDkXMWhU5UNlEX1I2hO-gzGzoHsz","appKey":"esLROw9j3xLk2nV4tQkKaih1","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      赣ICP备2022008842号-2
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

