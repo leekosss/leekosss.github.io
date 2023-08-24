@@ -238,13 +238,135 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2023/08/24/YamiYami/" target="_self">
+        <a href="/2023/08/24/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" target="_blank">
+          代码审计
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" target="_blank">
+        <div>
+          [TOC] 【ctfshow】代码审计web301 审计一下，存在sql注入漏洞，我们使用union：  让输入的密码与查询出来的密码相等即可 web302 修改的地方： if(!strcasecmp(sds_decode($userpwd),$row[&#39;sds_password&#39;]))&#123;   123function sds_decode($str)&#123;	retu
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-24 22:38" pubdate>
+              2023-08-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">#代码审计</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/08/24/%E8%A2%AB%E5%8A%A0%E5%AF%86%E7%9A%84%E7%94%9F%E4%BA%A7%E6%B5%81%E9%87%8F/" target="_blank">
+          被加密的生产流量
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%E8%A2%AB%E5%8A%A0%E5%AF%86%E7%9A%84%E7%94%9F%E4%BA%A7%E6%B5%81%E9%87%8F/" target="_blank">
+        <div>
+          [CISCN2023]被加密的生产流量 某安全部门发现某涉密工厂生产人员偷偷通过生产网络传输数据给不明人员，通过技术手段截获出一段通讯流量，但是其中的关键信息被进行了加密，请你根据流量包的内容，找出被加密的信息。（得到的字符串需要以flag{xxx}形式提交）  得到一个modbus.pcap流量包 该开始我们先根据modbus进行分析，参考文章：Modbus协议分析 使用脚本： 12345678
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-24 22:38" pubdate>
+              2023-08-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%A2%AB%E5%8A%A0%E5%AF%86%E7%9A%84%E7%94%9F%E4%BA%A7%E6%B5%81%E9%87%8F/">#被加密的生产流量</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/08/24/YamiYami/" target="_blank">
           YamiYami
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/YamiYami/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/YamiYami/" target="_blank">
         <div>
           YamiYami进入题目：  当我们点击 Read somethings时： 1http://node2.anna.nssctf.cn:28523/read?url=https://baidu.com  我们发现可以读取到百度首页的内容，这是SSRF（突然忘记了） python中我们可以使用 file伪协议读取文件内容 我们尝试一下读取 /etc/passwd  成功读取 非预期解：（直接读取环境
         </div>
@@ -299,13 +421,13 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2023/08/24/xss%E6%BC%8F%E6%B4%9E/" target="_self">
+        <a href="/2023/08/24/xss%E6%BC%8F%E6%B4%9E/" target="_blank">
           xss漏洞
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/xss%E6%BC%8F%E6%B4%9E/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/xss%E6%BC%8F%E6%B4%9E/" target="_blank">
         <div>
           一、初识XSS1、什么是XSSXSS全称跨站脚本(Cross Site Scripting)，为避免与层叠样式表(Cascading Style Sheets, CSS)的缩写混淆，故缩写为XSS。这是一种将任意 Javascript 代码插入到其他Web用户页面里执行以达到攻击目的的漏洞。攻击者利用浏览器的动态展示数据功能，在HTML页面里嵌入恶意代码。当用户浏览改页时，这些潜入在HTML中的
         </div>
@@ -360,13 +482,13 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2023/08/24/xss-labs(WriteUp)/" target="_self">
+        <a href="/2023/08/24/xss-labs(WriteUp)/" target="_blank">
           xss-labs(WriteUp)
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/xss-labs(WriteUp)/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/xss-labs(WriteUp)/" target="_blank">
         <div>
           xss-labs 先讲讲什么是跨站脚本攻击XSS(Cross Site Scripting)  XSS原理 本质上是针对html的一种注入攻击，没有遵循数据与代码分离的原则，把用户输入的数据当作代码来执行xss跨站脚本攻击是指恶意攻击者往Web页面里插入恶意脚本代码（包括当不限于js，flash等等），当用户浏览该页面时，嵌入其中Web里面的脚本代码会被执行，从而达到恶意攻击用户的目的。为了不和层
         </div>
@@ -421,13 +543,13 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2023/08/24/web/" target="_self">
+        <a href="/2023/08/24/web/" target="_blank">
           web
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/web/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/web/" target="_blank">
         <div>
           【ctfshow】webweb签到题右键源代码，base64解密 web2 直接使用联合查询union进行注入，查到表flag中存在flag字段 web3直接使用php伪协议  web4由于服务器是nginx，所以我们直接包含nginx日志文件 1/var/log/nginx/access.log   然后在浏览器UA中加上一句话木马，然后使用蚁剑连接  web512345678910111213
         </div>
@@ -482,13 +604,13 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2023/08/24/week1/" target="_self">
+        <a href="/2023/08/24/week1/" target="_blank">
           week1
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/week1/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/week1/" target="_blank">
         <div>
           [TOC] 【hgame2023】week1webClassic Childhood Game 兔兔最近迷上了一个纯前端实现的网页小游戏，但是好像有点难玩，快帮兔兔通关游戏！  打开页面发现有一个js游戏，我们直接查看源码：  我们查找alert关键字：  发现了一串可疑的16进制ascii码，我们在控制台执行以下该js函数：  flag直接出来了。  我写题时发现了游戏结束的js代码：  游戏结
         </div>
@@ -543,13 +665,13 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2023/08/24/web(%E7%AC%AC1%E9%A1%B5wp)/" target="_self">
+        <a href="/2023/08/24/web(%E7%AC%AC1%E9%A1%B5wp)/" target="_blank">
           web(第1页wp)
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/web(%E7%AC%AC1%E9%A1%B5wp)/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/web(%E7%AC%AC1%E9%A1%B5wp)/" target="_blank">
         <div>
           [TOC] [极客大挑战 2019]EasySQL 我们登录的时候使用bp抓包，我们尝试从密码进行sql注入  由于密码是字符串，所以我们尝试使用单引号闭合，然后使用万能密码 or 1=1 # 直接成功了 payload: 1&#x27; or 1=1%23			//%23是#unicode编码      [HCTF 2018]WarmUp  进来后看到一个表情，我们查看源代码:     提示我们
         </div>
@@ -604,13 +726,13 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2023/08/24/web(%E7%AC%AC3%E9%A1%B5wp)/" target="_self">
+        <a href="/2023/08/24/web(%E7%AC%AC3%E9%A1%B5wp)/" target="_blank">
           web(第3页wp)
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/web(%E7%AC%AC3%E9%A1%B5wp)/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/web(%E7%AC%AC3%E9%A1%B5wp)/" target="_blank">
         <div>
           [TOC] [TOC] [CISCN2019 华北赛区 Day1 Web1]Dropbox首页有一个文件上传页面，可以上传文件，经过测试说只能上传gif、png、jpg图片，但是我们修改一下MIME属性就成功绕过了：  但是会将文件进行重命名，变为gif、jpg、png后缀，导致我们正常文件上传思路中断了，但是这有一个下载按钮，测试后发现任意文件下载漏洞：  目录穿越漏洞，成功获得index.ph
         </div>
@@ -665,13 +787,13 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2023/08/24/VishwaCTF2023/" target="_self">
+        <a href="/2023/08/24/VishwaCTF2023/" target="_blank">
           VishwaCTF2023
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/VishwaCTF2023/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/VishwaCTF2023/" target="_blank">
         <div>
           【VishwaCTF2023】wpwebPayload目录扫描，扫描到了robots.txt   我们访问/robots.txt： 1234567891011&lt;?php    if(isset($_GET[&#x27;cmd&#x27;]))&#123;        system($_GET[&#x27;cmd&#x27;]);    &#125;    else &#123;
         </div>
@@ -713,128 +835,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/VishwaCTF2023/">#VishwaCTF2023</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/08/24/unzip/" target="_self">
-          unzip
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/unzip/" target="_self">
-        <div>
-          [CISCN2023]unzip环境搭建1.html 12345678910111213&lt;!DOCTYPE html&gt;&lt;html lang=&quot;en&quot;&gt;&lt;head&gt;    &lt;meta charset=&quot;UTF-8&quot;&gt;    &lt;title&gt;Title&lt;/title&gt;&lt;/head&gt;
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 22:38" pubdate>
-              2023-08-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/unzip/">#unzip</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/08/24/SSRF%E6%89%93FastCGI/" target="_self">
-          SSRF打FastCGI
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/SSRF%E6%89%93FastCGI/" target="_self">
-        <div>
-          SSRF打FastCGI
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 22:38" pubdate>
-              2023-08-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/SSRF%E6%89%93FastCGI/">#SSRF打FastCGI</a>
             
           </div>
         
