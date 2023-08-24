@@ -1,0 +1,971 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="leekos">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="一、写在前面1. 不同博客类型的选择目前搭建个人网站主要有两种选择：  动态网站：通常包括前端和后端两个部分，是通过数据库进行架构的网站，用户访问时网站会从数据库中提取信息并实时变更网站内容。这种网站通常利于维护、可交互性强，功能相对强大，但网站本身更加臃肿，用户访问时网页的打开速度也较慢。主流的动态博客框架有Wordpress、Typecho等。 静态网站：指全部通过html代码格式页面组成、所">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hexo博客部署至服务器">
+<meta property="og:url" content="https://leekosss.github.io/2022/09/26/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/index.html">
+<meta property="og:site_name" content="Tranquility">
+<meta property="og:description" content="一、写在前面1. 不同博客类型的选择目前搭建个人网站主要有两种选择：  动态网站：通常包括前端和后端两个部分，是通过数据库进行架构的网站，用户访问时网站会从数据库中提取信息并实时变更网站内容。这种网站通常利于维护、可交互性强，功能相对强大，但网站本身更加臃肿，用户访问时网页的打开速度也较慢。主流的动态博客框架有Wordpress、Typecho等。 静态网站：指全部通过html代码格式页面组成、所">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://leekosss.github.io/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/%E5%8E%9F%E7%90%86%E5%9B%BE.png">
+<meta property="og:image" content="https://leekosss.github.io/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/git%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95.png">
+<meta property="og:image" content="https://leekosss.github.io/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/blog%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.PNG">
+<meta property="og:image" content="https://leekosss.github.io/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/hexo%E9%BB%98%E8%AE%A4%E9%A1%B5%E9%9D%A2.png">
+<meta property="og:image" content="https://leekosss.github.io/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/%E8%85%BE%E8%AE%AF%E4%BA%91%E5%85%AC%E7%BD%91ip.png">
+<meta property="og:image" content="https://leekosss.github.io/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%98%B2%E7%81%AB%E5%A2%99%E8%AE%BE%E7%BD%AE.png">
+<meta property="og:image" content="https://leekosss.github.io/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/XShell%E6%96%B0%E5%BB%BA%E4%BC%9A%E8%AF%9D.png">
+<meta property="og:image" content="https://leekosss.github.io/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/XShell%E7%BB%88%E7%AB%AF.png">
+<meta property="og:image" content="https://leekosss.github.io/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/WinSCP%E6%96%B0%E5%BB%BA%E7%AB%99%E7%82%B9.png">
+<meta property="og:image" content="https://leekosss.github.io/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/WinSCP%E7%95%8C%E9%9D%A2.png">
+<meta property="og:image" content="https://leekosss.github.io/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/nginx%E6%BA%90%E4%BB%A3%E7%A0%81%E6%96%87%E4%BB%B6%E5%A4%B9.PNG">
+<meta property="og:image" content="https://leekosss.github.io/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/nginx%E6%AC%A2%E8%BF%8E%E9%A1%B5%E9%9D%A2.PNG">
+<meta property="og:image" content="https://leekosss.github.io/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/server%E8%AF%AD%E5%8F%A5%E5%9D%97.PNG">
+<meta property="og:image" content="https://leekosss.github.io/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/sudoers%E6%96%87%E4%BB%B6.PNG">
+<meta property="og:image" content="https://leekosss.github.io/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/WinSCP%E6%98%BE%E7%A4%BA%E9%9A%90%E8%97%8F%E6%96%87%E4%BB%B6.png">
+<meta property="og:image" content="https://leekosss.github.io/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/%E9%92%A9%E5%AD%90%E6%96%87%E4%BB%B6.png">
+<meta property="og:image" content="https://leekosss.github.io/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/deploy%E8%AE%BE%E7%BD%AE.png">
+<meta property="og:image" content="https://leekosss.github.io/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/hexo%E9%83%A8%E7%BD%B2%E7%9B%AE%E5%BD%95.png">
+<meta property="og:image" content="https://leekosss.github.io/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/%E6%B7%BB%E5%8A%A0%E8%A7%A3%E6%9E%90.png">
+<meta property="og:image" content="https://leekosss.github.io/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/%E5%A4%87%E6%A1%88.png">
+<meta property="og:image" content="https://leekosss.github.io/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/https%E5%B0%8F%E9%94%81.png">
+<meta property="og:image" content="https://leekosss.github.io/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/%E8%AF%81%E4%B9%A6%E6%96%87%E4%BB%B6.png">
+<meta property="og:image" content="https://leekosss.github.io/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/https%E8%AF%AD%E5%8F%A5%E5%9D%97.png">
+<meta property="og:image" content="https://leekosss.github.io/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/return%E8%AF%AD%E5%8F%A5.png">
+<meta property="article:published_time" content="2022-09-26T07:51:44.000Z">
+<meta property="article:modified_time" content="2022-09-26T07:54:17.749Z">
+<meta property="article:author" content="leekos">
+<meta property="article:tag" content="hexo">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://leekosss.github.io/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/%E5%8E%9F%E7%90%86%E5%9B%BE.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>hexo博客部署至服务器 - Tranquility</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Tranquility</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="hexo博客部署至服务器"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-09-26 15:51" pubdate>
+          2022年9月26日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          9.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          78 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">hexo博客部署至服务器</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2022年9月26日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="一、写在前面"><a href="#一、写在前面" class="headerlink" title="一、写在前面"></a>一、写在前面</h1><h2 id="1-不同博客类型的选择"><a href="#1-不同博客类型的选择" class="headerlink" title="1. 不同博客类型的选择"></a>1. 不同博客类型的选择</h2><p>目前搭建个人网站主要有两种选择：</p>
+<ul>
+<li>动态网站：通常包括前端和后端两个部分，是通过数据库进行架构的网站，用户访问时网站会从数据库中提取信息并实时变更网站内容。这种网站通常利于维护、可交互性强，功能相对强大，但网站本身更加臃肿，用户访问时网页的打开速度也较慢。主流的动态博客框架有Wordpress、Typecho等。</li>
+<li>静态网站：指全部通过html代码格式页面组成、所有内容都保存在html页面中的网站。可维护性较差，修改网页内容需要重新生存html页面，但访问速度极快、简洁、轻量。主流静态博客框架有Hexo、Hugo等。</li>
+</ul>
+<p>部署方式也主要有两种选择：</p>
+<ul>
+<li>托管至Github Pages上：借用Github的这一功能部署网站，操作简单、免费，但国内访问速度较慢，且无法被百度爬虫爬取收录。</li>
+<li>部署至自己的云服务器上：需要花钱购买服务器、域名，但自主性强，可以随意折腾。</li>
+</ul>
+<p>在这里，我选择了Hexo+部署至腾讯云服务器的方式来完成我的博客网站的搭建，本文也会记录我从零开始搭建博客的过程。</p>
+<h2 id="2-Hexo简介"><a href="#2-Hexo简介" class="headerlink" title="2. Hexo简介"></a>2. Hexo简介</h2><p>Hexo是一个基于Node.js的简洁、快速的轻量级博客框架，支持Markdown，可以很方便地解析Markdown语言并渲染生成静态网页。此外，Hexo的用户相对较多，在搜索引擎上能搜索到很多支持文章及第三方插件，便于快速定位各种问题，想美化、拓展自己的网页也很容易。</p>
+<blockquote>
+<p>Node.js：一种脚本语言，可以简单地理解为运行在服务器端的JavaScript，常用于web开发。</p>
+<p>Markdown：一种轻量级标记语言，后续我们博客内容的书写都会用到markdown，介绍及教程在<a target="_blank" rel="noopener" href="https://www.runoob.com/markdown/md-tutorial.html">这里</a>。</p>
+</blockquote>
+<h2 id="3-搭建博客前的准备"><a href="#3-搭建博客前的准备" class="headerlink" title="3. 搭建博客前的准备"></a>3. 搭建博客前的准备</h2><p>开始前，你需要购买一台云服务器，并注册好用于博客网站的域名。我选择了腾讯云的轻量应用服务器（2核2G 4M带宽）并预装了CentOS 8.2的系统镜像，用于搭建博客这类轻型网站性能完全足够。我这里购买服务器用了45元&#x2F;年的首单特惠，过期后还可以使用腾讯云的学生优惠来续费，大概也是100元左右一年，对于大部分学生来说也还算负担得起。</p>
+<p>其次，还需要注册好自己的域名并完成实名认证，我是在阿里云的万网注册了 <code>www.glimound.com</code> 这个域名，费用是63元&#x2F;年，供大家参考。通常，非.com后缀的域名会更加便宜，但需要注意的是，<strong>只有在<a target="_blank" rel="noopener" href="http://域名.信息/#">工信部域名行业管理信息公示网站</a>上展示的域名后缀才可进行后续的ICP备案</strong>，而未进行备案的域名解析至国内的服务器后将无法正常访问。</p>
+<h1 id="二、工作原理"><a href="#二、工作原理" class="headerlink" title="二、工作原理"></a>二、工作原理</h1><p><img src="/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/%E5%8E%9F%E7%90%86%E5%9B%BE.png" srcset="/img/loading.gif" lazyload alt="原理图"></p>
+<p>了解整个博客架构的工作原理有助于理解下面各个步骤的意义。我们需要在本地安装Hexo程序，并在本地hexo目录内书写博客。书写的博客将会保存在source目录内，当我们输入 <code>hexo generate</code> 命令时，hexo将会把我们写的markdown文件渲染成静态文件（即网页文件）；输入 <code>hexo deploy</code> 时，hexo会通过我们配置好的免密登录连接至服务器，并将生成的静态文件推送到服务器的Git仓库内。Git仓库内容的变更触发钩子文件，将仓库内的内容部署至网站根目录下。</p>
+<p>同时，我们还需要配置好nginx服务和域名解析。当用户访问我们博客的域名时，域名将被重定向为服务器的ip地址，并通过nginx服务访问网站根目录里的静态文件。</p>
+<blockquote>
+<p>Git：一个版本管理系统，可供开发者方便地管理不同版本的代码。</p>
+<p>nginx：一个HTTP和反向代理web服务器，本文中我们用到反向代理功能，用户通过该功能以访问服务器内的资源。</p>
+</blockquote>
+<h1 id="三、搭建步骤"><a href="#三、搭建步骤" class="headerlink" title="三、搭建步骤"></a>三、搭建步骤</h1><h2 id="1-本地配置（Win10）"><a href="#1-本地配置（Win10）" class="headerlink" title="1. 本地配置（Win10）"></a>1. 本地配置（Win10）</h2><p>开始搭建网站前，需要先在本地计算机安装hexo与其所需的相关环境。注意，<strong>以下步骤全部在本地计算机上完成</strong>。</p>
+<h3 id="1-1-安装Git"><a href="#1-1-安装Git" class="headerlink" title="1.1 安装Git"></a>1.1 安装Git</h3><p>前往<a target="_blank" rel="noopener" href="https://git-scm.com/">官网</a>下载较新版本的Git并安装，安装时的各种选项默认即可，或根据自己的需要进行调整。安装完成后右键桌面空白处会多出”Git GUI Here”和”Git Bash Here”两个选项，如图所示。</p>
+<p><img src="/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/git%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95.png" srcset="/img/loading.gif" lazyload alt="git右键菜单"></p>
+<p>打开Git Bash，依次输入以下命令。</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs arduino">git config --global user.email <span class="hljs-string">&quot;xxx@xxx.com&quot;</span>     <span class="hljs-meta"># xxx@xxx.com改为你的邮箱</span><br>git config --global user.name <span class="hljs-string">&quot;xxx&quot;</span>      <span class="hljs-meta"># xxx改为你的昵称</span><br></code></pre></td></tr></table></figure>
+
+<p>这两条命令修改了Git配置文件中用户的邮箱和名称，每一个Git提交都会使用这些信息。无需担心，这里的邮箱和名称只用于标识。</p>
+<h3 id="1-2-安装Node-js和npm"><a href="#1-2-安装Node-js和npm" class="headerlink" title="1.2 安装Node.js和npm"></a>1.2 安装Node.js和npm</h3><p>前往<a target="_blank" rel="noopener" href="https://nodejs.org/">官网</a>下载较新的LTS（即长期支持）版本并安装，Node.js安装过程中会一并将npm包管理工具安装至本地。安装完成后可以在Git Bash中输入 <code>node -v</code> 和 <code>npm -v</code> 查看版本。</p>
+<h3 id="1-3-安装Hexo和相关插件"><a href="#1-3-安装Hexo和相关插件" class="headerlink" title="1.3 安装Hexo和相关插件"></a>1.3 安装Hexo和相关插件</h3><p>新建一个文件夹作为博客配置文件存放的目录，如 <code>D:\Blog</code> 。进入该文件夹，右键空白处打开Git Bash，安装hexo。</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs avrasm">npm install -g hexo-<span class="hljs-keyword">cli</span> hexo-server<br></code></pre></td></tr></table></figure>
+
+<p>npm install -g命令即使用npm包管理工具进行全局安装，这里的hexo-cli为hexo的客户端模块，hexo-server为服务器模块，可以支持在本地服务器生成网页并进行浏览，调试网站时会使用到。</p>
+<h3 id="1-4-本地初始化博客站点"><a href="#1-4-本地初始化博客站点" class="headerlink" title="1.4 本地初始化博客站点"></a>1.4 本地初始化博客站点</h3><p>进入上一步建立的博客文件夹，右键打开Git Bash，初始化博客站点。</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ada">hexo init myblog<br>npm install hexo-deployer-git <span class="hljs-comment">--save</span><br></code></pre></td></tr></table></figure>
+
+<p>第一条命令中的myblog可以改成自己喜欢的名字。这里用npm安装的hexo-deployer-git为自动部署至远程git仓库的插件，用于把我们在本地生成的网站页面push到服务器上。</p>
+<p>初始化后会在myblog文件夹下生成以下目录，如图所示。</p>
+<p><img src="/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/blog%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.PNG" srcset="/img/loading.gif" lazyload alt="blog目录结构"></p>
+<p>这里有一些比较重要的文件或文件夹：</p>
+<ul>
+<li><code>_config.yml</code> 文件：站点的配置文件</li>
+<li><code>source</code> 文件夹：存放需要进行渲染的文件，该目录下的 <code>_post</code> 文件夹内存放我们写的博文</li>
+<li><code>themes</code> 文件夹：存放主题及其配置文件</li>
+</ul>
+<h3 id="1-5-测试网页"><a href="#1-5-测试网页" class="headerlink" title="1.5 测试网页"></a>1.5 测试网页</h3><p>在Git Bash中输入命令，将网页生成至本地服务器上。</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs axapta">hexo <span class="hljs-keyword">server</span>     <span class="hljs-meta">#也可输入缩写命令hexo s</span><br></code></pre></td></tr></table></figure>
+
+<p>在浏览器地址栏中输入 <code>http://localhost:4000</code> 即可访问hexo的默认页面，如下图所示。如能正常访问页面，说明hexo在本地安装正常，按Ctrl+C停止。</p>
+<p><img src="/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/hexo%E9%BB%98%E8%AE%A4%E9%A1%B5%E9%9D%A2.png" srcset="/img/loading.gif" lazyload alt="hexo默认页面"></p>
+<h2 id="2-服务端配置（CentOS-8-2）"><a href="#2-服务端配置（CentOS-8-2）" class="headerlink" title="2. 服务端配置（CentOS 8.2）"></a>2. 服务端配置（CentOS 8.2）</h2><p>在这一步骤中，我们将在服务器上安装hexo及其环境，配置git的自动部署和nginx。我们需要在本地计算机上安装XShell和WinSCP以访问我们购买的服务器。注意，<strong>除特殊说明外，以下所有需要输入指令的操作都在服务器上完成</strong>。</p>
+<h3 id="2-1-服务器初始设置"><a href="#2-1-服务器初始设置" class="headerlink" title="2.1 服务器初始设置"></a>2.1 服务器初始设置</h3><p>这里以腾讯云服务器为例，进入腾讯云网站的服务器管理后台，记录服务器的公网ip，如图所示。</p>
+<p><img src="/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/%E8%85%BE%E8%AE%AF%E4%BA%91%E5%85%AC%E7%BD%91ip.png" srcset="/img/loading.gif" lazyload alt="腾讯云公网ip"></p>
+<p>我们还需要重置密码，这里设置的密码将会是远程登陆服务器时root用户（即管理员账户）的密码。</p>
+<p>检查服务器防火墙设置，查看80端口、443端口和22端口是否开放，如图所示。若无则需添加规则开放这三个端口。</p>
+<p><img src="/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%98%B2%E7%81%AB%E5%A2%99%E8%AE%BE%E7%BD%AE.png" srcset="/img/loading.gif" lazyload alt="服务器防火墙设置"></p>
+<h3 id="2-2-访问实例"><a href="#2-2-访问实例" class="headerlink" title="2.2 访问实例"></a>2.2 访问实例</h3><p>这里的实例可以理解为安装了操作系统的一台服务器。我们需要在本地计算机安装XShell和WinSCP，前者用于访问远程实例的控制终端，后者可以让我们更加便捷地访问服务器上的文件，便于后续操作。</p>
+<p>(1) 打开XShell并新建会话，如图所示。</p>
+<p><img src="/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/XShell%E6%96%B0%E5%BB%BA%E4%BC%9A%E8%AF%9D.png" srcset="/img/loading.gif" lazyload alt="XShell新建会话"></p>
+<p>输入连接信息：</p>
+<ul>
+<li>协议：SSH</li>
+<li>主机：服务器公网ip</li>
+<li>端口号：22</li>
+</ul>
+<p>选择“用户身份验证”选项卡，输入用户名和密码并连接。一般情况下用户名为root，密码则为前面重置密码时设置的密码。连接成功后，会出现实例的控制终端，如图所示。</p>
+<p><img src="/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/XShell%E7%BB%88%E7%AB%AF.png" srcset="/img/loading.gif" lazyload alt="XShell终端"></p>
+<p>(2) 打开WinSCP并新建站点，如图所示。</p>
+<p><img src="/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/WinSCP%E6%96%B0%E5%BB%BA%E7%AB%99%E7%82%B9.png" srcset="/img/loading.gif" lazyload alt="WinSCP新建站点"></p>
+<p>输入连接信息、用户名、密码：</p>
+<ul>
+<li>文件协议：SFTP或SCP</li>
+<li>主机名：服务器公网ip</li>
+<li>端口号：22</li>
+</ul>
+<p>登录成功后会出现如下界面，左半栏为本地计算机的文件目录，右半栏为服务器的文件目录，可进行上传及下载操作。</p>
+<p><img src="/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/WinSCP%E7%95%8C%E9%9D%A2.png" srcset="/img/loading.gif" lazyload alt="WinSCP界面"></p>
+<h3 id="2-3-创建Hexo部署目录"><a href="#2-3-创建Hexo部署目录" class="headerlink" title="2.3 创建Hexo部署目录"></a>2.3 创建Hexo部署目录</h3><p>用XShell登录实例后，在终端中输入以下命令创建Hexo部署目录（路径可根据喜好自行设置），博客相关的页面文件将会被存储在此处。</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arduino">mkdir -p /home/www/hexo<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-4-安装Nginx"><a href="#2-4-安装Nginx" class="headerlink" title="2.4 安装Nginx"></a>2.4 安装Nginx</h3><p>(1) 在终端中依次输入以下命令，使用yum安装nginx所需的依赖。这里的yum同样为包管理器，不过是CentOS系统内置的，功能与npm基本相同。</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cmake">yum <span class="hljs-keyword">install</span> gcc-c++<br>yum <span class="hljs-keyword">install</span> -y pcre pcre-devel<br>yum <span class="hljs-keyword">install</span> -y zlib zlib-devel<br>yum <span class="hljs-keyword">install</span> -y openssl openssl-devel<br></code></pre></td></tr></table></figure>
+
+<p>gcc-c++为编译nginx源码所需的编译器；pcre为正则表达式的支持库；zlib为压缩算法的支持库；Nginx支持http与https协议，如需实现https协议需要用到openssl库。</p>
+<p>(2) 访问官网的<a target="_blank" rel="noopener" href="http://nginx.org/en/download.html">下载页面</a>，查看稳定版nginx的版本号，并在终端中输入指令下载nginx的源代码。这里以1.20.2版本为例。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">wget -c http:<span class="hljs-regexp">//</span>nginx.org<span class="hljs-regexp">/download/</span>nginx-<span class="hljs-number">1.20</span>.<span class="hljs-number">2</span>.tar.gz     <span class="hljs-comment">#用wget命令下载源代码的压缩包</span><br>tar -zxvf nginx-<span class="hljs-number">1.20</span>.<span class="hljs-number">2</span>.tar.gz -C <span class="hljs-regexp">/usr/</span>local     <span class="hljs-comment">#解压压缩包至/usr/local目录下</span><br></code></pre></td></tr></table></figure>
+
+<p>解压完成后在WinSCP中刷新页面，可以看到 <code>/usr/local</code> 目录下多出了解压后的nginx源代码文件夹。</p>
+<p><img src="/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/nginx%E6%BA%90%E4%BB%A3%E7%A0%81%E6%96%87%E4%BB%B6%E5%A4%B9.PNG" srcset="/img/loading.gif" lazyload alt="nginx源代码文件夹"></p>
+<p>(3) 在终端中进入该目录，执行配置文件。</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-keyword">cd</span> <span class="hljs-string">/usr/local/nginx-1.20.2</span><br><span class="hljs-string">./configure</span> <span class="hljs-params">--with-http_ssl_module</span>     <span class="hljs-comment">#http_ssl_module为https模块</span><br></code></pre></td></tr></table></figure>
+
+<p>(4) 编译安装nginx。</p>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gauss"><span class="hljs-built_in">make</span><br><span class="hljs-built_in">make</span> install<br></code></pre></td></tr></table></figure>
+
+<p>(5) 若按以上方法安装，默认安装目录为 <code>/usr/local/nginx</code> 。进入sbin目录，启动nginx。注意，启动成功后在终端中不会显示任何信息，而在已启动nginx的情况下再次试图启动会显示错误信息（可据此粗略判断nginx是否启动）。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">cd <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/nginx/</span>sbin<br>./nginx -v     <span class="hljs-comment">#显示nginx版本号，说明安装成功</span><br>./nginx     <span class="hljs-comment">#启动nginx</span><br></code></pre></td></tr></table></figure>
+
+<p>启动后在浏览器地址栏中输入 <code>http://你的服务器ip:80</code> 即可看到nginx的欢迎页面，如图所示。</p>
+<p><img src="/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/nginx%E6%AC%A2%E8%BF%8E%E9%A1%B5%E9%9D%A2.PNG" srcset="/img/loading.gif" lazyload alt="nginx欢迎页面"></p>
+<p>在这里附上一些常用的nginx命令，注意，以下命令均需要在 <code>/usr/local/nginx/sbin</code> 目录下执行。</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-string">./nginx</span> -s stop     <span class="hljs-comment">#关闭nginx</span><br><span class="hljs-string">./nginx</span> -s <span class="hljs-keyword">reload</span>      <span class="hljs-comment">#重载nginx</span><br><span class="hljs-string">./nginx</span> -t      <span class="hljs-comment">#检查nginx配置文件的语法是否有错误，常在修改配置文件后执行</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="2-5-配置Nginx反向代理"><a href="#2-5-配置Nginx反向代理" class="headerlink" title="2.5 配置Nginx反向代理"></a>2.5 配置Nginx反向代理</h3><p>在WinSCP中进入nginx配置文件所在的目录 <code>/usr/local/nginx/conf</code> ，右键nginx.conf文件并进行编辑。（此处也可在终端中通过vim修改： <code>vim /usr/local/nginx/conf/nginx.conf</code> ；下文凡涉及文件修改的操作均可在终端中完成，这里选择在WinSCP中操作是为了更直观）</p>
+<p>找到server语句块，如图所示。</p>
+<p><img src="/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/server%E8%AF%AD%E5%8F%A5%E5%9D%97.PNG" srcset="/img/loading.gif" lazyload alt="server语句块"></p>
+<p>进行以下修改：</p>
+<ul>
+<li>listen为监听端口，保持默认80即可</li>
+<li>server_name为虚拟服务器的识别标志，修改为自己注册的域名，如 <code>www.glimound.com</code></li>
+<li>root为部署根目录（即用户访问时网页文件所在的目录），修改为前面创建的Hexo部署目录，如 <code>/home/www/hexo</code></li>
+</ul>
+<p>修改完成后检查语法并重载nginx。</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-string">./nginx</span> -t<br><span class="hljs-string">./nginx</span> -s <span class="hljs-keyword">reload</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="2-6-安装Git"><a href="#2-6-安装Git" class="headerlink" title="2.6 安装Git"></a>2.6 安装Git</h3><p>在终端中用yum安装Git。</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cmake">yum <span class="hljs-keyword">install</span> -y git<br>git --vesion     <span class="hljs-comment">#显示git版本号，说明安装成功</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="2-7-添加git用户"><a href="#2-7-添加git用户" class="headerlink" title="2.7 添加git用户"></a>2.7 添加git用户</h3><p>(1) root用户默认的权限过大，出于安全考虑，我们为服务器添加一个名为git的用户，用于将博客自动部署至服务器上。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">useradd</span> git     <span class="hljs-comment">#添加名为git的用户</span><br>passwd git     <span class="hljs-comment">#修改git用户的密码</span><br></code></pre></td></tr></table></figure>
+
+<p>(2) 为git用户授予sudo权限，用WinSCP打开 <code>/etc</code> 目录下的 <code>sudoers</code> 文件，在 <code>root ALL=(ALL) ALL</code> 语句下添加 <code>git ALL=(ALL) ALL</code> ，如图所示。</p>
+<p><img src="/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/sudoers%E6%96%87%E4%BB%B6.PNG" srcset="/img/loading.gif" lazyload alt="sudoers文件"></p>
+<h3 id="2-8-为git用户添加SSH密钥"><a href="#2-8-为git用户添加SSH密钥" class="headerlink" title="2.8 为git用户添加SSH密钥"></a>2.8 为git用户添加SSH密钥</h3><p>目前为止，对git仓库进行的所有操作都需要输入密码，我们可以通过为git用户添加SSH密钥的方式来实现免密登录。原理：在本地生成一对密钥文件（分别是公钥和私钥），将公钥文件上传到服务器上；服务器收到连接请求时，会将本地的公钥与服务器的公钥进行比对，用私钥解密服务器发来的一段信息并将其发回，验证通过后准许连接。</p>
+<p>(1) 在<strong>本地计算机上</strong>打开Git Bash，生成密钥对。</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">ssh-keygen</span><br></code></pre></td></tr></table></figure>
+
+<p>输入指令按enter键后会提示输入密码，这里也可不填，一路按enter即可。运行完后将会在 <code>C:\Users\用户名</code> 目录下生成.ssh文件夹，文件夹内的 <code>id_rsa</code> 为私钥文件，<code>id_rsa.pub</code> 为公钥文件。</p>
+<p>(2) 在linux下，文件名以小数点开头的文件被视为隐藏文件，在WinSCP中设置显示隐藏文件以方便后续操作。打开WinSCP–选项–选项–面板，勾选“显示隐藏文件”，如图所示。</p>
+<p><img src="/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/WinSCP%E6%98%BE%E7%A4%BA%E9%9A%90%E8%97%8F%E6%96%87%E4%BB%B6.png" srcset="/img/loading.gif" lazyload alt="WinSCP显示隐藏文件"></p>
+<p>(3) 在 <code>/home/git</code> 目录下右键新建名为 <code>.ssh</code> 的文件夹，并在该文件夹内新建名为 <code>authorized_keys</code> 的文件，将之前生成的公钥文件中的所有内容复制进去，保存。</p>
+<p>(4) 在XShell中连接实例，登录为root账户，为公钥文件和文件夹设置权限。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">chmod <span class="hljs-number">600</span> <span class="hljs-regexp">/home/gi</span>t<span class="hljs-regexp">/.ssh/</span>authorized_keys<br>chmod <span class="hljs-number">700</span> <span class="hljs-regexp">/home/gi</span>t/.ssh<br></code></pre></td></tr></table></figure>
+
+<p>chmod命令可设置文件或文件夹的权限，三位数字为linux中的权限代码，介绍及教程在<a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-comm-chmod.html">这里</a>。</p>
+<p>(5) 将.ssh文件夹及其内的文件所有权移交给git用户。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">chown -R git:git <span class="hljs-regexp">/home/gi</span>t/.ssh<br></code></pre></td></tr></table></figure>
+
+<p>chown命令可以变更目录或文件的所有者，-R参数是对子目录及其内的所有文件生效。</p>
+<p>(6) 在<strong>本地计算机</strong>测试是否可以用ssh免密登录服务器。打开Git Bash，连接实例，若配置成功则无需输入密码。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">ssh</span> -v git<span class="hljs-variable">@xxx</span>.xxx.xxx.xxx     <span class="hljs-comment">#git@后填写服务器的公网ip</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="2-9-创建Git仓库并配置自动部署"><a href="#2-9-创建Git仓库并配置自动部署" class="headerlink" title="2.9 创建Git仓库并配置自动部署"></a>2.9 创建Git仓库并配置自动部署</h3><p>这里的Git仓库（repository）可以理解为一个存放着不同版本代码的代码库，包含了项目所有的源文件和版本控制信息。但我们在这里需要用到的是裸库，即仅包含版本控制信息的仓库。后者不保存文件，常用作服务器仓库，实现数据共享和同步。</p>
+<p>自动部署的核心在于git-hooks（钩子），可以理解为一种脚本，在特定条件下触发时会调用钩子并执行钩子文件中的内容。</p>
+<p>(1) XShell登录为root用户，新建目录并在该目录下创建Git仓库。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">mkdir -p <span class="hljs-regexp">/home/</span>repo     <span class="hljs-comment">#该目录为git仓库所在的位置，可根据喜好自行设置</span><br>cd <span class="hljs-regexp">/home/</span>repo     <span class="hljs-comment">#进入该目录</span><br>git init --bare blog.git     <span class="hljs-comment">#创建一个名为blog的仓库，--bare参数为创建裸库</span><br></code></pre></td></tr></table></figure>
+
+<p>(2) 在WinSCP中进入 <code>/home/repo/blog.git/hooks</code> 目录，找到 <code>post-receive</code> 钩子文件（若无则新建）。</p>
+<p><img src="/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/%E9%92%A9%E5%AD%90%E6%96%87%E4%BB%B6.png" srcset="/img/loading.gif" lazyload alt="钩子文件"></p>
+<p>右键编辑，输入 <code>git --work-tree=/home/www/hexo --git-dir=/home/repo/blog.git checkout -f</code> 并保存。（work-tree填写hexo的部署目录，git-dir填写Git仓库的目录）</p>
+<p>这里我们使用的是 <code>post-receive</code> 钩子，当Git收到push请求的时候就会调用这个钩子。这个钩子中添加的语句执行的操作为：删除hexo部署目录中原有的文件，然后将Git仓库中的内容clone至hexo部署目录下。这样我们在本地更新博客并且执行部署命令后，网页文件会被push至服务器的Git仓库内，钩子文件则会将Git仓库内的网页文件复制到hexo部署目录下，从而实现自动部署功能。</p>
+<p>(3) 为钩子文件及Git仓库目录配置权限。这里需要将我们创建的仓库及部署目录的所有权移交给git用户，因为linux下创建文件时默认只有拥有者（即创建者）才具有读写权限，而Git进行push操作时登录的用户为git用户。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">chmod +x <span class="hljs-regexp">/home/</span>repo<span class="hljs-regexp">/blog.git/</span>hooks/post-receive     <span class="hljs-comment">#为钩子文件授予可执行权限（+x）</span><br>chown -R git:git <span class="hljs-regexp">/home/</span>repo     <span class="hljs-comment">#将仓库目录的所有权移交给git用户</span><br>chown -R git:git <span class="hljs-regexp">/home/</span>www/hexo     <span class="hljs-comment">#将hexo部署目录的所有权移交给git用户</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="3-其他配置"><a href="#3-其他配置" class="headerlink" title="3. 其他配置"></a>3. 其他配置</h2><h3 id="3-1-Hexo部署插件安装及配置"><a href="#3-1-Hexo部署插件安装及配置" class="headerlink" title="3.1 Hexo部署插件安装及配置"></a>3.1 Hexo部署插件安装及配置</h3><p>在本地计算机的hexo文件夹，这里是 <code>D:\Blog\myblog</code> ，打开 <code>_config.yml</code> 文件，找到 <code>deploy</code> 语句并进行修改，如图所示。</p>
+<p><img src="/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/deploy%E8%AE%BE%E7%BD%AE.png" srcset="/img/loading.gif" lazyload alt="deploy设置"></p>
+<p>type改为git，repo改为 <code>git@服务器ip:git仓库目录</code> ，这样在执行部署命令时，hexo就会用git用户登录服务器，并将生成的网页文件push到服务器的git仓库中。</p>
+<p>输入以下命令生成网页文件并部署至服务器上。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs verilog">hexo clean &amp;&amp; hexo <span class="hljs-keyword">generate</span> &amp;&amp; hexo deploy<br></code></pre></td></tr></table></figure>
+
+<p>在WinSCP中进入服务器的 <code>/home/www/hexo</code> 目录并刷新，查看是否出现文件（该目录原为空目录），如图所示。若有则说明hexo的部署插件及服务器的Git自动部署运行正常。</p>
+<p><img src="/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/hexo%E9%83%A8%E7%BD%B2%E7%9B%AE%E5%BD%95.png" srcset="/img/loading.gif" lazyload alt="hexo部署目录"></p>
+<p>至此，我们已经可以在浏览器中输入服务器的ip地址来访问博客站点。</p>
+<h3 id="3-2-设置域名解析"><a href="#3-2-设置域名解析" class="headerlink" title="3.2 设置域名解析"></a>3.2 设置域名解析</h3><p>域名解析可以将域名指向服务器的ip地址，这样访客输入域名即可访问我们的博客。进入域名管理后台，这里以阿里云的万网为例，在解析设置中添加记录，如图所示。</p>
+<p><img src="/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/%E6%B7%BB%E5%8A%A0%E8%A7%A3%E6%9E%90.png" srcset="/img/loading.gif" lazyload alt="添加解析"></p>
+<p>填写相关信息：</p>
+<ul>
+<li>记录类型：默认为A即可</li>
+<li>主机记录：www，或根据需要自行设置</li>
+<li>解析线路：默认</li>
+<li>记录值：服务器公网ip</li>
+<li>TTL：默认为10分钟即可</li>
+</ul>
+<h3 id="3-3-网站备案"><a href="#3-3-网站备案" class="headerlink" title="3.3 网站备案"></a>3.3 网站备案</h3><p>根据法律法规要求，提供非经营性互联网信息服务必须对网站进行ICP备案（需要提交服务器ip、域名、网站信息、网站运营者的身份信息），具体流程详见接入商（即服务器提供商）提供的帮助文档。未进行ICP备案的网站在通过域名进行访问时，会被接入商的检测系统识别并阻断访问。这里以腾讯云为例，进入腾讯云备案页面，根据流程进行ICP备案。</p>
+<p><img src="/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/%E5%A4%87%E6%A1%88.png" srcset="/img/loading.gif" lazyload alt="备案"></p>
+<p>ICP备案审批会在20个工作日内通过，在备案完成前，仍可通过ip地址的方式访问博客站点。注：解析至境外服务器的域名无需进行备案。</p>
+<p>ICP备案完成后，需将备案号显示在网站页面下方；此外，根据不同省份及地区的政策，可能还会要求进行公安备案，详见接入商提供的帮助文档。<strong>至此，我们已经完成了博客站点的所有基本配置</strong>，等待备案完成后即可从域名访问属于我们自己的博客网站。</p>
+<h3 id="3-4-可选操作：为网站配置ssl证书及https协议访问"><a href="#3-4-可选操作：为网站配置ssl证书及https协议访问" class="headerlink" title="3.4 可选操作：为网站配置ssl证书及https协议访问"></a>3.4 可选操作：为网站配置ssl证书及https协议访问</h3><p>https的具体原理在这里不再赘述，简单来说就是一种更加安全的加密通信协议，需要我们在服务器上安装数字证书以建立SSL加密通道。为网站开启https可以提高网站在搜索引擎中的排名，同时浏览器地址栏旁边也会显示一把小锁，说明我们的连接是安全的。</p>
+<p><img src="/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/https%E5%B0%8F%E9%94%81.png" srcset="/img/loading.gif" lazyload alt="https小锁"></p>
+<p>企业级数字证书通常价格较贵，一般用于商业网站的加密，而我们在这里选用免费的DV（域名型）证书。以腾讯云为例，可以在腾讯云网站申请免费数字证书，填写域名信息并进行所有权验证，验证通过后即可下载已签名的数字证书；证书有效期为一年，每年到期前续签即可。</p>
+<p>(1) 申请ssl证书成功后，下载用于nginx服务器的证书，得到四个文件，如图所示。</p>
+<p><img src="/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/%E8%AF%81%E4%B9%A6%E6%96%87%E4%BB%B6.png" srcset="/img/loading.gif" lazyload alt="证书文件"></p>
+<ul>
+<li><code>xxx_bundle.crt</code> 证书文件</li>
+<li><code>xxx.key</code> 私钥文件</li>
+<li><code>xxx.pem</code> 证书文件（安装时可忽略该文件）</li>
+<li><code>xxx.csr</code> CSR 文件（安装时可忽略该文件）</li>
+</ul>
+<p>(2) 使用WinCSP登录服务器，将上一步下载到本地的 <code>xxx_bundle.crt</code> 证书文件和 <code>xxx.key</code> 私钥文件复制到 <code>/usr/local/nginx/conf</code> 目录下。</p>
+<p>(3) 在该目录下找到nginx.conf文件，右键编辑，找到HTTPS server代码块，如图所示。</p>
+<p><img src="/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/https%E8%AF%AD%E5%8F%A5%E5%9D%97.png" srcset="/img/loading.gif" lazyload alt="https语句块"></p>
+<p>进行以下修改：</p>
+<ul>
+<li>取消该代码块的注释</li>
+<li>server_name：修改为域名</li>
+<li>ssl_certificate：修改为证书文件的文件名，如 <code>xxx_bundle.crt</code></li>
+<li>ssl_certificate_key：修改为私钥文件的文件名，如 <code>xxx.key</code></li>
+<li>ssl_ciphers：即使用的算法，参照接入商提供的文档进行修改</li>
+<li>root：修改为Hexo部署目录</li>
+<li><strong>注：需要修改的内容可能因服务器提供商不同而有所差异，以接入商提供的文档为准</strong></li>
+</ul>
+<p>(4) 如需访问网站时默认使用https协议，可以设置http重定向为https，在<strong>HTTP的server语句块</strong>中添加 <code>return 301 https://你的域名</code> 即可，如图所示。</p>
+<p><img src="/hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8/return%E8%AF%AD%E5%8F%A5.png" srcset="/img/loading.gif" lazyload alt="return语句"></p>
+<p>(5) XShell连接服务器，检查nginx语法并重启nginx。</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-keyword">cd</span> <span class="hljs-string">/usr/local/nginx/sbin</span><br><span class="hljs-string">./nginx</span> -t<br><span class="hljs-string">./nginx</span> -s <span class="hljs-keyword">reload</span><br></code></pre></td></tr></table></figure>
+
+<p>浏览器访问 <code>https://你的域名</code> 就可以看到地址栏的小锁啦。</p>
+<h3 id="3-5-附：常用Hexo命令"><a href="#3-5-附：常用Hexo命令" class="headerlink" title="3.5 附：常用Hexo命令"></a>3.5 附：常用Hexo命令</h3><figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs axapta">hexo clean     <span class="hljs-meta">#清除缓存（在本地已渲染的静态文件）</span><br>hexo generate     <span class="hljs-meta">#生成静态文件</span><br>hexo deploy     <span class="hljs-meta">#将静态文件部署至服务器</span><br><span class="hljs-meta">#上面三个命令常常连用：hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</span><br><br>hexo <span class="hljs-keyword">server</span>     <span class="hljs-meta">#将静态文件部署至本地服务器，常用于调试</span><br>hexo <span class="hljs-keyword">new</span> <span class="hljs-string">&quot;title&quot;</span>     <span class="hljs-meta">#新建名为title的文章，位置为本地站点文件夹\source\_posts，打开title.md即可编辑文章（.md为markdown文件的后缀名）</span><br></code></pre></td></tr></table></figure>
+
+<p>更多命令可访问Hexo官网的<a target="_blank" rel="noopener" href="https://hexo.io/docs/">帮助文档</a>获取。</p>
+<h3 id="3-6-附：错误排除"><a href="#3-6-附：错误排除" class="headerlink" title="3.6 附：错误排除"></a>3.6 附：错误排除</h3><ul>
+<li>hexo部署目录内无文件：检查hexo部署目录、git仓库目录、钩子文件的权限配置；检查本地博客的 <code>public</code> 目录内是否存在成功渲染的网页文件；重启实例</li>
+<li>无法访问服务器ip地址：完成上一步骤的检查；检查nginx是否处于开启状态；检查 <code>nginx.conf</code> 配置文件</li>
+<li>无法访问域名：完成上一步骤的检查；检查域名解析状态；确认ICP备案是否已经完成</li>
+</ul>
+<h1 id="四、结语"><a href="#四、结语" class="headerlink" title="四、结语"></a>四、结语</h1><p>🎉🎉至此，我们就完成了基于hexo的博客搭建，并已经将博客站点部署至云服务器上。</p>
+<p>当然，默认的hexo主题比较单调，我们可以搜索不同的主题来安装（我使用的是NexT主题），并通过修改 <code>_conig.yml</code> 文件对博客进行详细配置。同样，Github上也有比较多的第三方插件供我们对博客进行拓展、美化。预计接下来一段时间，我也会写一篇文章来介绍博客的NexT主题详细配置及美化教程。</p>
+<p>在搭建博客的过程中难免会遇到各种各样的问题，而<strong>尝试解决问题本身就是进步的过程</strong>。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/hexo/" class="category-chain-item">hexo</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/hexo/" class="print-no-link">#hexo</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>hexo博客部署至服务器</div>
+      <div>https://leekosss.github.io/2022/09/26/hexo博客部署至服务器/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>leekos</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年9月26日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2022年9月26日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/09/26/hexo%E5%8D%9A%E5%AE%A2%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98/" title="hexo博客图片路径问题">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">hexo博客图片路径问题</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/09/25/Maven%E9%AB%98%E7%BA%A7/" title="Maven高级">
+                        <span class="hidden-mobile">Maven高级</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"e5J90iDkXMWhU5UNlEX1I2hO-gzGzoHsz","appKey":"esLROw9j3xLk2nV4tQkKaih1","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      赣ICP备2022008842号-2
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,781 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="leekos">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="[TOC] [内网渗透]SUID提权0x01.什么是SUID？suid(set uid)是linux中的一种特殊权限，suid可以让调用者以文件拥有者身份运行该文件，所以利用suid提权的核心就是运行root用户所拥有的suid的文件，那么运行该文件的时候就得获得root用户的身份了。 但是SUID权限的设置只针对二进制可执行文件,对于非可执行文件设置SUID没有任何意义. 在执行过程中，调用者会">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tranquility">
+<meta property="og:url" content="https://leekosss.github.io/2023/08/24/[%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F]SUID%E6%8F%90%E6%9D%83/index.html">
+<meta property="og:site_name" content="Tranquility">
+<meta property="og:description" content="[TOC] [内网渗透]SUID提权0x01.什么是SUID？suid(set uid)是linux中的一种特殊权限，suid可以让调用者以文件拥有者身份运行该文件，所以利用suid提权的核心就是运行root用户所拥有的suid的文件，那么运行该文件的时候就得获得root用户的身份了。 但是SUID权限的设置只针对二进制可执行文件,对于非可执行文件设置SUID没有任何意义. 在执行过程中，调用者会">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307281643363.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307281654669.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307281704626.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307281716672.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307281727770.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307282001154.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307282022765.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307281926242.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307281953906.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307282027294.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307282013138.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307282031815.png">
+<meta property="article:published_time" content="2023-08-24T15:43:38.363Z">
+<meta property="article:modified_time" content="2023-07-28T12:46:32.109Z">
+<meta property="article:author" content="leekos">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307281643363.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Tranquility</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Tranquility</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-24 23:43" pubdate>
+          2023年8月24日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          21 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年7月28日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>[TOC]</p>
+<h2 id="内网渗透-SUID提权"><a href="#内网渗透-SUID提权" class="headerlink" title="[内网渗透]SUID提权"></a>[内网渗透]SUID提权</h2><h3 id="0x01-什么是SUID？"><a href="#0x01-什么是SUID？" class="headerlink" title="0x01.什么是SUID？"></a>0x01.什么是SUID？</h3><p>suid(set uid)是linux中的一种特殊权限，suid可以让调用者以文件拥有者身份运行该文件，所以利用<strong>suid提权的核心就是运行root用户所拥有的suid的文件</strong>，那么运行该文件的时候就得获得root用户的身份了。</p>
+<p>但是SUID权限的设置只针对二进制可执行文件,对于<strong>非可执行文件设置SUID没有任何意义</strong>.</p>
+<p>在执行过程中，调用者会暂时获得该文件的<strong>属主</strong>权限，且该权限只在程序执行的过程中有效。</p>
+<p>通俗的来讲，假设我们现在有一个可执行文件<code>/bin/find</code>，其属主为root。当我们通过非root用户登录时，如果<code>find</code>命令设置了<code>SUID</code>权限且属主为root，而恰好find命令能通过<code>-exec</code>选项执行系统命令，我们可在非<code>root</code>用户下运行find执行命令，在执行文件时，该进程的权限将为root权限。达到提权的效果。利用此特性，我们可以实现利用<code>SUID权限</code>的特殊进行提权</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307281643363.png" srcset="/img/loading.gif" lazyload alt="image-20230728164302312"></p>
+<h3 id="0x02-如何设置SUID？"><a href="#0x02-如何设置SUID？" class="headerlink" title="0x02.如何设置SUID？"></a>0x02.如何设置SUID？</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">chmod</span> u+s filename   设置SUID位<br><span class="hljs-built_in">chmod</span> u-s filename   去掉SUID设置<br></code></pre></td></tr></table></figure>
+
+<p>我们假设<code>binexec</code>为二进制可执行文件</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307281654669.png" srcset="/img/loading.gif" lazyload alt="image-20230728165450621"></p>
+<p>该文件的属主（属主为root）的可执行位的权限变为：<code>S</code>，说明获得了SUID权限</p>
+<h3 id="0x03-查找属主为root的SUID文件"><a href="#0x03-查找属主为root的SUID文件" class="headerlink" title="0x03.查找属主为root的SUID文件"></a>0x03.查找属主为root的SUID文件</h3><p>具有SUID权限的二进制可执行文件有：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">nmap</span><br><span class="hljs-keyword">vim</span><br><span class="hljs-keyword">find</span><br>bash<br>more<br>less<br>nano<br><span class="hljs-keyword">cp</span><br>awk<br></code></pre></td></tr></table></figure>
+
+<p>知道了这些文件后，我们需要找出属主为root，且具有SUID权限的文件的位置，利用这些命令进行提权</p>
+<p>以下命令可以找到正在系统上运行的所有SUID可执行文件。准确的说，这个命令将从&#x2F;目录中查找具有SUID权限位且属主为root的文件并输出它们，然后将所有错误重定向到&#x2F;dev&#x2F;null，从而仅列出该用户具有访问权限的那些二进制文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">find / -user root -perm -4000 -<span class="hljs-built_in">print</span> 2&gt;/dev/null<br>find / -perm -u=s -<span class="hljs-built_in">type</span> f 2&gt;/dev/null<br>find / -user root -perm -4000 -<span class="hljs-built_in">exec</span> <span class="hljs-built_in">ls</span> -ldb &#123;&#125; \;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs gradle"><span class="hljs-keyword">find</span> <span class="hljs-regexp">/ -perm -u=s -type f 2&gt;/</span>dev/<span class="hljs-keyword">null</span><br>/表示从文件系统的顶部（根）开始并找到每个目录<br>-perm 表示搜索随后的权限<br>-u = s表示查找root用户拥有的文件<br>-type表示我们正在寻找的文件类型<br>f 表示常规文件，而不是目录或特殊文件<br><span class="hljs-number">2</span>表示该进程的第二个文件描述符，即stderr（标准错误）<br>&gt;表示重定向<br><span class="hljs-regexp">/dev/</span><span class="hljs-keyword">null</span>是一个特殊的文件系统对象，它将丢弃写入其中的所有内容。<br></code></pre></td></tr></table></figure>
+
+<p>更多可以看：<a target="_blank" rel="noopener" href="https://gtfobins.github.io/">GTFOBins</a></p>
+<p>我们执行第一条看看：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307281704626.png" srcset="/img/loading.gif" lazyload alt="image-20230728170410574"></p>
+<p>这些文件都是具有SUID权限位，并且属主为<code>root</code>的文件</p>
+<p>我们查看一下<code>/usr/bin/passwd</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">&gt; <span class="hljs-built_in">ls</span> -al /usr/bin/passwd <br>-rwsr-xr-x 1 root root 68248 2022年11月11日 /usr/bin/passwd<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="0x04-进行SUID提权"><a href="#0x04-进行SUID提权" class="headerlink" title="0x04.进行SUID提权"></a>0x04.进行SUID提权</h3><p>进行提权的前提是二进制可执行文件的属主为<code>root</code>，且具有<code>SUID</code>权限位</p>
+<h4 id="1-find提权"><a href="#1-find提权" class="headerlink" title="1.find提权"></a>1.find提权</h4><p>find比较常见，不仅可以用来查找文件，同时还具有执行命令的能力。因此，如果配置有<code>SUID</code>权限运行，只可以通过find执行的命令去以root身份运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">find filename -<span class="hljs-built_in">exec</span> <span class="hljs-built_in">whoami</span> \; <br> <span class="hljs-comment"># filename 可以随便指定一个文件</span><br> <span class="hljs-comment"># 这个 \; 必须要有，而且和命令前要有个空格</span><br> <span class="hljs-comment"># -exec：&lt;执行指令&gt;：假设find指令的回传值为True，就执行该指令；</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307281716672.png" srcset="/img/loading.gif" lazyload alt="image-20230728171617608"></p>
+<p>如图所示，使用find提权成功，查看了root用户才能查看的文件</p>
+<h4 id="2-vim-vi-vim-tiny-以root权限修改文件"><a href="#2-vim-vi-vim-tiny-以root权限修改文件" class="headerlink" title="2.vim&#x2F;vi&#x2F;vim.tiny 以root权限修改文件"></a>2.vim&#x2F;vi&#x2F;vim.tiny 以root权限修改文件</h4><p>直接<code>vim anyFile</code>，然后在末行模式输入：</p>
+<p><code>:!/bin/sh</code> 或 <code>:set shell=&#39;/bin/sh&#39;</code> + <code>:shell</code></p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307281727770.png" srcset="/img/loading.gif" lazyload alt="image-20230728172731692"></p>
+<p>回车后就可以输入命令了：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307282001154.png" srcset="/img/loading.gif" lazyload alt="image-20230728200132102"></p>
+<p>给vim suid权限后，意味着<strong>任一用户可以以root权限编辑任一文件</strong>，linux下本来一切皆文件，实际造成的结果是我们可以为所欲为，<strong>修改&#x2F;etc&#x2F;sudoers，将一个用户提升为root权限</strong>，或者新增一个用户，或者修改sudo权限，增加<code>nopasswd all</code>的权限。</p>
+<p>例如：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307282022765.png" srcset="/img/loading.gif" lazyload alt="image-20230728202246698"></p>
+<p>我们成功以<code>leekos</code>普通用户修改了binexec文件的内容</p>
+<p>我们也可以修改<code>/etc/passwd</code>将普通用户改为root权限</p>
+<h4 id="3-bash提权"><a href="#3-bash提权" class="headerlink" title="3.bash提权"></a>3.bash提权</h4><blockquote>
+<p> 先设置bash的属主为root，并且赋予<code>SUID</code>权限位</p>
+</blockquote>
+<p>使用：<code>bash -p</code></p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307281926242.png" srcset="/img/loading.gif" lazyload alt="image-20230728192631181"></p>
+<h4 id="4-less-more执行系统命令"><a href="#4-less-more执行系统命令" class="headerlink" title="4.less&#x2F;more执行系统命令"></a>4.less&#x2F;more执行系统命令</h4><p>less&#x2F;more作用类似，我们此处以<code>more</code>举例：</p>
+<p>先给<code>more</code>加上<code>SUID</code>权限，然后<code>more /etc/passwd</code>（需要查看一个较大的文件，否则不能分页）</p>
+<p>在末行模式输入：<code>!/bin/sh</code>即可执行系统命令</p>
+<h4 id="5-nano以root权限修改文件"><a href="#5-nano以root权限修改文件" class="headerlink" title="5.nano以root权限修改文件"></a>5.nano以root权限修改文件</h4><figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs llvm">nano<br>ctrl+R<br>ctrl+<span class="hljs-keyword">x</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307281953906.png" srcset="/img/loading.gif" lazyload alt="image-20230728195338832"></p>
+<p>nano同vim一样也可以以<code>root</code>权限修改文件内容：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307282027294.png" srcset="/img/loading.gif" lazyload alt="image-20230728202748222"></p>
+<h4 id="6-awk执行系统命令"><a href="#6-awk执行系统命令" class="headerlink" title="6.awk执行系统命令"></a>6.awk执行系统命令</h4><p>输入awk，然后输入：<code>awk &#39;BEGIN&#123;system(&quot;/bin/bash&quot;)&#125;&#39;</code> 即可执行系统命令：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307282013138.png" srcset="/img/loading.gif" lazyload alt="image-20230728201302090"></p>
+<h4 id="7-cp以root权限覆盖文件"><a href="#7-cp以root权限覆盖文件" class="headerlink" title="7.cp以root权限覆盖文件"></a>7.cp以root权限覆盖文件</h4><p>这里<code>binexec</code>文件只有<code>root</code>可以写入但是这里我们使用带有SUID权限的<code>cp</code>命令，将demoFile中的文件写入了<code>binexec</code>中</p>
+<p>（我们同样也可以写入<code>/etc/sudoers</code>文件，将当前用户修改为root权限）</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307282031815.png" srcset="/img/loading.gif" lazyload alt="image-20230728203142739"></p>
+<h4 id="8-nmap（过时）"><a href="#8-nmap（过时）" class="headerlink" title="8.nmap（过时）"></a>8.nmap（过时）</h4><p>适用版本:nmap2.02至5.21</p>
+<p>在早期nmap版本中,带有交互模式,因而允许用户执行shell命令</p>
+<p>使用如下命令进入nmap交互模式:</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">nmap <span class="hljs-comment">--interactive</span><br></code></pre></td></tr></table></figure>
+
+<p>在nmap交互模式中 通过如下命令提权:</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nmap</span>&gt; !sh<br><span class="hljs-attribute">sh</span>-<span class="hljs-number">3</span>.<span class="hljs-number">2</span># whoami<br><span class="hljs-attribute">root</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>https://leekosss.github.io/2023/08/24/[内网渗透]SUID提权/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>leekos</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年8月24日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年7月28日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/08/24/%5B%E5%BC%BA%E7%BD%91%E6%9D%AF%202019%5D%E9%AB%98%E6%98%8E%E7%9A%84%E9%BB%91%E5%AE%A2/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/24/%5B%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%5DCFS%E4%B8%89%E5%B1%82%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"e5J90iDkXMWhU5UNlEX1I2hO-gzGzoHsz","appKey":"esLROw9j3xLk2nV4tQkKaih1","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      赣ICP备2022008842号-2
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

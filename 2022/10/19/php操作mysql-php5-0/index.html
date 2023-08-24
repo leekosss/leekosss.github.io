@@ -1,0 +1,786 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="leekos">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="一、使用PHP连接MySQL数据库使用PHP函数 mysqli_connect 连接上mysql数据库语法：$conn &#x3D; mysqli_connect(&#39;主机名&#39;,&#39;用户名&#39;,&#39;密码&#39;,&#39;数据库名&#39;,端口); 连接成功返回资源对象，失败返回false$conn 称为【数据库连接标识】 123header(&quot;Content-">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php操作mysql(php5.0+)">
+<meta property="og:url" content="https://leekosss.github.io/2022/10/19/php%E6%93%8D%E4%BD%9Cmysql-php5-0/index.html">
+<meta property="og:site_name" content="Tranquility">
+<meta property="og:description" content="一、使用PHP连接MySQL数据库使用PHP函数 mysqli_connect 连接上mysql数据库语法：$conn &#x3D; mysqli_connect(&#39;主机名&#39;,&#39;用户名&#39;,&#39;密码&#39;,&#39;数据库名&#39;,端口); 连接成功返回资源对象，失败返回false$conn 称为【数据库连接标识】 123header(&quot;Content-">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-10-19T12:39:27.000Z">
+<meta property="article:modified_time" content="2022-10-19T12:43:46.612Z">
+<meta property="article:author" content="leekos">
+<meta property="article:tag" content="PHP">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>php操作mysql(php5.0+) - Tranquility</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Tranquility</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="php操作mysql(php5.0+)"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-10-19 20:39" pubdate>
+          2022年10月19日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          24 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">php操作mysql(php5.0+)</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2022年10月19日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h4 id="一、使用PHP连接MySQL数据库"><a href="#一、使用PHP连接MySQL数据库" class="headerlink" title="一、使用PHP连接MySQL数据库"></a>一、使用PHP连接MySQL数据库</h4><p>使用PHP函数 mysqli_connect 连接上mysql数据库<br>语法：<code>$conn = mysqli_connect(&#39;主机名&#39;,&#39;用户名&#39;,&#39;密码&#39;,&#39;数据库名&#39;,端口);</code> 连接成功返回资源对象，失败返回false<br><code>$conn</code> 称为【数据库连接标识】</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-title function_ invoke__">header</span>(<span class="hljs-string">&quot;Content-type:text/html;charset=utf-8&quot;</span>);<br><span class="hljs-variable">$conn</span> = @<span class="hljs-title function_ invoke__">mysqli_connect</span>(<span class="hljs-string">&#x27;localhost&#x27;</span>,<span class="hljs-string">&#x27;root&#x27;</span>,<span class="hljs-string">&#x27;root&#x27;</span>,<span class="hljs-string">&#x27;student&#x27;</span>) <span class="hljs-keyword">or</span> <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;数据库连接错误！&quot;</span>);<br><span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;pre&gt;&quot;</span>;<span class="hljs-title function_ invoke__">var_dump</span>(<span class="hljs-variable">$conn</span>);<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;/pre&gt;&quot;</span>;<br></code></pre></td></tr></table></figure>
+
+<h4 id="二、使用PHP访问MySQL数据库"><a href="#二、使用PHP访问MySQL数据库" class="headerlink" title="二、使用PHP访问MySQL数据库"></a>二、使用PHP访问MySQL数据库</h4><p>使用PHP函数 mysqli_query 向MySQL数据库发送SQL指令去查询，将MySQL数据库返回的结果封装成对象作为函数的返回值。<br>语法：<code>$result = mysqli_query(数据库连接标识,SQL指令);</code><br><code>$result</code> 称为【结果集】</p>
+<h4 id="三、结果集的处理"><a href="#三、结果集的处理" class="headerlink" title="三、结果集的处理"></a>三、结果集的处理</h4><p>有两种结果集，主要区别于当前所执行的SQL指令，是否存在数据返回。</p>
+<ol>
+<li>有返回数据：select、show、desc<br>mysqli_query 会返回一个资源类型。执行成功返回结果集，失败返回 false<br><strong>注意：由于资源类型永远为真，不能用于判断是否有数据，只能判断命令是否执行成功</strong></li>
+<li>无返回数据：insert、delete、update、set、DDL（数据定义语言，如create、alter、drop）<br>mysqli_query 会返回一个布尔值。执行成功返回true，失败返回 false</li>
+</ol>
+<p>使用 mysqli_fetch_assoc 从结果集中读取数据，将读取到的数据以关联数组的形式返回，关联数组的键名就是 字段名 ，同时结果集的指针向下移动一行。<br>语法：<code>$row = mysqli_fetch_assoc(结果集);</code></p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">header(<span class="hljs-string">&quot;Content-type:text/html;charset=utf-8&quot;</span>);<br>$conn = @mysqli<span class="hljs-constructor">_connect(&#x27;<span class="hljs-params">localhost</span>&#x27;,&#x27;<span class="hljs-params">root</span>&#x27;,&#x27;<span class="hljs-params">root</span>&#x27;,&#x27;<span class="hljs-params">student</span>&#x27;)</span> <span class="hljs-keyword">or</span> die(<span class="hljs-string">&quot;数据库连接错误！&quot;</span>);<br>$rs = mysqli<span class="hljs-constructor">_query($<span class="hljs-params">conn</span>, &#x27;<span class="hljs-params">set</span> <span class="hljs-params">names</span> <span class="hljs-params">utf8</span>&#x27;)</span>;<span class="hljs-comment">//设置PHP与MySQL交互默认字符集var_dump($rs);</span><br>$rs = mysqli<span class="hljs-constructor">_query($<span class="hljs-params">conn</span>, &#x27;<span class="hljs-params">select</span> <span class="hljs-operator">*</span> <span class="hljs-params">from</span> <span class="hljs-params">student</span>&#x27;)</span>;<br><span class="hljs-keyword">while</span> ($row = mysqli<span class="hljs-constructor">_fetch_assoc($<span class="hljs-params">rs</span>)</span>) &#123;  <br>	echo <span class="hljs-string">&quot;&lt;pre&gt;&quot;</span>;  var<span class="hljs-constructor">_dump($<span class="hljs-params">row</span>)</span>;    <br>	echo <span class="hljs-string">&quot;&lt;/pre&gt;&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>从结果集中得到数据的三个函数：</p>
+<ol>
+<li>mysqli_fetch_assoc() 获取一行数据作为【关联】数组返回</li>
+<li>mysqli_fetch_row() 获取一行数据作为【索引】数组返回</li>
+<li>mysqli_fetch_array() 获取一行数据作为【关联】数组和【索引】数组返回</li>
+</ol>
+<p><strong>统计结果集中数据的行数</strong><br>语法：<code>mysqli_num_rows(结果集);</code><br>通常用于判断结果集中是否有数据，如果大于0就证明有数据，等于0就是没数据。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> mysqli_num_rows(<span class="hljs-variable">$rs</span>);<br></code></pre></td></tr></table></figure>
+
+<p><strong>释放结果集</strong>，释放结果集所占的内存空间<br>语法：<code>mysqli_free_result(结果集);</code></p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">mysqli<span class="hljs-constructor">_free_result($<span class="hljs-params">rs</span>)</span>;<br></code></pre></td></tr></table></figure>
+
+<h4 id="四、关闭数据库连接"><a href="#四、关闭数据库连接" class="headerlink" title="四、关闭数据库连接"></a>四、关闭数据库连接</h4><p>语法：<code>mysqli_close(数据库连接标识);</code><br>如不使用 mysqli_close 关闭数据库连接，PHP默认在代码执行结束后自动关闭。</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">mysqli<span class="hljs-constructor">_close($<span class="hljs-params">conn</span>)</span>;<br></code></pre></td></tr></table></figure>
+
+<h4 id="五、其他用法"><a href="#五、其他用法" class="headerlink" title="五、其他用法"></a>五、其他用法</h4><p><strong>错误信息</strong><br>语法：<code>mysqli_error(数据库连接标识);</code><br>通常用于对错误进行调试和查看</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> mysqli_error(<span class="hljs-variable">$conn</span>);<br></code></pre></td></tr></table></figure>
+
+<p><strong>获取刚插入数据的ID</strong><br>语法：<code>mysqli_insert_id(数据库连接标识);</code></p>
+<h4 id="六、项目的字符编码"><a href="#六、项目的字符编码" class="headerlink" title="六、项目的字符编码"></a>六、项目的字符编码</h4><p><strong>MySQL的字符集</strong><br>MySQL数据最终是保存在数据库，表，记录上的。<br>数据在真实保存时，受到几个地方的影响：</p>
+<ul>
+<li>字段的编码</li>
+<li>表的编码</li>
+<li>库的编码</li>
+<li>MySQL服务器的内置编码</li>
+</ul>
+<p>如果字段上设置了编码，保存数据以字段编码为准。<br>如果字段没有设置编码，以表的编码为准。<br>如果表没有设置编码，则以库上设置的编码为准。<br>如果库没有设置编码，则以MySQL服务器的内置编码为准。</p>
+<p>以上编码都是服务器确定的，只需对数据库、表、字段的编码进行设置即可。</p>
+<p><strong>数据在客户端展示的编码</strong><br>四个地方影响客户端的展示</p>
+<ol>
+<li>数据在服务器端存储的编码</li>
+</ol>
+<p>下面三个与客户端相关</p>
+<ol>
+<li>客户端向服务器端发送的数据编码<br>服务器变量（配置项）：<code>character_set_client</code></li>
+<li>客户端与服务器端之间的连接层使用的编码<br>服务器变量（配置项）：<code>character_set_connection</code></li>
+<li>服务器端向客户端发送的处理结果的数据编码<br>服务器变量（配置项）：<code>character_set_results</code></li>
+</ol>
+<p>可以使用 <code>show variables like &#39;char%&#39;;</code> 在MySQL命令行模式下查看相关变量。<br>可使用 set指令单独设置，如：<code>set character_set_results=utf8;</code></p>
+<p>set names 是一个快捷操作，同时设置了以上三个服务器变量（配置项），当使用<code>set names utf8;</code>时，相当于</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-built_in">set</span> <span class="hljs-attribute">character_set_client</span>=utf8;<br><span class="hljs-built_in">set</span> <span class="hljs-attribute">character_set_connection</span>=utf8;<br><span class="hljs-built_in">set</span> <span class="hljs-attribute">character_set_results</span>=utf8;<br></code></pre></td></tr></table></figure>
+
+<p><strong>项目中确保字符编码五个地方统一</strong></p>
+<ol>
+<li>MySQL数据库服务器保存数据的编码</li>
+<li>设置php与MySQL交互层编码 <code>mysqli_query($conn, &#39;set names utf8&#39;);</code></li>
+<li>PHP与浏览器之间交互的编码 <code>header(&quot;Content-type:text/html;charset=utf-8&quot;);</code></li>
+<li>HTML meta 标签声明使用编码 <code>&lt;meta charset=&quot;UTF-8&quot;&gt;</code></li>
+<li>PHP文件保存的编码（在编辑器中设置）</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/PHP/" class="category-chain-item">PHP</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/PHP/" class="print-no-link">#PHP</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>php操作mysql(php5.0+)</div>
+      <div>https://leekosss.github.io/2022/10/19/php操作mysql-php5-0/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>leekos</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年10月19日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2022年10月19日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/03/31/%E4%BD%BF%E7%94%A8picgo+github%E4%BD%9C%E4%B8%BA%E5%9B%BE%E5%BA%8A/" title="使用picgo+github作为图床">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">使用picgo+github作为图床</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/10/18/hexo%E5%8D%9A%E5%AE%A2%E4%B8%8A%E4%BC%A0pdf%E6%96%87%E4%BB%B6/" title="hexo博客上传pdf文件">
+                        <span class="hidden-mobile">hexo博客上传pdf文件</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"e5J90iDkXMWhU5UNlEX1I2hO-gzGzoHsz","appKey":"esLROw9j3xLk2nV4tQkKaih1","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      赣ICP备2022008842号-2
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

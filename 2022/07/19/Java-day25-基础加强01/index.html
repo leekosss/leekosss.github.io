@@ -1,0 +1,1178 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="leekos">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1.类加载器1.1类加载器【理解】 作用 负责将.class文件（存储的物理文件）加载在到内存中&#x2F;    1.2类加载的过程【理解】 类加载时机  创建类的实例（对象）  调用类的类方法  访问类或者接口的类变量，或者为该类变量赋值  使用反射方式来强制创建某个类或接口对应的java.lang.Class对象  初始化某个类的子类  直接使用java.exe命令来运行某个主类">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java-day25-基础加强01">
+<meta property="og:url" content="https://leekosss.github.io/2022/07/19/Java-day25-%E5%9F%BA%E7%A1%80%E5%8A%A0%E5%BC%BA01/index.html">
+<meta property="og:site_name" content="Tranquility">
+<meta property="og:description" content="1.类加载器1.1类加载器【理解】 作用 负责将.class文件（存储的物理文件）加载在到内存中&#x2F;    1.2类加载的过程【理解】 类加载时机  创建类的实例（对象）  调用类的类方法  访问类或者接口的类变量，或者为该类变量赋值  使用反射方式来强制创建某个类或接口对应的java.lang.Class对象  初始化某个类的子类  直接使用java.exe命令来运行某个主类">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://leekosss.github.io/Java-day25-%E5%9F%BA%E7%A1%80%E5%8A%A0%E5%BC%BA01/01_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8.png">
+<meta property="og:image" content="https://leekosss.github.io/Java-day25-%E5%9F%BA%E7%A1%80%E5%8A%A0%E5%BC%BA01/02_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B%E5%8A%A0%E8%BD%BD.png">
+<meta property="og:image" content="https://leekosss.github.io/Java-day25-%E5%9F%BA%E7%A1%80%E5%8A%A0%E5%BC%BA01/03_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B%E9%AA%8C%E8%AF%81.png">
+<meta property="og:image" content="https://leekosss.github.io/Java-day25-%E5%9F%BA%E7%A1%80%E5%8A%A0%E5%BC%BA01/04_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B%E5%87%86%E5%A4%87.png">
+<meta property="og:image" content="https://leekosss.github.io/Java-day25-%E5%9F%BA%E7%A1%80%E5%8A%A0%E5%BC%BA01/05_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B%E8%A7%A3%E6%9E%90.png">
+<meta property="og:image" content="https://leekosss.github.io/Java-day25-%E5%9F%BA%E7%A1%80%E5%8A%A0%E5%BC%BA01/06_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B%E5%88%9D%E5%A7%8B%E5%8C%96.png">
+<meta property="og:image" content="https://leekosss.github.io/Java-day25-%E5%9F%BA%E7%A1%80%E5%8A%A0%E5%BC%BA01/07_%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%A8%A1%E5%9E%8B.png">
+<meta property="og:image" content="https://leekosss.github.io/Java-day25-%E5%9F%BA%E7%A1%80%E5%8A%A0%E5%BC%BA01/08_%E8%8E%B7%E5%8F%96Class%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F.png">
+<meta property="og:image" content="https://leekosss.github.io/Java-day25-%E5%9F%BA%E7%A1%80%E5%8A%A0%E5%BC%BA01/11_%E8%AF%B7%E6%B1%82%E8%B5%84%E6%BA%90%E5%88%86%E7%B1%BB.png">
+<meta property="og:image" content="https://leekosss.github.io/Java-day25-%E5%9F%BA%E7%A1%80%E5%8A%A0%E5%BC%BA01/09_%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90.png">
+<meta property="og:image" content="https://leekosss.github.io/Java-day25-%E5%9F%BA%E7%A1%80%E5%8A%A0%E5%BC%BA01/10_%E5%8A%A8%E6%80%81%E8%B5%84%E6%BA%90.png">
+<meta property="og:image" content="https://leekosss.github.io/Java-day25-%E5%9F%BA%E7%A1%80%E5%8A%A0%E5%BC%BA01/12_%E5%A4%9A%E4%B8%AA%E5%8A%A8%E6%80%81%E8%B5%84%E6%BA%90.png">
+<meta property="og:image" content="https://leekosss.github.io/Java-day25-%E5%9F%BA%E7%A1%80%E5%8A%A0%E5%BC%BA01/13_%E5%8F%8D%E5%B0%84%E5%92%8C%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%BC%98%E5%8C%96.png">
+<meta property="article:published_time" content="2022-07-19T13:43:09.000Z">
+<meta property="article:modified_time" content="2023-05-28T07:13:54.859Z">
+<meta property="article:author" content="leekos">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://leekosss.github.io/Java-day25-%E5%9F%BA%E7%A1%80%E5%8A%A0%E5%BC%BA01/01_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Java-day25-基础加强01 - Tranquility</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Tranquility</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Java-day25-基础加强01"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-07-19 21:43" pubdate>
+          2022年7月19日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          31k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          261 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Java-day25-基础加强01</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年5月28日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="1-类加载器"><a href="#1-类加载器" class="headerlink" title="1.类加载器"></a>1.类加载器</h2><h3 id="1-1类加载器【理解】"><a href="#1-1类加载器【理解】" class="headerlink" title="1.1类加载器【理解】"></a>1.1类加载器【理解】</h3><ul>
+<li><p>作用</p>
+<p>负责将.class文件（存储的物理文件）加载在到内存中&#x2F;</p>
+<p><img src="/Java-day25-%E5%9F%BA%E7%A1%80%E5%8A%A0%E5%BC%BA01/01_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8.png" srcset="/img/loading.gif" lazyload alt="01_类加载器"></p>
+</li>
+</ul>
+<h3 id="1-2类加载的过程【理解】"><a href="#1-2类加载的过程【理解】" class="headerlink" title="1.2类加载的过程【理解】"></a>1.2类加载的过程【理解】</h3><ul>
+<li><p>类加载时机</p>
+<ul>
+<li><p>创建类的实例（对象）</p>
+</li>
+<li><p>调用类的类方法</p>
+</li>
+<li><p>访问类或者接口的类变量，或者为该类变量赋值</p>
+</li>
+<li><p>使用反射方式来强制创建某个类或接口对应的java.lang.Class对象</p>
+</li>
+<li><p>初始化某个类的子类</p>
+</li>
+<li><p>直接使用java.exe命令来运行某个主类</p>
+<span id="more"></span></li>
+</ul>
+</li>
+<li><p>类加载过程</p>
+<ol>
+<li><p>加载</p>
+<ul>
+<li>通过包名 + 类名，获取这个类，准备用流进行传输</li>
+<li>在这个类加载到内存中</li>
+<li>加载完毕创建一个class对象</li>
+</ul>
+<p><img src="/Java-day25-%E5%9F%BA%E7%A1%80%E5%8A%A0%E5%BC%BA01/02_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B%E5%8A%A0%E8%BD%BD.png" srcset="/img/loading.gif" lazyload alt="02_类加载过程加载"></p>
+</li>
+<li><p>链接</p>
+<ul>
+<li><p>验证</p>
+<p>确保Class文件字节流中包含的信息符合当前虚拟机的要求，并且不会危害虚拟机自身安全</p>
+<p>(文件中的信息是否符合虚拟机规范有没有安全隐患)</p>
+</li>
+</ul>
+<p><img src="/Java-day25-%E5%9F%BA%E7%A1%80%E5%8A%A0%E5%BC%BA01/03_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B%E9%AA%8C%E8%AF%81.png" srcset="/img/loading.gif" lazyload alt="03_类加载过程验证"></p>
+<ul>
+<li><p>准备</p>
+<p>负责为类的类变量（被static修饰的变量）分配内存，并设置默认初始化值</p>
+<p>(初始化静态变量)</p>
+</li>
+</ul>
+<p><img src="/Java-day25-%E5%9F%BA%E7%A1%80%E5%8A%A0%E5%BC%BA01/04_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B%E5%87%86%E5%A4%87.png" srcset="/img/loading.gif" lazyload alt="04_类加载过程准备"></p>
+<ul>
+<li><p>解析</p>
+<p>将类的二进制数据流中的符号引用替换为直接引用</p>
+<p>(本类中如果用到了其他类，此时就需要找到对应的类)</p>
+</li>
+</ul>
+<p><img src="/Java-day25-%E5%9F%BA%E7%A1%80%E5%8A%A0%E5%BC%BA01/05_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B%E8%A7%A3%E6%9E%90.png" srcset="/img/loading.gif" lazyload alt="05_类加载过程解析"></p>
+</li>
+<li><p>初始化</p>
+<p>根据程序员通过程序制定的主观计划去初始化类变量和其他资源</p>
+<p>(静态变量赋值以及初始化其他资源)</p>
+<p><img src="/Java-day25-%E5%9F%BA%E7%A1%80%E5%8A%A0%E5%BC%BA01/06_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B%E5%88%9D%E5%A7%8B%E5%8C%96.png" srcset="/img/loading.gif" lazyload alt="06_类加载过程初始化"></p>
+</li>
+</ol>
+</li>
+<li><p>小结</p>
+<ul>
+<li>当一个类被使用的时候，才会加载到内存</li>
+<li>类加载的过程: 加载、验证、准备、解析、初始化</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-3类加载的分类【理解】"><a href="#1-3类加载的分类【理解】" class="headerlink" title="1.3类加载的分类【理解】"></a>1.3类加载的分类【理解】</h3><ul>
+<li><p>分类</p>
+<ul>
+<li>Bootstrap class loader：虚拟机的内置类加载器，通常表示为null ，并且没有父null</li>
+<li>Platform class loader：平台类加载器,负责加载JDK中一些特殊的模块</li>
+<li>System class loader：系统类加载器,负责加载用户类路径上所指定的类库</li>
+</ul>
+</li>
+<li><p>类加载器的继承关系</p>
+<ul>
+<li>System的父加载器为Platform</li>
+<li>Platform的父加载器为Bootstrap</li>
+</ul>
+</li>
+<li><p>代码演示</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ClassLoaderDemo1</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-comment">//获取系统类加载器</span><br>        <span class="hljs-type">ClassLoader</span> <span class="hljs-variable">systemClassLoader</span> <span class="hljs-operator">=</span> ClassLoader.getSystemClassLoader();<br><br>        <span class="hljs-comment">//获取系统类加载器的父加载器 --- 平台类加载器</span><br>        <span class="hljs-type">ClassLoader</span> <span class="hljs-variable">classLoader1</span> <span class="hljs-operator">=</span> systemClassLoader.getParent();<br><br>        <span class="hljs-comment">//获取平台类加载器的父加载器 --- 启动类加载器</span><br>        <span class="hljs-type">ClassLoader</span> <span class="hljs-variable">classLoader2</span> <span class="hljs-operator">=</span> classLoader1.getParent();<br><br>        System.out.println(<span class="hljs-string">&quot;系统类加载器&quot;</span> + systemClassLoader);<br>        System.out.println(<span class="hljs-string">&quot;平台类加载器&quot;</span> + classLoader1);<br>        System.out.println(<span class="hljs-string">&quot;启动类加载器&quot;</span> + classLoader2);<br><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="1-4双亲委派模型【理解】"><a href="#1-4双亲委派模型【理解】" class="headerlink" title="1.4双亲委派模型【理解】"></a>1.4双亲委派模型【理解】</h3><ul>
+<li><p>介绍</p>
+<p>如果一个类加载器收到了类加载请求，它并不会自己先去加载，而是把这个请求委托给父类的加载器去执行，如果父类加载器还存在其父类加载器，则进一步向上委托，依次递归，请求最终将到达顶层的启动类加载器，如果父类加载器可以完成类加载任务，就成功返回，倘若父类加载器无法完成此加载任务，子加载器才会尝试自己去加载，这就是双亲委派模式</p>
+<p><img src="/Java-day25-%E5%9F%BA%E7%A1%80%E5%8A%A0%E5%BC%BA01/07_%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%A8%A1%E5%9E%8B.png" srcset="/img/loading.gif" lazyload alt="07_双亲委派模型"></p>
+</li>
+</ul>
+<h3 id="1-5ClassLoader-中的两个方法【应用】"><a href="#1-5ClassLoader-中的两个方法【应用】" class="headerlink" title="1.5ClassLoader 中的两个方法【应用】"></a>1.5ClassLoader 中的两个方法【应用】</h3><ul>
+<li><p>方法介绍</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public static ClassLoader getSystemClassLoader()</td>
+<td>获取系统类加载器</td>
+</tr>
+<tr>
+<td>public InputStream getResourceAsStream(String name)</td>
+<td>加载某一个资源文件</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ClassLoaderDemo2</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>        <span class="hljs-comment">//static ClassLoader getSystemClassLoader() 获取系统类加载器</span><br>        <span class="hljs-comment">//InputStream getResourceAsStream(String name)  加载某一个资源文件</span><br><br>        <span class="hljs-comment">//获取系统类加载器</span><br>        <span class="hljs-type">ClassLoader</span> <span class="hljs-variable">systemClassLoader</span> <span class="hljs-operator">=</span> ClassLoader.getSystemClassLoader();<br><br>        <span class="hljs-comment">//利用加载器去加载一个指定的文件</span><br>        <span class="hljs-comment">//参数：文件的路径（放在src的根目录下，默认去那里加载）</span><br>        <span class="hljs-comment">//返回值：字节流。</span><br>        <span class="hljs-type">InputStream</span> <span class="hljs-variable">is</span> <span class="hljs-operator">=</span> systemClassLoader.getResourceAsStream(<span class="hljs-string">&quot;prop.properties&quot;</span>);<br><br>        <span class="hljs-type">Properties</span> <span class="hljs-variable">prop</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Properties</span>();<br>        prop.load(is);<br><br>        System.out.println(prop);<br><br>        is.close();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="2-反射"><a href="#2-反射" class="headerlink" title="2.反射"></a>2.反射</h2><h3 id="2-1反射的概述【理解】"><a href="#2-1反射的概述【理解】" class="headerlink" title="2.1反射的概述【理解】"></a>2.1反射的概述【理解】</h3><ul>
+<li><p>反射机制</p>
+<p>是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；<br>对于任意一个对象，都能够调用它的任意属性和方法；<br>这种动态获取信息以及动态调用对象方法的功能称为Java语言的反射机制。</p>
+</li>
+</ul>
+<h3 id="2-2获取Class类对象的三种方式【应用】"><a href="#2-2获取Class类对象的三种方式【应用】" class="headerlink" title="2.2获取Class类对象的三种方式【应用】"></a>2.2获取Class类对象的三种方式【应用】</h3><ul>
+<li><p>三种方式分类</p>
+<ul>
+<li><p>类名.class属性</p>
+</li>
+<li><p>对象名.getClass()方法</p>
+</li>
+<li><p>Class.forName(全类名)方法</p>
+</li>
+</ul>
+<p><img src="/Java-day25-%E5%9F%BA%E7%A1%80%E5%8A%A0%E5%BC%BA01/08_%E8%8E%B7%E5%8F%96Class%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F.png" srcset="/img/loading.gif" lazyload alt="08_获取Class对象的三种方式"></p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Student</span> &#123;<br>    <span class="hljs-keyword">private</span> String name;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> age;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">Student</span><span class="hljs-params">()</span> &#123;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">Student</span><span class="hljs-params">(String name, <span class="hljs-type">int</span> age)</span> &#123;<br>        <span class="hljs-built_in">this</span>.name = name;<br>        <span class="hljs-built_in">this</span>.age = age;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getName</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> name;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setName</span><span class="hljs-params">(String name)</span> &#123;<br>        <span class="hljs-built_in">this</span>.name = name;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">getAge</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> age;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setAge</span><span class="hljs-params">(<span class="hljs-type">int</span> age)</span> &#123;<br>        <span class="hljs-built_in">this</span>.age = age;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">study</span><span class="hljs-params">()</span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;学生在学习&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">toString</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Student&#123;&quot;</span> +<br>                <span class="hljs-string">&quot;name=&#x27;&quot;</span> + name + <span class="hljs-string">&#x27;\&#x27;&#x27;</span> +<br>                <span class="hljs-string">&quot;, age=&quot;</span> + age +<br>                <span class="hljs-string">&#x27;&#125;&#x27;</span>;<br>    &#125;<br>&#125;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ReflectDemo1</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> ClassNotFoundException &#123;<br>        <span class="hljs-comment">//1.Class类中的静态方法forName(&quot;全类名&quot;)</span><br>            <span class="hljs-comment">//全类名:包名 + 类名</span><br>        <span class="hljs-type">Class</span> <span class="hljs-variable">clazz</span> <span class="hljs-operator">=</span> Class.forName(<span class="hljs-string">&quot;com.itheima.myreflect2.Student&quot;</span>);<br>        System.out.println(clazz);<br><br>        <span class="hljs-comment">//2.通过class属性来获取</span><br>        <span class="hljs-type">Class</span> <span class="hljs-variable">clazz2</span> <span class="hljs-operator">=</span> Student.class;<br>        System.out.println(clazz2);<br><br>        <span class="hljs-comment">//3.利用对象的getClass方法来获取class对象</span><br>        <span class="hljs-comment">//getClass方法是定义在Object类中.</span><br>        <span class="hljs-type">Student</span> <span class="hljs-variable">s</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Student</span>();<br>        <span class="hljs-type">Class</span> <span class="hljs-variable">clazz3</span> <span class="hljs-operator">=</span> s.getClass();<br>        System.out.println(clazz3);<br><br>        System.out.println(clazz == clazz2);<br>        System.out.println(clazz2 == clazz3);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="2-3反射获取构造方法并使用【应用】"><a href="#2-3反射获取构造方法并使用【应用】" class="headerlink" title="2.3反射获取构造方法并使用【应用】"></a>2.3反射获取构造方法并使用【应用】</h3><h4 id="2-3-1Class类获取构造方法对象的方法"><a href="#2-3-1Class类获取构造方法对象的方法" class="headerlink" title="2.3.1Class类获取构造方法对象的方法"></a>2.3.1Class类获取构造方法对象的方法</h4><ul>
+<li><p>方法介绍</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Constructor&lt;?&gt;[] getConstructors()</td>
+<td>返回所有公共构造方法对象的数组</td>
+</tr>
+<tr>
+<td>Constructor&lt;?&gt;[] getDeclaredConstructors()</td>
+<td>返回所有构造方法对象的数组</td>
+</tr>
+<tr>
+<td>Constructor<T> getConstructor(Class&lt;?&gt;… parameterTypes)</td>
+<td>返回单个公共构造方法对象</td>
+</tr>
+<tr>
+<td>Constructor<T> getDeclaredConstructor(Class&lt;?&gt;… parameterTypes)</td>
+<td>返回单个构造方法对象</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Student</span> &#123;<br>    <span class="hljs-keyword">private</span> String name;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> age;<br><br>    <span class="hljs-comment">//私有的有参构造方法</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-title function_">Student</span><span class="hljs-params">(String name)</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;name的值为:&quot;</span> + name);<br>        System.out.println(<span class="hljs-string">&quot;private...Student...有参构造方法&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">//公共的无参构造方法</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">Student</span><span class="hljs-params">()</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;public...Student...无参构造方法&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">//公共的有参构造方法</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">Student</span><span class="hljs-params">(String name, <span class="hljs-type">int</span> age)</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;name的值为:&quot;</span> + name + <span class="hljs-string">&quot;age的值为:&quot;</span> + age);<br>        System.out.println(<span class="hljs-string">&quot;public...Student...有参构造方法&quot;</span>);<br>    &#125;<br>&#125;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ReflectDemo1</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> ClassNotFoundException, NoSuchMethodException &#123;<br>        <span class="hljs-comment">//method1();</span><br>        <span class="hljs-comment">//method2();</span><br>        <span class="hljs-comment">//method3();</span><br>        <span class="hljs-comment">//method4();</span><br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">method4</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> ClassNotFoundException, NoSuchMethodException &#123;<br>        <span class="hljs-comment">//        Constructor&lt;T&gt; getDeclaredConstructor(Class&lt;?&gt;... parameterTypes)：</span><br><span class="hljs-comment">//                                      返回单个构造方法对象</span><br>        <span class="hljs-comment">//1.获取Class对象</span><br>        <span class="hljs-type">Class</span> <span class="hljs-variable">clazz</span> <span class="hljs-operator">=</span> Class.forName(<span class="hljs-string">&quot;com.itheima.myreflect3.Student&quot;</span>);<br>        <span class="hljs-type">Constructor</span> <span class="hljs-variable">constructor</span> <span class="hljs-operator">=</span> clazz.getDeclaredConstructor(String.class);<br>        System.out.println(constructor);<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">method3</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> ClassNotFoundException, NoSuchMethodException &#123;<br>        <span class="hljs-comment">//        Constructor&lt;T&gt; getConstructor(Class&lt;?&gt;... parameterTypes)：</span><br><span class="hljs-comment">//                                      返回单个公共构造方法对象</span><br>        <span class="hljs-comment">//1.获取Class对象</span><br>        <span class="hljs-type">Class</span> <span class="hljs-variable">clazz</span> <span class="hljs-operator">=</span> Class.forName(<span class="hljs-string">&quot;com.itheima.myreflect3.Student&quot;</span>);<br>        <span class="hljs-comment">//小括号中,一定要跟构造方法的形参保持一致.</span><br>        <span class="hljs-type">Constructor</span> <span class="hljs-variable">constructor1</span> <span class="hljs-operator">=</span> clazz.getConstructor();<br>        System.out.println(constructor1);<br><br>        <span class="hljs-type">Constructor</span> <span class="hljs-variable">constructor2</span> <span class="hljs-operator">=</span> clazz.getConstructor(String.class, <span class="hljs-type">int</span>.class);<br>        System.out.println(constructor2);<br><br>        <span class="hljs-comment">//因为Student类中,没有只有一个int的构造,所以这里会报错.</span><br>        <span class="hljs-type">Constructor</span> <span class="hljs-variable">constructor3</span> <span class="hljs-operator">=</span> clazz.getConstructor(<span class="hljs-type">int</span>.class);<br>        System.out.println(constructor3);<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">method2</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> ClassNotFoundException &#123;<br>        <span class="hljs-comment">//        Constructor&lt;?&gt;[] getDeclaredConstructors()：</span><br><span class="hljs-comment">//                                      返回所有构造方法对象的数组</span><br>        <span class="hljs-comment">//1.获取Class对象</span><br>        <span class="hljs-type">Class</span> <span class="hljs-variable">clazz</span> <span class="hljs-operator">=</span> Class.forName(<span class="hljs-string">&quot;com.itheima.myreflect3.Student&quot;</span>);<br><br>        Constructor[] constructors = clazz.getDeclaredConstructors();<br>        <span class="hljs-keyword">for</span> (Constructor constructor : constructors) &#123;<br>            System.out.println(constructor);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">method1</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> ClassNotFoundException &#123;<br>        <span class="hljs-comment">//        Constructor&lt;?&gt;[] getConstructors()：</span><br><span class="hljs-comment">//                                      返回所有公共构造方法对象的数组</span><br>        <span class="hljs-comment">//1.获取Class对象</span><br>        <span class="hljs-type">Class</span> <span class="hljs-variable">clazz</span> <span class="hljs-operator">=</span> Class.forName(<span class="hljs-string">&quot;com.itheima.myreflect3.Student&quot;</span>);<br>        Constructor[] constructors = clazz.getConstructors();<br>        <span class="hljs-keyword">for</span> (Constructor constructor : constructors) &#123;<br>            System.out.println(constructor);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-3-2Constructor类用于创建对象的方法"><a href="#2-3-2Constructor类用于创建对象的方法" class="headerlink" title="2.3.2Constructor类用于创建对象的方法"></a>2.3.2Constructor类用于创建对象的方法</h4><ul>
+<li><p>方法介绍</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>T newInstance(Object…initargs)</td>
+<td>根据指定的构造方法创建对象</td>
+</tr>
+<tr>
+<td>setAccessible(boolean flag)</td>
+<td>设置为true,表示取消访问检查</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// Student类同上一个示例,这里就不在重复提供了</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ReflectDemo2</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException &#123;<br>        <span class="hljs-comment">//T newInstance(Object... initargs)：根据指定的构造方法创建对象</span><br>        <span class="hljs-comment">//method1();</span><br>        <span class="hljs-comment">//method2();</span><br>        <span class="hljs-comment">//method3();</span><br>        <span class="hljs-comment">//method4();</span><br><br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">method4</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException &#123;<br>        <span class="hljs-comment">//获取一个私有的构造方法并创建对象</span><br>        <span class="hljs-comment">//1.获取class对象</span><br>        <span class="hljs-type">Class</span> <span class="hljs-variable">clazz</span> <span class="hljs-operator">=</span> Class.forName(<span class="hljs-string">&quot;com.itheima.myreflect3.Student&quot;</span>);<br><br>        <span class="hljs-comment">//2.获取一个私有化的构造方法.</span><br>        <span class="hljs-type">Constructor</span> <span class="hljs-variable">constructor</span> <span class="hljs-operator">=</span> clazz.getDeclaredConstructor(String.class);<br><br>        <span class="hljs-comment">//被private修饰的成员,不能直接使用的</span><br>        <span class="hljs-comment">//如果用反射强行获取并使用,需要临时取消访问检查</span><br>        constructor.setAccessible(<span class="hljs-literal">true</span>);<br><br>        <span class="hljs-comment">//3.直接创建对象</span><br>        <span class="hljs-type">Student</span> <span class="hljs-variable">student</span> <span class="hljs-operator">=</span> (Student) constructor.newInstance(<span class="hljs-string">&quot;zhangsan&quot;</span>);<br><br>        System.out.println(student);<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">method3</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> ClassNotFoundException, InstantiationException, IllegalAccessException &#123;<br>        <span class="hljs-comment">//简写格式</span><br>        <span class="hljs-comment">//1.获取class对象</span><br>        <span class="hljs-type">Class</span> <span class="hljs-variable">clazz</span> <span class="hljs-operator">=</span> Class.forName(<span class="hljs-string">&quot;com.itheima.myreflect3.Student&quot;</span>);<br><br>        <span class="hljs-comment">//2.在Class类中,有一个newInstance方法,可以利用空参直接创建一个对象</span><br>        <span class="hljs-type">Student</span> <span class="hljs-variable">student</span> <span class="hljs-operator">=</span> (Student) clazz.newInstance();<span class="hljs-comment">//这个方法现在已经过时了,了解一下</span><br><br>        System.out.println(student);<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">method2</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException &#123;<br>        <span class="hljs-comment">//1.获取class对象</span><br>        <span class="hljs-type">Class</span> <span class="hljs-variable">clazz</span> <span class="hljs-operator">=</span> Class.forName(<span class="hljs-string">&quot;com.itheima.myreflect3.Student&quot;</span>);<br><br>        <span class="hljs-comment">//2.获取构造方法对象</span><br>        <span class="hljs-type">Constructor</span> <span class="hljs-variable">constructor</span> <span class="hljs-operator">=</span> clazz.getConstructor();<br><br>        <span class="hljs-comment">//3.利用空参来创建Student的对象</span><br>        <span class="hljs-type">Student</span> <span class="hljs-variable">student</span> <span class="hljs-operator">=</span> (Student) constructor.newInstance();<br><br>        System.out.println(student);<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">method1</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException &#123;<br>        <span class="hljs-comment">//1.获取class对象</span><br>        <span class="hljs-type">Class</span> <span class="hljs-variable">clazz</span> <span class="hljs-operator">=</span> Class.forName(<span class="hljs-string">&quot;com.itheima.myreflect3.Student&quot;</span>);<br><br>        <span class="hljs-comment">//2.获取构造方法对象</span><br>        <span class="hljs-type">Constructor</span> <span class="hljs-variable">constructor</span> <span class="hljs-operator">=</span> clazz.getConstructor(String.class, <span class="hljs-type">int</span>.class);<br><br>        <span class="hljs-comment">//3.利用newInstance创建Student的对象</span><br>        <span class="hljs-type">Student</span> <span class="hljs-variable">student</span> <span class="hljs-operator">=</span> (Student) constructor.newInstance(<span class="hljs-string">&quot;zhangsan&quot;</span>, <span class="hljs-number">23</span>);<br><br>        System.out.println(student);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-3-3小结"><a href="#2-3-3小结" class="headerlink" title="2.3.3小结"></a>2.3.3小结</h4><ul>
+<li><p>获取class对象</p>
+<p>三种方式: Class.forName(“全类名”), 类名.class, 对象名.getClass()</p>
+</li>
+<li><p>获取里面的构造方法对象</p>
+<p>getConstructor (Class<?>... parameterTypes)
+getDeclaredConstructor (Class<?>… parameterTypes)</p>
+</li>
+<li><p>如果是public的，直接创建对象</p>
+<p>newInstance(Object… initargs)</p>
+</li>
+<li><p>如果是非public的，需要临时取消检查，然后再创建对象</p>
+<p>setAccessible(boolean)  暴力反射</p>
+</li>
+</ul>
+<h3 id="2-4反射获取成员变量并使用【应用】"><a href="#2-4反射获取成员变量并使用【应用】" class="headerlink" title="2.4反射获取成员变量并使用【应用】"></a>2.4反射获取成员变量并使用【应用】</h3><h4 id="2-4-1Class类获取成员变量对象的方法"><a href="#2-4-1Class类获取成员变量对象的方法" class="headerlink" title="2.4.1Class类获取成员变量对象的方法"></a>2.4.1Class类获取成员变量对象的方法</h4><ul>
+<li><p>方法分类</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Field[] getFields()</td>
+<td>返回所有公共成员变量对象的数组</td>
+</tr>
+<tr>
+<td>Field[] getDeclaredFields()</td>
+<td>返回所有成员变量对象的数组</td>
+</tr>
+<tr>
+<td>Field getField(String name)</td>
+<td>返回单个公共成员变量对象</td>
+</tr>
+<tr>
+<td>Field getDeclaredField(String name)</td>
+<td>返回单个成员变量对象</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Student</span> &#123;<br><br>    <span class="hljs-keyword">public</span> String name;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> age;<br><br>    <span class="hljs-keyword">public</span> String gender;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-variable">money</span> <span class="hljs-operator">=</span> <span class="hljs-number">300</span>;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">toString</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Student&#123;&quot;</span> +<br>                <span class="hljs-string">&quot;name=&#x27;&quot;</span> + name + <span class="hljs-string">&#x27;\&#x27;&#x27;</span> +<br>                <span class="hljs-string">&quot;, age=&quot;</span> + age +<br>                <span class="hljs-string">&quot;, gender=&#x27;&quot;</span> + gender + <span class="hljs-string">&#x27;\&#x27;&#x27;</span> +<br>                <span class="hljs-string">&quot;, money=&quot;</span> + money +<br>                <span class="hljs-string">&#x27;&#125;&#x27;</span>;<br>    &#125;<br>&#125;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ReflectDemo1</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> ClassNotFoundException, NoSuchFieldException &#123;<br>       <span class="hljs-comment">// method1();</span><br>        <span class="hljs-comment">//method2();</span><br>        <span class="hljs-comment">//method3();</span><br>        <span class="hljs-comment">//method4();</span><br><br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">method4</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> ClassNotFoundException, NoSuchFieldException &#123;<br>        <span class="hljs-comment">//        Field getDeclaredField(String name)：返回单个成员变量对象</span><br>        <span class="hljs-comment">//1.获取class对象</span><br>        <span class="hljs-type">Class</span> <span class="hljs-variable">clazz</span> <span class="hljs-operator">=</span> Class.forName(<span class="hljs-string">&quot;com.itheima.myreflect4.Student&quot;</span>);<br>  <br>        <span class="hljs-comment">//2.获取money成员变量</span><br>        <span class="hljs-type">Field</span> <span class="hljs-variable">field</span> <span class="hljs-operator">=</span> clazz.getDeclaredField(<span class="hljs-string">&quot;money&quot;</span>);<br>  <br>        <span class="hljs-comment">//3.打印一下</span><br>        System.out.println(field);<br>    &#125;<br>  <br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">method3</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> ClassNotFoundException, NoSuchFieldException &#123;<br>        <span class="hljs-comment">//        Field getField(String name)：返回单个公共成员变量对象</span><br>        <span class="hljs-comment">//想要获取的成员变量必须是真实存在的</span><br>        <span class="hljs-comment">//且必须是public修饰的.</span><br>        <span class="hljs-comment">//1.获取class对象</span><br>        <span class="hljs-type">Class</span> <span class="hljs-variable">clazz</span> <span class="hljs-operator">=</span> Class.forName(<span class="hljs-string">&quot;com.itheima.myreflect4.Student&quot;</span>);<br>  <br>        <span class="hljs-comment">//2.获取name这个成员变量</span><br>        <span class="hljs-comment">//Field field = clazz.getField(&quot;name&quot;);</span><br>        <span class="hljs-comment">//Field field = clazz.getField(&quot;name1&quot;);</span><br>        <span class="hljs-type">Field</span> <span class="hljs-variable">field</span> <span class="hljs-operator">=</span> clazz.getField(<span class="hljs-string">&quot;money&quot;</span>);<br>  <br>        <span class="hljs-comment">//3.打印一下</span><br>        System.out.println(field);<br>    &#125;<br>  <br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">method2</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> ClassNotFoundException &#123;<br>        <span class="hljs-comment">//        Field[] getDeclaredFields()：返回所有成员变量对象的数组</span><br>        <span class="hljs-comment">//1.获取class对象</span><br>        <span class="hljs-type">Class</span> <span class="hljs-variable">clazz</span> <span class="hljs-operator">=</span> Class.forName(<span class="hljs-string">&quot;com.itheima.myreflect4.Student&quot;</span>);<br>  <br>        <span class="hljs-comment">//2.获取所有的Field对象</span><br>        Field[] fields = clazz.getDeclaredFields();<br>  <br>        <span class="hljs-comment">//3.遍历</span><br>        <span class="hljs-keyword">for</span> (Field field : fields) &#123;<br>            System.out.println(field);<br>        &#125;<br>    &#125;<br>  <br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">method1</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> ClassNotFoundException &#123;<br>        <span class="hljs-comment">//        Field[] getFields()：返回所有公共成员变量对象的数组</span><br>  <br>        <span class="hljs-comment">//1.获取class对象</span><br>        <span class="hljs-type">Class</span> <span class="hljs-variable">clazz</span> <span class="hljs-operator">=</span> Class.forName(<span class="hljs-string">&quot;com.itheima.myreflect4.Student&quot;</span>);<br>  <br>        <span class="hljs-comment">//2.获取Field对象.</span><br>        Field[] fields = clazz.getFields();<br>  <br>        <span class="hljs-comment">//3.遍历</span><br>        <span class="hljs-keyword">for</span> (Field field : fields) &#123;<br>            System.out.println(field);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-4-2Field类用于给成员变量赋值的方法"><a href="#2-4-2Field类用于给成员变量赋值的方法" class="headerlink" title="2.4.2Field类用于给成员变量赋值的方法"></a>2.4.2Field类用于给成员变量赋值的方法</h4><ul>
+<li><p>方法介绍</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>void set(Object obj, Object value)</td>
+<td>赋值</td>
+</tr>
+<tr>
+<td>Object get(Object obj)</td>
+<td>获取值</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// Student类同上一个示例,这里就不在重复提供了</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ReflectDemo2</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> ClassNotFoundException, NoSuchFieldException, IllegalAccessException, InstantiationException &#123;<br><span class="hljs-comment">//        Object get(Object obj) 返回由该 Field表示的字段在指定对象上的值。</span><br>        <span class="hljs-comment">//method1();</span><br>        <span class="hljs-comment">//method2();</span><br><br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">method2</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> ClassNotFoundException, NoSuchFieldException, InstantiationException, IllegalAccessException &#123;<br>        <span class="hljs-comment">//1.获取class对象</span><br>        <span class="hljs-type">Class</span> <span class="hljs-variable">clazz</span> <span class="hljs-operator">=</span> Class.forName(<span class="hljs-string">&quot;com.itheima.myreflect4.Student&quot;</span>);<br><br>        <span class="hljs-comment">//2.获取成员变量Field的对象</span><br>        <span class="hljs-type">Field</span> <span class="hljs-variable">field</span> <span class="hljs-operator">=</span> clazz.getDeclaredField(<span class="hljs-string">&quot;money&quot;</span>);<br><br>        <span class="hljs-comment">//3.取消一下访问检查</span><br>        field.setAccessible(<span class="hljs-literal">true</span>);<br><br>        <span class="hljs-comment">//4.调用get方法来获取值</span><br>        <span class="hljs-comment">//4.1创建一个对象</span><br>        <span class="hljs-type">Student</span> <span class="hljs-variable">student</span> <span class="hljs-operator">=</span> (Student) clazz.newInstance();<br>        <span class="hljs-comment">//4.2获取指定对象的money的值</span><br>        <span class="hljs-type">Object</span> <span class="hljs-variable">o</span> <span class="hljs-operator">=</span> field.get(student);<br><br>        <span class="hljs-comment">//5.打印一下</span><br>        System.out.println(o);<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">method1</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> ClassNotFoundException, NoSuchFieldException, InstantiationException, IllegalAccessException &#123;<br>        <span class="hljs-comment">//        void set(Object obj, Object value)：给obj对象的成员变量赋值为value</span><br>        <span class="hljs-comment">//1.获取class对象</span><br>        <span class="hljs-type">Class</span> <span class="hljs-variable">clazz</span> <span class="hljs-operator">=</span> Class.forName(<span class="hljs-string">&quot;com.itheima.myreflect4.Student&quot;</span>);<br><br>        <span class="hljs-comment">//2.获取name这个Field对象</span><br>        <span class="hljs-type">Field</span> <span class="hljs-variable">field</span> <span class="hljs-operator">=</span> clazz.getField(<span class="hljs-string">&quot;name&quot;</span>);<br><br>        <span class="hljs-comment">//3.利用set方法进行赋值.</span><br>        <span class="hljs-comment">//3.1先创建一个Student对象</span><br>        <span class="hljs-type">Student</span> <span class="hljs-variable">student</span> <span class="hljs-operator">=</span> (Student) clazz.newInstance();<br>        <span class="hljs-comment">//3.2有了对象才可以给指定对象进行赋值</span><br>        field.set(student,<span class="hljs-string">&quot;zhangsan&quot;</span>);<br><br>        System.out.println(student);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="2-5反射获取成员方法并使用【应用】"><a href="#2-5反射获取成员方法并使用【应用】" class="headerlink" title="2.5反射获取成员方法并使用【应用】"></a>2.5反射获取成员方法并使用【应用】</h3><h4 id="2-5-1Class类获取成员方法对象的方法"><a href="#2-5-1Class类获取成员方法对象的方法" class="headerlink" title="2.5.1Class类获取成员方法对象的方法"></a>2.5.1Class类获取成员方法对象的方法</h4><ul>
+<li><p>方法分类</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Method[] getMethods()</td>
+<td>返回所有公共成员方法对象的数组，包括继承的</td>
+</tr>
+<tr>
+<td>Method[] getDeclaredMethods()</td>
+<td>返回所有成员方法对象的数组，不包括继承的</td>
+</tr>
+<tr>
+<td>Method getMethod(String name, Class&lt;?&gt;… parameterTypes)</td>
+<td>返回单个公共成员方法对象</td>
+</tr>
+<tr>
+<td>Method getDeclaredMethod(String name, Class&lt;?&gt;… parameterTypes)</td>
+<td>返回单个成员方法对象</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Student</span> &#123;<br><br>    <span class="hljs-comment">//私有的，无参无返回值</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">show</span><span class="hljs-params">()</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;私有的show方法，无参无返回值&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">//公共的，无参无返回值</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">function1</span><span class="hljs-params">()</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;function1方法，无参无返回值&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">//公共的，有参无返回值</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">function2</span><span class="hljs-params">(String name)</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;function2方法，有参无返回值,参数为&quot;</span> + name);<br>    &#125;<br><br>    <span class="hljs-comment">//公共的，无参有返回值</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">function3</span><span class="hljs-params">()</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;function3方法，无参有返回值&quot;</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;aaa&quot;</span>;<br>    &#125;<br><br>    <span class="hljs-comment">//公共的，有参有返回值</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">function4</span><span class="hljs-params">(String name)</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;function4方法，有参有返回值,参数为&quot;</span> + name);<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;aaa&quot;</span>;<br>    &#125;<br>&#125;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ReflectDemo1</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> ClassNotFoundException, NoSuchMethodException &#123;<br>        <span class="hljs-comment">//method1();</span><br>        <span class="hljs-comment">//method2();</span><br>        <span class="hljs-comment">//method3();</span><br>        <span class="hljs-comment">//method4();</span><br>        <span class="hljs-comment">//method5();</span><br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">method5</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> ClassNotFoundException, NoSuchMethodException &#123;<br>        <span class="hljs-comment">//        Method getDeclaredMethod(String name, Class&lt;?&gt;... parameterTypes)：</span><br><span class="hljs-comment">//                                返回单个成员方法对象</span><br>        <span class="hljs-comment">//1.获取class对象</span><br>        <span class="hljs-type">Class</span> <span class="hljs-variable">clazz</span> <span class="hljs-operator">=</span> Class.forName(<span class="hljs-string">&quot;com.itheima.myreflect5.Student&quot;</span>);<br>        <span class="hljs-comment">//2.获取一个成员方法show</span><br>        <span class="hljs-type">Method</span> <span class="hljs-variable">method</span> <span class="hljs-operator">=</span> clazz.getDeclaredMethod(<span class="hljs-string">&quot;show&quot;</span>);<br>        <span class="hljs-comment">//3.打印一下</span><br>        System.out.println(method);<br>    &#125;<br>  <br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">method4</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> ClassNotFoundException, NoSuchMethodException &#123;<br>        <span class="hljs-comment">//1.获取class对象</span><br>        <span class="hljs-type">Class</span> <span class="hljs-variable">clazz</span> <span class="hljs-operator">=</span> Class.forName(<span class="hljs-string">&quot;com.itheima.myreflect5.Student&quot;</span>);<br>        <span class="hljs-comment">//2.获取一个有形参的方法function2</span><br>        <span class="hljs-type">Method</span> <span class="hljs-variable">method</span> <span class="hljs-operator">=</span> clazz.getMethod(<span class="hljs-string">&quot;function2&quot;</span>, String.class);<br>        <span class="hljs-comment">//3.打印一下</span><br>        System.out.println(method);<br>    &#125;<br>  <br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">method3</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> ClassNotFoundException, NoSuchMethodException &#123;<br>        <span class="hljs-comment">//        Method getMethod(String name, Class&lt;?&gt;... parameterTypes) ：</span><br><span class="hljs-comment">//                                返回单个公共成员方法对象</span><br>        <span class="hljs-comment">//1.获取class对象</span><br>        <span class="hljs-type">Class</span> <span class="hljs-variable">clazz</span> <span class="hljs-operator">=</span> Class.forName(<span class="hljs-string">&quot;com.itheima.myreflect5.Student&quot;</span>);<br>        <span class="hljs-comment">//2.获取成员方法function1</span><br>        <span class="hljs-type">Method</span> <span class="hljs-variable">method1</span> <span class="hljs-operator">=</span> clazz.getMethod(<span class="hljs-string">&quot;function1&quot;</span>);<br>        <span class="hljs-comment">//3.打印一下</span><br>        System.out.println(method1);<br>    &#125;<br>  <br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">method2</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> ClassNotFoundException &#123;<br>        <span class="hljs-comment">//        Method[] getDeclaredMethods()：</span><br><span class="hljs-comment">//                                返回所有成员方法对象的数组，不包括继承的</span><br>        <span class="hljs-comment">//1.获取class对象</span><br>        <span class="hljs-type">Class</span> <span class="hljs-variable">clazz</span> <span class="hljs-operator">=</span> Class.forName(<span class="hljs-string">&quot;com.itheima.myreflect5.Student&quot;</span>);<br>  <br>        <span class="hljs-comment">//2.获取Method对象</span><br>        Method[] methods = clazz.getDeclaredMethods();<br>        <span class="hljs-comment">//3.遍历一下数组</span><br>        <span class="hljs-keyword">for</span> (Method method : methods) &#123;<br>            System.out.println(method);<br>        &#125;<br>    &#125;<br>  <br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">method1</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> ClassNotFoundException &#123;<br>        <span class="hljs-comment">//        Method[] getMethods()：返回所有公共成员方法对象的数组，包括继承的</span><br>        <span class="hljs-comment">//1.获取class对象</span><br>        <span class="hljs-type">Class</span> <span class="hljs-variable">clazz</span> <span class="hljs-operator">=</span> Class.forName(<span class="hljs-string">&quot;com.itheima.myreflect5.Student&quot;</span>);<br>        <span class="hljs-comment">//2.获取成员方法对象</span><br>        Method[] methods = clazz.getMethods();<br>        <span class="hljs-comment">//3.遍历</span><br>        <span class="hljs-keyword">for</span> (Method method : methods) &#123;<br>            System.out.println(method);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-5-2Method类用于执行方法的方法"><a href="#2-5-2Method类用于执行方法的方法" class="headerlink" title="2.5.2Method类用于执行方法的方法"></a>2.5.2Method类用于执行方法的方法</h4><ul>
+<li><p>方法介绍</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Object invoke(Object obj, Object… args)</td>
+<td>运行方法</td>
+</tr>
+</tbody></table>
+<p>参数一: 用obj对象调用该方法</p>
+<p>参数二: 调用方法的传递的参数(如果没有就不写)</p>
+<p>返回值: 方法的返回值(如果没有就不写)</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ReflectDemo2</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InstantiationException, InvocationTargetException &#123;<br><span class="hljs-comment">//        Object invoke(Object obj, Object... args)：运行方法</span><br><span class="hljs-comment">//        参数一：用obj对象调用该方法</span><br><span class="hljs-comment">//        参数二：调用方法的传递的参数（如果没有就不写）</span><br><span class="hljs-comment">//        返回值：方法的返回值（如果没有就不写）</span><br><br>        <span class="hljs-comment">//1.获取class对象</span><br>        <span class="hljs-type">Class</span> <span class="hljs-variable">clazz</span> <span class="hljs-operator">=</span> Class.forName(<span class="hljs-string">&quot;com.itheima.myreflect5.Student&quot;</span>);<br>        <span class="hljs-comment">//2.获取里面的Method对象  function4</span><br>        <span class="hljs-type">Method</span> <span class="hljs-variable">method</span> <span class="hljs-operator">=</span> clazz.getMethod(<span class="hljs-string">&quot;function4&quot;</span>, String.class);<br>        <span class="hljs-comment">//3.运行function4方法就可以了</span><br>        <span class="hljs-comment">//3.1创建一个Student对象,当做方法的调用者</span><br>        <span class="hljs-type">Student</span> <span class="hljs-variable">student</span> <span class="hljs-operator">=</span> (Student) clazz.newInstance();<br>        <span class="hljs-comment">//3.2运行方法</span><br>        <span class="hljs-type">Object</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> method.invoke(student, <span class="hljs-string">&quot;zhangsan&quot;</span>);<br>        <span class="hljs-comment">//4.打印一下返回值</span><br>        System.out.println(result);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="3-http服务器改写"><a href="#3-http服务器改写" class="headerlink" title="3.http服务器改写"></a>3.http服务器改写</h2><h3 id="3-1静态资源和动态资源【理解】"><a href="#3-1静态资源和动态资源【理解】" class="headerlink" title="3.1静态资源和动态资源【理解】"></a>3.1静态资源和动态资源【理解】</h3><p><img src="/Java-day25-%E5%9F%BA%E7%A1%80%E5%8A%A0%E5%BC%BA01/11_%E8%AF%B7%E6%B1%82%E8%B5%84%E6%BA%90%E5%88%86%E7%B1%BB.png" srcset="/img/loading.gif" lazyload alt="11_请求资源分类"></p>
+<ul>
+<li><p>静态资源</p>
+<p>在服务器提前准备好的文件。(图片，文本)</p>
+<p><img src="/Java-day25-%E5%9F%BA%E7%A1%80%E5%8A%A0%E5%BC%BA01/09_%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90.png" srcset="/img/loading.gif" lazyload alt="09_静态资源"></p>
+</li>
+<li><p>动态资源</p>
+<p>在图示的案例中，当用户点击了浏览器上的按钮。<br>本质上访问的就是服务端的某一个类中的某一个方法。<br>在方法中，可以写一些判断代码和逻辑代码，让响应的内容，有可能不一样了。<br>那么，服务端所对应的这个类我们常常将其称之为“动态资源”</p>
+<p><img src="/Java-day25-%E5%9F%BA%E7%A1%80%E5%8A%A0%E5%BC%BA01/10_%E5%8A%A8%E6%80%81%E8%B5%84%E6%BA%90.png" srcset="/img/loading.gif" lazyload alt="10_动态资源"></p>
+</li>
+</ul>
+<h3 id="3-2准备工作【理解】"><a href="#3-2准备工作【理解】" class="headerlink" title="3.2准备工作【理解】"></a>3.2准备工作【理解】</h3><ul>
+<li><p>修改四个地方</p>
+<ul>
+<li>HttpResponse -&gt; 常量WEB_APP_PATH的值与当前模块一致</li>
+<li>HttpServer -&gt; main方法中端口改成80</li>
+<li>HttpResponse -&gt; 添加一个write方法，添加一个带参数的构造方法</li>
+<li>HttpResponse -&gt; 添加一个contentType成员变量，生成对应的set&#x2F;get方法</li>
+</ul>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 1.HttpResponse -&gt; 常量WEB_APP_PATH的值与当前模块一致</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HttpResponse</span> &#123;<br>  ...<br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">WEB_APP_PATH</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;http-dynamic-server\\webapp&quot;</span>;<br>  ...<br>&#125;<br><br><span class="hljs-comment">// 2.HttpServer -&gt; main方法中端口改成80</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HttpServer</span> &#123;<br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>    ...<br>    <span class="hljs-comment">//2.让这个通道绑定一个端口</span><br>  	serverSocketChannel.bind(<span class="hljs-keyword">new</span> <span class="hljs-title class_">InetSocketAddress</span>(<span class="hljs-number">80</span>));<br>    ...<br>  &#125;<br>&#125;  <br><br><span class="hljs-comment">// 3.HttpResponse -&gt; 添加一个write方法，添加一个带参数的构造方法</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HttpResponse</span> &#123;<br>  ...<br>  <span class="hljs-comment">// 已经提供了selectionKey，所以之前的方法接收这个参数的可以去掉了，直接使用这个即可</span><br>  <span class="hljs-comment">// HttpRequest也按照此方式进行优化，定义成员变量，在构造方法中赋值，其他方法直接使用即可</span><br>  <span class="hljs-keyword">private</span> SelectionKey selectionKey;<br>  <br>  <span class="hljs-keyword">public</span> <span class="hljs-title function_">HttpResponse</span><span class="hljs-params">(SelectionKey selectionKey)</span> &#123;<br>        <span class="hljs-built_in">this</span>.selectionKey = selectionKey;<br>    &#125;<br>  <br>  <span class="hljs-comment">//给浏览器响应数据的方法 ---- 浏览器在请求动态资源时,响应数据的方法.</span><br>  <span class="hljs-comment">//content:响应的内容</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">write</span><span class="hljs-params">(String content)</span>&#123;<br>  &#125;<br>  ...<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HttpServer</span> &#123;<br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>    ...<br>    <span class="hljs-comment">//响应数据  //修改后的构造方法中要传入参数</span><br>    <span class="hljs-type">HttpResponse</span> <span class="hljs-variable">httpResponse</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HttpResponse</span>(selectionKey);<br>    ...<br>  &#125;<br>&#125;  <br><br><span class="hljs-comment">// 4.HttpResponse -&gt; 添加一个contentType成员变量，生成对应的set/get方法</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HttpResponse</span> &#123;<br>  ...<br>  <span class="hljs-keyword">private</span> String contentType;<span class="hljs-comment">//MIME类型</span><br>  <br>  <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getContentType</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> contentType;<br>    &#125;<br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setContentTpye</span><span class="hljs-params">(String contentType)</span> &#123;<br>        <span class="hljs-built_in">this</span>.contentType = contentType;<br>        <span class="hljs-comment">//添加到map集合中</span><br>        hm.put(<span class="hljs-string">&quot;Content-Type&quot;</span>,contentType);<br>    &#125;<br>  ...<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="3-3浏览器请求动态资源【理解】"><a href="#3-3浏览器请求动态资源【理解】" class="headerlink" title="3.3浏览器请求动态资源【理解】"></a>3.3浏览器请求动态资源【理解】</h3><ul>
+<li><p>两个小问题</p>
+<ul>
+<li><p>服务器如何判断浏览器请求的是静态资源还是动态资源?</p>
+<p>我们可以规定：如果浏览器地址栏中的uri是以”&#x2F;servlet”开始的，那么就表示请求动态资源</p>
+</li>
+<li><p>在一个项目中有很多类，很多方法。那么请求过来之后，执行哪个方法呢?</p>
+<p>写一个UserServlet类，在类中写service方法<br>我们可以规定：如果请求动态资源，就创建这个类对象，并调用service方法，表示服务器处理了当前请求</p>
+</li>
+</ul>
+</li>
+<li><p>实现步骤</p>
+<ol>
+<li><p>解析http请求</p>
+</li>
+<li><p>处理浏览器请求</p>
+<p>定义一个UserServlet 类，类中定义service方法，处理浏览器请求动态资源<br>解析完http请求之后，再判断uri是否以&#x2F;servlet开头</p>
+</li>
+<li><p>响应</p>
+</li>
+</ol>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserServlet</span>&#123;<br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">service</span><span class="hljs-params">()</span>&#123;<br>        <span class="hljs-comment">//模拟业务处理  ---- 就可以对这个手机号进行判断验证</span><br>        System.out.println(<span class="hljs-string">&quot;UserServlet处理了用户的请求...&quot;</span>);<br>    &#125;<br>&#125;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HttpServer</span> &#123;<br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>    	...<br>    	<span class="hljs-comment">//响应数据</span><br>    	<span class="hljs-type">HttpResponse</span> <span class="hljs-variable">httpResponse</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HttpResponse</span>(selectionKey);<br>        httpResponse.setHttpRequest(httpRequest);<br><br>        <span class="hljs-keyword">if</span>(httpRequest.getRequestURI().startsWith(<span class="hljs-string">&quot;/servlet&quot;</span>))&#123;<br>          	<span class="hljs-comment">//本次请求动态资源</span><br>          	<span class="hljs-comment">//处理 </span><br>          	<span class="hljs-type">UserServlet</span> <span class="hljs-variable">userServlet</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">UserServlet</span>();<br>          	userServlet.service();<br>          	<span class="hljs-comment">//响应</span><br>        	httpResponse.setContentTpye(<span class="hljs-string">&quot;text/html;charset=UTF-8&quot;</span>);<br>        	httpResponse.write(<span class="hljs-string">&quot;ok,UserServlet处理了本次请求....&quot;</span>);  <br>        &#125;<span class="hljs-keyword">else</span>&#123;<br>          <span class="hljs-comment">//本次请求静态资源</span><br>          httpResponse.sendStaticResource();<br>        &#125;<br>    	...<br>  &#125;<br>&#125; <br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HttpResponse</span> &#123;<br>  	...<br>	<span class="hljs-comment">//给浏览器响应数据的方法 ---- 浏览器在请求动态资源时,响应数据的方法.</span><br>    <span class="hljs-comment">//content:响应的内容</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">write</span><span class="hljs-params">(String content)</span>&#123;<br>        <span class="hljs-comment">//准备响应行数据</span><br>        <span class="hljs-built_in">this</span>.version = <span class="hljs-string">&quot;HTTP/1.1&quot;</span>;<br>        <span class="hljs-built_in">this</span>.status = <span class="hljs-string">&quot;200&quot;</span>;<br>        <span class="hljs-built_in">this</span>.desc = <span class="hljs-string">&quot;ok&quot;</span>;<br><br>        <span class="hljs-comment">//把响应行拼接在一起</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">responseLine</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">this</span>.version + <span class="hljs-string">&quot; &quot;</span> + <span class="hljs-built_in">this</span>.status + <span class="hljs-string">&quot; &quot;</span> + <span class="hljs-built_in">this</span>.desc + <span class="hljs-string">&quot;\r\n&quot;</span>;<br><br>        <span class="hljs-comment">//准备响应头</span><br>        <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">sb</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();<br>        Set&lt;Map.Entry&lt;String, String&gt;&gt; entries = hm.entrySet();<br>        <span class="hljs-keyword">for</span> (Map.Entry&lt;String, String&gt; entry : entries) &#123;<br>            <span class="hljs-comment">//entry依次表示每一个键值对对象</span><br>            <span class="hljs-comment">//键 --- 响应头的名称</span><br>            <span class="hljs-comment">//值 --- 响应头的值</span><br>            sb.append(entry.getKey()).append(<span class="hljs-string">&quot;: &quot;</span>).append(entry.getValue()).append(<span class="hljs-string">&quot;\r\n&quot;</span>);<br>        &#125;<br><br>        <span class="hljs-comment">//处理响应空行</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">emptyLine</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;\r\n&quot;</span>;<br><br>        <span class="hljs-comment">//拼接响应行,响应头,响应空行</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> responseLine + sb.toString() + emptyLine;<br><br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">//给浏览器响应 响应行,响应头,响应空行</span><br>            <span class="hljs-type">ByteBuffer</span> <span class="hljs-variable">byteBuffer1</span> <span class="hljs-operator">=</span> ByteBuffer.wrap(result.getBytes());<br>            <span class="hljs-type">SocketChannel</span> <span class="hljs-variable">channel</span> <span class="hljs-operator">=</span> (SocketChannel) selectionKey.channel();<br>            channel.write(byteBuffer1);<br><br>            <span class="hljs-comment">//给浏览器响应 响应体</span><br>            <span class="hljs-type">ByteBuffer</span> <span class="hljs-variable">byteBuffer2</span> <span class="hljs-operator">=</span> ByteBuffer.wrap(content.getBytes());<br>            channel.write(byteBuffer2);<br><br>            <span class="hljs-comment">//释放资源</span><br>            channel.close();<br><br>        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>            System.out.println(<span class="hljs-string">&quot;响应数据失败....&quot;</span>);<br>            e.printStackTrace();<br>        &#125;<br><br>    &#125;    <br> 	 ...<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="3-4main方法和Servlet优化【理解】"><a href="#3-4main方法和Servlet优化【理解】" class="headerlink" title="3.4main方法和Servlet优化【理解】"></a>3.4main方法和Servlet优化【理解】</h3><ul>
+<li><p>main方法优化</p>
+<ul>
+<li><p>需求</p>
+<p>将请求动态资源的代码抽取到一个单独的类单独的方法中，简化main中的代码</p>
+</li>
+<li><p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DynamicResourceProcess</span> &#123;<br>  <br>    <span class="hljs-comment">//执行指定动态资源的service方法</span><br>    <span class="hljs-comment">//参数一</span><br>    <span class="hljs-comment">//由于后期可能根据用户请求的uri做出相应的处理.</span><br>    <span class="hljs-comment">//参数二</span><br>    <span class="hljs-comment">//要给用户响应数据,那么就需要使用到httpResponse.</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">process</span><span class="hljs-params">(HttpRequest httpRequest,HttpResponse httpResponse)</span> &#123;<br>        <span class="hljs-comment">// 创建UserServlet对象,调用service方法,进行处理</span><br>        <span class="hljs-type">UserServlet</span> <span class="hljs-variable">userServlet</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">UserServlet</span>();<br>        userServlet.service();<br><br>        <span class="hljs-comment">//给浏览器响应</span><br>        httpResponse.setContentTpye(<span class="hljs-string">&quot;text/html;charset=UTF-8&quot;</span>);<br>        httpResponse.write(<span class="hljs-string">&quot;ok,UserServlet处理了本次请求....&quot;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HttpServer</span> &#123;<br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>    	...<br>    	<span class="hljs-comment">//响应数据</span><br>    	<span class="hljs-type">HttpResponse</span> <span class="hljs-variable">httpResponse</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HttpResponse</span>(selectionKey);<br>        httpResponse.setHttpRequest(httpRequest);<br><br>        <span class="hljs-keyword">if</span>(httpRequest.getRequestURI().startsWith(<span class="hljs-string">&quot;/servlet&quot;</span>))&#123;<br>          	<span class="hljs-comment">//本次请求动态资源</span><br>       		<span class="hljs-type">DynamicResourceProcess</span> <span class="hljs-variable">drp</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DynamicResourceProcess</span>();<br>            drp.process(httpRequest,httpResponse);<br>        &#125;<span class="hljs-keyword">else</span>&#123;<br>          <span class="hljs-comment">//本次请求静态资源</span><br>          httpResponse.sendStaticResource();<br>        &#125;<br>    	...<br>  &#125;<br>&#125; <br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>Servlet优化</p>
+<ul>
+<li><p>需求</p>
+<p>将给浏览器响应的代码写到Servlet中</p>
+</li>
+<li><p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserServlet</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">HttpServlet</span>&#123;<br><br>    <span class="hljs-comment">//处理浏览器请求的方法</span><br>    <span class="hljs-comment">//参数一</span><br>    <span class="hljs-comment">//由于后期可能根据用户请求的uri做出相应的处理.</span><br>    <span class="hljs-comment">//参数二</span><br>    <span class="hljs-comment">//要给用户响应数据,那么就需要使用到httpResponse.</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">service</span><span class="hljs-params">(HttpRequest httpRequest, HttpResponse httpResponse)</span>&#123;<br>        <span class="hljs-comment">//模拟业务处理  ---- 就可以对这个手机号进行判断验证</span><br>        System.out.println(<span class="hljs-string">&quot;UserServlet处理了用户的请求...&quot;</span>);<br>        <span class="hljs-comment">//给浏览器响应</span><br>        httpResponse.setContentTpye(<span class="hljs-string">&quot;text/html;charset=UTF-8&quot;</span>);<br>        httpResponse.write(<span class="hljs-string">&quot;ok,UserServlet处理了本次请求....&quot;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DynamicResourceProcess</span> &#123;<br>  <br>    <span class="hljs-comment">//执行指定动态资源的service方法</span><br>    <span class="hljs-comment">//参数一</span><br>    <span class="hljs-comment">//由于后期可能根据用户请求的uri做出相应的处理.</span><br>    <span class="hljs-comment">//参数二</span><br>    <span class="hljs-comment">//要给用户响应数据,那么就需要使用到httpResponse.</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">process</span><span class="hljs-params">(HttpRequest httpRequest,HttpResponse httpResponse)</span> &#123;<br>        <span class="hljs-comment">// 创建UserServlet对象,调用service方法,进行处理</span><br>        <span class="hljs-type">UserServlet</span> <span class="hljs-variable">userServlet</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">UserServlet</span>();<br>        userServlet.service(httpRequest,httpResponse);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h3 id="3-5多个动态资源【理解】"><a href="#3-5多个动态资源【理解】" class="headerlink" title="3.5多个动态资源【理解】"></a>3.5多个动态资源【理解】</h3><ul>
+<li><p>多个动态资源</p>
+<p>针对每一个业务操作，我们都会去定义一个对应的Servlet来完成。<br>就会在服务端产生很多个Servlet</p>
+<p><img src="/Java-day25-%E5%9F%BA%E7%A1%80%E5%8A%A0%E5%BC%BA01/12_%E5%A4%9A%E4%B8%AA%E5%8A%A8%E6%80%81%E8%B5%84%E6%BA%90.png" srcset="/img/loading.gif" lazyload alt="12_多个动态资源"></p>
+</li>
+<li><p>实现步骤</p>
+<ul>
+<li>定义一个接口HttpServlet，接口中定义service方法。</li>
+<li>针对于每一种业务，都定义一个servlet类与之对应，该类实现HttpServlet接口</li>
+<li>获取请求的uri，进行判断，调用不同的servlet类中的service方法</li>
+</ul>
+</li>
+<li><p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 1.定义一个接口HttpServlet，接口中定义service方法</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">HttpServlet</span> &#123;<br><br>    <span class="hljs-comment">//定义业务处理的方法</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">service</span><span class="hljs-params">(HttpRequest httpRequest, HttpResponse httpResponse)</span>;<br>&#125;<br><br><span class="hljs-comment">// 2.针对于每一种业务，都定义一个servlet类与之对应，该类实现HttpServlet接口</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserServlet</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">HttpServlet</span>&#123;<br>    <span class="hljs-comment">//处理浏览器请求的方法</span><br>    <span class="hljs-comment">//参数一</span><br>    <span class="hljs-comment">//由于后期可能根据用户请求的uri做出相应的处理.</span><br>    <span class="hljs-comment">//参数二</span><br>    <span class="hljs-comment">//要给用户响应数据,那么就需要使用到httpResponse.</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">service</span><span class="hljs-params">(HttpRequest httpRequest, HttpResponse httpResponse)</span>&#123;<br>        <span class="hljs-comment">//模拟业务处理  ---- 就可以对这个手机号进行判断验证</span><br>        System.out.println(<span class="hljs-string">&quot;UserServlet处理了用户的请求...&quot;</span>);<br>        <span class="hljs-comment">//给浏览器响应</span><br>        httpResponse.setContentTpye(<span class="hljs-string">&quot;text/html;charset=UTF-8&quot;</span>);<br>        httpResponse.write(<span class="hljs-string">&quot;ok,UserServlet处理了本次请求....&quot;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">LoginServlet</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">HttpServlet</span>&#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">service</span><span class="hljs-params">(HttpRequest httpRequest, HttpResponse httpResponse)</span> &#123;<br>       <span class="hljs-comment">//处理</span><br>        System.out.println(<span class="hljs-string">&quot;LoginServlet处理了登录请求&quot;</span>);<br>       <span class="hljs-comment">//响应</span><br>        httpResponse.setContentTpye(<span class="hljs-string">&quot;text/html;charset=UTF-8&quot;</span>);<br>        httpResponse.write(<span class="hljs-string">&quot;登录成功&quot;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RegisterServlet</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">HttpServlet</span>&#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">service</span><span class="hljs-params">(HttpRequest httpRequest, HttpResponse httpResponse)</span> &#123;<br>       <span class="hljs-comment">//处理</span><br>        System.out.println(<span class="hljs-string">&quot;RegisterServlet处理了注册请求&quot;</span>);<br>       <span class="hljs-comment">//响应</span><br>        httpResponse.setContentTpye(<span class="hljs-string">&quot;text/html;charset=UTF-8&quot;</span>);<br>        httpResponse.write(<span class="hljs-string">&quot;注册成功&quot;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SearchServlet</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">HttpServlet</span>&#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">service</span><span class="hljs-params">(HttpRequest httpRequest, HttpResponse httpResponse)</span> &#123;<br>       <span class="hljs-comment">//处理</span><br>        System.out.println(<span class="hljs-string">&quot;SearchServlet处理了搜索商品请求&quot;</span>);<br>       <span class="hljs-comment">//响应</span><br>        httpResponse.setContentTpye(<span class="hljs-string">&quot;text/html;charset=UTF-8&quot;</span>);<br>        httpResponse.write(<span class="hljs-string">&quot;响应了一些商品信息&quot;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">// 3.获取请求的uri，进行判断，调用不同的servlet类中的service方法</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DynamicResourceProcess</span> &#123;<br>  <br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">process</span><span class="hljs-params">(HttpRequest httpRequest,HttpResponse httpResponse)</span>&#123;<br>          <span class="hljs-comment">//获取请求的uri</span><br>          <span class="hljs-type">String</span> <span class="hljs-variable">requestURI</span> <span class="hljs-operator">=</span> httpRequest.getRequestURI();<br> <br>          <span class="hljs-comment">//根据请求的uri进行判断</span><br>          <span class="hljs-keyword">if</span>(<span class="hljs-string">&quot;/servlet/loginservlet&quot;</span>.equals(requestURI))&#123;<br>              <span class="hljs-comment">//登录请求</span><br>              <span class="hljs-type">LoginServlet</span> <span class="hljs-variable">loginServlet</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">LoginServlet</span>();<br>              loginServlet.service(httpRequest,httpResponse);<br>          &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(<span class="hljs-string">&quot;/servlet/registerservlet&quot;</span>.equals(requestURI))&#123;<br>              <span class="hljs-comment">//注册请求</span><br>              <span class="hljs-type">RegisterServlet</span> <span class="hljs-variable">registerServlet</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RegisterServlet</span>();<br>              registerServlet.service(httpRequest,httpResponse);<br>          &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(<span class="hljs-string">&quot;/servlet/searchservlet&quot;</span>.equals(requestURI))&#123;<br>              <span class="hljs-comment">//搜索商品请求</span><br>              <span class="hljs-type">SearchServlet</span> <span class="hljs-variable">searchServlet</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SearchServlet</span>();<br>              searchServlet.service(httpRequest,httpResponse);<br>          &#125;<span class="hljs-keyword">else</span>&#123;<br>              <span class="hljs-comment">//表示默认处理方法</span><br>              <span class="hljs-comment">//创建UserServlet对象,调用service方法,进行处理</span><br>              <span class="hljs-type">UserServlet</span> <span class="hljs-variable">userServlet</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">UserServlet</span>();<br>              userServlet.service(httpRequest,httpResponse);<br>          &#125;<br>      &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="3-6通过反射和配置文件优化【理解】"><a href="#3-6通过反射和配置文件优化【理解】" class="headerlink" title="3.6通过反射和配置文件优化【理解】"></a>3.6通过反射和配置文件优化【理解】</h3><ul>
+<li><p>优化步骤</p>
+<ol>
+<li><p>把Servlet信息写到properties配置文件中</p>
+<p>格式为：servlet-info&#x3D;&#x2F;servlet&#x2F;UserServlet，全类名；&#x2F;servlet&#x2F;loginServlet，全类名</p>
+</li>
+<li><p>定义一个接口ServletConcurrentHashMap，接口中定义ConcurrentHashMap，该集合存储所有的servlet信息</p>
+</li>
+<li><p>定义一个接口ParseServletConfig，该接口中定义一个方法（parse）</p>
+</li>
+<li><p>定义ParseServletConfig的实现类，解析配置文件，并把配置文件中Servlet信息存到map集合中</p>
+</li>
+<li><p>在main方法的第一行，开启一条线程执行解析配置文件的代码</p>
+</li>
+<li><p>修改处理DynamicResourceProcess中的process方法</p>
+<p><img src="/Java-day25-%E5%9F%BA%E7%A1%80%E5%8A%A0%E5%BC%BA01/13_%E5%8F%8D%E5%B0%84%E5%92%8C%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%BC%98%E5%8C%96.png" srcset="/img/loading.gif" lazyload alt="13_反射和配置文件优化"></p>
+</li>
+</ol>
+</li>
+<li><p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 1.把Servlet信息写到properties配置文件中</span><br><span class="hljs-comment">// 在webapp\config\servlet-info.properties文件中，写入如下内容</span><br>servlet-info=/servlet/loginservlet,com.itheima.myservlet.LoginServlet;/servlet/registerservlet,com.itheima.myservlet.RegisterServlet;/servlet/searchservlet,com.itheima.myservlet.SearchServlet;/servlet/lostpasswordservlet,com.itheima.myservlet.LostPasswordServlet<br><br><span class="hljs-comment">// 2.定义一个接口ServletConcurrentHashMap，接口中定义ConcurrentHashMap，该集合存储所有的servlet信息</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">ServletConcurrentHashMap</span> &#123;<br>    <span class="hljs-comment">//存储请求路径和对应的servlet的map集合</span><br>    <span class="hljs-comment">//键: 请求的uri</span><br>    <span class="hljs-comment">//值: 对应的Servlet对象</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> ConcurrentHashMap&lt;String,  HttpServlet&gt; map = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ConcurrentHashMap</span>&lt;&gt;();<br>&#125;<br><br><span class="hljs-comment">// 3.定义一个接口ParseServletConfig，该接口中定义一个方法（parse）</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">ParseServletConfig</span> &#123;<br>    <span class="hljs-comment">//解析数据的方法</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">parse</span><span class="hljs-params">()</span>;<br>&#125;<br><br><span class="hljs-comment">// 4.定义ParseServletConfig的实现类，解析配置文件，并把配置文件中Servlet信息存到map集合中</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">PropertiesParseServletConfig</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">ParseServletConfig</span> &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">parse</span><span class="hljs-params">()</span> &#123;<br><br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">//1.读取配置文件中的数据</span><br>            <span class="hljs-type">Properties</span> <span class="hljs-variable">properties</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Properties</span>();<br>            <span class="hljs-type">FileReader</span> <span class="hljs-variable">fr</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileReader</span>(<span class="hljs-string">&quot;http-dynamic-server/webapp/config/servlet-info.properties&quot;</span>);<br>            properties.load(fr);<br>            fr.close();<br><br>            <span class="hljs-comment">//2.获取集合中servlet-info的属性值</span><br>            <span class="hljs-type">String</span> <span class="hljs-variable">properValue</span> <span class="hljs-operator">=</span> (String) properties.get(<span class="hljs-string">&quot;servlet-info&quot;</span>);<br>            <span class="hljs-comment">// uri,全类名;uri,全类名</span><br><br>            <span class="hljs-comment">//3.解析</span><br>            String[] split = properValue.split(<span class="hljs-string">&quot;;&quot;</span>);<br>            <span class="hljs-keyword">for</span> (String servletInfo : split) &#123;<br>                String[] servletInfoArr = servletInfo.split(<span class="hljs-string">&quot;,&quot;</span>);<br>                <span class="hljs-type">String</span> <span class="hljs-variable">uri</span> <span class="hljs-operator">=</span> servletInfoArr[<span class="hljs-number">0</span>];<br>                <span class="hljs-type">String</span> <span class="hljs-variable">servletName</span> <span class="hljs-operator">=</span> servletInfoArr[<span class="hljs-number">1</span>];<br><br>                <span class="hljs-comment">//我们需要通过servletName(全类名)来创建他的对象</span><br>                <span class="hljs-type">Class</span> <span class="hljs-variable">clazz</span> <span class="hljs-operator">=</span> Class.forName(servletName);<br>                <span class="hljs-type">HttpServlet</span> <span class="hljs-variable">httpServlet</span> <span class="hljs-operator">=</span> (HttpServlet) clazz.newInstance();<br>                <span class="hljs-comment">//4.将uri和httpServlet添加到map集合中</span><br>                ServletConcurrentHashMap.map.put(uri,httpServlet);<br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            System.out.println(<span class="hljs-string">&quot;解析数据异常.....&quot;</span>);<br>            e.printStackTrace();<br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">LoaderResourceRunnable</span> <span class="hljs-keyword">implements</span>  <span class="hljs-title class_">Runnable</span> &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-comment">//执行parse方法</span><br>        <span class="hljs-type">ParseServletConfig</span> <span class="hljs-variable">parseServletConfig</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PropertiesParseServletConfig</span>();<br>        parseServletConfig.parse();<br>        <br>    &#125;<br>&#125;<br><br><span class="hljs-comment">// 5.在main方法的第一行，开启一条线程执行解析配置文件的代码</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HttpServer</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>        <span class="hljs-comment">//开启一条线程去解析配置文件</span><br>        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">LoaderResourceRunnable</span>()).start();<br>        ...<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">// 6.修改处理DynamicResourceProcess中的process方法</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DynamicResourceProcess</span> &#123;<br>  <br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">process</span><span class="hljs-params">(HttpRequest httpRequest,HttpResponse httpResponse)</span>&#123;<br>          	<span class="hljs-comment">//获取请求的uri</span><br>          	<span class="hljs-type">String</span> <span class="hljs-variable">requestURI</span> <span class="hljs-operator">=</span> httpRequest.getRequestURI();<br>          	<span class="hljs-comment">//根据请求的uri到map集合中直接找到对应的servlet的对象</span><br>        	<span class="hljs-type">HttpServlet</span> <span class="hljs-variable">httpServlet</span> <span class="hljs-operator">=</span> ServletConcurrentHashMap.map.get(requestURI);<br>            <span class="hljs-comment">//调用service方法对请求进行处理并响应</span><br>            httpServlet.service(httpRequest,httpResponse);<br>    &#125;<br>&#125;    <br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="3-7Servlet忘记实现HttpServlet接口处理【理解】"><a href="#3-7Servlet忘记实现HttpServlet接口处理【理解】" class="headerlink" title="3.7Servlet忘记实现HttpServlet接口处理【理解】"></a>3.7Servlet忘记实现HttpServlet接口处理【理解】</h3><ul>
+<li><p>出现情况</p>
+<p>在写Servlet时，忘记了实现HttpServlet接口</p>
+</li>
+<li><p>导致结果</p>
+<p>在反射创建对象后，强转成HttpServlet时，会报类型转换异常</p>
+</li>
+<li><p>解决方案</p>
+<p>在反射创建对象后，强转成HttpServlet前，进行判断</p>
+<p>如果有实现HttpServlet接口，就进行强转</p>
+<p>否则抛出一个异常</p>
+</li>
+<li><p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">PropertiesParseServletConfig</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">ParseServletConfig</span> &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">parse</span><span class="hljs-params">()</span> &#123;<br><br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">//1.读取配置文件中的数据</span><br>            <span class="hljs-type">Properties</span> <span class="hljs-variable">properties</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Properties</span>();<br>            <span class="hljs-type">FileReader</span> <span class="hljs-variable">fr</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileReader</span>(<span class="hljs-string">&quot;http-dynamic-server/webapp/config/servlet-info.properties&quot;</span>);<br>            properties.load(fr);<br>            fr.close();<br><br>            <span class="hljs-comment">//2.获取集合中servlet-info的属性值</span><br>            <span class="hljs-type">String</span> <span class="hljs-variable">properValue</span> <span class="hljs-operator">=</span> (String) properties.get(<span class="hljs-string">&quot;servlet-info&quot;</span>);<br>            <span class="hljs-comment">// uri,全类名;uri,全类名</span><br><br>            <span class="hljs-comment">//3.解析</span><br>            String[] split = properValue.split(<span class="hljs-string">&quot;;&quot;</span>);<br>            <span class="hljs-keyword">for</span> (String servletInfo : split) &#123;<br>                String[] servletInfoArr = servletInfo.split(<span class="hljs-string">&quot;,&quot;</span>);<br>                <span class="hljs-type">String</span> <span class="hljs-variable">uri</span> <span class="hljs-operator">=</span> servletInfoArr[<span class="hljs-number">0</span>];<br>                <span class="hljs-type">String</span> <span class="hljs-variable">servletName</span> <span class="hljs-operator">=</span> servletInfoArr[<span class="hljs-number">1</span>];<br><br>                <span class="hljs-comment">//我们需要通过servletName(全类名)来创建他的对象</span><br>                <span class="hljs-type">Class</span> <span class="hljs-variable">clazz</span> <span class="hljs-operator">=</span> Class.forName(servletName);<br><br>                <span class="hljs-comment">//获取该类所实现的所有的接口信息,得到的是一个数组</span><br>                Class[] interfaces = clazz.getInterfaces();<br><br>                <span class="hljs-comment">//定义一个boolean类型的变量</span><br>                <span class="hljs-type">boolean</span> <span class="hljs-variable">flag</span> <span class="hljs-operator">=</span>  <span class="hljs-literal">false</span>;<br>                <span class="hljs-comment">//遍历数组</span><br>                <span class="hljs-keyword">for</span> (Class clazzInfo : interfaces) &#123;<br>                    <span class="hljs-comment">//判断当前所遍历的接口的字节码对象是否和HttpServlet的字节码文件对象相同</span><br>                    <span class="hljs-keyword">if</span>(clazzInfo == HttpServlet.class)&#123;<br><br>                        <span class="hljs-comment">//如果相同,就需要更改flag值.结束循环</span><br>                        flag = <span class="hljs-literal">true</span>;<br>                        <span class="hljs-keyword">break</span>;<br>                    &#125;<br>                &#125;<br><br>                <span class="hljs-keyword">if</span>(flag)&#123;<br>                    <span class="hljs-comment">//true就表示当前的类已经实现了HttpServlet接口</span><br>                    <span class="hljs-type">HttpServlet</span> <span class="hljs-variable">httpServlet</span> <span class="hljs-operator">=</span> (HttpServlet) clazz.newInstance();<br>                    <span class="hljs-comment">//4.将uri和httpServlet添加到map集合中</span><br>                    ServletConcurrentHashMap.map.put(uri,httpServlet);<br>                &#125;<span class="hljs-keyword">else</span>&#123;<br>                    <span class="hljs-comment">//false就表示当前的类还没有实现HttpServlet接口</span><br>                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">NotImplementsHttpServletException</span>(clazz.getName() + <span class="hljs-string">&quot;Not Implements HttpServlet&quot;</span>);<br>                &#125;<br>            &#125;<br>        &#125; <span class="hljs-keyword">catch</span> (NotImplementsHttpServletException e) &#123;<br>            e.printStackTrace();<br>        &#125;<span class="hljs-keyword">catch</span> (Exception e) &#123;<br>            System.out.println(<span class="hljs-string">&quot;解析数据异常.....&quot;</span>);<br>            e.printStackTrace();<br>        &#125;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="3-8响应404【理解】"><a href="#3-8响应404【理解】" class="headerlink" title="3.8响应404【理解】"></a>3.8响应404【理解】</h3><ul>
+<li><p>出现情况</p>
+<p>客户端浏览器请求了一个服务器中不存在的动态资源</p>
+</li>
+<li><p>导致结果</p>
+<p>服务器中代码出现异常，程序停止</p>
+</li>
+<li><p>解决方案</p>
+<p>如果请求的动态资源不存在，服务器根据请求的uri找到对应的Servlet时为null，继续调用方法会出现异常</p>
+<p>增加一个非空的判断，如果不为null，则继续处理请求，调用方法</p>
+<p>如果为null，则响应404</p>
+</li>
+<li><p>代码实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DynamicResourceProcess</span> &#123;<br>    <span class="hljs-comment">//执行指定动态资源的service方法</span><br>    <span class="hljs-comment">//参数一</span><br>    <span class="hljs-comment">//由于后期可能根据用户请求的uri做出相应的处理.</span><br>    <span class="hljs-comment">//参数二</span><br>    <span class="hljs-comment">//要给用户响应数据,那么就需要使用到httpResponse.</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">process</span><span class="hljs-params">(HttpRequest httpRequest,HttpResponse httpResponse)</span>&#123;<br>        <span class="hljs-comment">//获取请求的uri</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">requestURI</span> <span class="hljs-operator">=</span> httpRequest.getRequestURI();<br>        <span class="hljs-comment">//根据请求的uri到map集合中直接找到对应的servlet的对象</span><br>        <span class="hljs-type">HttpServlet</span> <span class="hljs-variable">httpServlet</span> <span class="hljs-operator">=</span> ServletConcurrentHashMap.map.get(requestURI);<br>        <span class="hljs-keyword">if</span>(httpServlet != <span class="hljs-literal">null</span>)&#123;<br>            <span class="hljs-comment">//调用service方法对请求进行处理并响应</span><br>            httpServlet.service(httpRequest,httpResponse);<br>        &#125;<span class="hljs-keyword">else</span>&#123;<br>            <span class="hljs-comment">//浏览器请求的动态资源不存在</span><br>            <span class="hljs-comment">//响应404</span><br>            response404(httpResponse);<br>        &#125;<br>    &#125;<br>    <span class="hljs-comment">//浏览器请求动态资源不存在,响应404的方法</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">response404</span><span class="hljs-params">(HttpResponse httpResponse)</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">//准备响应行</span><br>            <span class="hljs-type">String</span> <span class="hljs-variable">responseLine</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;HTTP/1.1 404 NOT FOUND\r\n&quot;</span>;<br>            <span class="hljs-comment">//准备响应头</span><br>            <span class="hljs-type">String</span> <span class="hljs-variable">responseHeader</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Content-Type: text/html;charset=UTF-8\r\n&quot;</span>;<br>            <span class="hljs-comment">//准备响应空行</span><br>            <span class="hljs-type">String</span> <span class="hljs-variable">emptyLine</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;\r\n&quot;</span>;<br>            <span class="hljs-comment">//拼接在一起</span><br>            <span class="hljs-type">String</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> responseLine + responseHeader + emptyLine;<br><br>            <span class="hljs-comment">//把响应行,响应头,响应空行去响应给浏览器</span><br>            <span class="hljs-type">SelectionKey</span> <span class="hljs-variable">selectionKey</span> <span class="hljs-operator">=</span> httpResponse.getSelectionKey();<br>            <span class="hljs-type">SocketChannel</span> <span class="hljs-variable">channel</span> <span class="hljs-operator">=</span> (SocketChannel) selectionKey.channel();<br><br>            <span class="hljs-type">ByteBuffer</span> <span class="hljs-variable">byteBuffer1</span> <span class="hljs-operator">=</span> ByteBuffer.wrap(result.getBytes());<br>            channel.write(byteBuffer1);<br><br>            <span class="hljs-comment">//给浏览器 响应 响应体内容</span><br>            <span class="hljs-type">ByteBuffer</span> <span class="hljs-variable">byteBuffer2</span> <span class="hljs-operator">=</span> ByteBuffer.wrap(<span class="hljs-string">&quot;404 NOT FOUND....&quot;</span>.getBytes());<br>            channel.write(byteBuffer2);<br><br>            <span class="hljs-comment">//释放资源</span><br>            channel.close();<br>        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Java/" class="category-chain-item">Java</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Java/" class="print-no-link">#Java</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Java-day25-基础加强01</div>
+      <div>https://leekosss.github.io/2022/07/19/Java-day25-基础加强01/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>leekos</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年7月19日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年5月28日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/07/19/Java-day26-%E5%9F%BA%E7%A1%80%E5%8A%A0%E5%BC%BA02/" title="Java-day26-基础加强02">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Java-day26-基础加强02</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/07/19/Java-day24-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B02/" title="Java-day24-网络编程02">
+                        <span class="hidden-mobile">Java-day24-网络编程02</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"e5J90iDkXMWhU5UNlEX1I2hO-gzGzoHsz","appKey":"esLROw9j3xLk2nV4tQkKaih1","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      赣ICP备2022008842号-2
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,823 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="leekos">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="[TOC] [vulnhub]DC2信息收集扫ip，有两种方式：arp、nmap 123nmap -sP 192.168.56.0&#x2F;24 -T4arp-scan -l   192.168.56.137 扫端口： 1nmap -sS -A -T4 192.168.56.137 -p 1-65535   flag1我们使用浏览器登录80端口，发现登录不上，地址栏变为：http:&#x2F;&#x2F;dc-2 原因是dn">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tranquility">
+<meta property="og:url" content="https://leekosss.github.io/2023/08/24/[vulnhub]DC2/index.html">
+<meta property="og:site_name" content="Tranquility">
+<meta property="og:description" content="[TOC] [vulnhub]DC2信息收集扫ip，有两种方式：arp、nmap 123nmap -sP 192.168.56.0&#x2F;24 -T4arp-scan -l   192.168.56.137 扫端口： 1nmap -sS -A -T4 192.168.56.137 -p 1-65535   flag1我们使用浏览器登录80端口，发现登录不上，地址栏变为：http:&#x2F;&#x2F;dc-2 原因是dn">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261658762.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261701648.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261702243.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261704397.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261710689.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261717149.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261726608.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261732858.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261731746.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261735876.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261738132.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261739426.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261741802.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261756496.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261755812.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261756950.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261845243.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261859603.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261904197.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261906932.png">
+<meta property="og:image" content="https://s2.loli.net/2023/07/26/J8p4mGFrZgxXbWP.png">
+<meta property="article:published_time" content="2023-08-24T15:43:38.335Z">
+<meta property="article:modified_time" content="2023-07-26T11:27:28.133Z">
+<meta property="article:author" content="leekos">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261658762.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Tranquility</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Tranquility</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-24 23:43" pubdate>
+          2023年8月24日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          21 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年7月26日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>[TOC]</p>
+<h2 id="vulnhub-DC2"><a href="#vulnhub-DC2" class="headerlink" title="[vulnhub]DC2"></a>[vulnhub]DC2</h2><h3 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h3><p>扫ip，有两种方式：<code>arp</code>、<code>nmap</code></p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nmap</span> -sP <span class="hljs-number">192.168.56.0</span>/<span class="hljs-number">24</span> -T4<br><br><span class="hljs-attribute">arp</span>-scan -l<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261658762.png" srcset="/img/loading.gif" lazyload alt="image-20230726165819619"></p>
+<p><code>192.168.56.137</code></p>
+<p>扫端口：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nmap</span> -sS -A -T4 <span class="hljs-number">192.168.56.137</span> -p <span class="hljs-number">1</span>-<span class="hljs-number">65535</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261701648.png" srcset="/img/loading.gif" lazyload alt="image-20230726170107593"></p>
+<h3 id="flag1"><a href="#flag1" class="headerlink" title="flag1"></a>flag1</h3><p>我们使用浏览器登录80端口，发现登录不上，地址栏变为：<code>http://dc-2</code></p>
+<p>原因是dns解析不正确，我们需要在<code>hosts</code>文件中添加：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261702243.png" srcset="/img/loading.gif" lazyload alt="image-20230726170222209"></p>
+<p>访问可以获得flag1</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261704397.png" srcset="/img/loading.gif" lazyload alt="image-20230726170404356"></p>
+<p>提示我们需要使用工具<code>cewl</code>获得字典，登录来获得flag2</p>
+<h3 id="flag2"><a href="#flag2" class="headerlink" title="flag2"></a>flag2</h3><h4 id="cewl"><a href="#cewl" class="headerlink" title="cewl"></a>cewl</h4><p>首先需要了解一下什么是<code>cewl</code>：</p>
+<blockquote>
+<p><code>cewl</code>是一个用于生成自定义字典（custom wordlist）的工具。它的全称是“Custom Word List generator”，意为自定义字典生成器。<code>cewl</code>工具的主要目的是通过分析指定的目标网页或文本文件，从中提取关键词和短语，然后将这些词汇组合成一个自定义的字典文件。</p>
+</blockquote>
+<p>我们大概了解<code>cewl</code>可以分析网页的关键词来生成自定义字典文件，此处我们只需了解<code>-w</code>参数即可：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs vim">语法格式：cewl <span class="hljs-symbol">&lt;url&gt;</span> [<span class="hljs-keyword">options</span>]<br><span class="hljs-symbol">&lt;url&gt;</span>是指定爬取的站点，<span class="hljs-keyword">options</span>是参数选项<br><br>-<span class="hljs-keyword">w</span>,--<span class="hljs-keyword">write</span>	将输出的结果写入到文件<br></code></pre></td></tr></table></figure>
+
+<p>于是我们生成自定义密码词典：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">cewl http://dc-2 -w pass.txt    <span class="hljs-comment"># 这里需要输入域名才有效</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261710689.png" srcset="/img/loading.gif" lazyload alt="image-20230726171043652"></p>
+<p>我们再观察一下官网：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261717149.png" srcset="/img/loading.gif" lazyload alt="image-20230726171716087"></p>
+<p>这个网站是由<code>WordPress 4.7.10</code> 搭建的，肯定有很多wordpress漏洞</p>
+<p>我们可以使用工具：<code>wpscan</code></p>
+<h4 id="wpscan"><a href="#wpscan" class="headerlink" title="wpscan"></a>wpscan</h4><blockquote>
+<p>WPScan是Kali Linux默认自带的一款<a target="_blank" rel="noopener" href="https://cloud.tencent.com/product/vds?from_column=20420&from=20420">漏洞扫描</a>工具，它采用Ruby编写，能够扫描WordPress网站中的多种安全漏洞，其中包括WordPress本身的漏洞、插件漏洞和主题漏洞</p>
+</blockquote>
+<p>flag1提示我们需要登录，我们有了密码词典，但是没有用户名怎么登录，所以我们需要获得用户名，而<code>wpscan</code>工具就可以做到</p>
+<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs brainfuck"><span class="hljs-comment">wpscan</span> <span class="hljs-literal">--</span><span class="hljs-comment">ignore</span><span class="hljs-literal">-</span><span class="hljs-comment">main</span><span class="hljs-literal">-</span><span class="hljs-comment">redirect</span> <span class="hljs-literal">--</span><span class="hljs-comment">url 192</span><span class="hljs-string">.</span><span class="hljs-comment">168</span><span class="hljs-string">.</span><span class="hljs-comment">56</span><span class="hljs-string">.</span><span class="hljs-comment">137</span> <span class="hljs-literal">--</span><span class="hljs-comment">enumerate u</span> <span class="hljs-literal">--</span><span class="hljs-comment">force</span><br><br><span class="hljs-literal">--</span><span class="hljs-comment">ignore</span><span class="hljs-literal">-</span><span class="hljs-comment">main</span><span class="hljs-literal">-</span><span class="hljs-comment">redirect	忽略主要的重定向</span><br><span class="hljs-literal">--</span><span class="hljs-comment">url				   指定url</span><br><span class="hljs-literal">--</span><span class="hljs-comment">enumerate u		    枚举用户名</span><br><span class="hljs-literal">--</span><span class="hljs-comment">force: 			    这个选项强制wpscan执行即使目标可能不是WordPress网站的情况下也要继续扫描。如果没有使用</span><span class="hljs-literal">--</span><span class="hljs-comment">force选项，wpscan在检测到目标不是WordPress网站时将会中止扫描。</span><br></code></pre></td></tr></table></figure>
+
+<p>这里扫描出了3个用户名：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261726608.png" srcset="/img/loading.gif" lazyload alt="image-20230726172631558"></p>
+<p>知道了用户名和密码的词典，我们就可以进行爆破了，可以使用<code>hydra</code>、<code>wpscan</code>、<code>bp</code>等工具</p>
+<p><code>bp</code>：</p>
+<p>使用最后一个模式，计算笛卡尔积</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261732858.png" srcset="/img/loading.gif" lazyload alt="image-20230726173214796"></p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261731746.png" srcset="/img/loading.gif" lazyload alt="image-20230726173142701"></p>
+<p><code>wpscan</code>：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">wpscan <span class="hljs-attr">--url</span> <span class="hljs-number">192.168</span>.<span class="hljs-number">56.137</span> -U user<span class="hljs-selector-class">.txt</span> -P dict<span class="hljs-selector-class">.txt</span> <span class="hljs-attr">--ignore-main-redirect</span> <span class="hljs-attr">--force</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261735876.png" srcset="/img/loading.gif" lazyload alt="image-20230726173520840"></p>
+<p>然后我们使用<code>jerry</code>登录网站后台：<code>/wp-admin</code></p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261738132.png" srcset="/img/loading.gif" lazyload alt="image-20230726173844086"></p>
+<p>希望我们使用另一个点切入</p>
+<h3 id="flag3"><a href="#flag3" class="headerlink" title="flag3"></a>flag3</h3><p>我们想起之前<code>7744</code>端口开放了一个ssh</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261739426.png" srcset="/img/loading.gif" lazyload alt="image-20230726173940392"></p>
+<p>我们使用<code>tom</code>登录上ssh：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261741802.png" srcset="/img/loading.gif" lazyload alt="image-20230726174104116"></p>
+<p>想查看flag3，却发现没有命令。注意到使用<code>rbash</code></p>
+<h4 id="什么是rbash？"><a href="#什么是rbash？" class="headerlink" title="什么是rbash？"></a>什么是rbash？</h4><blockquote>
+<p><code>rbash(restricted bash)</code>，即受限制的 bash</p>
+</blockquote>
+<p>经过查询发现可以使用<code>rbash</code>逃逸</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43168364/article/details/111830233">https://blog.csdn.net/qq_43168364/article/details/111830233</a></li>
+<li><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/7642#toc-1">https://xz.aliyun.com/t/7642#toc-1</a></li>
+<li><a target="_blank" rel="noopener" href="https://fireshellsecurity.team/restricted-linux-shell-escaping-techniques/">https://fireshellsecurity.team/restricted-linux-shell-escaping-techniques/</a></li>
+</ul>
+<p>在这个靶机中我们可以使用这种方法：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261756496.png" srcset="/img/loading.gif" lazyload alt="image-20230726175627455"></p>
+<p>在<code>vi</code>的末行模式输入：</p>
+<ul>
+<li><code>:set shell=/bin/sh</code></li>
+<li><code>:shell</code></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261755812.png" srcset="/img/loading.gif" lazyload alt="image-20230726175505768"></p>
+<p>结果还是不行，因为没有添加环境变量：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ruby">export <span class="hljs-variable constant_">PATH</span>=<span class="hljs-variable">$PATH</span><span class="hljs-symbol">:/bin/</span><br>或者<br>export <span class="hljs-variable constant_">PATH</span>=<span class="hljs-regexp">/usr/sbin</span><span class="hljs-symbol">:/usr/bin</span><span class="hljs-symbol">:/sbin</span><span class="hljs-symbol">:/bin</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261756950.png" srcset="/img/loading.gif" lazyload alt="image-20230726175617912"></p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">Poor <span class="hljs-built_in">old</span> Tom <span class="hljs-keyword">is</span> <span class="hljs-keyword">always</span> running <span class="hljs-keyword">after</span> Jerry. Perhaps he should su <span class="hljs-keyword">for</span> <span class="hljs-keyword">all</span> the stress he causes.<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="flag4"><a href="#flag4" class="headerlink" title="flag4"></a>flag4</h3><p>上面提示了<code>su</code>，所以我们可以使用<code>su</code>切换到<code>jerry</code>，然后查看<code>/home/jerry/flag4.txt</code>：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261845243.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs awk">Good to see that yo<span class="hljs-string">u&#x27;ve made it this far - but you&#x27;</span>re not home yet. <br><br>You still need to get the final flag (the only flag that really counts!!!).  <br><br>No hints here - yo<span class="hljs-string">u&#x27;re on your own now.  :-)</span><br><span class="hljs-string"></span><br><span class="hljs-string">Go on - git outta here!!!!</span><br></code></pre></td></tr></table></figure>
+
+<p>提示我们需要使用<code>git</code>命令</p>
+<h3 id="flag5"><a href="#flag5" class="headerlink" title="flag5"></a>flag5</h3><p>这里需要了解一个知识点：<a target="_blank" rel="noopener" href="https://blog.csdn.net/G_Fu_Q/article/details/116276096">git提权</a></p>
+<h4 id="git提权"><a href="#git提权" class="headerlink" title="git提权"></a>git提权</h4><p>git提权的前提是不需要使用密码就可以使用git命令</p>
+<p>我们可以使用<code>sudo -l</code>命令查看哪些可以具有<code>root</code>权限的命令：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261859603.png" srcset="/img/loading.gif" lazyload alt="image-20230726185956557"></p>
+<p>我们可以看到<code>git</code>命令刚好满足，使用不需要密码，于是我们进行git提权：</p>
+<p>我们可以使用如下命令：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">sudo git help config <span class="hljs-comment">#在末行命令模式输入 </span><br>!<span class="hljs-regexp">/bin/</span>bash 或 !<span class="hljs-string">&#x27;sh&#x27;</span> <span class="hljs-comment">#完成提权 </span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261904197.png" srcset="/img/loading.gif" lazyload alt="image-20230726190443154"></p>
+<p>提权成功后为<code>root</code>权限：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307261906932.png" srcset="/img/loading.gif" lazyload alt="image-20230726190622880"></p>
+<p>查找最后一个flag：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-built_in">find</span> / -name <span class="hljs-string">&quot;*flag*&quot;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://s2.loli.net/2023/07/26/J8p4mGFrZgxXbWP.png" srcset="/img/loading.gif" lazyload alt="image-20230726191143168"></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>通过DC2靶机了解到了很多东西，例如<code>cewl</code>工具可以根据网页的关键字生成自定义字典，例如想要寻找<code>WordPress</code>的漏洞可以使用<code>wpscan</code>工具来扫描，想要破解密码可以使用<code>hydra</code>工具等等，以及受限制的bash：<code>rbash</code>，需要<code>rbash</code>提权到<code>bash</code>来，还了解了一个<code>git提权</code>，当<code>sudo -l</code>列出的可特权执行的命令中<code>git</code>不需要密码，就可以<code>git提权</code></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>https://leekosss.github.io/2023/08/24/[vulnhub]DC2/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>leekos</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年8月24日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年7月26日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/08/24/%5Bvulnhub%5DXXE(XXE%E6%BC%8F%E6%B4%9E)/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/24/%5Bvulnhub%5DDC1/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"e5J90iDkXMWhU5UNlEX1I2hO-gzGzoHsz","appKey":"esLROw9j3xLk2nV4tQkKaih1","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      赣ICP备2022008842号-2
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

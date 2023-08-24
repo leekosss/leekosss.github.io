@@ -1,0 +1,1216 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="leekos">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="[TOC] 被劫持的神秘礼物 hint：某天小明收到了一件很特别的礼物，有奇怪的后缀，奇怪的名字和格式。小明找到了知心姐姐度娘，度娘好像知道这是啥，但是度娘也不知道里面是啥。。。你帮帮小明？找到帐号密码，串在一起，用32位小写MD5哈希一下得到的就是答案。  下载文件得到 pcapng 文件，使用 wireshark 分析。 我们查看http协议，追踪http数据流，发现账号密码：     根据提">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【BUUCTF】MISC(第2页wp)">
+<meta property="og:url" content="https://leekosss.github.io/2023/08/24/[BUUCTF]MISC(%E7%AC%AC2%E9%A1%B5wp)/index.html">
+<meta property="og:site_name" content="Tranquility">
+<meta property="og:description" content="[TOC] 被劫持的神秘礼物 hint：某天小明收到了一件很特别的礼物，有奇怪的后缀，奇怪的名字和格式。小明找到了知心姐姐度娘，度娘好像知道这是啥，但是度娘也不知道里面是啥。。。你帮帮小明？找到帐号密码，串在一起，用32位小写MD5哈希一下得到的就是答案。  下载文件得到 pcapng 文件，使用 wireshark 分析。 我们查看http协议，追踪http数据流，发现账号密码：     根据提">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/R3vQDANm7dbCBPq.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/YqZTuRlsaXFxgGO.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/Q2GvzHB7ipn6bVT.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/xHduBLpY4cGQeyV.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/RkbB7yYKlthJwIA.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/LK3DWvpVirCwNJy.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/FB8jOaVo7TnrMW3.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/ndGaTeoyERs5pBc.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/loGsU7SAOTcjqLf.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/5nVFAo9ScQRewZC.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/pI1gCUawLKD5JHR.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/sNH3OAUdRvSGQ1K.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/XDuPdMC8oSyO2FL.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/8Icvdxt9OusT2QF.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/xcuS1gI85eBMdQf.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/a5McefyOjkuYVdI.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/DCu65p87sSEyoUg.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/Gq7HdLJcAgIXs5w.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/N2vUCdLb1qMzyAf.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/1cPxsXtQO3N9Gq2.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/xlNb8HPGYVr6fAe.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/Wnye5LPFqclIxiZ.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/UfoR5ViSpq7eAwZ.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/nuYiLh1SgRABTHl.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/hXVluYzZGcBRkM5.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/kA5fhBbiTe3HV2W.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/KWzNDZPoc4rS8aE.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/MD9tfIXOdJCqyW2.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/rwkeCa5Rjoch4YP.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/nNbPpauVQ9Cf4ER.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/WEp3tnfIe5hXPaD.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/3jH6G7zWLQpX8xC.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/S9ghcjfPlQxYuTW.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/pViFw6jcQLKdO8u.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/OKyYvIocbCewlBP.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/5rv4J13IaYxbPTp.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/GHT7CbOzKJP1N6c.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/FZAwcRUSXlYm7C2.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/k7p1YWoFRK9GqlH.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/AsE38a9HTDu7Glv.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/zqaErVIpoignb1e.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/wRia8dUSjN4LoPp.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/LYVONkvBAyz9bQR.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/jNzoVqACpSZmDut.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/2jNgIfaBbx7Ho5P.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/32gIxf9OsZMU4mu.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/fjySKq4JHEt1AsM.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/Lqru8jo5PD41hSF.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/2mwcIlfnvsP5q4L.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/AhknVLaWfo9i7Jm.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/qZEelaK45MUdIb3.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/S7bJvinKhF6LsCe.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/UpuMPLeIEsQxHyG.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/KwLujm9qMRhtHxS.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/IW1C9MGvXkKfQFt.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/ZJehDH6noPA1gOG.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/GM2Z1BO7oxabcVq.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/bZG46cK2mxSEYwU.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/SswkA9EF5ZWav7q.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/glGFMhWK9P12fXN.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/TG2nlDIUX1A98WR.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/28/1jmu3eG4wMbEVR9.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/29/73PmXdv5fRsZcYS.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/29/wLrhtOzpST9diJm.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/29/xGmtejF7pVZAbfP.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/29/1vONgbA7hk8ICax.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/29/1IbTh2CBfnFiMoH.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/29/FMHZPreyGTQ5Sxj.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/29/FDqiwkm6LygAx7E.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/29/r2OLszYZedITKH7.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/29/s9dlwVavfCNIcEu.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/29/jvkV1iHOtyIYp3T.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/29/cZA1MCrqdsU6YxQ.jpg">
+<meta property="og:image" content="https://s2.loli.net/2022/12/29/XWsjiHK2N7fLTde.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/29/V8BfwGtpMbqTzyl.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/29/zunxAM5Eb6ef8KB.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/29/TxgMWkKlaXz912F.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/29/CS7nwUT5drFKEsj.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/29/v7csZgDfCpkAjS2.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/29/N9urQXBWjlVx4Jq.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/29/LF8o1UWETdxqDsM.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/29/VgHxPky4B7GCROJ.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/29/O1DwgylCrMYKTuc.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/29/tvb7FheWHc4SdwN.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/29/4aLGZv57uRidjlV.png">
+<meta property="og:image" content="https://s2.loli.net/2022/12/29/XUjlHDLVK2OhzdJ.png">
+<meta property="article:published_time" content="2023-08-24T15:43:38.206Z">
+<meta property="article:modified_time" content="2023-06-05T06:42:12.267Z">
+<meta property="article:author" content="leekos">
+<meta property="article:tag" content="【BUUCTF】MISC(第2页wp)">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2022/12/28/R3vQDANm7dbCBPq.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【BUUCTF】MISC(第2页wp) - Tranquility</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Tranquility</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【BUUCTF】MISC(第2页wp)"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-24 23:43" pubdate>
+          2023年8月24日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          70 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【BUUCTF】MISC(第2页wp)</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年6月5日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>[TOC]</p>
+<h2 id="被劫持的神秘礼物"><a href="#被劫持的神秘礼物" class="headerlink" title="被劫持的神秘礼物"></a>被劫持的神秘礼物</h2><blockquote>
+<p>hint：某天小明收到了一件很特别的礼物，有奇怪的后缀，奇怪的名字和格式。小明找到了知心姐姐度娘，度娘好像知道这是啥，但是度娘也不知道里面是啥。。。你帮帮小明？找到帐号密码，串在一起，用32位小写MD5哈希一下得到的就是答案。</p>
+</blockquote>
+<p>下载文件得到 <code>pcapng</code> 文件，使用 <code>wireshark</code> 分析。 我们查看http协议，追踪http数据流，发现账号密码：</p>
+<img src="https://s2.loli.net/2022/12/28/R3vQDANm7dbCBPq.png" srcset="/img/loading.gif" lazyload alt="image-20221228160632064" style="zoom:33%;" />
+
+
+
+<p>根据提示，将账号，密码串在一起，然后md5加密得到flag</p>
+<img src="https://s2.loli.net/2022/12/28/YqZTuRlsaXFxgGO.png" srcset="/img/loading.gif" lazyload alt="image-20221228160749576" style="zoom:33%;" />
+
+
+
+
+
+<h2 id="刷新过的图片"><a href="#刷新过的图片" class="headerlink" title="刷新过的图片"></a>刷新过的图片</h2><blockquote>
+<p>hint：浏览图片的时候刷新键有没有用呢</p>
+</blockquote>
+<p>下载后得到一张jpg图片，然后进行binwalk等操作，发现都没有用</p>
+<p>这个时候，观察题目，刷新键是F5，我们经过查询，发现有一个 <code>F5隐写</code> 全称：<strong>F5-steganography</strong></p>
+<p>然后有一款 F5隐写工具：<code>F5-steganography</code> 这款工具是基于java的</p>
+<p>我们下载之后在命令行使用:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">java Extract /xxx/yyy       <span class="hljs-comment">//图片路径</span><br></code></pre></td></tr></table></figure>
+
+<p>payload:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">java Extract C:<span class="hljs-comment">//Users//LIKE//Desktop//Misc.jpg</span><br></code></pre></td></tr></table></figure>
+
+<p>然后工具会将分割的文件放在 F5目录下的 output.txt中：</p>
+<img src="https://s2.loli.net/2022/12/28/Q2GvzHB7ipn6bVT.png" srcset="/img/loading.gif" lazyload alt="image-20221228162543845" style="zoom:33%;" />
+
+<p>打开发现是zip文件，改后缀为zip即可，打开发现zip伪加密，修改即可打开压缩包：</p>
+<img src="https://s2.loli.net/2022/12/28/xHduBLpY4cGQeyV.png" srcset="/img/loading.gif" lazyload alt="image-20221228162637137" style="zoom:33%;" />
+
+
+
+<h2 id="BJDCTF2020-认真你就输了"><a href="#BJDCTF2020-认真你就输了" class="headerlink" title="[BJDCTF2020]认真你就输了"></a>[BJDCTF2020]认真你就输了</h2><p>下载得到一个 xls 表格文件，拖进 010Editor 发现是zip格式：</p>
+<img src="https://s2.loli.net/2022/12/28/RkbB7yYKlthJwIA.png" srcset="/img/loading.gif" lazyload alt="image-20221228162954700" style="zoom:33%;" />
+
+
+
+<p>于是我们把 <code>xls</code> 后缀 改为zip  。发现里面很多文件：</p>
+<p><img src="https://s2.loli.net/2022/12/28/LK3DWvpVirCwNJy.png" srcset="/img/loading.gif" lazyload alt="image-20221228163037181"></p>
+<p>我们在 <code>010Editor</code> 搜 <code>flag</code> 关键字</p>
+<img src="https://s2.loli.net/2022/12/28/FB8jOaVo7TnrMW3.png" srcset="/img/loading.gif" lazyload alt="image-20221228163119551" style="zoom:33%;" />
+
+<p>发现了 flag 的路径，找到打开得到 flag</p>
+<h2 id="BJDCTF2020-藏藏藏"><a href="#BJDCTF2020-藏藏藏" class="headerlink" title="[BJDCTF2020]藏藏藏"></a>[BJDCTF2020]藏藏藏</h2><p>将图片拖进kali，使用 <code>foremost</code> 进行分离，得到zip文件，里面有一个 docx文档，打开有一个二维码，扫码得到flag</p>
+<img src="https://s2.loli.net/2022/12/28/ndGaTeoyERs5pBc.png" srcset="/img/loading.gif" lazyload alt="image-20221228170826564" style="zoom: 33%;" />
+
+
+
+<h2 id="被偷走的文件"><a href="#被偷走的文件" class="headerlink" title="被偷走的文件"></a>被偷走的文件</h2><blockquote>
+<p>hint：一黑客入侵了某公司盗取了重要的机密文件，还好管理员记录了文件被盗走时的流量，请分析该流量，分析出该黑客盗走了什么文件。</p>
+</blockquote>
+<p>下载得到 <code>pcapng</code> 流量包文件，使用 <code>wireshark</code> 分析 ，由于hint说，盗走的是文件，于是我们锁定 <code>ftp 协议</code></p>
+<p>（文件传输协议）</p>
+<p><img src="https://s2.loli.net/2022/12/28/loGsU7SAOTcjqLf.png" srcset="/img/loading.gif" lazyload alt="image-20221228171658046"></p>
+<p>发现流量包存在 <code>flag.rar</code> 文件，于是我们使用 <code>binwalk</code> 分离数据包：</p>
+<img src="https://s2.loli.net/2022/12/28/5nVFAo9ScQRewZC.png" srcset="/img/loading.gif" lazyload alt="image-20221228171753014" style="zoom:50%;" />
+
+<p>分离得到一个rar文件，但是打开需要密码，由于没有任何线索，所以我们使用 <code>ARCHPR</code> 进行爆破</p>
+<p>得到四位数密码，打开即flag</p>
+<h2 id="snake"><a href="#snake" class="headerlink" title="snake"></a>snake</h2><p>下载后发现一张图片，使用<code>foremost</code>分离图片，得到两个文件：</p>
+<img src="https://s2.loli.net/2022/12/28/pI1gCUawLKD5JHR.png" srcset="/img/loading.gif" lazyload alt="image-20221228175126582" style="zoom:33%;" />
+
+<p>key中内容为base64编码，解密后:</p>
+<blockquote>
+<p>What is Nicki Minaj’s favorite song that refers to snakes?</p>
+</blockquote>
+<p>查了一下，发现歌名：<code>anaconda</code>,猜测歌名可能是某个密码。</p>
+<p>但是 cipher 文件不知道什么东西。经过查阅得知，蛇snake还有另一个单词：<code>serpent</code></p>
+<p><strong>serpent 是一种编码</strong></p>
+<p>我们使用网站解密：<a target="_blank" rel="noopener" href="http://serpent.online-domain-tools.com/">serpent解密</a></p>
+<img src="https://s2.loli.net/2022/12/28/sNH3OAUdRvSGQ1K.png" srcset="/img/loading.gif" lazyload alt="image-20221228175550808" style="zoom: 25%;" />
+
+<p>key就是之前base64解密之后找到的：<code>anacoda</code></p>
+<p>解密即可得到flag</p>
+<h2 id="GXYCTF2019-佛系青年"><a href="#GXYCTF2019-佛系青年" class="headerlink" title="[GXYCTF2019]佛系青年"></a>[GXYCTF2019]佛系青年</h2><p>下载后得到 zip压缩包，解压需要密码，我们使用 <code>Ziperello</code> 扫一下，发现并无加密，为zip伪加密</p>
+<p>于是我们使用 010Editor 打开对应zip，修改对应部分为 00：</p>
+<img src="https://s2.loli.net/2022/12/28/XDuPdMC8oSyO2FL.png" srcset="/img/loading.gif" lazyload alt="image-20221228180315918" style="zoom:33%;" />
+
+
+
+<p>打开txt文件，发现是一串佛语：</p>
+<p><img src="https://s2.loli.net/2022/12/28/8Icvdxt9OusT2QF.png" srcset="/img/loading.gif" lazyload alt="image-20221228180352402"></p>
+<p>于是我们想到了<code>与佛论禅</code> 加密，<a target="_blank" rel="noopener" href="https://www.keyfc.net/bbs/tools/tudoucode.aspx">使用网站解密即可</a></p>
+<img src="https://s2.loli.net/2022/12/28/xcuS1gI85eBMdQf.png" srcset="/img/loading.gif" lazyload alt="image-20221228180454598" style="zoom:33%;" />
+
+
+
+
+
+<h2 id="BJDCTF2020-你猜我是个啥"><a href="#BJDCTF2020-你猜我是个啥" class="headerlink" title="[BJDCTF2020]你猜我是个啥"></a>[BJDCTF2020]你猜我是个啥</h2><p>将文件使用 010Editor 打开，最底下就是flag</p>
+<img src="https://s2.loli.net/2022/12/28/a5McefyOjkuYVdI.png" srcset="/img/loading.gif" lazyload alt="image-20221228180654293" style="zoom:33%;" />
+
+
+
+
+
+<h2 id="秘密文件"><a href="#秘密文件" class="headerlink" title="秘密文件"></a>秘密文件</h2><blockquote>
+<p>hint：深夜里，Hack偷偷的潜入了某公司的内网，趁着深夜偷走了公司的秘密文件，公司的网络管理员通过通过监控工具成功的截取Hack入侵时数据流量，但是却无法分析出Hack到底偷走了什么机密<strong>文件</strong>，你能帮帮管理员分析出Hack到底偷走了什么机密文件吗？</p>
+</blockquote>
+<p>直接使用 <code>wireshark</code> 分析 <code>pcapng</code> 流量包，由于提示：偷走的为文件，所以我们查找<code>ftp协议</code></p>
+<p><img src="https://s2.loli.net/2022/12/28/DCu65p87sSEyoUg.png" srcset="/img/loading.gif" lazyload alt="image-20221228181342686"></p>
+<p>发现数据包中存在rar压缩包，于是使用 <code>foremost</code> 提取rar压缩包</p>
+<img src="https://s2.loli.net/2022/12/28/Gq7HdLJcAgIXs5w.png" srcset="/img/loading.gif" lazyload alt="image-20221228181508305" style="zoom:33%;" />
+
+<p>得到rar压缩包后，使用 爆破工具 ARCHPR 爆破得到密码，打开得到flag</p>
+<h2 id="菜刀666"><a href="#菜刀666" class="headerlink" title="菜刀666"></a>菜刀666</h2><blockquote>
+<p>hint：流量分析，你能找到flag吗</p>
+</blockquote>
+<p>使用 <code>wireshark</code> 打开， 题目说菜刀，我们过滤POST流量包：</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs abnf">http.request.method<span class="hljs-operator">=</span><span class="hljs-operator">=</span>POST<br></code></pre></td></tr></table></figure>
+
+<img src="https://s2.loli.net/2022/12/28/N2vUCdLb1qMzyAf.png" srcset="/img/loading.gif" lazyload alt="image-20221228201501614" style="zoom:33%;" />
+
+<p>打开数据包，发现有一个 zip压缩包，我们使用 <code>foremost</code> 分离</p>
+<img src="https://s2.loli.net/2022/12/28/1cPxsXtQO3N9Gq2.png" srcset="/img/loading.gif" lazyload alt="image-20221228201553960" style="zoom:33%;" />
+
+<p>得到zip压缩包，但是需要密码：</p>
+<img src="https://s2.loli.net/2022/12/28/xlNb8HPGYVr6fAe.png" srcset="/img/loading.gif" lazyload alt="image-20221228201625176" style="zoom: 33%;" />
+
+<p><img src="https://s2.loli.net/2022/12/28/Wnye5LPFqclIxiZ.png" srcset="/img/loading.gif" lazyload alt="image-20221228201659046"></p>
+<p>我们在<code>tcp.stream eq 7</code> 中发现大量数据，参数 z1 的值是base64编码，我们先url解码一下再base64解码：</p>
+<p><img src="https://s2.loli.net/2022/12/28/UfoR5ViSpq7eAwZ.png" srcset="/img/loading.gif" lazyload alt="image-20221228201818026"></p>
+<p>得到16进制数据，但是我们不能直接保存为 jpg 图片，我们使用脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> binascii<br><br>hex_data= <span class="hljs-string">&#x27;这里填16进制数据&#x27;</span><br>out=<span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;result.jpg&#x27;</span>,<span class="hljs-string">&#x27;wb&#x27;</span>)<br>out.write(binascii.unhexlify(hex_data))<br>out.close()<br><span class="hljs-comment"># 16进制转图片</span><br></code></pre></td></tr></table></figure>
+
+<p>得到图片：</p>
+<img src="https://s2.loli.net/2022/12/28/nuYiLh1SgRABTHl.png" srcset="/img/loading.gif" lazyload alt="image-20221228202004912" style="zoom:33%;" />
+
+<p>使用密码打开zip压缩包得到flag</p>
+<h2 id="BJDCTF2020-just-a-rar"><a href="#BJDCTF2020-just-a-rar" class="headerlink" title="[BJDCTF2020]just_a_rar"></a>[BJDCTF2020]just_a_rar</h2><p>爆破压缩包，解压得到图片，flag在图片exif中：</p>
+<img src="https://s2.loli.net/2022/12/28/hXVluYzZGcBRkM5.png" srcset="/img/loading.gif" lazyload alt="image-20221228202436152" style="zoom:33%;" />
+
+
+
+
+
+<h2 id="BJDCTF2020-鸡你太美"><a href="#BJDCTF2020-鸡你太美" class="headerlink" title="[BJDCTF2020]鸡你太美"></a>[BJDCTF2020]鸡你太美</h2><p>下载得到两张gif图片，篮球副本图片显示不出来，我们使用 010Editor 打开两张GIF图片，</p>
+<p>发现 副本图片缺少了 GIF 头：<code>47 49 46 38</code></p>
+<img src="https://s2.loli.net/2022/12/28/kA5fhBbiTe3HV2W.png" srcset="/img/loading.gif" lazyload alt="image-20221228203744974" style="zoom:33%;" />
+
+<p>我们加上并保存:</p>
+<img src="https://s2.loli.net/2022/12/28/KWzNDZPoc4rS8aE.png" srcset="/img/loading.gif" lazyload alt="image-20221228203821348" style="zoom:33%;" />
+
+<p>得到 flag</p>
+<h2 id="BJDCTF2020-一叶障目"><a href="#BJDCTF2020-一叶障目" class="headerlink" title="[BJDCTF2020]一叶障目"></a>[BJDCTF2020]一叶障目</h2><img src="https://s2.loli.net/2022/12/28/MD9tfIXOdJCqyW2.png" srcset="/img/loading.gif" lazyload alt="image-20221228203939542" style="zoom:33%;" />
+
+<p>使用 010Editor 打开图片，发现图片 <code>crc校验</code> 不匹配</p>
+<p>我们使用大佬写的crc校验脚本，修改宽高：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> zlib<br><span class="hljs-keyword">import</span> struct<br><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">r&#x27;C:\\Users\\LIKE\Desktop\\1.png&#x27;</span>, <span class="hljs-string">&#x27;rb&#x27;</span>) <span class="hljs-keyword">as</span> image_data:<br>    bin_data = image_data.read()<br>data = <span class="hljs-built_in">bytearray</span>(bin_data[<span class="hljs-number">12</span>:<span class="hljs-number">29</span>])  <span class="hljs-comment"># 这段数据就是png图中IHDR段的16进制数据，不包括开始的length和最后CRC</span><br>crc32key = <span class="hljs-built_in">eval</span>(<span class="hljs-built_in">str</span>(bin_data[<span class="hljs-number">29</span>:<span class="hljs-number">33</span>]).replace(<span class="hljs-string">r&#x27;\x&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>).replace(<span class="hljs-string">&quot;b&#x27;&quot;</span>, <span class="hljs-string">&#x27;0x&#x27;</span>).replace(<span class="hljs-string">&quot;&#x27;&quot;</span>, <span class="hljs-string">&#x27;&#x27;</span>))<br><span class="hljs-comment"># 理论上0xffffffff,但考虑到屏幕实际，0x0fff就差不多了</span><br>n = <span class="hljs-number">4096</span><br><span class="hljs-comment"># 高和宽一起爆破</span><br><span class="hljs-keyword">for</span> w <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):<br>    <span class="hljs-comment"># q为8字节，i为4字节，h为2字节</span><br>    width = <span class="hljs-built_in">bytearray</span>(struct.pack(<span class="hljs-string">&#x27;&gt;i&#x27;</span>, w))<br>    <span class="hljs-keyword">for</span> h <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):<br>        height = <span class="hljs-built_in">bytearray</span>(struct.pack(<span class="hljs-string">&#x27;&gt;i&#x27;</span>, h))<br>        <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">4</span>):<br>            data[x + <span class="hljs-number">4</span>] = width[x]<br>            data[x + <span class="hljs-number">8</span>] = height[x]<br>        crc32result = zlib.crc32(data)<br>        <span class="hljs-keyword">if</span> crc32result == crc32key:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;width:%s  height:%s&quot;</span> % (<span class="hljs-built_in">bytearray</span>(width).<span class="hljs-built_in">hex</span>(), <span class="hljs-built_in">bytearray</span>(height).<span class="hljs-built_in">hex</span>()))<br>            exit()<br></code></pre></td></tr></table></figure>
+
+<img src="https://s2.loli.net/2022/12/28/rwkeCa5Rjoch4YP.png" srcset="/img/loading.gif" lazyload alt="image-20221228204958302" style="zoom:33%;" />
+
+<img src="https://s2.loli.net/2022/12/28/nNbPpauVQ9Cf4ER.png" srcset="/img/loading.gif" lazyload alt="image-20221228205025551" style="zoom:33%;" />
+
+<p>修改一下得到flag</p>
+<h2 id="SWPU2019-神奇的二维码"><a href="#SWPU2019-神奇的二维码" class="headerlink" title="[SWPU2019]神奇的二维码"></a>[SWPU2019]神奇的二维码</h2><p>将二维码使用 binwalk 分离，获得很多压缩包和文件，</p>
+<img src="https://s2.loli.net/2022/12/28/WEp3tnfIe5hXPaD.png" srcset="/img/loading.gif" lazyload alt="image-20221228210635038" style="zoom:33%;" />
+
+<p>打开flag.doc</p>
+<p><img src="https://s2.loli.net/2022/12/28/3jH6G7zWLQpX8xC.png" srcset="/img/loading.gif" lazyload alt="image-20221228210701815"></p>
+<p>发现很多base64编码，由于被编码多次，我们使用脚本跑一下解码:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> base64<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">decode</span>(<span class="hljs-params">f</span>):<br>    n = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        <span class="hljs-keyword">try</span>:<br>            f = base64.b64decode(f)<br>            n += <span class="hljs-number">1</span><br>        <span class="hljs-keyword">except</span>:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;[+]Base64共decode了&#123;0&#125;次，最终解码结果如下:&#x27;</span>.<span class="hljs-built_in">format</span>(n))<br>            <span class="hljs-built_in">print</span>(<span class="hljs-built_in">str</span>(f, <span class="hljs-string">&#x27;utf-8&#x27;</span>))<br>            <span class="hljs-keyword">break</span><br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    f = <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;C://Users//LIKE//Desktop//flag.txt&#x27;</span>, <span class="hljs-string">&#x27;r&#x27;</span>).read()<br>    decode(f)<br></code></pre></td></tr></table></figure>
+
+<p>得到: <code>comEON_YOuAreSOSoS0great</code></p>
+<p>我们用得到的密码可以打开音频压缩包：<img src="https://s2.loli.net/2022/12/28/S9ghcjfPlQxYuTW.png" srcset="/img/loading.gif" lazyload alt="image-20221228210935883" style="zoom:33%;" /></p>
+<p>使用 <code>Audacity</code> 去分析，发现是莫斯电码</p>
+<img src="https://s2.loli.net/2022/12/28/pViFw6jcQLKdO8u.png" srcset="/img/loading.gif" lazyload alt="image-20221228211013822" style="zoom:33%;" />
+
+<p>解密莫斯电码得到 flag(转小写)</p>
+<h2 id="梅花香之苦寒来"><a href="#梅花香之苦寒来" class="headerlink" title="梅花香之苦寒来"></a>梅花香之苦寒来</h2><p>下载后得到一张jpg图片，末尾有一串16进制数据：</p>
+<img src="https://s2.loli.net/2022/12/28/OKyYvIocbCewlBP.png" srcset="/img/loading.gif" lazyload alt="image-20221228212835117" style="zoom:33%;" />
+
+<p>将 <a target="_blank" rel="noopener" href="https://www.sojson.com/hexadecimal.html">16进制转文本</a> ，得：</p>
+<img src="https://s2.loli.net/2022/12/28/5rv4J13IaYxbPTp.png" srcset="/img/loading.gif" lazyload alt="image-20221228212928002" style="zoom:33%;" />
+
+<p>根据图片的 <code>exif</code>信息，提示要画图：</p>
+<img src="https://s2.loli.net/2022/12/28/GHT7CbOzKJP1N6c.png" srcset="/img/loading.gif" lazyload alt="image-20221228213126640" style="zoom:33%;" />
+
+<p>因此，这可能是一串坐标。我们可以使用：<code>gnuplot</code> 绘图工具进行绘图</p>
+<p>我们先把坐标转换为 <code>gnuplot</code> 可以识别的形式</p>
+<img src="https://s2.loli.net/2022/12/28/FZAwcRUSXlYm7C2.png" srcset="/img/loading.gif" lazyload alt="image-20221228213538724" style="zoom:33%;" />
+
+<p>然后我们使用 <code>gnuplot</code>  画图:</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs matlab"><span class="hljs-built_in">plot</span> <span class="hljs-string">&quot;C://Users//LIKE//Desktop//1.txt&quot;</span><br></code></pre></td></tr></table></figure>
+
+<img src="https://s2.loli.net/2022/12/28/k7p1YWoFRK9GqlH.png" srcset="/img/loading.gif" lazyload alt="image-20221228213718781" style="zoom:33%;" />
+
+<p>得到二维码，扫码得flag</p>
+<h2 id="BJDCTF2020-纳尼"><a href="#BJDCTF2020-纳尼" class="headerlink" title="[BJDCTF2020]纳尼"></a>[BJDCTF2020]纳尼</h2><p>查看gif文件，发现缺少gif文件头</p>
+<img src="https://s2.loli.net/2022/12/28/AsE38a9HTDu7Glv.png" srcset="/img/loading.gif" lazyload alt="image-20221228214201186" style="zoom:33%;" />
+
+<p>我们添加文件头:</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">47 </span><span class="hljs-number">49</span> <span class="hljs-number">46</span> <span class="hljs-number">38</span><br></code></pre></td></tr></table></figure>
+
+<img src="https://s2.loli.net/2022/12/28/zqaErVIpoignb1e.png" srcset="/img/loading.gif" lazyload alt="image-20221228214253254" style="zoom:33%;" />
+
+
+
+<p>得到一张gif，里面有base64编码，我们使用 <code>StegSolve</code> 的 <code>Data Extract</code> 模式</p>
+<img src="https://s2.loli.net/2022/12/28/wRia8dUSjN4LoPp.png" srcset="/img/loading.gif" lazyload alt="image-20221228214449359" style="zoom:33%;" />
+
+<p>获得每一帧编码:</p>
+<img src="https://s2.loli.net/2022/12/28/LYVONkvBAyz9bQR.png" srcset="/img/loading.gif" lazyload alt="image-20221228214538523" style="zoom:33%;" />
+
+<p>拼起来，然后base64解码得flag</p>
+<h2 id="穿越时空的思念"><a href="#穿越时空的思念" class="headerlink" title="穿越时空的思念"></a>穿越时空的思念</h2><blockquote>
+<p>hint：嫦娥当年奔月后，非常后悔，因为月宫太冷清，她想：早知道让后羿自己上来了，带了只兔子真是不理智。于是她就写了一首曲子，诉说的是怀念后羿在的日子。无数年后，小明听到了这首曲子，毅然决定冒充后羿。然而小明从曲子中听不出啥来，咋办。。（该题目为小写的32位字符，提交即可）</p>
+</blockquote>
+<p>使用 <code>Audacity</code>  分析，莫斯电码</p>
+<h2 id="ACTF新生赛2020-outguess"><a href="#ACTF新生赛2020-outguess" class="headerlink" title="[ACTF新生赛2020]outguess"></a>[ACTF新生赛2020]outguess</h2><p>下载后得到一堆东西:</p>
+<img src="https://s2.loli.net/2022/12/28/jNzoVqACpSZmDut.png" srcset="/img/loading.gif" lazyload alt="image-20221228221425597" style="zoom:33%;" />
+
+<p>我们发现 mmm.jpg 的 exif 属性中有社会主义核心价值观，猜测是 <code>社会主义核心价值观加密</code></p>
+<img src="https://s2.loli.net/2022/12/28/2jNgIfaBbx7Ho5P.png" srcset="/img/loading.gif" lazyload alt="image-20221228221519913" style="zoom:33%;" />
+
+<p>解密得到: abc</p>
+<p>然后就无思路了，然后题目 : <code>outguess</code></p>
+<p>查询得知，有一种 <strong>outguess隐写</strong>：</p>
+<p>kali下安装 <code>outguess 隐写工具</code> </p>
+<p><strong>使用outguess</strong></p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs sas">输入outguess -help即可获得相关命令。<br>加密：<br>outguess -k “my secret <span class="hljs-keyword">key</span>” -d hidden.txt demo.jpg <span class="hljs-keyword">out</span>.jpg<br>加密之后，demo.jpg会覆盖<span class="hljs-keyword">out</span>.jpg，hidden.txt的内容是要隐藏的东西。<br>解密：<br>outguess -k “my secret <span class="hljs-keyword">key</span>” -r <span class="hljs-keyword">out</span>.jpg hidden.txt<br>解密之后，紧密内容放在hidden.txt中<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2022/12/28/32gIxf9OsZMU4mu.png" srcset="/img/loading.gif" lazyload alt="image-20221228222800235"></p>
+<p>key就是前面解码得到的 <code>abc</code></p>
+<h2 id="HBNIS2018-excel破解"><a href="#HBNIS2018-excel破解" class="headerlink" title="[HBNIS2018]excel破解"></a>[HBNIS2018]excel破解</h2><p>下载得到一个excel，打开需要密码，我们用 010Editor 打开，直接搜索flag：</p>
+<img src="https://s2.loli.net/2022/12/28/fjySKq4JHEt1AsM.png" srcset="/img/loading.gif" lazyload alt="image-20221228223047269" style="zoom: 50%;" />
+
+
+
+<h2 id="HBNIS2018-来题中等的吧"><a href="#HBNIS2018-来题中等的吧" class="headerlink" title="[HBNIS2018]来题中等的吧"></a>[HBNIS2018]来题中等的吧</h2><p>打开下载的图片：</p>
+<img src="https://s2.loli.net/2022/12/28/Lqru8jo5PD41hSF.png" srcset="/img/loading.gif" lazyload alt="image-20221228223250642" style="zoom:33%;" />
+
+<p>使用莫斯电码解密即可</p>
+<h2 id="谁赢了比赛？"><a href="#谁赢了比赛？" class="headerlink" title="谁赢了比赛？"></a>谁赢了比赛？</h2><blockquote>
+<p>hint：小光非常喜欢下围棋。一天，他找到了一张棋谱，但是看不出到底是谁赢了。你能帮他看看到底是谁赢了么？</p>
+</blockquote>
+<p>下载得到一张围棋图片:</p>
+<img src="https://s2.loli.net/2022/12/28/2mwcIlfnvsP5q4L.png" srcset="/img/loading.gif" lazyload alt="image-20221228223914077" style="zoom:25%;" />
+
+<p>直接使用 <code>binwalk</code> 分离</p>
+<img src="https://s2.loli.net/2022/12/28/AhknVLaWfo9i7Jm.png" srcset="/img/loading.gif" lazyload alt="image-20221228223948505" style="zoom:33%;" />
+
+<p>得到一个需要密码的 rar压缩包，我们使用 <code>ARCHPR</code> 爆破 ，得到密码，打开发现一张gif图片：</p>
+<img src="https://s2.loli.net/2022/12/28/qZEelaK45MUdIb3.png" srcset="/img/loading.gif" lazyload alt="image-20221228224055977" style="zoom:25%;" />
+
+<p>我们使用 stegsolve(或者使用 <strong>GIFFrame</strong> ) 逐帧分析：</p>
+<img src="https://s2.loli.net/2022/12/28/S7bJvinKhF6LsCe.png" srcset="/img/loading.gif" lazyload alt="image-20221228224236256" style="zoom:25%;" />
+
+<p>发现第309帧不一样，我们保存这一张图片，然后使用 stegsolve 打开：</p>
+<img src="https://s2.loli.net/2022/12/28/UpuMPLeIEsQxHyG.png" srcset="/img/loading.gif" lazyload alt="image-20221228224414124" style="zoom:25%;" />
+
+<p>切换通道发现出现一张二维码，扫码得到flag</p>
+<h2 id="SWPU2019-我有一只马里奥"><a href="#SWPU2019-我有一只马里奥" class="headerlink" title="[SWPU2019]我有一只马里奥"></a>[SWPU2019]我有一只马里奥</h2><p>下载得到一个 exe 文件，执行发现生成了1个txt文件:</p>
+<img src="https://s2.loli.net/2022/12/28/KwLujm9qMRhtHxS.png" srcset="/img/loading.gif" lazyload alt="image-20221228224831011" style="zoom: 33%;" />
+
+<img src="https://s2.loli.net/2022/12/28/IW1C9MGvXkKfQFt.png" srcset="/img/loading.gif" lazyload alt="image-20221228224843095" style="zoom:33%;" />
+
+<p>txt提示 ntfs，查阅资料知：<strong>ntfs流隐写</strong></p>
+<img src="https://s2.loli.net/2022/12/28/ZJehDH6noPA1gOG.png" srcset="/img/loading.gif" lazyload alt="image-20221228225332134" style="zoom:33%;" />
+
+<p>查看方式:</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cmd">notepad <span class="hljs-number">1</span>.txt:flag.txt<br>notepad 查看的文件:隐写的文件<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="WUSTCTF2020-find-me"><a href="#WUSTCTF2020-find-me" class="headerlink" title="[WUSTCTF2020]find_me"></a>[WUSTCTF2020]find_me</h2><p>查看图片 exif 属性：</p>
+<img src="https://s2.loli.net/2022/12/28/GM2Z1BO7oxabcVq.png" srcset="/img/loading.gif" lazyload alt="image-20221228225936303" style="zoom: 25%;" />
+
+
+
+<p>发现是盲文，<a target="_blank" rel="noopener" href="https://www.qqxiuzi.cn/bianma/wenbenjiami.php?s=mangwen">盲文解密</a> ，得到flag</p>
+<img src="https://s2.loli.net/2022/12/28/bZG46cK2mxSEYwU.png" srcset="/img/loading.gif" lazyload alt="image-20221228225816508" style="zoom:33%;" />
+
+
+
+<h2 id="GXYCTF2019-gakki"><a href="#GXYCTF2019-gakki" class="headerlink" title="[GXYCTF2019]gakki"></a>[GXYCTF2019]gakki</h2><p>下载后打开jpg图片，发现末尾藏有rar压缩包:</p>
+<img src="https://s2.loli.net/2022/12/28/SswkA9EF5ZWav7q.png" srcset="/img/loading.gif" lazyload alt="image-20221228230431265" style="zoom:33%;" />
+
+<p>使用 binwalk 分离，将分离后存在密码的rar文件爆破得到密码：</p>
+<img src="https://s2.loli.net/2022/12/28/glGFMhWK9P12fXN.png" srcset="/img/loading.gif" lazyload alt="image-20221228230610157" style="zoom:33%;" />
+
+<p>打开txt文件：</p>
+<p><img src="https://s2.loli.net/2022/12/28/TG2nlDIUX1A98WR.png" srcset="/img/loading.gif" lazyload alt="image-20221228230704492"></p>
+<p>发现了毫无规律的字符组成</p>
+<p>通过查询，我们知道可能是<strong>根据字符出现频率</strong>得到flag</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 统计txt文件中给符号的频率。按降序排列</span><br><br>alphabet = <span class="hljs-string">&quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&amp;*()_+- =\\&#123;\\&#125;[]&quot;</span><br><br>strings = <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;flag.txt&#x27;</span>).read();<br><br>result = &#123;&#125;<br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> alphabet:<br>    counts = strings.count(i)<br>    <span class="hljs-comment"># i = &#x27;&#123;0&#125;&#x27;.format(i)</span><br>    result[i] = counts<br><br><br>res = <span class="hljs-built_in">sorted</span>(result.items(),key=<span class="hljs-keyword">lambda</span> x:x[<span class="hljs-number">1</span>],reverse=<span class="hljs-literal">True</span>)<br><span class="hljs-keyword">for</span> data <span class="hljs-keyword">in</span> res:<br>    <span class="hljs-built_in">print</span>(data)<br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> res:   <span class="hljs-comment">#将结果一行输出</span><br>    flag = <span class="hljs-built_in">str</span>(i[<span class="hljs-number">0</span>])<br>    <span class="hljs-built_in">print</span>(flag,end=<span class="hljs-string">&quot;&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>使用大神脚本，可以得到：频率降序排列字符</p>
+<p><img src="https://s2.loli.net/2022/12/28/1jmu3eG4wMbEVR9.png" srcset="/img/loading.gif" lazyload alt="image-20221228231000168"></p>
+<p>前面几个几位flag</p>
+<h2 id="ACTF新生赛2020-base64隐写"><a href="#ACTF新生赛2020-base64隐写" class="headerlink" title="[ACTF新生赛2020]base64隐写"></a>[ACTF新生赛2020]base64隐写</h2><p>观察题目，并查阅资料，我们了解到 <code>base64隐写</code> 这么个东西</p>
+<p>我们打开txt文件，发现很多base64编码：</p>
+<img src="https://s2.loli.net/2022/12/29/73PmXdv5fRsZcYS.png" srcset="/img/loading.gif" lazyload alt="image-20221229094352736" style="zoom:33%;" />
+
+<p>要是我们直接去解码的话，结果是不对的，只有一小串base64被解出来。</p>
+<p>我们参考网上大佬写的脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_base64_diff_value</span>(<span class="hljs-params">s1, s2</span>):<br>    base64chars = <span class="hljs-string">&#x27;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/&#x27;</span><br>    res = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> xrange(<span class="hljs-built_in">len</span>(s2)):<br>        <span class="hljs-keyword">if</span> s1[i] != s2[i]:<br>            <span class="hljs-keyword">return</span> <span class="hljs-built_in">abs</span>(base64chars.index(s1[i]) - base64chars.index(s2[i]))<br>    <span class="hljs-keyword">return</span> res<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">solve_stego</span>():<br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;base64.txt&#x27;</span>, <span class="hljs-string">&#x27;rb&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>        file_lines = f.readlines()<br>        bin_str = <span class="hljs-string">&#x27;&#x27;</span><br>        <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> file_lines:<br>            steg_line = line.replace(<span class="hljs-string">&#x27;\n&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>)<br>            norm_line = line.replace(<span class="hljs-string">&#x27;\n&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>).decode(<span class="hljs-string">&#x27;base64&#x27;</span>).encode(<span class="hljs-string">&#x27;base64&#x27;</span>).replace(<span class="hljs-string">&#x27;\n&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>)<br>            diff = get_base64_diff_value(steg_line, norm_line)<br>            <span class="hljs-built_in">print</span> diff<br>            pads_num = steg_line.count(<span class="hljs-string">&#x27;=&#x27;</span>)<br>            <span class="hljs-keyword">if</span> diff:<br>                bin_str += <span class="hljs-built_in">bin</span>(diff)[<span class="hljs-number">2</span>:].zfill(pads_num * <span class="hljs-number">2</span>)<br>            <span class="hljs-keyword">else</span>:<br>                bin_str += <span class="hljs-string">&#x27;0&#x27;</span> * pads_num * <span class="hljs-number">2</span><br>            <span class="hljs-built_in">print</span> goflag(bin_str)<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">goflag</span>(<span class="hljs-params">bin_str</span>):<br>    res_str = <span class="hljs-string">&#x27;&#x27;</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> xrange(<span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(bin_str), <span class="hljs-number">8</span>):<br>        res_str += <span class="hljs-built_in">chr</span>(<span class="hljs-built_in">int</span>(bin_str[i:i + <span class="hljs-number">8</span>], <span class="hljs-number">2</span>))<br>    <span class="hljs-keyword">return</span> res_str<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    solve_stego()<br><br></code></pre></td></tr></table></figure>
+
+<p>运行时，我们在python2环境下，我们使用dos来运行：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd"><span class="hljs-function">D:\<span class="hljs-title">Applications</span>\<span class="hljs-title">CTF</span>\<span class="hljs-title">phpstudy_pro</span>\<span class="hljs-title">WWW</span>\<span class="hljs-title">scripts_py</span>&gt;<span class="hljs-title">python</span> <span class="hljs-title">base64_diff_value.py</span></span><br></code></pre></td></tr></table></figure>
+
+<img src="https://s2.loli.net/2022/12/29/wLrhtOzpST9diJm.png" srcset="/img/loading.gif" lazyload alt="image-20221229094727645" style="zoom: 50%;" />
+
+<p>结果跑出来了</p>
+<h2 id="GUET-CTF2019-KO"><a href="#GUET-CTF2019-KO" class="headerlink" title="[GUET-CTF2019]KO"></a>[GUET-CTF2019]KO</h2><img src="https://s2.loli.net/2022/12/29/xGmtejF7pVZAbfP.png" srcset="/img/loading.gif" lazyload alt="image-20221229094949110" style="zoom:33%;" />
+
+<p>打开txt，发现很多 ook ，于是想起了 ook编码，<a target="_blank" rel="noopener" href="https://www.splitbrain.org/services/ook">ook解密</a></p>
+<img src="https://s2.loli.net/2022/12/29/1vONgbA7hk8ICax.png" srcset="/img/loading.gif" lazyload alt="image-20221229095056984" style="zoom:33%;" />
+
+<p>使用网站解密即可。</p>
+<h2 id="MRCTF2020-ezmisc"><a href="#MRCTF2020-ezmisc" class="headerlink" title="[MRCTF2020]ezmisc"></a>[MRCTF2020]ezmisc</h2><p>将图片使用 010Editor 打开，发现crc校验失败：</p>
+<img src="https://s2.loli.net/2022/12/29/1IbTh2CBfnFiMoH.png" srcset="/img/loading.gif" lazyload alt="image-20221229102415636" style="zoom: 25%;" />
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> struct<br><span class="hljs-keyword">import</span> binascii<br><span class="hljs-keyword">import</span> os<br> <br>m = <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;C:\\Users\\LIKE\\Desktop\\flag.png&quot;</span>, <span class="hljs-string">&quot;rb&quot;</span>).read()<br>k = <span class="hljs-number">0</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">5000</span>):<br>    <span class="hljs-keyword">if</span> k == <span class="hljs-number">1</span>:<br>        <span class="hljs-keyword">break</span><br>    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">5000</span>):<br>        c = m[<span class="hljs-number">12</span>:<span class="hljs-number">16</span>] + struct.pack(<span class="hljs-string">&#x27;&gt;i&#x27;</span>, i) + struct.pack(<span class="hljs-string">&#x27;&gt;i&#x27;</span>, j) + m[<span class="hljs-number">24</span>:<span class="hljs-number">29</span>]<br>        crc = binascii.crc32(c) &amp; <span class="hljs-number">0xffffffff</span><br>        <span class="hljs-keyword">if</span> crc == <span class="hljs-number">0x370c8f0b</span>:<br>            k = <span class="hljs-number">1</span><br>            <span class="hljs-built_in">print</span>(<span class="hljs-built_in">hex</span>(i), <span class="hljs-built_in">hex</span>(j))<br>            <span class="hljs-keyword">break</span><br></code></pre></td></tr></table></figure>
+
+<p>使用脚本跑一下，算出宽高：</p>
+<img src="https://s2.loli.net/2022/12/29/FMHZPreyGTQ5Sxj.png" srcset="/img/loading.gif" lazyload alt="image-20221229102524745" style="zoom:33%;" />
+
+
+
+<img src="https://s2.loli.net/2022/12/29/FDqiwkm6LygAx7E.png" srcset="/img/loading.gif" lazyload alt="image-20221229102558459" style="zoom:33%;" />
+
+
+
+<p>修改一下得到flag</p>
+<h2 id="SWPU2019-伟大的侦探"><a href="#SWPU2019-伟大的侦探" class="headerlink" title="[SWPU2019]伟大的侦探"></a>[SWPU2019]伟大的侦探</h2><p>将txt文件使用 010Editor 打开，然后更换编码为： <code>EBCDIC</code></p>
+<img src="https://s2.loli.net/2022/12/29/r2OLszYZedITKH7.png" srcset="/img/loading.gif" lazyload alt="image-20221229103128288" style="zoom:33%;" />
+
+
+
+<p>发现可以正常显示了：</p>
+<img src="https://s2.loli.net/2022/12/29/s9dlwVavfCNIcEu.png" srcset="/img/loading.gif" lazyload alt="image-20221229103239863" style="zoom:33%;" />
+
+
+
+<p>然后使用此密码去解压压缩包，发现文件夹里面有很多跳舞的小人：</p>
+<p><img src="https://s2.loli.net/2022/12/29/jvkV1iHOtyIYp3T.png" srcset="/img/loading.gif" lazyload alt="image-20221229103350999"></p>
+<p>我们经过查阅，发现有一个<code>福尔莫斯跳舞的小人密码</code></p>
+<p><img src="https://s2.loli.net/2022/12/29/cZA1MCrqdsU6YxQ.jpg" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>对照一下，得到flag</p>
+<h2 id="黑客帝国"><a href="#黑客帝国" class="headerlink" title="黑客帝国"></a>黑客帝国</h2><blockquote>
+<p>hint：Jack很喜欢看黑客帝国电影，一天他正在上网时突然发现屏幕不受控制，出现了很多数据再滚屏，结束后留下了一份神秘的数据文件，难道这是另一个世界给Jack留下的信息？聪明的你能帮Jack破解这份数据的意义吗？</p>
+</blockquote>
+<p>打开txt文件，发现很多16进制：</p>
+<p><img src="https://s2.loli.net/2022/12/29/XWsjiHK2N7fLTde.png" srcset="/img/loading.gif" lazyload alt="image-20221229103958975"></p>
+<p>发现前面的数字好像是rar文件头</p>
+<p>由于这都是16进制的，我们想要得到rar压缩包必须使用二进制，所以我们可以写一个脚本实现转换为2进制</p>
+<blockquote>
+<h4 id="关于二进制转换"><a href="#关于二进制转换" class="headerlink" title="关于二进制转换"></a>关于二进制转换</h4><p>　　binascii.b2a_hex(data)和binascii.hexlify(data)：返回二进制数据的十六进制表示。每个字节被转换成相应的2位十六进制表示形式。因此，得到的字符串是是原数据长度的两倍。 </p>
+<p>　　binascii.a2b_hex(hexstr) 和**binascii.unhexlify(hexstr)**：从十六进制字符串hexstr返回二进制数据。是b2a_hex的逆向操作。 hexstr必须包含偶数个十六进制数字（可以是大写或小写），否则报TypeError。 </p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> binascii<br><span class="hljs-comment"># 16进制转图片</span><br>hex_data = <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;C://Users//LIKE//Desktop//flag.txt&quot;</span>).read()<br>out=<span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;result.rar&#x27;</span>,<span class="hljs-string">&#x27;wb&#x27;</span>)<br>out.write(binascii.unhexlify(hex_data))<br>out.close()<br></code></pre></td></tr></table></figure>
+
+<p>运行后得到rar压缩包，发现需要密码，我们爆破即可得到密码。解压一下得到一张打不开的png图片</p>
+<p>使用 010Editor 打开：</p>
+<img src="https://s2.loli.net/2022/12/29/V8BfwGtpMbqTzyl.png" srcset="/img/loading.gif" lazyload alt="image-20221229105736644" style="zoom:33%;" />
+
+
+
+<p>发现图片末尾是 <code>FF D9</code>  说明图片可能是 jpg图片，我们改一下文件头为 <code>FF D8</code></p>
+<img src="https://s2.loli.net/2022/12/29/zunxAM5Eb6ef8KB.png" srcset="/img/loading.gif" lazyload alt="image-20221229105844217" style="zoom:33%;" />
+
+
+
+<p>就可以正常打开了</p>
+<h2 id="MRCTF2020-你能看懂音符吗"><a href="#MRCTF2020-你能看懂音符吗" class="headerlink" title="[MRCTF2020]你能看懂音符吗"></a>[MRCTF2020]你能看懂音符吗</h2><p>使用 010Editor 打开压缩包，发现</p>
+<img src="https://s2.loli.net/2022/12/29/TxgMWkKlaXz912F.png" srcset="/img/loading.gif" lazyload alt="image-20221229110041883" style="zoom: 50%;" />
+
+<p>rar文件头反了，改一下：<code>52 61 72 21</code></p>
+<p>解压rar，发现一个文档，打开：</p>
+<p><img src="https://s2.loli.net/2022/12/29/CS7nwUT5drFKEsj.png" srcset="/img/loading.gif" lazyload alt="image-20221229110610632"></p>
+<p>发现里面很多音符，但是好像复制不了。。</p>
+<p>于是我们使用 010Editor 打开：</p>
+<img src="https://s2.loli.net/2022/12/29/v7csZgDfCpkAjS2.png" srcset="/img/loading.gif" lazyload alt="image-20221229110748443" style="zoom:33%;" />
+
+<p>发现是zip压缩包。然后后缀改成 zip，解压一下，有很多文件。</p>
+<p>我们在 这个文件中发现了音符：</p>
+<img src="https://s2.loli.net/2022/12/29/N9urQXBWjlVx4Jq.png" srcset="/img/loading.gif" lazyload alt="image-20221229111055959" style="zoom: 25%;" />
+
+<p>我们查询资料得知，有一种<code>音符编码</code>  <a target="_blank" rel="noopener" href="https://www.qqxiuzi.cn/bianma/wenbenjiami.php?s=yinyue">直接解密</a> 一下就行</p>
+<p><img src="https://s2.loli.net/2022/12/29/LF8o1UWETdxqDsM.png" srcset="/img/loading.gif" lazyload alt="image-20221229111257307"></p>
+<h2 id="HBNIS2018-caesar"><a href="#HBNIS2018-caesar" class="headerlink" title="[HBNIS2018]caesar"></a>[HBNIS2018]caesar</h2><img src="https://s2.loli.net/2022/12/29/VgHxPky4B7GCROJ.png" srcset="/img/loading.gif" lazyload alt="image-20221229111500501" style="zoom:33%;" />
+
+
+
+<p>打开文件，题目是 : <code>caesar</code> 就是凯撒的意思，于是我们知道，这是凯撒密码，直接解密就行：</p>
+<p>我使用 <code>CTFCrack</code> 解密：</p>
+<img src="https://s2.loli.net/2022/12/29/O1DwgylCrMYKTuc.png" srcset="/img/loading.gif" lazyload alt="image-20221229111650375" style="zoom:33%;" />
+
+
+
+
+
+<h2 id="HBNIS2018-低个头"><a href="#HBNIS2018-低个头" class="headerlink" title="[HBNIS2018]低个头"></a>[HBNIS2018]低个头</h2><img src="https://s2.loli.net/2022/12/29/tvb7FheWHc4SdwN.png" srcset="/img/loading.gif" lazyload alt="image-20221229111806704" style="zoom:33%;" />
+
+
+
+<p>题目说<code>低个头</code> ，并且有一些字母，我知道这个是键盘加密，但是由于之前只遇到过：键盘包围得出字母的题目，一时间不知道这是什么东西。</p>
+<p>然后查资料知道了，这个是很多字母去组成字母的情况，然后就可以知道flag了：</p>
+<p><img src="https://s2.loli.net/2022/12/29/4aLGZv57uRidjlV.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p><img src="https://s2.loli.net/2022/12/29/XUjlHDLVK2OhzdJ.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E3%80%90BUUCTF%E3%80%91MISC-%E7%AC%AC2%E9%A1%B5wp/" class="print-no-link">#【BUUCTF】MISC(第2页wp)</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【BUUCTF】MISC(第2页wp)</div>
+      <div>https://leekosss.github.io/2023/08/24/[BUUCTF]MISC(第2页wp)/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>leekos</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年8月24日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年6月5日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/08/24/%5BBUUCTF%5DMISC(%E7%AC%AC3%E9%A1%B5wp)/" title="【BUUCTF】MISC(第3页wp)">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【BUUCTF】MISC(第3页wp)</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/24/%5BBUUCTF%5DMISC(%E7%AC%AC1%E9%A1%B5wp)/" title="【BUUCTF】MISC(第1页wp)">
+                        <span class="hidden-mobile">【BUUCTF】MISC(第1页wp)</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"e5J90iDkXMWhU5UNlEX1I2hO-gzGzoHsz","appKey":"esLROw9j3xLk2nV4tQkKaih1","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      赣ICP备2022008842号-2
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

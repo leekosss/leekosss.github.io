@@ -238,15 +238,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2023/08/24/%E9%97%BD%E7%9B%BE%E6%9D%AF%E5%88%9D%E8%B5%9B/" target="_self">
-          闽盾杯初赛
+        <a href="/2023/08/24/jinja2%5BSSTI%E7%9F%A5%E8%AF%86%E7%82%B9%5D/" target="_self">
+          jinja2【SSTI知识点】
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%E9%97%BD%E7%9B%BE%E6%9D%AF%E5%88%9D%E8%B5%9B/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/jinja2%5BSSTI%E7%9F%A5%E8%AF%86%E7%82%B9%5D/" target="_self">
         <div>
-          【闽盾杯】wpdns流量分析 流量包里全是dns协议，但是观察一下请求包：  这里是zip压缩文件的16进制形式，我们使用tshark提取出来： 1tshark -r flow.pcapng -T fields -Y &quot;dns.flags.response == 1&quot; -e dns.qry.name &gt; data.txt  123456789101112131415161
+          jinja2【SSTI知识点】我们先在虚拟机使用pip命令安装jinja2 1pip install jinja2  查看了一下虚拟机的ip：192.168.56.128 然后我们在虚拟机搭建实验环境： 1234567891011121314151617from flask import Flask, requestfrom jinja2 import Templateapp = Flask(__
         </div>
       </a>
 
@@ -254,7 +254,7 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 22:38" pubdate>
+            <time datetime="2023-08-24 23:43" pubdate>
               2023-08-24
             </time>
           </div>
@@ -285,7 +285,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E9%97%BD%E7%9B%BE%E6%9D%AF%E5%88%9D%E8%B5%9B/">#闽盾杯初赛</a>
+              <a href="/tags/jinja2%E3%80%90SSTI%E7%9F%A5%E8%AF%86%E7%82%B9%E3%80%91/">#jinja2【SSTI知识点】</a>
             
           </div>
         
@@ -299,15 +299,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2023/08/24/%E5%8F%8D%E5%B0%84/" target="_self">
-          反射
+        <a href="/2023/08/24/FCTF2023/" target="_self">
+          
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%E5%8F%8D%E5%B0%84/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/FCTF2023/" target="_self">
         <div>
-          [TOC] [java安全]反射定义在讲反射之前，我们需要知道什么是反射  运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意属性和方法；这种动态获取信息以及动态调用对象方法的功能称为Java语言的反射机制。  简单的说：反射是指在运行时动态地获取一个类的信息，包括其成员变量、方法和构造函数等，以及在运行时对它们进行操作的能力。 使用反射，你可以在编
+          FCTF2023[TOC] web连连看这个题关了js再打开，计时就会暂停下来（火狐不可以。。） ez_sessionphpinfo.php  index.php 12345678910111213&lt;?phphighlight_file(__FILE__);error_reporting(0);ini_set(&#x27;session.serialize_handler&#x27;,&#x
         </div>
       </a>
 
@@ -315,7 +315,73 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 22:38" pubdate>
+            <time datetime="2023-08-24 23:43" pubdate>
+              2023-08-24
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/08/24/CTF%E7%BA%BF%E4%B8%8B%E8%B5%9BAWD%E7%9F%A5%E8%AF%86%E7%82%B9/" target="_self">
+          
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/CTF%E7%BA%BF%E4%B8%8B%E8%B5%9BAWD%E7%9F%A5%E8%AF%86%E7%82%B9/" target="_self">
+        <div>
+          [TOC] CTF线下赛AWD知识点AWD规则 AWD：Attack With Defence，即攻防对抗，比赛中每个队伍维护多台服务器（一般两三台，视小组参赛人数而定），服务器中存在多个漏洞（web层、系统层、中间件层等），利用漏洞攻击其他队伍可以进行得分，加固时间段可自行发现漏洞对服务器进行加固，避免被其他队伍攻击失分。   1.一般分配Web服务器，服务器（多数为Linux）某处存在flag
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-24 23:43" pubdate>
+              2023-08-24
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/08/24/ctfshow%5B%E6%84%9A%E4%BA%BA%E6%9D%AF%5D/" target="_self">
+          ctfshow【愚人杯】
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/ctfshow%5B%E6%84%9A%E4%BA%BA%E6%9D%AF%5D/" target="_self">
+        <div>
+          ctfshow【愚人杯】webeasy_signin打开发现：url 1http://b96d3820-fc5d-4c61-9007-68ae2b60a743.challenge.ctf.show/?img=aW5kZXgucGhw  img参数被base64编码，解码后发现是face.png 于是我们想到，可以将index.php进行base64编码，使用get传参  图片路径base64解压得
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-24 23:43" pubdate>
               2023-08-24
             </time>
           </div>
@@ -346,7 +412,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E5%8F%8D%E5%B0%84/">#反射</a>
+              <a href="/tags/ctfshow%E3%80%90%E6%84%9A%E4%BA%BA%E6%9D%AF%E3%80%91/">#ctfshow【愚人杯】</a>
             
           </div>
         
@@ -360,15 +426,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2023/08/24/%E9%BB%84%E6%B2%B3%E5%85%AC%E5%AE%89%E6%8A%80%E8%83%BD%E6%8C%91%E6%88%98%E8%B5%9B(WP)/" target="_self">
-          黄河公安技能挑战赛(WP)
+        <a href="/2023/08/24/ctfshow%5B%E8%90%8C%E6%96%B0%E8%B5%9B%5D/" target="_self">
+          ctfshow【萌新赛】
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%E9%BB%84%E6%B2%B3%E5%85%AC%E5%AE%89%E6%8A%80%E8%83%BD%E6%8C%91%E6%88%98%E8%B5%9B(WP)/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/ctfshow%5B%E8%90%8C%E6%96%B0%E8%B5%9B%5D/" target="_self">
         <div>
-          [TOC] webbabyPHP123456789101112131415&lt;?phphighlight_file(__FILE__);error_reporting(0);$num = $_GET[&#x27;num&#x27;];if (preg_match(&quot;/\&#x27;|\&quot;|\`| |&lt;|&gt;|?|\^|%|\$/&quot;, $num)) &#1
+          ctfshow【萌新赛】给她从名字看就像git源码泄露，我们先用dirmap扫描一下：  果然是git源码泄露，我们使用githack 下载泄露的源码：  这里学到一个新的函数：sprintf()   签到题1234567&lt;?php if(isset($_GET[&#x27;url&#x27;]))&#123;        system(&quot;curl https://&quot;.
         </div>
       </a>
 
@@ -376,7 +442,7 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 22:38" pubdate>
+            <time datetime="2023-08-24 23:43" pubdate>
               2023-08-24
             </time>
           </div>
@@ -407,7 +473,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E9%BB%84%E6%B2%B3%E5%85%AC%E5%AE%89%E6%8A%80%E8%83%BD%E6%8C%91%E6%88%98%E8%B5%9B-WP/">#黄河公安技能挑战赛(WP)</a>
+              <a href="/tags/ctfshow%E3%80%90%E8%90%8C%E6%96%B0%E8%B5%9B%E3%80%91/">#ctfshow【萌新赛】</a>
             
           </div>
         
@@ -421,15 +487,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2023/08/24/%E9%AB%98%E6%98%8E%E7%9A%84%E9%BB%91%E5%AE%A2/" target="_self">
-          高明的黑客
+        <a href="/2023/08/24/ctfshow%5B%E8%8F%9C%E7%8B%97%E6%9D%AF%5D/" target="_self">
+          ctfshow【菜狗杯】
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%E9%AB%98%E6%98%8E%E7%9A%84%E9%BB%91%E5%AE%A2/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/ctfshow%5B%E8%8F%9C%E7%8B%97%E6%9D%AF%5D/" target="_self">
         <div>
-          [强网杯 2019]高明的黑客我们下载网页源码：   发现里面居然有3000个文件，这只能脚本来找了。 我们先随便进一个文件：   我们发现有些传递进去的参数会被赋值为空，这样就不能够命令执行了，我们需要通过脚本找出传递进行的参数能够进行命令执行并且回显在页面的参数。 因此我们编写脚本。 脚本： 123456789101112131415161718192021222324252627282930
+          [TOC] webweb签到123456&lt;?phperror_reporting(0);highlight_file(__FILE__);eval($_REQUEST[$_GET[$_POST[$_COOKIE[&#x27;CTFshow-QQ群:&#x27;]]]][6][0][7][5][8][0][9][4][4]);  仔细观察题目，这题就是套娃， 首先我们需要传个cookie，名为
         </div>
       </a>
 
@@ -437,7 +503,7 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 22:38" pubdate>
+            <time datetime="2023-08-24 23:43" pubdate>
               2023-08-24
             </time>
           </div>
@@ -468,7 +534,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E9%AB%98%E6%98%8E%E7%9A%84%E9%BB%91%E5%AE%A2/">#高明的黑客</a>
+              <a href="/tags/ctfshow%E3%80%90%E8%8F%9C%E7%8B%97%E6%9D%AF%E3%80%91/">#ctfshow【菜狗杯】</a>
             
           </div>
         
@@ -482,15 +548,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2023/08/24/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" target="_self">
-          代码审计
+        <a href="/2023/08/24/ctfshow%5BSSTI%5D/" target="_self">
+          ctfshow【SSTI】
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/ctfshow%5BSSTI%5D/" target="_self">
         <div>
-          [TOC] 【ctfshow】代码审计web301 审计一下，存在sql注入漏洞，我们使用union：  让输入的密码与查询出来的密码相等即可 web302 修改的地方： if(!strcasecmp(sds_decode($userpwd),$row[&#39;sds_password&#39;]))&#123;   123function sds_decode($str)&#123;	retu
+          [TOC] ctfshow【SSTI】 web361 首先get传参name，测试一下 &#123;&#39;7&#39;*7&#125;出现了7个7，代表这是python中的jinja2模板 这一题没有过滤什么东西，有很多种姿势，hackbar中自带了一些ssti的payload  12345678910111213&#123;&#123;lipsum.__globals__[&#x27;os&
         </div>
       </a>
 
@@ -498,7 +564,7 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 22:38" pubdate>
+            <time datetime="2023-08-24 23:43" pubdate>
               2023-08-24
             </time>
           </div>
@@ -529,7 +595,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">#代码审计</a>
+              <a href="/tags/ctfshow%E3%80%90SSTI%E3%80%91/">#ctfshow【SSTI】</a>
             
           </div>
         
@@ -543,15 +609,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2023/08/24/%E8%A2%AB%E5%8A%A0%E5%AF%86%E7%9A%84%E7%94%9F%E4%BA%A7%E6%B5%81%E9%87%8F/" target="_self">
-          被加密的生产流量
+        <a href="/2023/08/24/ctfshow%5Bmisc%5D%E5%85%A5%E9%97%A8/" target="_self">
+          ctfshow【misc】入门
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%E8%A2%AB%E5%8A%A0%E5%AF%86%E7%9A%84%E7%94%9F%E4%BA%A7%E6%B5%81%E9%87%8F/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/ctfshow%5Bmisc%5D%E5%85%A5%E9%97%A8/" target="_self">
         <div>
-          [CISCN2023]被加密的生产流量 某安全部门发现某涉密工厂生产人员偷偷通过生产网络传输数据给不明人员，通过技术手段截获出一段通讯流量，但是其中的关键信息被进行了加密，请你根据流量包的内容，找出被加密的信息。（得到的字符串需要以flag{xxx}形式提交）  得到一个modbus.pcap流量包 该开始我们先根据modbus进行分析，参考文章：Modbus协议分析 使用脚本： 12345678
+          ctfshow【misc】入门图片篇(基础操作)misc1直接给flag misc2把txt后缀改为png misc3打开bpg图片得flag misc4常见文件头1234567891011121314151617181920212223242526272829JPEG (jpg) 文件头：FF D8 FF  文件尾：FF D9PNG (png)，文件头：89504E47Windows Bitma
         </div>
       </a>
 
@@ -559,7 +625,7 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 22:38" pubdate>
+            <time datetime="2023-08-24 23:43" pubdate>
               2023-08-24
             </time>
           </div>
@@ -590,7 +656,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%A2%AB%E5%8A%A0%E5%AF%86%E7%9A%84%E7%94%9F%E4%BA%A7%E6%B5%81%E9%87%8F/">#被加密的生产流量</a>
+              <a href="/tags/ctfshow%E3%80%90misc%E3%80%91%E5%85%A5%E9%97%A8/">#ctfshow【misc】入门</a>
             
           </div>
         
@@ -604,15 +670,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2023/08/24/YamiYami/" target="_self">
-          YamiYami
+        <a href="/2023/08/24/ctfshow%5Bmisc%5D/" target="_self">
+          ctfshow【misc】
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/YamiYami/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/ctfshow%5Bmisc%5D/" target="_self">
         <div>
-          YamiYami进入题目：  当我们点击 Read somethings时： 1http://node2.anna.nssctf.cn:28523/read?url=https://baidu.com  我们发现可以读取到百度首页的内容，这是SSRF（突然忘记了） python中我们可以使用 file伪协议读取文件内容 我们尝试一下读取 /etc/passwd  成功读取 非预期解：（直接读取环境
+          ctfshow【misc】杂项签到zip伪加密 misc2 偶然发现我竟然还有个软盘，勾起了我的回忆。  软盘也可以用来存储信息，现在一般都不用了。 我们可以使用vmware去挂载软盘   我们在这里添加一个软盘，然后再选择一下路径   打开虚拟机，得到flag：  miscx打开zip压缩包，里面有一个png图片和一个doc加密文档：   图片的crc不对，我们可以修复它（然并卵） 我们猜测压缩
         </div>
       </a>
 
@@ -620,7 +686,7 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 22:38" pubdate>
+            <time datetime="2023-08-24 23:43" pubdate>
               2023-08-24
             </time>
           </div>
@@ -651,7 +717,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/YamiYami/">#YamiYami</a>
+              <a href="/tags/ctfshow%E3%80%90misc%E3%80%91/">#ctfshow【misc】</a>
             
           </div>
         
@@ -665,15 +731,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2023/08/24/xss%E6%BC%8F%E6%B4%9E/" target="_self">
-          xss漏洞
+        <a href="/2023/08/24/create_function%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%E4%B9%9F%E6%9C%89%E5%90%8D%E5%AD%97/" target="_self">
+          
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/xss%E6%BC%8F%E6%B4%9E/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/create_function%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%E4%B9%9F%E6%9C%89%E5%90%8D%E5%AD%97/" target="_self">
         <div>
-          一、初识XSS1、什么是XSSXSS全称跨站脚本(Cross Site Scripting)，为避免与层叠样式表(Cascading Style Sheets, CSS)的缩写混淆，故缩写为XSS。这是一种将任意 Javascript 代码插入到其他Web用户页面里执行以达到攻击目的的漏洞。攻击者利用浏览器的动态展示数据功能，在HTML页面里嵌入恶意代码。当用户浏览改页时，这些潜入在HTML中的
+          [TOC] [SUCTF 2018]annonymous（12345678910111213&lt;?php$MY = create_function(&quot;&quot;,&quot;die(`cat flag.php`);&quot;);$hash = bin2hex(openssl_random_pseudo_bytes(32));eval(&quot;function SUCTF_$h
         </div>
       </a>
 
@@ -681,162 +747,12 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 22:38" pubdate>
+            <time datetime="2023-08-24 23:43" pubdate>
               2023-08-24
             </time>
           </div>
         
         
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/xss%E6%BC%8F%E6%B4%9E/">#xss漏洞</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/08/24/xss-labs(WriteUp)/" target="_self">
-          xss-labs(WriteUp)
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/xss-labs(WriteUp)/" target="_self">
-        <div>
-          xss-labs 先讲讲什么是跨站脚本攻击XSS(Cross Site Scripting)  XSS原理 本质上是针对html的一种注入攻击，没有遵循数据与代码分离的原则，把用户输入的数据当作代码来执行xss跨站脚本攻击是指恶意攻击者往Web页面里插入恶意脚本代码（包括当不限于js，flash等等），当用户浏览该页面时，嵌入其中Web里面的脚本代码会被执行，从而达到恶意攻击用户的目的。为了不和层
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 22:38" pubdate>
-              2023-08-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/xss-labs-WriteUp/">#xss-labs(WriteUp)</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/08/24/web/" target="_self">
-          web
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/web/" target="_self">
-        <div>
-          【ctfshow】webweb签到题右键源代码，base64解密 web2 直接使用联合查询union进行注入，查到表flag中存在flag字段 web3直接使用php伪协议  web4由于服务器是nginx，所以我们直接包含nginx日志文件 1/var/log/nginx/access.log   然后在浏览器UA中加上一句话木马，然后使用蚁剑连接  web512345678910111213
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 22:38" pubdate>
-              2023-08-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/web/">#web</a>
-            
-          </div>
         
       </div>
     </article>
@@ -846,7 +762,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/#board">10</a><a class="extend next" rel="next" href="/page/3/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/#board">25</a><a class="extend next" rel="next" href="/page/3/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

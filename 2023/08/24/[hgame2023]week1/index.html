@@ -1,0 +1,931 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="leekos">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="[TOC] 【hgame2023】week1webClassic Childhood Game 兔兔最近迷上了一个纯前端实现的网页小游戏，但是好像有点难玩，快帮兔兔通关游戏！  打开页面发现有一个js游戏，我们直接查看源码：  我们查找alert关键字：  发现了一串可疑的16进制ascii码，我们在控制台执行以下该js函数：  flag直接出来了。  我写题时发现了游戏结束的js代码：  游戏结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【hgame2023】week1">
+<meta property="og:url" content="https://leekosss.github.io/2023/08/24/[hgame2023]week1/index.html">
+<meta property="og:site_name" content="Tranquility">
+<meta property="og:description" content="[TOC] 【hgame2023】week1webClassic Childhood Game 兔兔最近迷上了一个纯前端实现的网页小游戏，但是好像有点难玩，快帮兔兔通关游戏！  打开页面发现有一个js游戏，我们直接查看源码：  我们查找alert关键字：  发现了一串可疑的16进制ascii码，我们在控制台执行以下该js函数：  flag直接出来了。  我写题时发现了游戏结束的js代码：  游戏结">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/01/11/WgLS413z5fEHeos.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/11/6g97vtfGsIabTER.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/11/d6nriWu5zexIyvU.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/11/nrotxASKeYHOamu.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/11/zueImwA5xS29KYt.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/11/2ZisyYlugk6c4dE.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/11/BaPmwq14G7O3f6I.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/11/sneI1Kw3JHxUChM.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/11/J9RTXK4SmnzQaNb.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/11/zqekUPrWHwT6LSm.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/11/lWb89I5xkOremu3.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/12/4SGNrEKW79LpqzV.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/12/vjXaGAcU8TZb7Lp.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/12/1xwZAhvKGJl75VB.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/12/ILevMk2Aji39BVQ.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/11/hKnitgklzUy9EsW.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/11/hKnitgklzUy9EsW.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/11/qY9c517ors3VHDA.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/11/xkWVzY7UCoXPwIf.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/11/8ISUD2yG9haBbrf.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/11/cayrKAI9szq7C3u.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/12/HqPT1XBQmLRoy9V.jpg">
+<meta property="og:image" content="https://s2.loli.net/2023/01/12/DuviZOlgV9ceSHW.jpg">
+<meta property="og:image" content="https://s2.loli.net/2023/01/12/UeyWfcDhpXlMOt7.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/12/D6fmcknbiBKuEHA.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/12/lk1mznpJsD5fuxr.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/12/BxkZb3hHJryDpNz.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/12/hwO5TDrEMZXYiA4.jpg">
+<meta property="og:image" content="https://s2.loli.net/2023/01/12/HfuXdkyEIgxoU5W.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/12/Ze3yxVabGASdI64.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/11/SACQ3rVcaYBZKxl.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/11/a1VG7k8453cYXIQ.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/11/ZdFCSPqxp2wBJEW.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/11/jAZGpLqgdtXDIch.png">
+<meta property="og:image" content="https://s2.loli.net/2023/01/11/dDhH8Zn3ok9sPA2.png">
+<meta property="article:published_time" content="2023-08-24T15:43:38.249Z">
+<meta property="article:modified_time" content="2023-06-05T06:42:12.495Z">
+<meta property="article:author" content="leekos">
+<meta property="article:tag" content="【hgame2023】week1">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2023/01/11/WgLS413z5fEHeos.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【hgame2023】week1 - Tranquility</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Tranquility</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【hgame2023】week1"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-24 23:43" pubdate>
+          2023年8月24日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          44 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【hgame2023】week1</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年6月5日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>[TOC]</p>
+<h1 id="【hgame2023】week1"><a href="#【hgame2023】week1" class="headerlink" title="【hgame2023】week1"></a>【hgame2023】week1</h1><h2 id="web"><a href="#web" class="headerlink" title="web"></a>web</h2><h3 id="Classic-Childhood-Game"><a href="#Classic-Childhood-Game" class="headerlink" title="Classic Childhood Game"></a>Classic Childhood Game</h3><blockquote>
+<p>兔兔最近迷上了一个纯前端实现的网页小游戏，但是好像有点难玩，快帮兔兔通关游戏！</p>
+</blockquote>
+<p>打开页面发现有一个js游戏，我们直接查看源码：</p>
+<p><img src="https://s2.loli.net/2023/01/11/WgLS413z5fEHeos.png" srcset="/img/loading.gif" lazyload alt="image-20230111213417547"></p>
+<p>我们查找<code>alert</code>关键字：</p>
+<p><img src="https://s2.loli.net/2023/01/11/6g97vtfGsIabTER.png" srcset="/img/loading.gif" lazyload alt="image-20230111213824804"></p>
+<p>发现了一串可疑的16进制ascii码，我们在控制台执行以下该js函数：</p>
+<p><img src="https://s2.loli.net/2023/01/11/d6nriWu5zexIyvU.png" srcset="/img/loading.gif" lazyload alt="image-20230111213917344"></p>
+<p>flag直接出来了。</p>
+<hr>
+<p>我写题时发现了游戏结束的js代码：</p>
+<p><img src="https://s2.loli.net/2023/01/11/nrotxASKeYHOamu.png" srcset="/img/loading.gif" lazyload alt="image-20230111214047849"></p>
+<p>游戏结束之后就调用了<code>mota()</code> 函数，说明该函数与flag有关</p>
+<h3 id="Become-A-Member"><a href="#Become-A-Member" class="headerlink" title="Become A Member"></a>Become A Member</h3><blockquote>
+<p>学校通知放寒假啦，兔兔兴高采烈的打算购买回家的车票，这时兔兔发现成为购票网站的会员账户可以省下一笔money…… 想成为会员也很简单，只需要一点点HTTP的知识……等下，HTTP是什么，可以吃吗</p>
+</blockquote>
+<p>打开网站，发现需要身份证明，</p>
+<img src="https://s2.loli.net/2023/01/11/zueImwA5xS29KYt.png" srcset="/img/loading.gif" lazyload alt="image-20230111214239871" style="zoom:33%;" />
+
+<p>我们先bp抓包一下：</p>
+<p><img src="https://s2.loli.net/2023/01/11/2ZisyYlugk6c4dE.png" srcset="/img/loading.gif" lazyload alt="image-20230111214402797"></p>
+<p>我们发现响应头中有 <code>set-cookie</code> ，我们先来了解一下<code>php setcookie()</code> 基本原理：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-title function_ invoke__">setcookie</span>(<br>    <span class="hljs-keyword">string</span> <span class="hljs-variable">$name</span>,<br>    <span class="hljs-keyword">string</span> <span class="hljs-variable">$value</span> = <span class="hljs-string">&quot;&quot;</span>,<br>    <span class="hljs-keyword">int</span> <span class="hljs-variable">$expires_or_options</span> = <span class="hljs-number">0</span>,<br>    <span class="hljs-keyword">string</span> <span class="hljs-variable">$path</span> = <span class="hljs-string">&quot;&quot;</span>,<br>    <span class="hljs-keyword">string</span> <span class="hljs-variable">$domain</span> = <span class="hljs-string">&quot;&quot;</span>,<br>    <span class="hljs-keyword">bool</span> <span class="hljs-variable">$secure</span> = <span class="hljs-literal">false</span>,<br>    <span class="hljs-keyword">bool</span> <span class="hljs-variable">$httponly</span> = <span class="hljs-literal">false</span><br>): <span class="hljs-keyword">bool</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<h3 id="path"><a href="#path" class="headerlink" title="path"></a>path</h3><p>Cookie 有效的服务器路径。设置成 <code>&#39;/&#39;</code> 时，Cookie 对整个域名 <code>domain</code> 有效。如果设置成 <code>&#39;/foo/&#39;</code>，Cookie 仅仅对 <code>domain</code> 中 <code>/foo/</code> 目录及其子目录有效（比如 <code>/foo/bar/</code>）。默认值是设置 Cookie 时的当前目录。</p>
+<h3 id="domain"><a href="#domain" class="headerlink" title="domain"></a>domain</h3><p>Cookie 的有效域名&#x2F;子域名。设置成子域名（例如 <code>&#39;www.example.com&#39;</code>），会使 Cookie 对这个子域名和它的三级域名有效（例如 w2.<a target="_blank" rel="noopener" href="http://www.example.com).要让/">www.example.com）。要让</a> Cookie 对整个域名有效（包括它的全部子域名），只要设置成域名就可以了（这个例子里是 <code>&#39;example.com&#39;</code>）。</p>
+<h3 id="httponly"><a href="#httponly" class="headerlink" title="httponly"></a>httponly</h3><p>设置成 **<code>true</code>**，Cookie 仅可通过 HTTP 协议访问。这意思就是 Cookie 无法通过类似 JavaScript 这样的脚本语言访问。要有效减少 XSS 攻击时的身份窃取行为，可建议用此设置（虽然不是所有浏览器都支持），不过这个说法经常有争议。 <strong><code>true</code></strong> 或 <strong><code>false</code></strong></p>
+</blockquote>
+<p>通过上述介绍知道了，</p>
+<p><code>path</code> 会设置cookie有效服务器路径，由于此处的值为 <code>/</code> 所以对服务器所有路径都有效。</p>
+<p><code>domain</code>设置cookie的有效域名，由于此处设置为 <code>localhost</code> ，所以只有本地有效，我们是使用不了的</p>
+<p><code>httponly</code> 设置了httponly会导致js代码 <code>document.cookie</code> 获取不了cookie，可以减少xss攻击</p>
+<p>此处由于该cookie没有保存到本地，所以我们换一个想法。</p>
+<p>我们重新认识一下 <code>User-Agent</code>，中文名：用户代理。其实很多时候我们已经潜意识的认为UA就是浏览器的标识，其实UA的作用简要的说就是判断浏览器的相关信息等等。但是UA还能用来判断身份，判断是否为爬虫还是浏览器。</p>
+<p>由于此处题目需要我们提供身份证明 <code>Cute-Bunny</code>，我们将UA改为该字符串：</p>
+<p><img src="https://s2.loli.net/2023/01/11/BaPmwq14G7O3f6I.png" srcset="/img/loading.gif" lazyload alt="image-20230111220355305"></p>
+<p>发现成功了，并且需要我们持有邀请码code，这不就是cookie里的东西嘛，我们放到cookie里：<code>code=Vidar</code></p>
+<p><img src="https://s2.loli.net/2023/01/11/sneI1Kw3JHxUChM.png" srcset="/img/loading.gif" lazyload alt="image-20230111220536553"></p>
+<p>然后要我们来自该网址，我们只需要添加 <code>Referer</code> 即可：</p>
+<p><img src="https://s2.loli.net/2023/01/11/J9RTXK4SmnzQaNb.png" srcset="/img/loading.gif" lazyload alt="image-20230111220639970"></p>
+<p>要我们使用本地请求，我们添加 <code>XFF</code>：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">X</span>-Forwarded-For: <span class="hljs-number">127.0.0.1</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/01/11/zqekUPrWHwT6LSm.png" srcset="/img/loading.gif" lazyload alt="image-20230111220756109"></p>
+<p>要我们添加 json 串，很简单，大括号{}括起来，然后里面的元素使用双引号包裹即可：</p>
+<p><img src="https://s2.loli.net/2023/01/11/lWb89I5xkOremu3.png" srcset="/img/loading.gif" lazyload alt="image-20230111220944663"></p>
+<h3 id="Guess-Who-I-Am"><a href="#Guess-Who-I-Am" class="headerlink" title="Guess Who I Am"></a>Guess Who I Am</h3><blockquote>
+<p>刚加入Vidar的兔兔还认不清协会成员诶，学长要求的答对100次问题可太难了，你能帮兔兔写个脚本答题吗？</p>
+</blockquote>
+<p>进入题目，发现要我们猜答案：</p>
+<p><img src="https://s2.loli.net/2023/01/12/4SGNrEKW79LpqzV.png" srcset="/img/loading.gif" lazyload alt="image-20230112110816347"></p>
+<p>源代码中发现提示，下载该json文件：</p>
+<p><img src="https://s2.loli.net/2023/01/12/vjXaGAcU8TZb7Lp.png" srcset="/img/loading.gif" lazyload alt="image-20230112110902033"></p>
+<p>此时我们应该知道了，这题的意思是让我们根据 <code>intro</code>  猜测 <code>id</code> ，写一个python脚本即可：</p>
+<p>我们先将该文件保存为 <code>json</code> 文件，去除文件头的 <code>export default</code>:</p>
+<p><img src="https://s2.loli.net/2023/01/12/1xwZAhvKGJl75VB.png" srcset="/img/loading.gif" lazyload alt="image-20230112111148262"></p>
+<p>然后我们编写python脚本，我们使用 <code>json.load()</code> 函数将<code>json</code>文件转换为一个 python对象，此处转换为 <code>python列表</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">member_data = json.load(<span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;member.json&quot;</span>,<span class="hljs-string">&quot;rb&quot;</span>))<br></code></pre></td></tr></table></figure>
+
+<p>这样我们可以根据 <code>member_data</code> 列表获得相应的 id,intro 数据：</p>
+<p>例如，我们想要获得json文件第一个的id，intro：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">member_data[<span class="hljs-number">0</span>][<span class="hljs-string">&#x27;id&#x27;</span>]    <span class="hljs-comment"># ba1van4</span><br>member_data[<span class="hljs-number">0</span>][<span class="hljs-string">&#x27;intro&#x27;</span>] <span class="hljs-comment"># 21级 / 不会Re / 不会美工 / 活在梦里 / 喜欢做不会的事情 / ◼◻粉</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>我们观察网页，发现我们验证时会有三个数据包：</p>
+<img src="https://s2.loli.net/2023/01/12/ILevMk2Aji39BVQ.png" srcset="/img/loading.gif" lazyload alt="image-20230112111648530" style="zoom:33%;" />
+
+<p>分别代表： 获得问题、获得分数、验证id 的功能并且都是 json字符串形式，</p>
+<p>我们想要将json字符串转换为python对象，需要使用 <code>json.loads()</code> 方法。</p>
+<p>我们观察一下 <code>getQuestion</code> 接口的内容：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;message&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;15 级 / 什么都不会的开发 / 打什么都菜&quot;</span><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>发现它是 json 字符串，我们想要获得 <code>message</code> 的内容需要这么做：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">json.loads(<span class="hljs-string">&#x27;&#123;&quot;message&quot;:&quot;15 级 / 什么都不会的开发 / 打什么都菜&quot;&#125;&#x27;</span>)[<span class="hljs-string">&#x27;message&#x27;</span>]<br></code></pre></td></tr></table></figure>
+
+<p>先使用 <code>json.loads()</code> 将json字符串转化为字典，然后使用字典特性获得 message内容。</p>
+<p>然后我们使用 requests 模块编写脚本，</p>
+<p>由于这一题需要我们答对100次，且http协议是无状态的，每次请求间没有关系，所以我们需要使用同一个会话，保证cookie能够相互联系，我们需要使用 <code>requests.Session()</code> ：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> json<br><span class="hljs-keyword">import</span> requests<br>session = requests.Session()<br>member_data = json.load(<span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;member.json&quot;</span>,<span class="hljs-string">&quot;rb&quot;</span>))<br>question_u = <span class="hljs-string">&quot;http://week-1.hgame.lwsec.cn:30257/api/getQuestion&quot;</span><br>verify_u = <span class="hljs-string">&quot;http://week-1.hgame.lwsec.cn:30257/api/verifyAnswer&quot;</span><br>score_u = <span class="hljs-string">&quot;http://week-1.hgame.lwsec.cn:30257/api/getScore&quot;</span><br>headers = &#123;<br>    <span class="hljs-string">&quot;User-Agent&quot;</span>: <span class="hljs-string">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36&quot;</span><br>&#125;<br>count = <span class="hljs-number">0</span><br><span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>    quesion = json.loads(session.get(question_u).text)[<span class="hljs-string">&#x27;message&#x27;</span>]<br>    <span class="hljs-keyword">for</span> data <span class="hljs-keyword">in</span> member_data:<br>        intro = data[<span class="hljs-string">&#x27;intro&#x27;</span>]<br>        <span class="hljs-built_in">id</span> = data[<span class="hljs-string">&#x27;id&#x27;</span>]<br>        <span class="hljs-keyword">if</span> intro <span class="hljs-keyword">in</span> quesion:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;----------------------------第&quot;</span>+<span class="hljs-built_in">str</span>(count)+<span class="hljs-string">&quot;次答对&quot;</span>)<br>            <span class="hljs-built_in">print</span>(intro)<br>            data = &#123;<br>                <span class="hljs-string">&quot;id&quot;</span>: <span class="hljs-built_in">id</span><br>            &#125;<br>            verify = json.loads(session.post(url=verify_u,data=data,headers=headers).text)[<span class="hljs-string">&#x27;message&#x27;</span>]<br>            <span class="hljs-built_in">print</span>(verify)<br>            <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;Correct&quot;</span> <span class="hljs-keyword">in</span> verify:<br>                <span class="hljs-keyword">try</span>:<br>                    count = <span class="hljs-built_in">int</span>(json.loads(session.get(url=score_u, headers=headers).text)[<span class="hljs-string">&#x27;message&#x27;</span>])<br>                <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>                    <span class="hljs-built_in">print</span>(e)<br>                    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;脚本运行结束！&quot;</span>)<br>                    exit(<span class="hljs-number">0</span>)<br></code></pre></td></tr></table></figure>
+
+<p>简单的说，脚本就是通过遍历member列表，获取其中的intro值，判断是否与question一致，如果相同，向 <code>verifyAnswer</code> 接口发送 id进行验证，如果验证成功，获取答题次数，当超过100次就停止答题，通过异常的形式输出flag</p>
+<h3 id="Show-Me-Your-Beauty"><a href="#Show-Me-Your-Beauty" class="headerlink" title="Show Me Your Beauty"></a>Show Me Your Beauty</h3><blockquote>
+<p>登陆了之前获取的会员账号之后，兔兔想找一张自己的可爱照片，上传到个人信息的头像中 :D 不过好像可以上传些奇怪后缀名的文件诶 XD</p>
+</blockquote>
+<p>很简单的文件上传题，我们直接上传图片马:</p>
+<p><img src="https://s2.loli.net/2023/01/11/hKnitgklzUy9EsW.png" srcset="/img/loading.gif" lazyload></p>
+<p>上传成功，但是我们上传图片没有用，需要上传php脚本，我们将后缀改为<code>php</code>：</p>
+<p><img src="https://s2.loli.net/2023/01/11/hKnitgklzUy9EsW.png" srcset="/img/loading.gif" lazyload alt="image-20230111225205449"></p>
+<p>发现后缀非法，于是我们尝试大小写绕过：</p>
+<p><img src="https://s2.loli.net/2023/01/11/qY9c517ors3VHDA.png" srcset="/img/loading.gif" lazyload alt="image-20230111225539369"></p>
+<p>上传成功了，我们访问： <code>/img/shell.phP</code> </p>
+<img src="https://s2.loli.net/2023/01/11/xkWVzY7UCoXPwIf.png" srcset="/img/loading.gif" lazyload alt="image-20230111225430474" style="zoom:33%;" />
+
+<p>直接命令执行，获得flag</p>
+<h2 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h2><h3 id="Sign-In"><a href="#Sign-In" class="headerlink" title="Sign In"></a>Sign In</h3><blockquote>
+<p>欢迎参加HGAME2023,Base64解码这段Flag，然后和兔兔一起开始你的HGAME之旅吧，祝你玩的愉快！ aGdhbWV7V2VsY29tZV9Ub19IR0FNRTIwMjMhfQ&#x3D;&#x3D;</p>
+</blockquote>
+<p>base64解密</p>
+<h3 id="Where-am-I"><a href="#Where-am-I" class="headerlink" title="Where am I"></a>Where am I</h3><blockquote>
+<p>兔兔回家之前去了一个神秘的地方，并拍了张照上传到网盘，你知道他去了哪里吗？ flag格式为: hgame{经度时_经度分_经度秒_东经(E)&#x2F;西经(W)_纬度时_纬度分_纬度秒_南纬(S)&#x2F;北纬(N)}，秒精确到小数点后两位 例如: 11°22’33.99’’E, 44°55’11.00’’S 表示为 hgame{11_22_3399_E_44_55_1100_S}</p>
+</blockquote>
+<p>下载附件后，得到一个 <code>pcapng</code> 文件 ，我们使用<code>wireshark</code>打开 ，查看http协议：</p>
+<p><img src="https://s2.loli.net/2023/01/11/8ISUD2yG9haBbrf.png" srcset="/img/loading.gif" lazyload alt="image-20230111230023980"></p>
+<p>追踪该文件的http流：</p>
+<p><img src="https://s2.loli.net/2023/01/11/cayrKAI9szq7C3u.png" srcset="/img/loading.gif" lazyload alt="image-20230111230403933"></p>
+<p>发现了 rar压缩包的内容，我们可以使用 <code>wireshark</code> 进行分离，</p>
+<p>我们先了解一下 rar文件的格式：</p>
+<p><img src="https://s2.loli.net/2023/01/12/HqPT1XBQmLRoy9V.jpg" srcset="/img/loading.gif" lazyload alt="标记块"></p>
+<p>rar文件固定开头：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">52 </span><span class="hljs-number">61</span> <span class="hljs-number">72</span> <span class="hljs-number">21</span> <span class="hljs-number">1</span>A <span class="hljs-number">07</span> <span class="hljs-number">00</span><br></code></pre></td></tr></table></figure>
+
+<p>rar文件固定结尾：</p>
+<p><img src="https://s2.loli.net/2023/01/12/DuviZOlgV9ceSHW.jpg" srcset="/img/loading.gif" lazyload alt="结尾块"></p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">C4</span> <span class="hljs-number">3</span>D <span class="hljs-number">7</span>B <span class="hljs-number">00</span> <span class="hljs-number">40</span> <span class="hljs-number">07</span> <span class="hljs-number">00</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>综上，我们可以使用，16进制文件格式进行分离，我们先将 wireshark设置为原始数据格式：</p>
+<img src="https://s2.loli.net/2023/01/12/UeyWfcDhpXlMOt7.png" srcset="/img/loading.gif" lazyload alt="image-20230112115350247" style="zoom:33%;" />
+
+<p>然后进行查找文件头，文件尾，将其中的16进制数据复制：</p>
+<p><img src="https://s2.loli.net/2023/01/12/D6fmcknbiBKuEHA.png" srcset="/img/loading.gif" lazyload alt="image-20230112115602472"></p>
+<p>然后将数据使用 <code>010Editor</code> 保存 ，复制的时候不能直接 <code>ctrl+v</code>复制 ，需要 <code>ctrl+shift+v</code>，这样才能复制为16进制形式，然后我们保存为<code>rar</code>文件：</p>
+<img src="https://s2.loli.net/2023/01/12/lk1mznpJsD5fuxr.png" srcset="/img/loading.gif" lazyload alt="image-20230112115736525" style="zoom:50%;" />
+
+<p>我们打开rar文件，发现文件头损坏：</p>
+<p><img src="https://s2.loli.net/2023/01/12/BxkZb3hHJryDpNz.png" srcset="/img/loading.gif" lazyload alt="image-20230112115809631"></p>
+<p>然后我们查询<code>rar文件格式</code> 相关资料，发现：</p>
+<p><img src="https://s2.loli.net/2023/01/12/hwO5TDrEMZXYiA4.jpg" srcset="/img/loading.gif" lazyload alt="文件头1"></p>
+<p>我们发现我们的位标记为 <code>24 90</code> ,与图中 <code>20 90</code> 不一样，我们修改一下：</p>
+<img src="https://s2.loli.net/2023/01/12/HfuXdkyEIgxoU5W.png" srcset="/img/loading.gif" lazyload alt="image-20230112120352894" style="zoom: 50%;" />
+
+
+
+<p>此时 rar压缩包已经可以打开了，我们在图片的属性中可以获得flag：</p>
+<img src="https://s2.loli.net/2023/01/12/Ze3yxVabGASdI64.png" srcset="/img/loading.gif" lazyload alt="image-20230112120455484" style="zoom:33%;" />
+
+<p>这一题主要是对 rar文件格式的考察，需要进一步熟悉 rar文件格式</p>
+<h3 id="神秘的海报"><a href="#神秘的海报" class="headerlink" title="神秘的海报"></a>神秘的海报</h3><blockquote>
+<p>坐车回到家的兔兔听说ek1ng在HGAME的海报中隐藏了一个秘密……（还记得我们的Misc培训吗？</p>
+</blockquote>
+<p>下载附件后得到一个图片，经过一番尝试，发现是 <code>LSB隐写</code></p>
+<p>我们使用 <code>stegsolve</code>  打开图片，选择 <code>Data Extract</code> 模式：</p>
+<img src="https://s2.loli.net/2023/01/11/SACQ3rVcaYBZKxl.png" srcset="/img/loading.gif" lazyload alt="image-20230111230714474" style="zoom:33%;" />
+
+<p>然后选择0通道：</p>
+<img src="https://s2.loli.net/2023/01/11/a1VG7k8453cYXIQ.png" srcset="/img/loading.gif" lazyload alt="image-20230111231016509" style="zoom:33%;" />
+
+<p>发现里面有很多文字，包含了前半段flag，并且提示说后半段flag在该网址中，我们需要使用<code>steghide</code></p>
+<img src="https://s2.loli.net/2023/01/11/ZdFCSPqxp2wBJEW.png" srcset="/img/loading.gif" lazyload alt="image-20230111231223177" style="zoom:33%;" />
+
+<p>科学上网下载该文件，是一个后缀为 <code>wav</code> 的音乐文件，我们使用steghide解密：</p>
+<img src="https://s2.loli.net/2023/01/11/jAZGpLqgdtXDIch.png" srcset="/img/loading.gif" lazyload alt="image-20230111231555486" style="zoom:33%;" />
+
+<p>直接猜中了解密密码：<code>123456</code>，打开txt文件就是flag。</p>
+<p>但是我们也可以写一个 <code>shell</code> 脚本：</p>
+<p>我们先新建一个 <code>shell.sh</code> 文件，然后使用 <code>vim</code> 编辑</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">! /bin/sh</span><br>for((i=123400;i&lt;123500;i++)) <br>do<br>	a=&#x27;steghide extract -sf Bossanova.wav -p &#x27; <br>	b=$i<br><span class="hljs-meta prompt_">	$</span><span class="language-bash">a<span class="hljs-variable">$b</span></span><br>	echo $i<br>done<br></code></pre></td></tr></table></figure>
+
+<p>执行 <code>shell.sh</code> ：<code>bash shell.sh</code></p>
+<img src="https://s2.loli.net/2023/01/11/dDhH8Zn3ok9sPA2.png" srcset="/img/loading.gif" lazyload alt="image-20230111232958751" style="zoom:33%;" />
+
+<p>分离得到flag</p>
+<h3 id="e99p1ant-want-girlfriend"><a href="#e99p1ant-want-girlfriend" class="headerlink" title="e99p1ant_want_girlfriend"></a>e99p1ant_want_girlfriend</h3><blockquote>
+<p>兔兔在抢票网站上看到了一则相亲广告，人还有点小帅，但这个图片似乎有点问题，好像是CRC校验不太正确？</p>
+</blockquote>
+<p>crc校验失败，此处修改图片高度即可。或者可以使用脚本计算出高度</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E3%80%90hgame2023%E3%80%91week1/" class="print-no-link">#【hgame2023】week1</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【hgame2023】week1</div>
+      <div>https://leekosss.github.io/2023/08/24/[hgame2023]week1/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>leekos</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年8月24日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年6月5日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/08/24/%5BHZNUCTF%5Dfindme/" title="【HZNUCTF】findme">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【HZNUCTF】findme</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/24/%5BHDCTF2023%5D/" title="【HDCTF2023】">
+                        <span class="hidden-mobile">【HDCTF2023】</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"e5J90iDkXMWhU5UNlEX1I2hO-gzGzoHsz","appKey":"esLROw9j3xLk2nV4tQkKaih1","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      赣ICP备2022008842号-2
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

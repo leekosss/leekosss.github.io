@@ -1,0 +1,812 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="leekos">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="一、域名1、什么是域名？域名（英语：Domain Name），又称网域，是由一串用点分隔的名字组成的Internet上某一台计算机或计算机组的名称，用于在数据传输时对计算机的定位标识（有时也指地理位置）。 由于IP地址具有不方便记忆并且不能显示地址组织的名称和性质等缺点，人们设计出了域名，并通过网域名称系统（DNS，Domain Name System）来将域名和IP地址相互映射，使人更方便地访问">
+<meta property="og:type" content="article">
+<meta property="og:title" content="web安全基础入门01概念名词-小迪">
+<meta property="og:url" content="https://leekosss.github.io/2022/10/13/web%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A801%E6%A6%82%E5%BF%B5%E5%90%8D%E8%AF%8D-%E5%B0%8F%E8%BF%AA/index.html">
+<meta property="og:site_name" content="Tranquility">
+<meta property="og:description" content="一、域名1、什么是域名？域名（英语：Domain Name），又称网域，是由一串用点分隔的名字组成的Internet上某一台计算机或计算机组的名称，用于在数据传输时对计算机的定位标识（有时也指地理位置）。 由于IP地址具有不方便记忆并且不能显示地址组织的名称和性质等缺点，人们设计出了域名，并通过网域名称系统（DNS，Domain Name System）来将域名和IP地址相互映射，使人更方便地访问">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://leekosss.github.io/web%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A801-%E5%B0%8F%E8%BF%AA/1621837700447-d7b77422-da5f-4853-a3f0-af3c18e9f7d2.png">
+<meta property="og:image" content="https://leekosss.github.io/web%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A801-%E5%B0%8F%E8%BF%AA/1621837801190-aba0f1c9-4bad-4344-b494-c5d43381fc39.png">
+<meta property="og:image" content="https://leekosss.github.io/web%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A801-%E5%B0%8F%E8%BF%AA/1621838138849-cfafd63c-aa9b-4c1c-a1d7-90792dca2221.png">
+<meta property="og:image" content="https://leekosss.github.io/web%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A801-%E5%B0%8F%E8%BF%AA/1621838247334-b9a53ba6-a46e-4582-9ea9-768f590a282f.png">
+<meta property="article:published_time" content="2022-10-13T13:10:34.000Z">
+<meta property="article:modified_time" content="2022-10-13T13:49:38.141Z">
+<meta property="article:author" content="leekos">
+<meta property="article:tag" content="web安全">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://leekosss.github.io/web%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A801-%E5%B0%8F%E8%BF%AA/1621837700447-d7b77422-da5f-4853-a3f0-af3c18e9f7d2.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>web安全基础入门01概念名词-小迪 - Tranquility</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Tranquility</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="web安全基础入门01概念名词-小迪"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-10-13 21:10" pubdate>
+          2022年10月13日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          36 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">web安全基础入门01概念名词-小迪</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2022年10月13日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="一、域名"><a href="#一、域名" class="headerlink" title="一、域名"></a>一、域名</h2><h3 id="1、什么是域名？"><a href="#1、什么是域名？" class="headerlink" title="1、什么是域名？"></a>1、什么是域名？</h3><p>域名（英语：Domain Name），又称网域，是由一串用点分隔的名字组成的Internet上某一台计算机或计算机组的名称，用于在数据传输时对计算机的定位标识（有时也指地理位置）。</p>
+<p>由于IP地址具有不方便记忆并且不能显示地址组织的名称和性质等缺点，人们设计出了域名，并通过网域名称系统（DNS，Domain Name System）来将域名和IP地址相互映射，使人更方便地访问互联网，而不用去记住能够被机器直接读取的IP地址数串。</p>
+<p>比如<a target="_blank" rel="noopener" href="http://www.baidu.com,这就是一个域名,简单来说就是ip不好记,所以有了域名来方便记忆.可以联想到地址和经纬度的关系(上海/">www.baidu.com，这就是一个域名，简单来说就是ip不好记，所以有了域名来方便记忆。可以联想到地址和经纬度的关系（上海</a> ：经度 121.48 纬度 31.22）</p>
+<p>总之，域名就相当于上网的那串网址</p>
+<h3 id="2、域名注册"><a href="#2、域名注册" class="headerlink" title="2、域名注册"></a>2、域名注册</h3><p>可以去阿里云，或者腾讯云等平台购买域名</p>
+<p>如果需要绑定网站在国内上线，需要进行域名备案等操作</p>
+<h3 id="3、什么是顶级域名、子域名、二级域名、多级域名？"><a href="#3、什么是顶级域名、子域名、二级域名、多级域名？" class="headerlink" title="3、什么是顶级域名、子域名、二级域名、多级域名？"></a>3、什么是顶级域名、子域名、二级域名、多级域名？</h3><p>顶级域名就是一些网址常用的后缀，如：.com  .cn   .net   .edu等等。</p>
+<p>例如<a target="_blank" rel="noopener" href="http://www.dns0755.net是dns0755.net的子域名,而dns0755.net又是net的子域名.国际顶级域名的子域名叫做二级域名.就是最靠近顶级域名左侧的字段,zh.wikipedia.org中,wikipedia就是二级域名/">www.dns0755.net是dns0755.net的子域名，而dns0755.net又是net的子域名。国际顶级域名的子域名叫做二级域名。就是最靠近顶级域名左侧的字段，zh.wikipedia.org中，wikipedia就是二级域名</a></p>
+<p>如A.com是一级域名，A.B.com则是二级域名。一级域名较二级域名级别更高，而二级域名则是依附于一级域名下的附属分区域名，即二级域名是一级域名的细分层级。</p>
+<p>通过网址上【.】数量来判断域名层级，有多少【.】就为几级域名，如A.com是一级域名，A.B.com则是二级域名。</p>
+<p>如：baidu.com 是百度的顶级域名，zhidao.baidu.com 是二级域名，zhidao.zhidao.baidu.com 是三（多）级域名，*.baidu.com 是泛域名。</p>
+<h3 id="4-域名发现对于安全测试意义？"><a href="#4-域名发现对于安全测试意义？" class="headerlink" title="4. 域名发现对于安全测试意义？"></a>4. 域名发现对于安全测试意义？</h3><p>进行渗透测试时，其主域名找不到漏洞时，就可以尝试去测试收集到的子域名，有可能测试子域名网站时会有意向不到的效果，然后可以由此横向到主网站。</p>
+<h2 id="二、DNS与CDN"><a href="#二、DNS与CDN" class="headerlink" title="二、DNS与CDN"></a>二、DNS与CDN</h2><h3 id="1-什么是DNS？"><a href="#1-什么是DNS？" class="headerlink" title="1. 什么是DNS？"></a>1. 什么是DNS？</h3><p>域名系统（英文：Domain Name System，缩写：DNS）是互联网的一项服务。它作为将域名和IP地址相互映射的一个分布式数据库，能够使人更方便地访问互联网。DNS使用TCP和UDP端口53。当前，对于每一级域名长度的限制是63个字符，域名总长度则不能超过253个字符。</p>
+<p>简单地说，DNS就是将对应的域名通过DNS协议转换为ip地址，实现相互映射的操作。</p>
+<h3 id="2-本地HOSTS与DNS的关系？"><a href="#2-本地HOSTS与DNS的关系？" class="headerlink" title="2. 本地HOSTS与DNS的关系？"></a>2. 本地HOSTS与DNS的关系？</h3><p>Hosts是一个没有扩展名的系统文件，可以用记事本等工具打开，其作用就是将一些常用的网址域名与其对应的IP地址建立一个关联“数据库”，当用户在浏览器中输入一个需要登录的网址时，系统会<strong>首先</strong>自动从Hosts文件中寻找对应的IP地址，一旦找到，系统会立即打开对应网页，如果没有找到，则系统会再将网址提交DNS域名解析服务器进行IP地址的解析。</p>
+<p>需要注意的是，Hosts文件配置的映射是<strong>静态</strong>的，如果网络上的<strong>计算机更改了请及时更新IP地址，否则将不能访问</strong>。</p>
+<p>例：先打开cmd终端，输入命令 ping <a href="http://www.baidu.com，得到的结果如下图：">www.baidu.com，得到的结果如下图：</a></p>
+<p><img src="/web%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A801-%E5%B0%8F%E8%BF%AA/1621837700447-d7b77422-da5f-4853-a3f0-af3c18e9f7d2.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>在hosts文件（图中黄色框内为hosts文件绝对路径）最后加上下图红色框内的内容，并ctrl+s保存</p>
+<p><img src="/web%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A801-%E5%B0%8F%E8%BF%AA/1621837801190-aba0f1c9-4bad-4344-b494-c5d43381fc39.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>再次ping <a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a> 时会发现解析的ip变为你hosts文件中的了（当然了，访问不了）。</p>
+<p><img src="/web%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A801-%E5%B0%8F%E8%BF%AA/1621838138849-cfafd63c-aa9b-4c1c-a1d7-90792dca2221.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>hosts文件位置：  C:\Windows\System32\drivers\etc\hosts</p>
+<p>总结：hosts文件就是你的计算机访问某些域名之前，先在hosts文件找一遍，找到了就直接去对应的ip地址，没找到就使用DNS服务器进行域名解析</p>
+<h3 id="3-CDN是什么？与DNS的关系？"><a href="#3-CDN是什么？与DNS的关系？" class="headerlink" title="3. CDN是什么？与DNS的关系？"></a>3. CDN是什么？与DNS的关系？</h3><p>CDN的全称是Content Delivery Network，即内容分发网络。CDN的基本思路是尽可能避开互联网上有可能影响数据传输速度和稳定性的瓶颈和环节，使内容传输的更快、更稳定。通过在网络各处放置节点服务器所构成的在现有的互联网基础之上的一层智能虚拟网络，CDN系统能够实时地根据网络流量和各节点的连接、负载状况以及到用户的距离和响应时间等综合信息将用户的请求<strong>重新导向离用户最近的服务节点上</strong>（单纯只使用DNS解析，直接PING就会显示出自己的真实IP,如果又使用CDN，PING出来的IP就不是用户的真实IP而是CDN服务器的IP节点。需要绕过CDN后去找真实IP地址：拓展：判断是否存在CDN并绕过，寻找真实IP）。其目的是使用户可就近取得所需内容，解决 Internet网络拥挤的状况，提高用户访问网站的响应速度。</p>
+<p><img src="/web%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A801-%E5%B0%8F%E8%BF%AA/1621838247334-b9a53ba6-a46e-4582-9ea9-768f590a282f.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>例如：访问某个大型网站，CDN会判断该用户的所处位置，响应时间等因素来判断访问该网站域名的时候应该解析到哪个ip地址上去</p>
+<p>扩展：DNS和CDN的区别与联系<a target="_blank" rel="noopener" href="https://www.dns.com/supports/710.html">https://www.dns.com/supports/710.html</a></p>
+<h3 id="4-常见的DNS安全攻击有哪些？"><a href="#4-常见的DNS安全攻击有哪些？" class="headerlink" title="4. 常见的DNS安全攻击有哪些？"></a>4. 常见的DNS安全攻击有哪些？</h3><h4 id="缓存投毒"><a href="#缓存投毒" class="headerlink" title="缓存投毒"></a>缓存投毒</h4><p>通常也称为域名系统投毒或DNS缓存投毒。它是利用虚假Internet地址替换掉域名系统表中的地址，进而制造破坏。当网络用户在带有该虚假地址的页面中进行搜寻，以访问某链接时，网页浏览器由于受到该虚假条目的影响而打开了不同的网页链接。在这种情况下，蠕虫、木马、浏览器劫持等恶意软件就可能会被下载到本地用户的电脑上。</p>
+<h4 id="DNS劫持"><a href="#DNS劫持" class="headerlink" title="DNS劫持"></a>DNS劫持</h4><p>DNS劫持又称<strong>域名劫持</strong>，是指在劫持的网络范围内拦截域名解析的请求，分析请求的域名，把审查范围以外的请求放行，否则返回假的IP地址或者什么都不做使请求失去响应，其效果就是对特定的网络不能访问或访问的是假网址。这类攻击一般通过恶意软件来更改终端用户TCP&#x2F;IP设置，将用户指向恶意DNS服务器，该DNS服务器会对域名进行解析，并最终指向钓鱼网站等被攻击者操控的服务器。</p>
+<h4 id="域名劫持"><a href="#域名劫持" class="headerlink" title="域名劫持"></a>域名劫持</h4><p>域名劫持就是在劫持的网络范围内拦截域名解析的请求，分析请求的域名，把审查范围以外的请求放行，否则直接返回假的IP地址或者什么也不做使得请求失去响应，其效果就是对特定的网址不能访问或访问的是假网址。一旦您的域名被劫持，用户被引到假冒的网站进而无法正常浏览网页，用户可能被诱骗到冒牌网站进行登录等操作导致泄露隐私数据。</p>
+<h4 id="DNS-DDoS攻击"><a href="#DNS-DDoS攻击" class="headerlink" title="DNS DDoS攻击"></a>DNS DDoS攻击</h4><p>针对DNS的DDoS攻击通过控制大批僵尸网络利用真实DNS协议栈发起大量域名查询请求，利用工具软件伪造源IP发送海量DNS查询，发送海量DNS查询报文导致网络带宽耗尽而无法传送正常DNS查询请求。发送大量非法域名查询报文引起DNS服务器持续进行迭代查询，从而达到较少的攻击流量消耗大量服务器资源的目的。</p>
+<h4 id="反射式DNS放大攻击"><a href="#反射式DNS放大攻击" class="headerlink" title="反射式DNS放大攻击"></a>反射式DNS放大攻击</h4><p>所有放大攻击都利用了攻击者和目标Web资源之间的带宽消耗差异，由于每个机器人都要求使用欺骗性IP地址打开DNS解析器，该IP地址已更改为目标受害者的真实源IP地址，然后目标会从DNS解析器接收响应。为了创建大量流量，攻击者以尽可能从DNS解析器生成响应的方式构造请求。结果，目标接收到攻击者初始流量的放大，并且他们的网络被虚假流量阻塞，导致拒绝服务。</p>
+<p>当面对各种DNS攻击，墨者安全建议专业的高防DNS防劫持服务，保障服务器的稳定运行，从容应对各种DNS攻击，避免因DNS攻击造成在线业务中断，给企业带来重大损失。</p>
+<h2 id="三、脚本语言"><a href="#三、脚本语言" class="headerlink" title="三、脚本语言"></a>三、脚本语言</h2><h3 id="1-常见的脚本语言类型有哪些？"><a href="#1-常见的脚本语言类型有哪些？" class="headerlink" title="1. 常见的脚本语言类型有哪些？"></a>1. 常见的脚本语言类型有哪些？</h3><p>asp php aspx jsp javaweb pl py cgi等</p>
+<h3 id="2-不同脚本类型与安全漏洞的关系？"><a href="#2-不同脚本类型与安全漏洞的关系？" class="headerlink" title="2. 不同脚本类型与安全漏洞的关系？"></a>2. 不同脚本类型与安全漏洞的关系？</h3><p>不同的脚本语言的编写规则不一样，程序产生的漏洞自然也不一样（代码审计）。</p>
+<h3 id="3-漏洞挖掘代码审计与脚本类型的关系？"><a href="#3-漏洞挖掘代码审计与脚本类型的关系？" class="headerlink" title="3. 漏洞挖掘代码审计与脚本类型的关系？"></a>3. 漏洞挖掘代码审计与脚本类型的关系？</h3><p>同上</p>
+<h2 id="四、后门"><a href="#四、后门" class="headerlink" title="四、后门"></a>四、后门</h2><h3 id="1-什么是后门？有那些后门？"><a href="#1-什么是后门？有那些后门？" class="headerlink" title="1. 什么是后门？有那些后门？"></a>1. 什么是后门？有那些后门？</h3><p>后门程序一般是指那些绕过安全性控制而获取对程序或系统访问权的程序方法。类别：网页、线程插入、扩展、C&#x2F;S后门。</p>
+<h3 id="2-后门在安全测试中的实际意义？"><a href="#2-后门在安全测试中的实际意义？" class="headerlink" title="2. 后门在安全测试中的实际意义？"></a>2. 后门在安全测试中的实际意义？</h3><p>例如后门藏在网页上、软件内，悄无声息的进行攻击者想要的操作。</p>
+<h3 id="3-关于后门需要了解那些？（玩法，免杀）"><a href="#3-关于后门需要了解那些？（玩法，免杀）" class="headerlink" title="3. 关于后门需要了解那些？（玩法，免杀）"></a>3. 关于后门需要了解那些？（玩法，免杀）</h3><p>免杀，简单来讲就是绕过杀毒软件等。</p>
+<h2 id="五、WEB"><a href="#五、WEB" class="headerlink" title="五、WEB"></a>五、WEB</h2><h3 id="1-WEB的组成架构模型？"><a href="#1-WEB的组成架构模型？" class="headerlink" title="1. WEB的组成架构模型？"></a>1. WEB的组成架构模型？</h3><p>网站源码：分脚本类型，分应用方向</p>
+<p>操作系统：windows linux</p>
+<p>中间件（搭建平台）：apache iis tomcat nginx等</p>
+<p>数据库：access mysql mssql oracle sybase db2 postsql等</p>
+<h3 id="2-架构漏洞安全测试简要介绍？"><a href="#2-架构漏洞安全测试简要介绍？" class="headerlink" title="2.架构漏洞安全测试简要介绍？"></a>2.架构漏洞安全测试简要介绍？</h3><h3 id="3-为什么要从WEB层面为主为首？"><a href="#3-为什么要从WEB层面为主为首？" class="headerlink" title="3.为什么要从WEB层面为主为首？"></a>3.为什么要从WEB层面为主为首？</h3><p>用户接触web层面最多，大部分都是从web页面入手慢慢渗透到服务器。直接从操作系统入手不太现实（大部分情况下接触不到）。</p>
+<h2 id="六、WEB相关安全漏洞"><a href="#六、WEB相关安全漏洞" class="headerlink" title="六、WEB相关安全漏洞"></a>六、WEB相关安全漏洞</h2><ul>
+<li>WEB源码类对应漏洞</li>
+</ul>
+<p>SQL注入，文件上传，XSS，代码执行，变量覆盖，逻辑漏洞，反序列化等</p>
+<ul>
+<li>WEB中间件对应漏洞</li>
+</ul>
+<p>未授权访问</p>
+<ul>
+<li>WEB数据库对应漏洞</li>
+</ul>
+<p>内核漏洞</p>
+<ul>
+<li>WEB系统层对应漏洞</li>
+</ul>
+<p>远程代码执行，提权</p>
+<ul>
+<li>其他第三方对应漏洞</li>
+</ul>
+<p>第三方软件漏洞</p>
+<ul>
+<li><p>APP或PC应用结合类</p>
+</li>
+<li><p>owasp top10</p>
+</li>
+</ul>
+<h2 id="七、演示案例"><a href="#七、演示案例" class="headerlink" title="七、演示案例"></a>七、演示案例</h2><h3 id="1-多级域名的枚举查找（原理，方式）"><a href="#1-多级域名的枚举查找（原理，方式）" class="headerlink" title="1. 多级域名的枚举查找（原理，方式）"></a>1. 多级域名的枚举查找（原理，方式）</h3><p>layer子域名挖掘机、Maltego（kali自带）、各类挖掘子域名的网站：如 <a target="_blank" rel="noopener" href="https://www.t1h2ua.cn/tools/">https://www.t1h2ua.cn/tools/</a></p>
+<h3 id="2-DNS解析修改后分析（本地或服务）"><a href="#2-DNS解析修改后分析（本地或服务）" class="headerlink" title="2. DNS解析修改后分析（本地或服务）"></a>2. DNS解析修改后分析（本地或服务）</h3><p>把自己电脑的DNS服务的改成手动获取，并换dns（比如先8.8.8.8，再114.114.114.114），分别ping同一网站，看解析出来的ip是否不同。</p>
+<h3 id="3-EXE后门功能及危害及类似WEB后门"><a href="#3-EXE后门功能及危害及类似WEB后门" class="headerlink" title="3. EXE后门功能及危害及类似WEB后门"></a>3. EXE后门功能及危害及类似WEB后门</h3><p>Quasar后门程序（.exe）生成并使用：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44930903/article/details/111600982">https://blog.csdn.net/qq_44930903/article/details/111600982</a></p>
+<p>web后门：beef、WSExploer抓包、wireshark抓包等</p>
+<h3 id="4-APP类结合WEB协议，PC类结合WEB协议"><a href="#4-APP类结合WEB协议，PC类结合WEB协议" class="headerlink" title="4. APP类结合WEB协议，PC类结合WEB协议"></a>4. APP类结合WEB协议，PC类结合WEB协议</h3><p>Burp Suite抓app的包，然后改包发送等；</p>
+<p>Apk数据提取（安卓逆向工具）：下载下方资源、解压，然后把一个apk文件放入到apps文件夹，运行exe文件，之后会生成results文件，apk的数据就在这里。</p>
+<h2 id="八、涉及资源"><a href="#八、涉及资源" class="headerlink" title="八、涉及资源"></a>八、涉及资源</h2><ul>
+<li>逍遥模拟器：<a target="_blank" rel="noopener" href="http://www.xyaz.cn/">http://www.xyaz.cn</a></li>
+<li>WSExplorer抓包工具：<a target="_blank" rel="noopener" href="http://www.downcc.com/soft/11196.html">http://www.downcc.com/soft/11196.html</a></li>
+<li>Quasar后门程序生成：<a target="_blank" rel="noopener" href="https://github.com/quasar/QuasarRAT/releases">https://github.com/quasar/QuasarRAT/releases</a></li>
+<li>Apk数据提取：<a target="_blank" rel="noopener" href="https://github.com/TheKingOfDuck/ApkAnalyser">https://github.com/TheKingOfDuck/ApkAnalyser</a></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/web%E5%AE%89%E5%85%A8/" class="category-chain-item">web安全</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/web%E5%AE%89%E5%85%A8/" class="print-no-link">#web安全</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>web安全基础入门01概念名词-小迪</div>
+      <div>https://leekosss.github.io/2022/10/13/web安全基础入门01概念名词-小迪/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>leekos</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年10月13日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2022年10月13日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/10/18/hexo%E5%8D%9A%E5%AE%A2%E4%B8%8A%E4%BC%A0pdf%E6%96%87%E4%BB%B6/" title="hexo博客上传pdf文件">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">hexo博客上传pdf文件</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/09/26/hexo%E5%8D%9A%E5%AE%A2%E5%9B%BE%E7%89%87%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98/" title="hexo博客图片路径问题">
+                        <span class="hidden-mobile">hexo博客图片路径问题</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"e5J90iDkXMWhU5UNlEX1I2hO-gzGzoHsz","appKey":"esLROw9j3xLk2nV4tQkKaih1","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      赣ICP备2022008842号-2
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

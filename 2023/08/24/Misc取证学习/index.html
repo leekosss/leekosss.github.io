@@ -1,0 +1,930 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="leekos">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="[TOC] Misc取证学习磁盘取证工具veracryto挂载fat文件挂载磁盘文件 https:&#x2F;&#x2F;sourceforge.net&#x2F;projects&#x2F;veracrypt&#x2F; DiskGeniusDiskGenius是一款硬盘分区及数据恢复软件 extundelete命令：恢复img镜像文件中所有已删除的文件1extundelete img文件 –restore-all 命令  extundelet">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tranquility">
+<meta property="og:url" content="https://leekosss.github.io/2023/08/24/Misc%E5%8F%96%E8%AF%81%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="Tranquility">
+<meta property="og:description" content="[TOC] Misc取证学习磁盘取证工具veracryto挂载fat文件挂载磁盘文件 https:&#x2F;&#x2F;sourceforge.net&#x2F;projects&#x2F;veracrypt&#x2F; DiskGeniusDiskGenius是一款硬盘分区及数据恢复软件 extundelete命令：恢复img镜像文件中所有已删除的文件1extundelete img文件 –restore-all 命令  extundelet">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308061738818.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308061740610.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308061738809.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308061738961.jpeg">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308061746624.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/06/mnMFyDqxOujZV5t.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/06/gDjsM1hzWwkGXBZ.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/07/OadsBn584UQZ1pH.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/image-20230807160918144.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/07/T8oDmxhdX5SRi6Q.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/06/BuhPxOVmZgtfMiA.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/06/HPSNXLuTW47FZmk.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/06/n3UkY9gdsKJcMNu.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/06/xJfmiPCBhSgwzUZ.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/06/hoyDRN3mx29jibC.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/06/kV1jUDKXHYgSqvb.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/06/UHFmBDkhQebvLW6.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/06/8wG2aSNAizLs1on.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/06/AkX2N4mGSFVZhDT.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/06/IP1nkdARBu89Hph.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/06/e2NMmdi9HqoFP8G.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/06/scj5XaZVQ3yrGg4.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/06/Qk4ipMzo3RP17Ut.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/06/zSnGajc3erEgNAC.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/07/4cdoqKfiV15Pgkx.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/07/zWlofixNmgdJEGX.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/07/Dh1OSydw6Kns59z.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/07/3SYvnzOhkcCZfWU.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/07/rmGOVQ9qsuBAvEb.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/07/rQDs7WlBME6hKgZ.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/07/9fEMK7sbiHwZrC1.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/07/l2u35EPNLpCHUXt.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/07/fYo6BEJ9lZ4jUsp.png">
+<meta property="article:published_time" content="2023-08-24T15:43:38.582Z">
+<meta property="article:modified_time" content="2023-08-07T08:15:07.926Z">
+<meta property="article:author" content="leekos">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202308061738818.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Tranquility</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Tranquility</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-24 23:43" pubdate>
+          2023年8月24日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          74 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年8月7日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>[TOC]</p>
+<h2 id="Misc取证学习"><a href="#Misc取证学习" class="headerlink" title="Misc取证学习"></a>Misc取证学习</h2><h3 id="磁盘取证工具"><a href="#磁盘取证工具" class="headerlink" title="磁盘取证工具"></a>磁盘取证工具</h3><h4 id="veracryto挂载fat文件"><a href="#veracryto挂载fat文件" class="headerlink" title="veracryto挂载fat文件"></a>veracryto挂载fat文件</h4><p>挂载磁盘文件</p>
+<p><a target="_blank" rel="noopener" href="https://sourceforge.net/projects/veracrypt/">https://sourceforge.net/projects/veracrypt/</a></p>
+<h4 id="DiskGenius"><a href="#DiskGenius" class="headerlink" title="DiskGenius"></a>DiskGenius</h4><p>DiskGenius是一款硬盘分区及数据恢复软件</p>
+<h4 id="extundelete命令：恢复img镜像文件中所有已删除的文件"><a href="#extundelete命令：恢复img镜像文件中所有已删除的文件" class="headerlink" title="extundelete命令：恢复img镜像文件中所有已删除的文件"></a>extundelete命令：恢复img镜像文件中所有已删除的文件</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">extundelete <span class="hljs-selector-tag">img</span>文件 –restore-<span class="hljs-attribute">all</span> 命令<br></code></pre></td></tr></table></figure>
+
+<p><code>extundelete</code> 是一个用于恢复已删除文件的工具，它可以在使用 ext2、ext3 或 ext4 文件系统的 Linux 系统上使用。根据您的问题，<code>extundelete img文件 --restore-all</code> 命令的作用是从指定的 <code>img文件</code> 镜像文件中恢复所有已删除的文件。</p>
+<h3 id="磁盘取证例题"><a href="#磁盘取证例题" class="headerlink" title="磁盘取证例题"></a>磁盘取证例题</h3><h4 id="RCTF2019-disk"><a href="#RCTF2019-disk" class="headerlink" title="[RCTF2019]disk"></a>[RCTF2019]disk</h4><p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308061738818.png" srcset="/img/loading.gif" lazyload alt="image-20230806173612658"></p>
+<p>一个vmdk文件，我们在010打开：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308061740610.png" srcset="/img/loading.gif" lazyload alt="image-20230806174046577"></p>
+<p>发现了一半的flag</p>
+<p>我们用7z打开vmdk文件，发现了一个<code>FAT</code>文件</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308061738809.png" srcset="/img/loading.gif" lazyload alt="image-20230806173718236"></p>
+<blockquote>
+<h2 id="磁盘¶"><a href="#磁盘¶" class="headerlink" title="磁盘¶"></a>磁盘<a target="_blank" rel="noopener" href="https://ciphersaw.me/ctf-wiki/misc/disk-memory/introduction/#_2">¶</a></h2><p>常见的磁盘分区格式有以下几种</p>
+<ul>
+<li><p>Windows: FAT12 -&gt; FAT16 -&gt; FAT32 -&gt; NTFS</p>
+</li>
+<li><p>Linux: EXT2 -&gt; EXT3 -&gt; EXT4</p>
+</li>
+<li><p>FAT 主磁盘结构</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308061738961.jpeg" srcset="/img/loading.gif" lazyload alt="img"></p>
+</li>
+<li><p>删除文件：目录表中文件名第一字节 <code>e5</code>。</p>
+</li>
+</ul>
+</blockquote>
+<p>FAT（File Allocation Table）文件是<code>win</code>下面的磁盘分区文件</p>
+<p>我们使用<code>veracryto</code>挂载fat文件，盲猜密码：rctf</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202308061746624.png" srcset="/img/loading.gif" lazyload alt="image-20230806174452603"></p>
+<p>获得一张没用的照片和密码：<code>RCTF2019</code></p>
+<p>这里就有个盲区知识点，在挂载输入密码的时候，不同的密码可以进入不同的文件系统</p>
+<p>使用新密码挂载：</p>
+<p><img src="https://s2.loli.net/2023/08/06/mnMFyDqxOujZV5t.png" srcset="/img/loading.gif" lazyload alt="image-20230806174753897"></p>
+<p>但是隐藏分区无法直接访问，<code>DiskGenius</code>可以打开</p>
+<p><img src="https://s2.loli.net/2023/08/06/gDjsM1hzWwkGXBZ.png" srcset="/img/loading.gif" lazyload alt="image-20230806175031986"></p>
+<p>使用该磁盘分区软件，查看到了磁盘分区B的内容，即另一半flag</p>
+<h4 id="XMAN2018排位赛file-恢复挂载的文件"><a href="#XMAN2018排位赛file-恢复挂载的文件" class="headerlink" title="[XMAN2018排位赛file]恢复挂载的文件"></a>[XMAN2018排位赛file]恢复挂载的文件</h4><p><img src="https://s2.loli.net/2023/08/07/OadsBn584UQZ1pH.png" srcset="/img/loading.gif" lazyload alt="image-20230807155941754"></p>
+<p>我们可以使用<code>7z</code>或者使用<code>mount</code>将镜像文件挂载</p>
+<p>然后打开发现很多照片：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/image-20230807160918144.png" srcset="/img/loading.gif" lazyload alt="image-20230807160918144"></p>
+<p>其中提示有遗失的文件，我们可以使用<code>extundelete</code>命令恢复</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">extundelete <span class="hljs-selector-tag">img</span>文件 –-restore-<span class="hljs-attribute">all</span> 命令<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/08/07/T8oDmxhdX5SRi6Q.png" srcset="/img/loading.gif" lazyload alt="image-20230807161147690"></p>
+<h3 id="内存取证工具"><a href="#内存取证工具" class="headerlink" title="内存取证工具"></a>内存取证工具</h3><h4 id="volatility"><a href="#volatility" class="headerlink" title="volatility"></a>volatility</h4><p>Volatility是一款非常强大的内存取证工具,它是由来自全世界的数百位知名安全专家合作开发的一套工具, 可以用于windows,linux,mac osx,android等系统内存取证。Volatility是一款开源内存取证框架，能够对导出的内存镜像进行分析，通过获取内核数据结构，使用插件获取内存的详细情况以及系统的运行状态。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br></pre></td><td class="code"><pre><code class="hljs routeros">Volatility Foundation Volatility Framework 2.6<br>用法： Volatility - 内存取证分析平台<br> <br>Options:<br>  -h, --help            列出所有可用选项及其默认值<br>                        默认值可以在配置文件中设置<br>                        (/etc/volatilityrc)<br>  <span class="hljs-attribute">--conf-file</span>=/home/kali/.volatilityrc<br>                        基于用户的配置文件<br>  -d, --<span class="hljs-built_in">debug</span>           调试Volatility<br>  <span class="hljs-attribute">--plugins</span>=PLUGINS     要使用的其他插件目录（冒号分隔）<br>  --<span class="hljs-built_in">info</span>                打印所有注册对象的信息<br>  <span class="hljs-attribute">--cache-directory</span>=/home/kali/.cache/volatility<br>                        存放缓存文件的目录<br>  --cache               使用缓存<br>  <span class="hljs-attribute">--tz</span>=TZ               设置 (Olson) 时区以使用 pytz（如果已安装）或 tzset 显示时间戳<br>  -f FILENAME, <span class="hljs-attribute">--filename</span>=FILENAME<br>                        打开图像时使用的文件名<br>  <span class="hljs-attribute">--profile</span>=WinXPSP2x86<br>                        要加载的配置文件的名称（使用 --<span class="hljs-built_in">info</span> 查看支持的配置文件列表）<br>  -l LOCATION, <span class="hljs-attribute">--location</span>=LOCATION<br>                        从中加载地址空间的 URN 位置<br>  -w, --write           启用写支持<br>  <span class="hljs-attribute">--dtb</span>=DTB             DTB 地址<br>  <span class="hljs-attribute">--shift</span>=SHIFT         Mac KASLR 移位地址<br>  <span class="hljs-attribute">--output</span>=text         以这种格式输出（支持特定于模块，请参阅下面的模块输出选项）<br>  <span class="hljs-attribute">--output-file</span>=OUTPUT_FILE<br>                        在此文件中写入输出<br>  -v, --verbose         详细信息<br>  -g KDBG, <span class="hljs-attribute">--kdbg</span>=KDBG  指定一个 KDBG 虚拟地址（注意：对于 64 位 Windows 8 及更高版本，这是 KdCopyDataBlock 的地址）<br>  --force               强制使用可疑配置文件<br>  -k KPCR, <span class="hljs-attribute">--kpcr</span>=KPCR  指定特定的 KPCR 地址<br>  <span class="hljs-attribute">--cookie</span>=COOKIE       指定 nt!ObHeaderCookie 的地址（仅适用于 Windows 10）<br> <br>	支持的插件命令:<br> <br>		amcache        	查看AmCache应用程序痕迹信息<br>		apihooks       	检测内核及进程的内存空间中的API hook<br>		atoms          	列出会话及窗口站atom表<br>		atomscan       	Atom表的池扫描(Pool scanner)<br>		auditpol       	列出注册表HKLMSECURITYPolicyPolAdtEv的审计策略信息<br>		bigpools       	使用BigPagePoolScanner转储大分页池(big<span class="hljs-built_in"> page </span>pools)<br>		bioskbd        	从实时模式内存中读取键盘缓冲数据(早期电脑可以读取出BIOS开机密码)<br>		cachedump      	获取内存中缓存的域帐号的密码哈希<br>		callbacks      	打印全系统通知例程<br>		clipboard      	提取Windows剪贴板中的内容<br>		cmdline        	显示进程命令行参数<br>		cmdscan        	提取执行的命令行历史记录（扫描_COMMAND_HISTORY信息）<br>		connections    	打印系统打开的网络连接(仅支持Windows XP 和2003)<br>		connscan       	打印TCP连接信息<br>		consoles       	提取执行的命令行历史记录（扫描_CONSOLE_INFORMATION信息）<br>		crashinfo      	提取崩溃转储信息<br>		deskscan       	tagDESKTOP池扫描(Poolscaner)<br>		devicetree     	显示设备树信息<br>		dlldump        	从进程地址空间转储动态链接库<br>		dlllist        	打印每个进程加载的动态链接库列表<br>		driverirp      	IRP hook驱动检测<br>		drivermodule   	关联驱动对象至内核模块<br>		driverscan     	驱动对象池扫描<br>		dumpcerts      	提取RAS私钥及SSL公钥<br>		dumpfiles      	提取内存中映射或缓存的文件<br>		dumpregistry   	转储内存中注册表信息至磁盘<br>		editbox        	查看Edit编辑控件信息 (Listbox正在实验中)<br>		envars         	显示进程的环境变量<br>		eventhooks     	打印Windows事件hook详细信息<br>		evtlogs        	提取Windows事件日志（仅支持XP/2003)<br>		filescan       	提取文件对象（file objects）池信息<br>		gahti          	转储用户句柄（handle）类型信息<br>		gditimers      	打印已安装的GDI计时器(timers)及回调(callbacks)<br>		gdt            	显示全局描述符表(Global Deor Table)<br>		getservicesids 	获取注册表中的服务名称并返回SID信息<br>		getsids        	打印每个进程的SID信息<br>		handles        	打印每个进程打开的句柄的列表<br>		hashdump       	转储内存中的Windows帐户密码哈希(LM/NTLM)<br>		hibinfo        	转储休眠文件信息<br>		hivedump       	打印注册表配置单元信息<br>		hivelist       	打印注册表配置单元列表<br>		hivescan       	注册表配置单元池扫描<br>		hpakextract    	从HPAK文件（Fast Dump格式）提取物理内存数据<br>		hpakinfo       	查看HPAK文件属性及相关信息<br>		idt            	显示中断描述符表(Interrupt Deor Table)<br>		iehistory      	重建IE缓存及访问历史记录<br>		imagecopy      	将物理地址空间导出原生DD镜像文件<br>		imageinfo      	查看/识别镜像信息<br>		impscan        	扫描对导入函数的调用<br>		joblinks       	打印进程任务链接信息<br>		kdbgscan       	搜索和转储潜在KDBG值<br>		kpcrscan       	搜索和转储潜在KPCR值<br>		ldrmodules     	检测未链接的动态链接DLL<br>		lsadump        	从注册表中提取LSA密钥信息（已解密）<br>		machoinfo      	转储Mach-O 文件格式信息<br>		malfind        	查找隐藏的和插入的代码<br>		mbrparser      	扫描并解析潜在的主引导记录(MBR)<br>		memdump        	转储进程的可寻址内存<br>		memmap         	打印内存映射<br>		messagehooks   	桌面和窗口消息钩子的线程列表<br>		mftparser      	扫描并解析潜在的MFT条目<br>		moddump        	转储内核驱动程序到可执行文件的示例<br>		modscan        	内核模块池扫描<br>		modules        	打印加载模块的列表<br>		multiscan      	批量扫描各种对象<br>		mutantscan     	对互斥对象池扫描<br>		notepad        	查看记事本当前显示的文本<br>		objtypescan    	扫描窗口对象类型对象<br>		patcher        	基于页面扫描的补丁程序内存<br>		poolpeek       	可配置的池扫描器插件<br>		printkey       	打印注册表项及其子项和值<br>		privs          	显示进程权限<br>		procdump       	进程转储到一个可执行文件示例<br>		pslist         	按照EPROCESS列表打印所有正在运行的进程<br>		psscan         	进程对象池扫描<br>		pstree         	以树型方式打印进程列表<br>		psxview        	查找带有隐藏进程的所有进程列表<br>		qemuinfo       	转储 Qemu 信息<br>		raw2dmp        	将物理内存原生数据转换为windbg崩溃转储格式<br>		screenshot     	基于GDI Windows的虚拟屏幕截图保存<br>		servicediff    	Windows服务列表(ala Plugx)<br>		sessions       	_MM_SESSION_SPACE的详细信息列表(用户登录会话)<br>		shellbags      	打印Shellbags信息<br>		shimcache      	解析应用程序兼容性Shim缓存注册表项<br>		shutdowntime   	从内存中的注册表信息获取机器关机时间<br>		sockets        	打印已打开套接字列表<br>		sockscan       	TCP套接字对象池扫描<br>		ssdt           	显示SSDT条目<br>		strings        	物理到虚拟地址的偏移匹配(需要一些时间，带详细信息)<br>		svcscan        	Windows服务列表扫描<br>		symlinkscan    	符号链接对象池扫描<br>		thrdscan       	线程对象池扫描<br>		threads        	调查_ETHREAD 和_KTHREADs<br>		timeliner      	创建内存中的各种痕迹信息的时间线<br>		timers         	打印内核计时器及关联模块的DPC<br>		truecryptmaster	Recover 	恢复TrueCrypt 7.1a主密钥<br>		truecryptpassphrase		查找并提取TrueCrypt密码<br>		truecryptsummary	TrueCrypt摘要信息<br>		unloadedmodules	打印卸载的模块信息列表<br>		userassist     	打印注册表中UserAssist相关信息<br>		userhandles    	转储用户句柄表<br>		vaddump        	转储VAD数据为文件<br>		vadinfo        	转储VAD信息<br>		vadtree        	以树形方式显示VAD树信息<br>		vadwalk        	显示遍历VAD树<br>		vboxinfo       	转储Virtualbox信息（虚拟机）<br>		verinfo        	打印PE镜像中的版本信息<br>		vmwareinfo     	转储VMware VMSS/VMSN 信息<br>		volshell       	内存镜像中的shell<br>		windows        	打印桌面窗口(详细信息)<br>		wintree        	Z顺序打印桌面窗口树<br>		wndscan        	池扫描窗口站<br>		yarascan       	以Yara签名扫描进程或内核内存<br></code></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_68012373/article/details/127419463">内存取证-volatility工具的使用 （史上更全教程，更全命令）_路baby的博客-CSDN博客</a></p>
+<h3 id="内存取证例题"><a href="#内存取证例题" class="headerlink" title="内存取证例题"></a>内存取证例题</h3><h4 id="1、数字取证赛题"><a href="#1、数字取证赛题" class="headerlink" title="1、数字取证赛题"></a>1、数字取证赛题</h4><p>是46届世界技能大赛湖北省选拔赛 也是今年金砖比赛的样题</p>
+<blockquote>
+<p><strong>链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1tYgIicCqJExmaMLYa3YeSA">https://pan.baidu.com/s/1tYgIicCqJExmaMLYa3YeSA</a><br>提取码：lulu</strong> </p>
+</blockquote>
+<p>你作为 A 公司的应急响应人员，请分析提供的内存文件按照下面的要求找到 相关关键信息，完成应急响应事件。</p>
+<p>1、从内存中获取到用户admin的密码并且破解密码，以Flag{admin,password} 形式提交(密码为 6 位)；   </p>
+<p>2、获取当前系统 ip 地址及主机名，以 Flag{ip:主机名}形式提交；</p>
+<p>3、获取当前系统浏览器搜索过的关键词，作为 Flag 提交；</p>
+<p>4、当前系统中存在挖矿进程，请获取指向的矿池地址，以 Flag{ip:端口}形式 提交；</p>
+<p>5、恶意进程在系统中注册了服务，请将服务名以 Flag{服务名}形式提交。</p>
+<h5 id="0x01-从内存中获取到用户admin的密码并且破解密码"><a href="#0x01-从内存中获取到用户admin的密码并且破解密码" class="headerlink" title="0x01.从内存中获取到用户admin的密码并且破解密码"></a>0x01.从内存中获取到用户admin的密码并且破解密码</h5><p>首先我们拿到镜像的题目的第一步是需要判断当前的镜像信息，分析是哪个操作系统</p>
+<blockquote>
+<p> <strong>imageinfo：查看识别镜像信息</strong></p>
+</blockquote>
+<p>python2 vol.py -f worldskills3.vmem imageinfo</p>
+<p><img src="https://s2.loli.net/2023/08/06/BuhPxOVmZgtfMiA.png" srcset="/img/loading.gif" lazyload alt="image-20230806203102005"></p>
+<p>操作系统我们一般取第一个就可以了,分析出系统为：<code>Win7SP1x64</code></p>
+<p>接下来我们查看内存镜像中的用户，</p>
+<ul>
+<li><code>--profile</code>去指定操作系统</li>
+<li><code>printkey</code>，打印注册表项及其子项和值 <code>-K</code>指定键</li>
+</ul>
+<p>我们可以这样列出 内存镜像中的用户</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">python2 vol<span class="hljs-selector-class">.py</span> -f worldskills3<span class="hljs-selector-class">.vmem</span> <span class="hljs-attr">--profile</span>=Win7SP1x64 printkey -K <span class="hljs-string">&quot;SAM\Domains\Account\Users\Names&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/08/06/HPSNXLuTW47FZmk.png" srcset="/img/loading.gif" lazyload alt="image-20230806203848518"></p>
+<p>接下来尝试获得win账户密码</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">python2 vol<span class="hljs-selector-class">.py</span> -f worldskills3<span class="hljs-selector-class">.vmem</span> <span class="hljs-attr">--profile</span>=Win7SP1x64 hashdump<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>hashdump</strong>：查看用户名密码信息，密码是哈希值，需要john爆破</p>
+<p>查看当前操作系统中的 password hash，例如 Windows 的 SAM 文件内容(mimikatz插件可以获取系统明文密码)</p>
+</blockquote>
+<p><img src="https://s2.loli.net/2023/08/06/n3UkY9gdsKJcMNu.png" srcset="/img/loading.gif" lazyload alt="image-20230806204130774"></p>
+<p>不过这个hash密码破解不出来，应该用了强密码</p>
+<blockquote>
+<p><code>lsadump</code>从注册表中提取LSA密钥信息（已解密）</p>
+<h3 id="如果john爆破不出来，就使用查看强密码lsadump"><a href="#如果john爆破不出来，就使用查看强密码lsadump" class="headerlink" title="如果john爆破不出来，就使用查看强密码lsadump"></a>如果john爆破不出来，就使用查看强密码lsadump</h3></blockquote>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">python2 vol<span class="hljs-selector-class">.py</span> -f worldskills3<span class="hljs-selector-class">.vmem</span> <span class="hljs-attr">--profile</span>=Win7SP1x64 lsadump<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/08/06/xJfmiPCBhSgwzUZ.png" srcset="/img/loading.gif" lazyload alt="image-20230806204825632"></p>
+<p>md5解密一下：</p>
+<p><img src="https://s2.loli.net/2023/08/06/hoyDRN3mx29jibC.png" srcset="/img/loading.gif" lazyload alt="image-20230806204843033"></p>
+<h5 id="0x02-获取当前系统-ip-地址及主机名"><a href="#0x02-获取当前系统-ip-地址及主机名" class="headerlink" title="0x02.获取当前系统 ip 地址及主机名"></a>0x02.获取当前系统 ip 地址及主机名</h5><p>通过<code>netscan</code>可以查询到ip地址</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">python2 vol<span class="hljs-selector-class">.py</span> -f worldskills3<span class="hljs-selector-class">.vmem</span> <span class="hljs-attr">--profile</span>=Win7SP1x64 netscan<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/08/06/kV1jUDKXHYgSqvb.png" srcset="/img/loading.gif" lazyload alt="image-20230806205317196"></p>
+<p><code>192.168.85.129</code></p>
+<blockquote>
+<p> <strong>hivelist：打印注册表配置单元列表</strong></p>
+</blockquote>
+<p>查主机名需要通过查询注册表，先用<code>hivelist</code></p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">python2 vol<span class="hljs-selector-class">.py</span> -f worldskills3<span class="hljs-selector-class">.vmem</span> <span class="hljs-attr">--profile</span>=Win7SP1x64 hivelist<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/08/06/UHFmBDkhQebvLW6.png" srcset="/img/loading.gif" lazyload alt="image-20230806210228998"></p>
+<p> 然后我们需要一步一步去找键名</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">python2 vol<span class="hljs-selector-class">.py</span> -f worldskills3<span class="hljs-selector-class">.vmem</span> <span class="hljs-attr">--profile</span>=Win7SP1x64 -o <span class="hljs-number">0</span>xfffff8a000024010 printkey<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/08/06/8wG2aSNAizLs1on.png" srcset="/img/loading.gif" lazyload alt="image-20230806210417546"></p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">python2 vol<span class="hljs-selector-class">.py</span> -f worldskills3<span class="hljs-selector-class">.vmem</span> <span class="hljs-attr">--profile</span>=Win7SP1x64 -o <span class="hljs-number">0</span>xfffff8a000024010 printkey -K ControlSet001<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/08/06/AkX2N4mGSFVZhDT.png" srcset="/img/loading.gif" lazyload alt="image-20230806210609226"></p>
+<p>继续找键：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs stylus">python2 vol<span class="hljs-selector-class">.py</span> -f worldskills3<span class="hljs-selector-class">.vmem</span> <span class="hljs-attr">--profile</span>=Win7SP1x64 -o <span class="hljs-number">0</span>xfffff8a000024010 printkey -K <span class="hljs-string">&#x27;ControlSet001\Control&#x27;</span><br>python2 vol<span class="hljs-selector-class">.py</span> -f worldskills3<span class="hljs-selector-class">.vmem</span> <span class="hljs-attr">--profile</span>=Win7SP1x64 -o <span class="hljs-number">0</span>xfffff8a000024010 printkey -K <span class="hljs-string">&#x27;ControlSet001\Control\ComputerName&#x27;</span><br>python2 vol<span class="hljs-selector-class">.py</span> -f worldskills3<span class="hljs-selector-class">.vmem</span> <span class="hljs-attr">--profile</span>=Win7SP1x64 -o <span class="hljs-number">0</span>xfffff8a000024010 printkey -K <span class="hljs-string">&#x27;ControlSet001\Control\ComputerName\ComputerName&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/08/06/IP1nkdARBu89Hph.png" srcset="/img/loading.gif" lazyload alt="image-20230806210740787"></p>
+<h5 id="0x03-获取当前系统浏览器搜索过的关键词"><a href="#0x03-获取当前系统浏览器搜索过的关键词" class="headerlink" title="0x03.获取当前系统浏览器搜索过的关键词"></a>0x03.获取当前系统浏览器搜索过的关键词</h5><blockquote>
+<p>  <strong>iehistory：重建IE缓存及访问历史记录</strong></p>
+</blockquote>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">python2 vol<span class="hljs-selector-class">.py</span> -f worldskills3<span class="hljs-selector-class">.vmem</span> <span class="hljs-attr">--profile</span>=Win7SP1x64 iehistory<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/08/06/e2NMmdi9HqoFP8G.png" srcset="/img/loading.gif" lazyload alt="image-20230806211039608"></p>
+<h5 id="0x04-当前系统中存在挖矿进程，请获取指向的矿池地址"><a href="#0x04-当前系统中存在挖矿进程，请获取指向的矿池地址" class="headerlink" title="0x04.当前系统中存在挖矿进程，请获取指向的矿池地址"></a>0x04.当前系统中存在挖矿进程，请获取指向的矿池地址</h5><blockquote>
+<p> <strong>netscan:扫描网络情况</strong></p>
+</blockquote>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">python2 vol<span class="hljs-selector-class">.py</span> -f worldskills3<span class="hljs-selector-class">.vmem</span> <span class="hljs-attr">--profile</span>=Win7SP1x64 netscan<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/08/06/scj5XaZVQ3yrGg4.png" srcset="/img/loading.gif" lazyload alt="image-20230806211303810"></p>
+<p>这里只有一个进程的状态为：<code>ESTABLISHED</code></p>
+<p> flag{54.36.109.161:2222}</p>
+<h5 id="0x05-恶意进程在系统中注册了服务，请将服务名以-Flag-服务名-形式提交"><a href="#0x05-恶意进程在系统中注册了服务，请将服务名以-Flag-服务名-形式提交" class="headerlink" title="0x05.恶意进程在系统中注册了服务，请将服务名以 Flag{服务名}形式提交"></a>0x05.恶意进程在系统中注册了服务，请将服务名以 Flag{服务名}形式提交</h5><p>上一题中已经知道了进程号为2588</p>
+<blockquote>
+<p><strong>pslist：按照EPROCESS列表打印所有正在运行的进程</strong></p>
+</blockquote>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">python2 vol<span class="hljs-selector-class">.py</span> -f worldskills3<span class="hljs-selector-class">.vmem</span> <span class="hljs-attr">--profile</span>=Win7SP1x64 pslist<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/08/06/Qk4ipMzo3RP17Ut.png" srcset="/img/loading.gif" lazyload alt="image-20230806211801390"></p>
+<p>这里 <code>PPID</code>就是<code>Parent PID</code></p>
+<p>所以2588的父进程是3036</p>
+<blockquote>
+<h3 id="查询服务名称svcscan，扫描-Windows-的服务"><a href="#查询服务名称svcscan，扫描-Windows-的服务" class="headerlink" title="查询服务名称svcscan，扫描 Windows 的服务"></a>查询服务名称<code>svcscan</code>，扫描 Windows 的服务</h3></blockquote>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">python2 vol<span class="hljs-selector-class">.py</span> -f worldskills3<span class="hljs-selector-class">.vmem</span> <span class="hljs-attr">--profile</span>=Win7SP1x64 svcscan<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/08/06/zSnGajc3erEgNAC.png" srcset="/img/loading.gif" lazyload alt="image-20230806212203350"></p>
+<h5 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h5><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_68012373/article/details/127419463">内存取证-volatility工具的使用 （史上更全教程，更全命令）_路baby的博客-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u014029795/article/details/116628984">内存取证-volatility工具的使用_baynk的博客-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1813573">volatility 各个选项的详解-腾讯云开发者社区-腾讯云 (tencent.com)</a></p>
+<h4 id="2、Memlabs靶场1"><a href="#2、Memlabs靶场1" class="headerlink" title="2、Memlabs靶场1"></a>2、Memlabs靶场1</h4><p>靶机地址：<a target="_blank" rel="noopener" href="https://github.com/stuxnet999/MemLabs/tree/master/Lab%201">https://github.com/stuxnet999/MemLabs/tree/master/Lab%201</a></p>
+<p>description：</p>
+<p>我姐姐的电脑坏了。 我们非常幸运地恢复了这个内存转储。 你的工作是从系统中获取她所有的重要文件。 根据我们的记忆，我们突然看到一个<strong>黑色的窗口</strong>弹出，上面有一些正在执行的东西。 崩溃发生时，她正试图<strong>画</strong>一些东西。 这就是我们从崩溃时所记得的一切。</p>
+<p>注意：此挑战由 3 个flag组成。</p>
+<p>这一段话提示我们需要查看cmd命令行还有画图</p>
+<h5 id="flag1"><a href="#flag1" class="headerlink" title="flag1"></a>flag1</h5><p>首先拿到一个镜像首先需要<code>imageinfo</code>查看操作系统信息：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">python2 vol<span class="hljs-selector-class">.py</span> -f MemoryDump_Lab1<span class="hljs-selector-class">.raw</span> imageinfo<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/08/07/4cdoqKfiV15Pgkx.png" srcset="/img/loading.gif" lazyload alt="image-20230807144835259"></p>
+<p><code>Win7SP1x64</code></p>
+<p>然后我们可以使用<code>pslist</code>插件查看运行的进程：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">python2 vol<span class="hljs-selector-class">.py</span> -f MemoryDump_Lab1<span class="hljs-selector-class">.raw</span> <span class="hljs-attr">--profile</span>=Win7SP1x64 pslist<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/08/07/zWlofixNmgdJEGX.png" srcset="/img/loading.gif" lazyload alt="image-20230807145358774"></p>
+<p>注意到三个比较重要的进程</p>
+<p>接下来我们查看一下cmd命令行的数据</p>
+<blockquote>
+<p>Volatility 的 <strong>consoles</strong> 插件用于分析和提取内存中的控制台信息。它可以帮助你恢复已关闭或隐藏的命令行窗口、终端或其他交互式控制台会话的内容。</p>
+</blockquote>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">python2 vol<span class="hljs-selector-class">.py</span> -f MemoryDump_Lab1<span class="hljs-selector-class">.raw</span> <span class="hljs-attr">--profile</span>=Win7SP1x64 consoles<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/08/07/Dh1OSydw6Kns59z.png" srcset="/img/loading.gif" lazyload alt="image-20230807150948003"></p>
+<figure class="highlight erlang-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs erlang-repl">ZmxhZ3t0aDFzXzFzX3RoM18xc3Rfc3Q0ZzMhIX0=<br>base64解码<br>flag&#123;th1s_1s_th3_1st_st4g3!!&#125;<br></code></pre></td></tr></table></figure>
+
+<p>找到了第一个flag</p>
+<h5 id="flag2"><a href="#flag2" class="headerlink" title="flag2"></a>flag2</h5><p>我们将<strong>mspaint进程</strong>使用插件<code>memdump</code>导出</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">0xfffffa80022bab30</span> mspaint.exe            <span class="hljs-number">2424</span>    <span class="hljs-number">604</span>      <span class="hljs-number">6</span>      <span class="hljs-number">128</span>      <span class="hljs-number">1</span>      <span class="hljs-number">0</span> <span class="hljs-number">2019</span>-<span class="hljs-number">12</span>-<span class="hljs-number">11</span> <span class="hljs-number">14</span>:<span class="hljs-number">35</span>:<span class="hljs-number">14</span> UTC+<span class="hljs-number">0000</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">python2 vol<span class="hljs-selector-class">.py</span> -f MemoryDump_Lab1<span class="hljs-selector-class">.raw</span> <span class="hljs-attr">--profile</span>=Win7SP1x64 memdump -<span class="hljs-selector-tag">p</span> <span class="hljs-number">2424</span> -D /root/Desktop/<br></code></pre></td></tr></table></figure>
+
+<p>将进程导出后获得data，由于这是<code>mspaint</code>进程的数据，我们可以使用<code>gimp</code>命令查看图像：</p>
+<p>调整一下参数</p>
+<p><img src="https://s2.loli.net/2023/08/07/3SYvnzOhkcCZfWU.png" srcset="/img/loading.gif" lazyload alt="image-20230807151944160"></p>
+<h5 id="flag3"><a href="#flag3" class="headerlink" title="flag3"></a>flag3</h5><p>我们使用cmdline参数，查看一下命令行的历史记录，发现了<code>Important.rar</code>文件</p>
+<p><img src="https://s2.loli.net/2023/08/07/rmGOVQ9qsuBAvEb.png" srcset="/img/loading.gif" lazyload alt="image-20230807152227640"></p>
+<p>于是使用<code>filescan</code>查找一下文件：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim">python2 vol.<span class="hljs-keyword">py</span> -<span class="hljs-keyword">f</span> MemoryDump_Lab1.raw --<span class="hljs-keyword">profile</span>=Win7SP1x64 filescan | <span class="hljs-keyword">grep</span> <span class="hljs-string">&quot;Important.rar&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/08/07/rQDs7WlBME6hKgZ.png" srcset="/img/loading.gif" lazyload alt="image-20230807152430397"></p>
+<p>然后使用<code>dumpfiles</code>将文件导出：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">python2 vol<span class="hljs-selector-class">.py</span> -f MemoryDump_Lab1<span class="hljs-selector-class">.raw</span> <span class="hljs-attr">--profile</span>=Win7SP1x64 dumpfiles -Q <span class="hljs-number">0</span>x000000003fa3ebc0 -D /root/Desktop/<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/08/07/9fEMK7sbiHwZrC1.png" srcset="/img/loading.gif" lazyload alt="image-20230807152525773"></p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">Password <span class="hljs-keyword">is</span> NTLM hash(<span class="hljs-keyword">in</span> uppercase) <span class="hljs-keyword">of</span> Alissa<span class="hljs-symbol">&#x27;s</span> account passwd.<br></code></pre></td></tr></table></figure>
+
+<p>提示解压密码是Alissa账户NTLM密码的hash值</p>
+<p>我们直接使用<code>hashdump</code>将账户密码的hash值获得：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">python2 vol<span class="hljs-selector-class">.py</span> -f MemoryDump_Lab1<span class="hljs-selector-class">.raw</span> <span class="hljs-attr">--profile</span>=Win7SP1x64 hashdump<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/08/07/l2u35EPNLpCHUXt.png" srcset="/img/loading.gif" lazyload alt="image-20230807152750255"></p>
+<p>我们需要选择第2个密码hash，这个才是<code>NTLM</code>，第一个hash不安全</p>
+<p>大写一下：F4FF64C8BAAC57D22F22EDC681055BA6</p>
+<p><img src="https://s2.loli.net/2023/08/07/fYo6BEJ9lZ4jUsp.png" srcset="/img/loading.gif" lazyload alt="image-20230807152918259"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>https://leekosss.github.io/2023/08/24/Misc取证学习/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>leekos</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年8月24日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年8月7日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/08/24/NodeJS%20vm&amp;vm2%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/24/jinja2%5BSSTI%E7%9F%A5%E8%AF%86%E7%82%B9%5D/" title="jinja2【SSTI知识点】">
+                        <span class="hidden-mobile">jinja2【SSTI知识点】</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"e5J90iDkXMWhU5UNlEX1I2hO-gzGzoHsz","appKey":"esLROw9j3xLk2nV4tQkKaih1","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      赣ICP备2022008842号-2
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
