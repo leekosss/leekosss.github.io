@@ -238,311 +238,6 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2023/08/24/eating_cms/" target="_blank">
-          eating_cms
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/eating_cms/" target="_blank">
-        <div>
-          [N1CTF 2018]eating_cms首先我们先访问 /register.php 注册一个账号 然后登录时抓包：（好像没啥用）  登录进去后，观察到了url： 1http://28cccbf3-a44a-489b-bd83-4c91fd1d739e.node4.buuoj.cn:81/user.php?page=guest  page=guest，看起来应该是文件包含，我们尝试一下文件包含漏
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 22:38" pubdate>
-              2023-08-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/eating-cms/">#eating_cms</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/08/24/EasyThinking/" target="_blank">
-          EasyThinking
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/EasyThinking/" target="_blank">
-        <div>
-          [GYCTF2020]EasyThinking使用御剑扫描发现了 www.zip，我们直接把源码下载下来 访问一个不存在的目录，发现是 thinkphp6.0.0  网上搜一下，发现有很多漏洞复现文章：   thinkphp6.0存在任意文件写入漏洞 简单的说就是会根据 PHPSESSID的值来创建对应值的文件（需要长度等于32） 我们先注册一个账号，然后登录的时候修改PHPSESSID=0123
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 22:38" pubdate>
-              2023-08-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/EasyThinking/">#EasyThinking</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/08/24/EasySQL/" target="_blank">
-          EasySQL
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/EasySQL/" target="_blank">
-        <div>
-          [RCTF2015]EasySQL打开后发现一个登录注册页面，我们先注册一个：  我们发现有一个改密码的地方：  因为这题提示sql，并且注册时存在一些特殊字符不给注册，我们猜测这应该是二次注入 我们注册一个账号：  当我们修改密码时：  发现报错了，于是我们推测，sql语句如下： 1select * from table where username=&quot;1&quot;&quot; an
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 22:38" pubdate>
-              2023-08-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/EasySQL/">#EasySQL</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/08/24/EasySearch/" target="_blank">
-          EasySearch
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/EasySearch/" target="_blank">
-        <div>
-          [BJDCTF2020]EasySearch打开题目，没什么思路，我们就使用dirsearch扫一下目录 发现了 index.php.swp 里面存在源码： 123456789101112131415161718192021222324252627282930313233343536&lt;?php	ob_start();	function get_hash()&#123;		$chars = &
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 22:38" pubdate>
-              2023-08-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/EasySearch/">#EasySearch</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/08/24/ctfshow%E5%85%A5%E9%97%A8/" target="_blank">
-          ctfshow入门
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/ctfshow%E5%85%A5%E9%97%A8/" target="_blank">
-        <div>
-          ctfshow【misc】入门图片篇(基础操作)misc1直接给flag misc2把txt后缀改为png misc3打开bpg图片得flag misc4常见文件头1234567891011121314151617181920212223242526272829JPEG (jpg) 文件头：FF D8 FF  文件尾：FF D9PNG (png)，文件头：89504E47Windows Bitma
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 22:38" pubdate>
-              2023-08-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/ctfshow%E5%85%A5%E9%97%A8/">#ctfshow入门</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
         <a href="/2023/08/24/easycms/" target="_blank">
           easycms
         </a>
@@ -636,7 +331,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  <a href="/categories/ctfshow/" class="category-chain-item">ctfshow</a>
   
   
 
@@ -697,7 +392,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  <a href="/categories/ctfshow/" class="category-chain-item">ctfshow</a>
   
   
 
@@ -758,7 +453,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  <a href="/categories/ctfshow/" class="category-chain-item">ctfshow</a>
   
   
 
@@ -774,6 +469,67 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/ctfshow-%E5%AF%86%E7%A0%81%E7%88%86%E7%A0%B4/">#ctfshow_密码爆破</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/08/24/ctfshow_%E8%8F%9C%E7%8B%97%E6%9D%AF/" target="_blank">
+          ctfshow_菜狗杯
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/ctfshow_%E8%8F%9C%E7%8B%97%E6%9D%AF/" target="_blank">
+        <div>
+          [TOC] webweb签到123456&lt;?phperror_reporting(0);highlight_file(__FILE__);eval($_REQUEST[$_GET[$_POST[$_COOKIE[&#x27;CTFshow-QQ群:&#x27;]]]][6][0][7][5][8][0][9][4][4]);  仔细观察题目，这题就是套娃， 首先我们需要传个cookie，名为
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-24 22:38" pubdate>
+              2023-08-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/ctfshow/" class="category-chain-item">ctfshow</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/ctfshow-%E8%8F%9C%E7%8B%97%E6%9D%AF/">#ctfshow_菜狗杯</a>
             
           </div>
         
@@ -819,7 +575,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  <a href="/categories/ctfshow/" class="category-chain-item">ctfshow</a>
   
   
 
@@ -842,11 +598,255 @@
     </article>
   </div>
 
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/08/24/ctfshow_xxe/" target="_blank">
+          ctfshow_xxe
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/ctfshow_xxe/" target="_blank">
+        <div>
+          ctfshow_xxe（xml外部实体注入漏洞）web373123456789101112&lt;?phperror_reporting(0);libxml_disable_entity_loader(false); //允许载入外部实体$xmlfile = file_get_contents(&#x27;php://input&#x27;);if(isset($xmlfile))&#123;
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-24 22:38" pubdate>
+              2023-08-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/ctfshow/" class="category-chain-item">ctfshow</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/ctfshow-xxe/">#ctfshow_xxe</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/08/24/ctfshow_SSTI/" target="_blank">
+          ctfshow_SSTI
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/ctfshow_SSTI/" target="_blank">
+        <div>
+          [TOC] ctfshow【SSTI】 web361 首先get传参name，测试一下 &#123;&#39;7&#39;*7&#125;出现了7个7，代表这是python中的jinja2模板 这一题没有过滤什么东西，有很多种姿势，hackbar中自带了一些ssti的payload  12345678910111213&#123;&#123;lipsum.__globals__[&#x27;os&
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-24 22:38" pubdate>
+              2023-08-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/ctfshow/" class="category-chain-item">ctfshow</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/ctfshow-SSTI/">#ctfshow_SSTI</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/08/24/ctfshow_SQL%E6%B3%A8%E5%85%A5/" target="_blank">
+          ctfshow_SQL注入
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/ctfshow_SQL%E6%B3%A8%E5%85%A5/" target="_blank">
+        <div>
+          web171直接用万能密码  ： ‘ or 1&#x3D;1 –+ web172 由于结果中不能带有flag，所以我们可以使用联合查询，直接查询密码，密码中不含flag web173 同上 web174 此题忽略了flag和0-9数字，我们可以使用to_base64（）或hex（）函数编码，然后使用replace（）将数字0-9进行替换，最后将结果替换回来即可 也可以使用盲注 web175 此题目
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-24 22:38" pubdate>
+              2023-08-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/ctfshow/" class="category-chain-item">ctfshow</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/ctfshow-SQL%E6%B3%A8%E5%85%A5/">#ctfshow_SQL注入</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/08/24/ctfshow_SSRF%E6%BC%8F%E6%B4%9E/" target="_blank">
+          ctfshow_SSRF漏洞
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/ctfshow_SSRF%E6%BC%8F%E6%B4%9E/" target="_blank">
+        <div>
+          [TOC] 一、知识点Ⅰ、SSRF攻击点12345678&lt;?php$url=$_POST[&#x27;url&#x27;];$ch=curl_init($url);curl_setopt($ch, CURLOPT_HEADER, 0);curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);$result=curl_exec($ch);curl_close($
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-24 22:38" pubdate>
+              2023-08-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/ctfshow/" class="category-chain-item">ctfshow</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/ctfshow-SSRF%E6%BC%8F%E6%B4%9E/">#ctfshow_SSRF漏洞</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/16/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/#board">15</a><a class="page-number" href="/page/16/#board">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/#board">18</a><a class="page-number" href="/page/19/#board">19</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/#board">25</a><a class="extend next" rel="next" href="/page/18/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/16/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/#board">15</a><a class="page-number" href="/page/16/#board">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/#board">18</a><a class="page-number" href="/page/19/#board">19</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/#board">24</a><a class="extend next" rel="next" href="/page/18/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 
