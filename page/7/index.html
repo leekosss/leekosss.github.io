@@ -238,15 +238,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5DLog4j%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" target="_blank">
-          【java安全】Log4j反序列化漏洞
+        <a href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5D%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/" target="_blank">
+          【java安全】动态代理
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5DLog4j%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" target="_blank">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5D%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/" target="_blank">
         <div>
-          [TOC] 【java安全】Log4j反序列化漏洞关于Apache Log4jLog4j是Apache的开源项目，可以实现对System.out等打印语句的替代，并且可以结合spring等项目，实现把日志输出到控制台或文件等。而且它还可以通过一个配置文件来灵活地进行配置，而不需要修改应用的代码，满足了大多数要求。 就是用来打印日志的 漏洞成因本文介绍的Log4j反序列化漏洞都是由于未对传入的需要发
+          [TOC] 【java安全】动态代理前言java中代理分为两种：静态代理、动态代理 而动态代理又分为：jdk动态代理、CGLIB动态代理   本文我们来谈谈jdk动态代理机制，位于java.lang.reflect.Proxy包下，动态代理的本质是通过反射来执行invoke()方法，动态执行方法 本质Java 的动态代理机制是一种在运行时生成代理类和代理对象的机制，它允许在调用目标对象的方法前后插
         </div>
       </a>
 
@@ -285,7 +285,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E3%80%90java%E5%AE%89%E5%85%A8%E3%80%91Log4j%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">#【java安全】Log4j反序列化漏洞</a>
+              <a href="/tags/%E3%80%90java%E5%AE%89%E5%85%A8%E3%80%91%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/">#【java安全】动态代理</a>
             
           </div>
         
@@ -299,15 +299,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5DJNDI%E6%B3%A8%E5%85%A5%E6%A6%82%E8%BF%B0/" target="_blank">
-          【java安全】JNDI注入概述
+        <a href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5DURLDNS/" target="_blank">
+          【java安全】URLDNS
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5DJNDI%E6%B3%A8%E5%85%A5%E6%A6%82%E8%BF%B0/" target="_blank">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5DURLDNS/" target="_blank">
         <div>
-          [TOC] 【java安全】JNDI注入概述什么是JNDI？JNDI(Java Naming and Directory Interface)是Java提供的Java命名和目录接口。通过调用JNDI的API可以定位资源和其他程序对象。 命名服务将名称和对象联系起来，使得我们可以用名称访问对象 JDNI的结构jndi的作用主要在于”定位”。比如定位rmi中注册的对象,访问ldap的目录服务等等 其实
+          [TOC] [java安全]URLDNS前言URLDNS利用链是一条很简单的链子，可以用来查看java反序列化是否存在反序列化漏洞，如果存在，就会触发dns查询请求 它有如下优点：  使用java内置类构造，对第三方库没有依赖 在目标没有回显的时候，可以使用DNS请求得知是否存在反序列化漏洞  在ysoserial下生成URLDNS的命令为： 1java -jar ysoserial.jar UR
         </div>
       </a>
 
@@ -346,7 +346,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E3%80%90java%E5%AE%89%E5%85%A8%E3%80%91JNDI%E6%B3%A8%E5%85%A5%E6%A6%82%E8%BF%B0/">#【java安全】JNDI注入概述</a>
+              <a href="/tags/%E3%80%90java%E5%AE%89%E5%85%A8%E3%80%91URLDNS/">#【java安全】URLDNS</a>
             
           </div>
         
@@ -360,15 +360,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5DFastJson%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%B5%85%E6%9E%90/" target="_blank">
-          【java安全】FastJson反序列化漏洞浅析
+        <a href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5DTemplatesImpl%E5%9C%A8Shiro550%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" target="_blank">
+          【java安全】TemplatesImpl在Shiro550反序列化
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5DFastJson%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%B5%85%E6%9E%90/" target="_blank">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5DTemplatesImpl%E5%9C%A8Shiro550%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" target="_blank">
         <div>
-          [TOC] 【java安全】FastJson反序列化漏洞浅析0x00.前言前面我们学习了RMI和JNDI知识，接下来我们就可以来了解一下FastJson反序列化了 0x01.FastJson概述FastJson是阿里巴巴的开源JSON解析库，它可以解析JSON格式的字符串，支持将JavaBean序列化为JSON字符串，也可以将JSON字符串反序列化到JavaBean 0x02.FastJson使用
+          [TOC] 【java安全】TemplatesImpl在Shiro550反序列化Shiro的原理为了让浏览器或服务器重启后用户不丢失登录状态，Shiro支持将持久化信息序列化并加密后保存在Cookie的rememberMe字段中，下次读取时进行解密再反序列化. Shiro反序列化产生在Shiro1.2.4版本之前内置了一个默认且固定的加密Key，导致攻击者可以通过这个key来伪造Cookie，进而
         </div>
       </a>
 
@@ -407,7 +407,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/FastJson%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%B5%85%E6%9E%90/">#FastJson反序列化漏洞浅析</a>
+              <a href="/tags/%E3%80%90java%E5%AE%89%E5%85%A8%E3%80%91TemplatesImpl%E5%9C%A8Shiro550%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">#【java安全】TemplatesImpl在Shiro550反序列化</a>
             
           </div>
         
@@ -421,15 +421,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5Dctfshow-java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" target="_blank">
-          【java安全】ctfshow-java反序列化
+        <a href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5DRMI/" target="_blank">
+          【java安全】RMI
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5Dctfshow-java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" target="_blank">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5DRMI/" target="_blank">
         <div>
-          [TOC] 【java安全】ctfshow-java反序列化web846ctfshow会对你post提交的ctfshow参数进行base64解码然后进行反序列化构造出对当前题目地址的dns查询即可获得flag 直接使用URLDNS，我们可以使用ysoserial生成payload 123java -jar ysoserial.jar URLDNS  &quot;http://2ef37b64-c9
+          [TOC] 【java安全】RMI前言RMI全称为：Remote Method Invocation 远程方法调用，是java独立的一种机制。 RMI的作用就是在一个java虚拟机调用另一个java虚拟机上对象的方法 在网络传输的过程中，RMI中对象是通过序列化的形式进行编码传输，既然有序列化，必然会有反序列化，RMI服务端在接收到序列化后的会将对象进行反序列化。 在反序列化攻击中，我们可能找不到
         </div>
       </a>
 
@@ -468,7 +468,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E3%80%90java%E5%AE%89%E5%85%A8%E3%80%91ctfshow-java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">#【java安全】ctfshow-java反序列化</a>
+              <a href="/tags/%E3%80%90java%E5%AE%89%E5%85%A8%E3%80%91RMI/">#【java安全】RMI</a>
             
           </div>
         
@@ -514,7 +514,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E3%80%90java%E5%AE%89%E5%85%A8%E3%80%91/" class="category-chain-item">【java安全】</a>
+  <a href="/categories/java%E5%AE%89%E5%85%A8/" class="category-chain-item">java安全</a>
   
   
 
@@ -575,7 +575,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E3%80%90java%E5%AE%89%E5%85%A8%E3%80%91/" class="category-chain-item">【java安全】</a>
+  <a href="/categories/java%E5%AE%89%E5%85%A8/" class="category-chain-item">java安全</a>
   
   
 
