@@ -299,15 +299,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2023/08/24/ctfshow_php%E7%89%B9%E6%80%A7/" target="_blank">
-          ctfshow_php特性
+        <a href="/2023/08/24/ctfshow_SQL%E6%B3%A8%E5%85%A5/" target="_blank">
+          ctfshow_SQL注入
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/ctfshow_php%E7%89%B9%E6%80%A7/" target="_blank">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/ctfshow_SQL%E6%B3%A8%E5%85%A5/" target="_blank">
         <div>
-          php特性1、web 89-91主要考察了intval()函数的使用，和正则表达式preg_match(),正则表达式匹配字符串，匹配数组返回值为false php intval()函数intval() 函数用于获取变量的整数值。 intval() 函数通过使用指定的进制 base 转换（默认是十进制），返回变量 var 的 integer 数值。 intval() 不能用于 object，否则会
+          web171直接用万能密码  ： ‘ or 1&#x3D;1 –+ web172 由于结果中不能带有flag，所以我们可以使用联合查询，直接查询密码，密码中不含flag web173 同上 web174 此题忽略了flag和0-9数字，我们可以使用to_base64（）或hex（）函数编码，然后使用replace（）将数字0-9进行替换，最后将结果替换回来即可 也可以使用盲注 web175 此题目
         </div>
       </a>
 
@@ -346,7 +346,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/ctfshow-php%E7%89%B9%E6%80%A7/">#ctfshow_php特性</a>
+              <a href="/tags/ctfshow-SQL%E6%B3%A8%E5%85%A5/">#ctfshow_SQL注入</a>
             
           </div>
         
@@ -421,6 +421,67 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2023/08/24/ctfshow_php%E7%89%B9%E6%80%A7/" target="_blank">
+          ctfshow_php特性
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/ctfshow_php%E7%89%B9%E6%80%A7/" target="_blank">
+        <div>
+          php特性1、web 89-91主要考察了intval()函数的使用，和正则表达式preg_match(),正则表达式匹配字符串，匹配数组返回值为false php intval()函数intval() 函数用于获取变量的整数值。 intval() 函数通过使用指定的进制 base 转换（默认是十进制），返回变量 var 的 integer 数值。 intval() 不能用于 object，否则会
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-24 22:38" pubdate>
+              2023-08-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/ctfshow/" class="category-chain-item">ctfshow</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/ctfshow-php%E7%89%B9%E6%80%A7/">#ctfshow_php特性</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2023/08/24/CSRF%E6%BC%8F%E6%B4%9E/" target="_blank">
           CSRF漏洞
         </a>
@@ -482,67 +543,6 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2023/08/24/ctfshow/" target="_blank">
-          ctfshow
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/ctfshow/" target="_blank">
-        <div>
-          ctfshow【misc】杂项签到zip伪加密 misc2 偶然发现我竟然还有个软盘，勾起了我的回忆。  软盘也可以用来存储信息，现在一般都不用了。 我们可以使用vmware去挂载软盘   我们在这里添加一个软盘，然后再选择一下路径   打开虚拟机，得到flag：  miscx打开zip压缩包，里面有一个png图片和一个doc加密文档：   图片的crc不对，我们可以修复它（然并卵） 我们猜测压缩
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 22:38" pubdate>
-              2023-08-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/ctfshow/" class="category-chain-item">ctfshow</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/ctfshow/">#ctfshow</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
         <a href="/2023/08/24/ctfhub_SSRF%E6%BC%8F%E6%B4%9E/" target="_blank">
           ctfhub_SSRF漏洞
         </a>
@@ -591,6 +591,67 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/ctfhub-SSRF%E6%BC%8F%E6%B4%9E/">#ctfhub_SSRF漏洞</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/08/24/ctfshow/" target="_blank">
+          ctfshow
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/ctfshow/" target="_blank">
+        <div>
+          ctfshow【misc】杂项签到zip伪加密 misc2 偶然发现我竟然还有个软盘，勾起了我的回忆。  软盘也可以用来存储信息，现在一般都不用了。 我们可以使用vmware去挂载软盘   我们在这里添加一个软盘，然后再选择一下路径   打开虚拟机，得到flag：  miscx打开zip压缩包，里面有一个png图片和一个doc加密文档：   图片的crc不对，我们可以修复它（然并卵） 我们猜测压缩
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-24 22:38" pubdate>
+              2023-08-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/ctfshow/" class="category-chain-item">ctfshow</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/ctfshow/">#ctfshow</a>
             
           </div>
         
@@ -753,67 +814,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/2023%E9%99%95%E8%A5%BF%E7%9C%81%E5%A4%A7%E5%AD%A6%E7%94%9F%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%8A%80%E8%83%BD%E5%A4%A7%E8%B5%9Bwp/">#2023陕西省大学生网络安全技能大赛wp</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/08/24/bash_history%E6%96%87%E4%BB%B6/" target="_blank">
-          bash_history文件
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/bash_history%E6%96%87%E4%BB%B6/" target="_blank">
-        <div>
-          .bash_history 文件.bash_history 是一个隐藏文件，它保存了用户在命令行界面中输入的历史命令记录。当用户退出当前命令行终端时，系统会将当前的历史命令保存到 .bash_history 文件中，下次用户登录时，可以使用方向键等功能浏览并调用之前输入过的命令。 .bash_history 文件通常位于用户的主目录(/home/xxx/.bash_history)下，可以使用以下
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 22:38" pubdate>
-              2023-08-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/bash-history%E6%96%87%E4%BB%B6/">#bash_history文件</a>
             
           </div>
         
