@@ -238,6 +238,187 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2023/08/25/FFI%E7%BB%95%E8%BF%87disable_functions/" target="_blank">
+          FFI绕过disable_functions
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/25/FFI%E7%BB%95%E8%BF%87disable_functions/" target="_blank">
+        <div>
+          [TOC] FFI绕过disable_functions[RCTF 2019]Nextphp首先来看这道题目 index.php 123456&lt;?phpif (isset($_GET[&#x27;a&#x27;])) &#123;    eval($_GET[&#x27;a&#x27;]);&#125; else &#123;    show_source(__FILE__);&#125;
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-25 00:10" pubdate>
+              2023-08-25
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/FFI%E7%BB%95%E8%BF%87disable-functions/">#FFI绕过disable_functions</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/08/25/%5BHarekazeCTF2019%5DEasy%20Notes-%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" target="_blank">
+          【HarekazeCTF2019】Easy Notes-代码审计
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/25/%5BHarekazeCTF2019%5DEasy%20Notes-%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" target="_blank">
+        <div>
+          [TOC] [HarekazeCTF2019]Easy Notes-代码审计登录之后有几个功能点，可以添加节点，然后使用Export导出  我们查看源码， 我们发现想要拿到flag的条件时$_SESSION[&#39;admin&#39;]=true  如果我们能够控制session文件，就可以拿到flag了  我们发现session存储的文件改为了：/var/www/tmp 重点看export.
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-25 00:10" pubdate>
+              2023-08-25
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/wp/" class="category-chain-item">wp</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E3%80%90HarekazeCTF2019%E3%80%91Easy-Notes-%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">#【HarekazeCTF2019】Easy Notes-代码审计</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/08/24/%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E6%8F%90%E6%9D%83/" target="_blank">
+          环境变量提权
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E6%8F%90%E6%9D%83/" target="_blank">
+        <div>
+          [TOC] 环境变量提权通过控制$PATH环境变量的几种方法来获取远程主机的root权限 什么是$PATH?$PATH是Linux和类Unix操作系统中的环境变量，它指定了存储所有可执行程序的bin和sbin目录。当用户在终端运行任何命令时，它向shell发出请求，在环境变量的帮助下搜索可执行文件以响应用户执行的命令。超级用户通常还具有&#x2F;sbin和&#x2F;usr &#x2F;sbin
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-24 23:43" pubdate>
+              2023-08-24
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E6%8F%90%E6%9D%83/">#环境变量提权</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/08/24/xpath%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/" target="_blank">
+          xpath注入漏洞
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/xpath%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/" target="_blank">
+        <div>
+          [TOC] xpath注入漏洞前言今天碰到一个ctf题目，是有关xpath盲注的，之前从没了解过，所以学习了一下，写博客记录下来 什么是xpathXPath即为XML路径语言，它是一种用来确定XML文档中某部分位置的语言。XPath基于XML的树状结构，有不同类型的节点，包括元素节点，属性节点和文本节点，提供在数据结构树中找寻节点的能力 xpath注入类似于sql注入，是由于解释器的容错特性导致，
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-24 23:43" pubdate>
+              2023-08-24
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/xpath%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">#xpath注入漏洞</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2023/08/24/UDF%E6%8F%90%E6%9D%83/" target="_blank">
           UDF提权
         </a>
@@ -465,187 +646,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/NodeJS%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93ctfshow-nodejs/">#NodeJS原型链污染ctfshow_nodejs</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/08/24/NodeJS%20vm&amp;vm2%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/" target="_blank">
-          NodeJS vmvm2沙箱逃逸
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/NodeJS%20vm&amp;vm2%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/" target="_blank">
-        <div>
-          [TOC] NodeJS vm&amp;vm2沙箱逃逸什么是沙箱？在讲沙箱逃逸之前，我们需要了解一下什么是沙箱。 沙箱就是一个集装箱，把你的应用装到沙箱里去运行，这样应用与应用之间就产生了边界，不会相互影响。 当我们运行一些可能产生危害的程序时，我们不能直接在主机上运行。我们可以单独开辟一个运行代码的环境，这个环境就是沙箱，它与主机相互隔离，但使用主机的资源，但有危害的代码在沙箱内运行只会对沙箱内
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 23:43" pubdate>
-              2023-08-24
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/NodeJS-vmvm2%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/">#NodeJS vmvm2沙箱逃逸</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/08/24/Misc%E5%8F%96%E8%AF%81%E5%AD%A6%E4%B9%A0/" target="_blank">
-          Misc取证学习
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/Misc%E5%8F%96%E8%AF%81%E5%AD%A6%E4%B9%A0/" target="_blank">
-        <div>
-          [TOC] Misc取证学习磁盘取证工具veracryto挂载fat文件挂载磁盘文件 https://sourceforge.net/projects/veracrypt/ DiskGeniusDiskGenius是一款硬盘分区及数据恢复软件 extundelete命令：恢复img镜像文件中所有已删除的文件1extundelete img文件 –restore-all 命令  extundelet
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 23:43" pubdate>
-              2023-08-24
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Misc%E5%8F%96%E8%AF%81%E5%AD%A6%E4%B9%A0/">#Misc取证学习</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/08/24/jinja2%5BSSTI%E7%9F%A5%E8%AF%86%E7%82%B9%5D/" target="_blank">
-          jinja2【SSTI知识点】
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/jinja2%5BSSTI%E7%9F%A5%E8%AF%86%E7%82%B9%5D/" target="_blank">
-        <div>
-          jinja2【SSTI知识点】我们先在虚拟机使用pip命令安装jinja2 1pip install jinja2  查看了一下虚拟机的ip：192.168.56.128 然后我们在虚拟机搭建实验环境： 1234567891011121314151617from flask import Flask, requestfrom jinja2 import Templateapp = Flask(__
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 23:43" pubdate>
-              2023-08-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/jinja2%E3%80%90SSTI%E7%9F%A5%E8%AF%86%E7%82%B9%E3%80%91/">#jinja2【SSTI知识点】</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/08/24/FCTF2023/" target="_blank">
-          FCTF2023
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/FCTF2023/" target="_blank">
-        <div>
-          FCTF2023[TOC] web连连看这个题关了js再打开，计时就会暂停下来（火狐不可以。。） ez_sessionphpinfo.php  index.php 12345678910111213&lt;?phphighlight_file(__FILE__);error_reporting(0);ini_set(&#x27;session.serialize_handler&#x27;,&#x
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 23:43" pubdate>
-              2023-08-24
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/FCTF2023/">#FCTF2023</a>
             
           </div>
         

