@@ -60,7 +60,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -238,6 +238,433 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5D%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8&amp;CommonsCollections3/" target="_blank">
+          【java安全】类加载器CommonsCollections3
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5D%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8&amp;CommonsCollections3/" target="_blank">
+        <div>
+          [TOC] 【java安全】类加载器&amp;CommonsCollections3前言前面我们学习了CommonsCollections1等等cc链，这里我们学习第三条链子CommonsCollctions3，这里需要用到TemplatesImpl类，由于这个类会使用到一些类加载器中相关的知识，所以我们需要先学习一些类加载器知识 java类加载器 我们知道，java是跨平台的语言，首先在不同的平
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-24 23:43" pubdate>
+              2023-08-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/java%E5%AE%89%E5%85%A8/" class="category-chain-item">java安全</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E3%80%90java%E5%AE%89%E5%85%A8%E3%80%91%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8CommonsCollections3/">#【java安全】类加载器CommonsCollections3</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5D%E5%8F%8D%E5%B0%84/" target="_blank">
+          【java安全】反射
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5D%E5%8F%8D%E5%B0%84/" target="_blank">
+        <div>
+          [TOC] [java安全]反射定义在讲反射之前，我们需要知道什么是反射  运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意属性和方法；这种动态获取信息以及动态调用对象方法的功能称为Java语言的反射机制。  简单的说：反射是指在运行时动态地获取一个类的信息，包括其成员变量、方法和构造函数等，以及在运行时对它们进行操作的能力。 使用反射，你可以在编
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-24 23:43" pubdate>
+              2023-08-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/java%E5%AE%89%E5%85%A8/" class="category-chain-item">java安全</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E3%80%90java%E5%AE%89%E5%85%A8%E3%80%91%E5%8F%8D%E5%B0%84/">#【java安全】反射</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5D%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/" target="_blank">
+          【java安全】动态代理
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5D%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/" target="_blank">
+        <div>
+          [TOC] 【java安全】动态代理前言java中代理分为两种：静态代理、动态代理 而动态代理又分为：jdk动态代理、CGLIB动态代理   本文我们来谈谈jdk动态代理机制，位于java.lang.reflect.Proxy包下，动态代理的本质是通过反射来执行invoke()方法，动态执行方法 本质Java 的动态代理机制是一种在运行时生成代理类和代理对象的机制，它允许在调用目标对象的方法前后插
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-24 23:43" pubdate>
+              2023-08-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/java%E5%AE%89%E5%85%A8/" class="category-chain-item">java安全</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E3%80%90java%E5%AE%89%E5%85%A8%E3%80%91%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/">#【java安全】动态代理</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5DURLDNS/" target="_blank">
+          【java安全】URLDNS
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5DURLDNS/" target="_blank">
+        <div>
+          [TOC] [java安全]URLDNS前言URLDNS利用链是一条很简单的链子，可以用来查看java反序列化是否存在反序列化漏洞，如果存在，就会触发dns查询请求 它有如下优点：  使用java内置类构造，对第三方库没有依赖 在目标没有回显的时候，可以使用DNS请求得知是否存在反序列化漏洞  在ysoserial下生成URLDNS的命令为： 1java -jar ysoserial.jar UR
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-24 23:43" pubdate>
+              2023-08-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/java%E5%AE%89%E5%85%A8/" class="category-chain-item">java安全</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E3%80%90java%E5%AE%89%E5%85%A8%E3%80%91URLDNS/">#【java安全】URLDNS</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5DTemplatesImpl%E5%9C%A8Shiro550%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" target="_blank">
+          【java安全】TemplatesImpl在Shiro550反序列化
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5DTemplatesImpl%E5%9C%A8Shiro550%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" target="_blank">
+        <div>
+          [TOC] 【java安全】TemplatesImpl在Shiro550反序列化Shiro的原理为了让浏览器或服务器重启后用户不丢失登录状态，Shiro支持将持久化信息序列化并加密后保存在Cookie的rememberMe字段中，下次读取时进行解密再反序列化. Shiro反序列化产生在Shiro1.2.4版本之前内置了一个默认且固定的加密Key，导致攻击者可以通过这个key来伪造Cookie，进而
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-24 23:43" pubdate>
+              2023-08-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/java%E5%AE%89%E5%85%A8/" class="category-chain-item">java安全</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E3%80%90java%E5%AE%89%E5%85%A8%E3%80%91TemplatesImpl%E5%9C%A8Shiro550%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">#【java安全】TemplatesImpl在Shiro550反序列化</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5DRMI/" target="_blank">
+          【java安全】RMI
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5DRMI/" target="_blank">
+        <div>
+          [TOC] 【java安全】RMI前言RMI全称为：Remote Method Invocation 远程方法调用，是java独立的一种机制。 RMI的作用就是在一个java虚拟机调用另一个java虚拟机上对象的方法 在网络传输的过程中，RMI中对象是通过序列化的形式进行编码传输，既然有序列化，必然会有反序列化，RMI服务端在接收到序列化后的会将对象进行反序列化。 在反序列化攻击中，我们可能找不到
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-24 23:43" pubdate>
+              2023-08-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/java%E5%AE%89%E5%85%A8/" class="category-chain-item">java安全</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E3%80%90java%E5%AE%89%E5%85%A8%E3%80%91RMI/">#【java安全】RMI</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5DCommonsCollections6/" target="_blank">
+          【java安全】CommonsCollections6
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5DCommonsCollections6/" target="_blank">
+        <div>
+          [TOC] 【java安全】CommonsCollections6测试环境3.1-3.2.1，jdk1.7,1.8 前言之前我们分析了CommonsCollections1 LazyMap利用链，但是在java 8u71以后这个链就不能继续用了，原因是sun.reflect.annotation.AnnotationInvocationHandler类的readObject()等方法的逻辑改变了：
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-24 23:43" pubdate>
+              2023-08-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/java%E5%AE%89%E5%85%A8/" class="category-chain-item">java安全</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E3%80%90java%E5%AE%89%E5%85%A8%E3%80%91CommonsCollections6/">#【java安全】CommonsCollections6</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5DCommonsCollections2(4.0)/" target="_blank">
           【java安全】CommonsCollections2(4.0)
         </a>
@@ -331,7 +758,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E3%80%90java%E5%AE%89%E5%85%A8%E3%80%91/" class="category-chain-item">【java安全】</a>
+  <a href="/categories/java%E5%AE%89%E5%85%A8/" class="category-chain-item">java安全</a>
   
   
 
@@ -392,7 +819,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E3%80%90java%E5%AE%89%E5%85%A8%E3%80%91/" class="category-chain-item">【java安全】</a>
+  <a href="/categories/java%E5%AE%89%E5%85%A8/" class="category-chain-item">java安全</a>
   
   
 
@@ -415,438 +842,11 @@
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5DCommonsBeanUtils1/" target="_blank">
-          【java安全】CommonsBeanUtils1
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5Bjava%E5%AE%89%E5%85%A8%5DCommonsBeanUtils1/" target="_blank">
-        <div>
-          [TOC] 【java安全】CommonsBeanUtils1前言在之前我们学习了java.util.PriorityQueue，它是java中的一个优先队列，队列的每个元素都有优先级，在反序列化这个对象的时候，为了保证队列顺序，会将队列中的元素进行排序，从而调用了java.io.Comparator接口的compare()方法，进而执行恶意反序列化操作 我们能不能找到除了之前提到的Transfo
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 23:43" pubdate>
-              2023-08-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E3%80%90java%E5%AE%89%E5%85%A8%E3%80%91/" class="category-chain-item">【java安全】</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E3%80%90java%E5%AE%89%E5%85%A8%E3%80%91CommonsBeanUtils1/">#【java安全】CommonsBeanUtils1</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/08/24/%5BISITDTU%202019EasyPHP%5D%E4%BD%BF%E7%94%A8%E5%BC%82%E6%88%96webshell/" target="_blank">
-          【ISITDTU 2019EasyPHP】使用异或webshell
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5BISITDTU%202019EasyPHP%5D%E4%BD%BF%E7%94%A8%E5%BC%82%E6%88%96webshell/" target="_blank">
-        <div>
-          [TOC] [ISITDTU 2019EasyPHP]使用异或webshell解题index.php 123456789101112&lt;?phphighlight_file(__FILE__);$_ = @$_GET[&#x27;_&#x27;];if ( preg_match(&#x27;/[\x00- 0-9\&#x27;&quot;`$&amp;.,|[&#123;_defgops\x7
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 23:43" pubdate>
-              2023-08-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/wp/" class="category-chain-item">wp</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E3%80%90ISITDTU-2019EasyPHP%E3%80%91%E4%BD%BF%E7%94%A8%E5%BC%82%E6%88%96webshell/">#【ISITDTU 2019EasyPHP】使用异或webshell</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/08/24/%5BISCC1%5D%E5%AE%9E%E6%88%98%E9%A2%98%E9%98%B6%E6%AE%B51/" target="_blank">
-          【ISCC1】实战题阶段1
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5BISCC1%5D%E5%AE%9E%E6%88%98%E9%A2%98%E9%98%B6%E6%AE%B51/" target="_blank">
-        <div>
-          【ISCC1】实战题阶段1首先配置好vpn，进入如下界面：   然后右键查看源码，发现这是 Drupal7：  然后网上查一下这个版本的漏洞：   好像有一个命令执行漏洞 访问 /CHANGELOG.txt可以发现相关版本日志     然后我们去github上找一下exp：   这个可以用，我们直接git下来 然后直接利用即可，查看所有进程的命令为：ps aux不要加-   我们运行脚本：  正确
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 23:43" pubdate>
-              2023-08-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/wp/" class="category-chain-item">wp</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E3%80%90ISCC1%E3%80%91%E5%AE%9E%E6%88%98%E9%A2%98%E9%98%B6%E6%AE%B51/">#【ISCC1】实战题阶段1</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/08/24/%5BISCC1%5D/" target="_blank">
-          【ISCC1】
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5BISCC1%5D/" target="_blank">
-        <div>
-          [TOC] 【ISCC1】misc好看的维吾尔族小姐姐 五十六个民族，五十六支花，五十六个兄弟姐妹是一家。现如今，民族团结的思想早已深入人心，而维吾尔族又是中华民族的重要组成部分，解决本题需要各位解题人知晓维吾尔族同胞的说话方式。  将图片该高度，获得一张类似二维码的图片，将图片水平反转一下，然后扫码(换了好几个网站)得到逆序的html实体编码，反过来，然后解码，得到flag         菜鸟
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 23:43" pubdate>
-              2023-08-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/wp/" class="category-chain-item">wp</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E3%80%90ISCC1%E3%80%91/">#【ISCC1】</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/08/24/%5BHZNUCTF%5Dfindme/" target="_blank">
-          【HZNUCTF】findme
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5BHZNUCTF%5Dfindme/" target="_blank">
-        <div>
-          findme我们访问网站发现如下提示： 1Please POST &#x27;shit&#x27; to /cmd  提示我们需要post请求提交参数，访问 /cmd 目录   提示在环境变量中没有发现ls命令，于是我们使用绝对路径：   查看到了flag在根目录下面，于是我们使用 : 1shit=/bin/cat flag    提示我们没有权限，于是我们使用命令： 1shit=/usr/bin
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 23:43" pubdate>
-              2023-08-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/wp/" class="category-chain-item">wp</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E3%80%90HZNUCTF%E3%80%91findme/">#【HZNUCTF】findme</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/08/24/%5Bhgame2023%5Dweek1/" target="_blank">
-          【hgame2023】week1
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5Bhgame2023%5Dweek1/" target="_blank">
-        <div>
-          [TOC] 【hgame2023】week1webClassic Childhood Game 兔兔最近迷上了一个纯前端实现的网页小游戏，但是好像有点难玩，快帮兔兔通关游戏！  打开页面发现有一个js游戏，我们直接查看源码：  我们查找alert关键字：  发现了一串可疑的16进制ascii码，我们在控制台执行以下该js函数：  flag直接出来了。  我写题时发现了游戏结束的js代码：  游戏结
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 23:43" pubdate>
-              2023-08-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/wp/" class="category-chain-item">wp</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E3%80%90hgame2023%E3%80%91week1/">#【hgame2023】week1</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/08/24/%5BHDCTF2023%5D/" target="_blank">
-          【HDCTF2023】
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5BHDCTF2023%5D/" target="_blank">
-        <div>
-          【HDCTF2023】wp[TOC] webWelcome To HDCTF 2023在源码的 game.js中找到了flag  在控制台输出 console.log(seeeeeeeecret)得flag SearchMaster使用dirmap扫描目录，发现：composer.json，访问一下： 123456789101112131415161718192021222324252627282
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 23:43" pubdate>
-              2023-08-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/wp/" class="category-chain-item">wp</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E3%80%90HDCTF2023%E3%80%91/">#【HDCTF2023】</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/7/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/#board">6</a><a class="page-number" href="/page/7/#board">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/#board">9</a><a class="page-number" href="/page/10/#board">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/#board">25</a><a class="extend next" rel="next" href="/page/9/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/7/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/#board">6</a><a class="page-number" href="/page/7/#board">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/#board">9</a><a class="page-number" href="/page/10/#board">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/#board">26</a><a class="extend next" rel="next" href="/page/9/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

@@ -60,7 +60,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -231,6 +231,433 @@
               <div class="col-12 col-md-10 m-auto">
                 
 
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/08/24/%5B%E7%BD%91%E9%BC%8E%E6%9D%AF2018%5DUnfinish/" target="_blank">
+          【网鼎杯2018】Unfinish
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5B%E7%BD%91%E9%BC%8E%E6%9D%AF2018%5DUnfinish/" target="_blank">
+        <div>
+          [网鼎杯2018]Unfinish登录进去，发现login.php，然后目录扫描发现 register.php 注册后登陆进去，发现显示出来了我们的用户名username，这个是二次注入     我们猜测插入数据库的语句为： 1insert into xxx values(email,username,password);    这里又学到一个新的东西： 1select &#x27;&#x27;+
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-24 23:43" pubdate>
+              2023-08-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/wp/" class="category-chain-item">wp</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E3%80%90%E7%BD%91%E9%BC%8E%E6%9D%AF2018%E3%80%91Unfinish/">#【网鼎杯2018】Unfinish</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/08/24/%5B%E7%BD%91%E9%BC%8E%E6%9D%AF%202018%5DComment/" target="_blank">
+          【网鼎杯 2018】Comment
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5B%E7%BD%91%E9%BC%8E%E6%9D%AF%202018%5DComment/" target="_blank">
+        <div>
+          [TOC] [网鼎杯 2018]Comment进去发现一个留言板，测试了一下好像没什么东西  然后目录扫描一下，发现了git泄露，用GitHack获取  发现没什么东西，然后我们使用 git log --all查看所有分支的git提交记录：  切换到第一个： 1git reset --hard e5b2a2443c2b6d395d06960123142bc91123148c  获取到完整php文件
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-24 23:43" pubdate>
+              2023-08-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/wp/" class="category-chain-item">wp</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E3%80%90%E7%BD%91%E9%BC%8E%E6%9D%AF-2018%E3%80%91Comment/">#【网鼎杯 2018】Comment</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/08/24/%5B%E5%BC%BA%E7%BD%91%E6%9D%AF%202019%5D%E9%AB%98%E6%98%8E%E7%9A%84%E9%BB%91%E5%AE%A2/" target="_blank">
+          【强网杯 2019】高明的黑客
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5B%E5%BC%BA%E7%BD%91%E6%9D%AF%202019%5D%E9%AB%98%E6%98%8E%E7%9A%84%E9%BB%91%E5%AE%A2/" target="_blank">
+        <div>
+          [强网杯 2019]高明的黑客我们下载网页源码：   发现里面居然有3000个文件，这只能脚本来找了。 我们先随便进一个文件：   我们发现有些传递进去的参数会被赋值为空，这样就不能够命令执行了，我们需要通过脚本找出传递进行的参数能够进行命令执行并且回显在页面的参数。 因此我们编写脚本。 脚本： 123456789101112131415161718192021222324252627282930
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-24 23:43" pubdate>
+              2023-08-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/wp/" class="category-chain-item">wp</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E3%80%90%E5%BC%BA%E7%BD%91%E6%9D%AF-2019%E3%80%91%E9%AB%98%E6%98%8E%E7%9A%84%E9%BB%91%E5%AE%A2/">#【强网杯 2019】高明的黑客</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/08/24/%5B%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%5DSUID%E6%8F%90%E6%9D%83/" target="_blank">
+          【内网渗透】SUID提权
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5B%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%5DSUID%E6%8F%90%E6%9D%83/" target="_blank">
+        <div>
+          [TOC] [内网渗透]SUID提权0x01.什么是SUID？suid(set uid)是linux中的一种特殊权限，suid可以让调用者以文件拥有者身份运行该文件，所以利用suid提权的核心就是运行root用户所拥有的suid的文件，那么运行该文件的时候就得获得root用户的身份了。 但是SUID权限的设置只针对二进制可执行文件,对于非可执行文件设置SUID没有任何意义. 在执行过程中，调用者会
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-24 23:43" pubdate>
+              2023-08-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" class="category-chain-item">内网渗透</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E3%80%90%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E3%80%91SUID%E6%8F%90%E6%9D%83/">#【内网渗透】SUID提权</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/08/24/%5B%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%5DCFS%E4%B8%89%E5%B1%82%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/" target="_blank">
+          【内网渗透】CFS三层靶机渗透
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5B%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%5DCFS%E4%B8%89%E5%B1%82%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/" target="_blank">
+        <div>
+          [TOC] [内网渗透]CFS三层靶机渗透网络拓扑图 三个Target主机的拓扑图如图，攻击机的网段在192.168.1.1/24  Target1 Centos7 Target2 Ubuntu Target3 Win7  该靶机的渗透流程如下： 通过攻击机kaili192.168.1.129攻击target1的192.168.1.132，target2、3不能连通外网，只能在内网通信。所以需要先
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-24 23:43" pubdate>
+              2023-08-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" class="category-chain-item">内网渗透</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E3%80%90%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E3%80%91CFS%E4%B8%89%E5%B1%82%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/">#【内网渗透】CFS三层靶机渗透</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/08/24/%5B%E9%97%BD%E7%9B%BE%E6%9D%AF%5D%E5%A4%8D%E8%B5%9B/" target="_blank">
+          【闽盾杯】复赛
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5B%E9%97%BD%E7%9B%BE%E6%9D%AF%5D%E5%A4%8D%E8%B5%9B/" target="_blank">
+        <div>
+          签到好难战队wp威胁情报分析212345678910111213141516171819202122232425262728293031323334353637383940414243# -*- coding = utf-8 -*-# @Time : 2023/5/26 9:40# @Author : Leekos# @File : 威胁情报分析2.py# @Software : PyCharmi
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-24 23:43" pubdate>
+              2023-08-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/wp/" class="category-chain-item">wp</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E3%80%90%E9%97%BD%E7%9B%BE%E6%9D%AF%E3%80%91%E5%A4%8D%E8%B5%9B/">#【闽盾杯】复赛</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/08/24/%5B%E9%97%BD%E7%9B%BE%E6%9D%AF%5D%E5%88%9D%E8%B5%9B/" target="_blank">
+          【闽盾杯】初赛
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5B%E9%97%BD%E7%9B%BE%E6%9D%AF%5D%E5%88%9D%E8%B5%9B/" target="_blank">
+        <div>
+          【闽盾杯】wpdns流量分析 流量包里全是dns协议，但是观察一下请求包：  这里是zip压缩文件的16进制形式，我们使用tshark提取出来： 1tshark -r flow.pcapng -T fields -Y &quot;dns.flags.response == 1&quot; -e dns.qry.name &gt; data.txt  123456789101112131415161
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-24 23:43" pubdate>
+              2023-08-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/wp/" class="category-chain-item">wp</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E3%80%90%E9%97%BD%E7%9B%BE%E6%9D%AF%E3%80%91%E5%88%9D%E8%B5%9B/">#【闽盾杯】初赛</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
 
   <div class="row mx-auto index-card">
     
@@ -415,396 +842,11 @@
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/08/24/%5B%E5%AE%89%E6%B4%B5%E6%9D%AF-%E4%B8%8D%E6%98%AF%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%5D%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0+insert%E6%B3%A8%E5%85%A5/" target="_blank">
-          【安洵杯-不是文件上传】文件上传+insert注入
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5B%E5%AE%89%E6%B4%B5%E6%9D%AF-%E4%B8%8D%E6%98%AF%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%5D%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0+insert%E6%B3%A8%E5%85%A5/" target="_blank">
-        <div>
-          [TOC] [安洵杯-不是文件上传]代码审计+文件上传+insert注入首页是一个文件上传页面  测试只能上传图片，是白名单 题目给出了源码： upload.php 1234567891011121314151617181920212223242526272829303132333435363738394041424344&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;h
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 23:43" pubdate>
-              2023-08-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/wp/" class="category-chain-item">wp</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E3%80%90%E5%AE%89%E6%B4%B5%E6%9D%AF-%E4%B8%8D%E6%98%AF%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E3%80%91%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0-insert%E6%B3%A8%E5%85%A5/">#【安洵杯-不是文件上传】文件上传+insert注入</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/08/24/%5BWMCTF2023%5D/" target="_blank">
-          【WMCTF2023】
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5BWMCTF2023%5D/" target="_blank">
-        <div>
-          [TOC] 【WMCTF2023】MISCCheckinWMCTF{Welcome_W&amp;MCTF_2023!} Oversharing 一个黑客得到了他想要的东西，他下一步会干什么呢  导出SMB文件   有一个lsass.dmp文件   lsass.exe（Local Security Authority Subsystem Service进程空间中，存有着机器的域、本地用户名和密码等重
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 23:43" pubdate>
-              2023-08-24
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E3%80%90WMCTF2023%E3%80%91/">#【WMCTF2023】</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/08/24/%5BWeb_Unagi%5Dxxe%E6%B3%A8%E5%85%A5%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87/" target="_blank">
-          【Web_Unagi】xxe注入过滤绕过
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5BWeb_Unagi%5Dxxe%E6%B3%A8%E5%85%A5%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87/" target="_blank">
-        <div>
-          [TOC] [Web_Unagi]xxe注入过滤绕过  提示我们需要上传文件，并且flag在根目录下， 上传文件的格式为： 12345678910111213141516&lt;users&gt;    &lt;user&gt;        &lt;username&gt;alice&lt;/username&gt;        &lt;password&gt;passwd1&lt;/pass
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 23:43" pubdate>
-              2023-08-24
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E3%80%90Web-Unagi%E3%80%91xxe%E6%B3%A8%E5%85%A5%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87/">#【Web_Unagi】xxe注入过滤绕过</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/08/24/%5Bvulnhub%5DXXE(XXE%E6%BC%8F%E6%B4%9E)/" target="_blank">
-          【vulnhub】XXE(XXE漏洞)
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5Bvulnhub%5DXXE(XXE%E6%BC%8F%E6%B4%9E)/" target="_blank">
-        <div>
-          [TOC] [vulnhub]XXE(XXE漏洞)环境安装首先在 vulnhub 下载文件：  将其解压为ovf格式：  使用vmware打开，新建一个虚拟机，然后开机，环境就搭好了     信息收集由于我们打开了虚拟机，所以我们首先需要知道其ip 首先使用ifconfig命令查看本机的ip所处的网段：   查询到本机ip：192.168.56.128 ，为C段网络，前24位为网络号 知道了网络号
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 23:43" pubdate>
-              2023-08-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/vulnhub/" class="category-chain-item">vulnhub</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E3%80%90vulnhub%E3%80%91XXE-XXE%E6%BC%8F%E6%B4%9E/">#【vulnhub】XXE(XXE漏洞)</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/08/24/%5Bvulnhub%5DDC2/" target="_blank">
-          【vulnhub】DC2
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5Bvulnhub%5DDC2/" target="_blank">
-        <div>
-          [TOC] [vulnhub]DC2信息收集扫ip，有两种方式：arp、nmap 123nmap -sP 192.168.56.0/24 -T4arp-scan -l   192.168.56.137 扫端口： 1nmap -sS -A -T4 192.168.56.137 -p 1-65535   flag1我们使用浏览器登录80端口，发现登录不上，地址栏变为：http://dc-2 原因是dn
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 23:43" pubdate>
-              2023-08-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/vulnhub/" class="category-chain-item">vulnhub</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E3%80%90vulnhub%E3%80%91DC2/">#【vulnhub】DC2</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/08/24/%5Bvulnhub%5DDC1/" target="_blank">
-          【vulnhub】DC1
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5Bvulnhub%5DDC1/" target="_blank">
-        <div>
-          [TOC] [vulnhub]DC1环境搭建https://www.vulnhub.com/entry/dc-1,292/ 信息收集扫IP、端口： 1nmap -sS 192.168.56.1/24 -T4    扫描详细信息： 1nmap -A -T4 192.168.56.136   可以知道是：Drupal的CMS 目录扫描： 1dirb http://192.168.56.136
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 23:43" pubdate>
-              2023-08-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/vulnhub/" class="category-chain-item">vulnhub</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E3%80%90vulnhub%E3%80%91DC1/">#【vulnhub】DC1</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/08/24/%5BVishwaCTF2023%5Dwp/" target="_blank">
-          【VishwaCTF2023】wp
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5BVishwaCTF2023%5Dwp/" target="_blank">
-        <div>
-          【VishwaCTF2023】wpwebPayload目录扫描，扫描到了robots.txt   我们访问/robots.txt： 1234567891011&lt;?php    if(isset($_GET[&#x27;cmd&#x27;]))&#123;        system($_GET[&#x27;cmd&#x27;]);    &#125;    else &#123;
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 23:43" pubdate>
-              2023-08-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E3%80%90VishwaCTF2023%E3%80%91wp/">#【VishwaCTF2023】wp</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/4/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/#board">6</a><a class="page-number" href="/page/7/#board">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/#board">25</a><a class="extend next" rel="next" href="/page/6/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/4/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/#board">6</a><a class="page-number" href="/page/7/#board">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/#board">26</a><a class="extend next" rel="next" href="/page/6/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

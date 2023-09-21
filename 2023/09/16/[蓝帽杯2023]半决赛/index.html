@@ -1,0 +1,757 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/leekos.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="leekos">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="[TOC] webMyLinuxBot 我发明了一个国产版的bot，可以用命令操作  源码： 1234567891011121314151617181920212223242526272829303132333435363738394041import os import subprocess from flask import Flask ,render_template ,request ja">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【蓝帽杯2023】半决赛">
+<meta property="og:url" content="https://leekosss.github.io/2023/09/16/[%E8%93%9D%E5%B8%BD%E6%9D%AF2023]%E5%8D%8A%E5%86%B3%E8%B5%9B/index.html">
+<meta property="og:site_name" content="Tranquility">
+<meta property="og:description" content="[TOC] webMyLinuxBot 我发明了一个国产版的bot，可以用命令操作  源码： 1234567891011121314151617181920212223242526272829303132333435363738394041import os import subprocess from flask import Flask ,render_template ,request ja">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309161633163.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309161634234.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309161635411.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309161637534.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309161637924.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309161638859.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309161639789.png">
+<meta property="article:published_time" content="2023-09-16T07:00:00.000Z">
+<meta property="article:modified_time" content="2023-09-16T08:39:25.366Z">
+<meta property="article:author" content="leekos">
+<meta property="article:tag" content="蓝帽杯">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309161633163.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【蓝帽杯2023】半决赛 - Tranquility</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Tranquility</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【蓝帽杯2023】半决赛"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-09-16 15:00" pubdate>
+          2023年9月16日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          16 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【蓝帽杯2023】半决赛</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年9月16日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>[TOC]</p>
+<h2 id="web"><a href="#web" class="headerlink" title="web"></a>web</h2><h3 id="MyLinuxBot"><a href="#MyLinuxBot" class="headerlink" title="MyLinuxBot"></a>MyLinuxBot</h3><blockquote>
+<p>我发明了一个国产版的bot，可以用命令操作</p>
+</blockquote>
+<p>源码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os <br><span class="hljs-keyword">import</span> subprocess <br><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask ,render_template ,request <br><br>jar_path = [已隐藏，内容不重要]<br><span class="hljs-string">&#x27;&#x27;&#x27;老板要我出一个攻击者绝对不会发现的CTF题目</span><br><span class="hljs-string">我使用java开发真正需要处理的核心逻辑，并且隐藏在后端，这样绝对安全了</span><br><span class="hljs-string">因为攻击者只可能去傻傻的寻找python漏洞，其实不知道应该去寻找Java的经典漏洞</span><br><span class="hljs-string">而且我有日志记录攻击者轨迹随时可以发现</span><br><span class="hljs-string">他们做梦也想不到我把flag藏在了FLAG环境变量里:-)</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><br>app =Flask (__name__ )<br><br><span class="hljs-meta">@app .route (<span class="hljs-params"><span class="hljs-string">&quot;/&quot;</span>,methods =[<span class="hljs-string">&#x27;GET&#x27;</span>,<span class="hljs-string">&#x27;POST&#x27;</span>]</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">aaa</span>():<br>    <span class="hljs-keyword">if</span> request .method ==<span class="hljs-string">&#x27;POST&#x27;</span>:<br>        OOO0000O0000O00O0 =request .form [<span class="hljs-string">&#x27;text&#x27;</span>].split (<span class="hljs-string">&#x27; &#x27;</span>)<br>        O00O0OO0OO00000OO =<span class="hljs-string">&#x27;&#x27;</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span> (OOO0000O0000O00O0 )&lt;<span class="hljs-number">1</span> :<br>            <span class="hljs-keyword">return</span> (<span class="hljs-string">&#x27;oh, invalid message&#x27;</span>,<span class="hljs-number">400</span> )<br>        <span class="hljs-keyword">elif</span> <span class="hljs-built_in">len</span> (OOO0000O0000O00O0 )&lt;<span class="hljs-number">2</span> :<br>            O00O0OO0OO00000OO =OOO0000O0000O00O0 [<span class="hljs-number">0</span> ]<br>            OOO0000O0000O00O0 =<span class="hljs-string">&#x27;&#x27;</span><br>        <span class="hljs-keyword">else</span> :<br>            O00O0OO0OO00000OO ,OOO0000O0000O00O0 =OOO0000O0000O00O0 [<span class="hljs-number">0</span> ],<span class="hljs-string">&#x27; &#x27;</span>.join (OOO0000O0000O00O0 [<span class="hljs-number">1</span> :])<br>        OOO0OOO0000OO0000 =bbb (O00O0OO0OO00000OO ,OOO0000O0000O00O0 )<br>        <span class="hljs-keyword">return</span> OOO0OOO0000OO0000 <br>    <span class="hljs-keyword">return</span> render_template (<span class="hljs-string">&#x27;home.html&#x27;</span>)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">bbb</span> (O0OOOO0O0000OOOOO ,O000O0O0O00O00OO0 ):<br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;/flag&quot;</span>,<span class="hljs-string">&quot;r&quot;</span>) <span class="hljs-keyword">as</span> f:<br>        FLAG = f.read()<br>    O00000O0OOO0OO00O =subprocess .run ([<span class="hljs-string">&#x27;java&#x27;</span>,<span class="hljs-string">&#x27;-jar&#x27;</span>,<span class="hljs-string">&#x27;-Dcmd=&#x27;</span>+O0OOOO0O0000OOOOO ,jar_path,<span class="hljs-string">&#x27;--&#x27;</span>,O000O0O0O00O00OO0 ],<br>                                        capture_output =<span class="hljs-literal">True</span> ,timeout =<span class="hljs-number">12</span>,env=&#123;<span class="hljs-string">&quot;FLAG&quot;</span>:FLAG&#125;)<br>    <span class="hljs-keyword">return</span> O00000O0OOO0OO00O .stdout .decode (<span class="hljs-string">&#x27;utf-8&#x27;</span>)<br><br><span class="hljs-keyword">if</span> __name__ ==<span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    port =os .environ [<span class="hljs-string">&#x27;PORT&#x27;</span>]<span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;port&#x27;</span><span class="hljs-keyword">in</span> os .environ <span class="hljs-keyword">else</span> <span class="hljs-number">1337</span> <br>    app .run (host =<span class="hljs-string">&#x27;0.0.0.0&#x27;</span>,port =port )<br><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<p><a target="_blank" rel="noopener" href="https://y4tacker.github.io/2022/07/06/year/2022/7/GoogleCTF2022-Log4j/">https://y4tacker.github.io/2022/07/06/year/2022/7/GoogleCTF2022-Log4j/</a></p>
+<p>直接输入：<code>$&#123;bundle:$&#123;env:FLAG&#125;&#125;</code>即可</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309161633163.png" srcset="/img/loading.gif" lazyload alt="image-20230916163258024"></p>
+<h3 id="取证"><a href="#取证" class="headerlink" title="取证"></a>取证</h3><h4 id="0x01-检材数据开始提取是今年什么时候？（答案格式：04-12-13-26）"><a href="#0x01-检材数据开始提取是今年什么时候？（答案格式：04-12-13-26）" class="headerlink" title="0x01.检材数据开始提取是今年什么时候？（答案格式：04-12 13:26）"></a>0x01.检材数据开始提取是今年什么时候？（答案格式：04-12 13:26）</h4><p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309161634234.png" srcset="/img/loading.gif" lazyload alt="image-20230916163448121"></p>
+<p>09-11 17:21</p>
+<h4 id="0x02-嫌疑人手机SD卡存储空间一共多少GB？（答案格式：-22-5）"><a href="#0x02-嫌疑人手机SD卡存储空间一共多少GB？（答案格式：-22-5）" class="headerlink" title="0x02.嫌疑人手机SD卡存储空间一共多少GB？（答案格式： 22.5）"></a>0x02.嫌疑人手机SD卡存储空间一共多少GB？（答案格式： 22.5）</h4><p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309161635411.png" srcset="/img/loading.gif" lazyload alt="image-20230916163533247"></p>
+<p>24.3</p>
+<h4 id="0x03-嫌疑人手机设备名称是？（答案格式：adfer）"><a href="#0x03-嫌疑人手机设备名称是？（答案格式：adfer）" class="headerlink" title="0x03.嫌疑人手机设备名称是？（答案格式：adfer）"></a>0x03.嫌疑人手机设备名称是？（答案格式：adfer）</h4><p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309161637534.png" srcset="/img/loading.gif" lazyload alt="image-20230916163706396"></p>
+<p>sailfish</p>
+<h4 id="0x04-嫌疑人手机IMEI是？（答案格式：3843487568726387）"><a href="#0x04-嫌疑人手机IMEI是？（答案格式：3843487568726387）" class="headerlink" title="0x04.嫌疑人手机IMEI是？（答案格式：3843487568726387）"></a>0x04.嫌疑人手机IMEI是？（答案格式：3843487568726387）</h4><p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309161637924.png" srcset="/img/loading.gif" lazyload alt="image-20230916163743843"></p>
+<p>352531082716257</p>
+<h4 id="0x05-嫌疑人手机通讯录数据存放在那个数据库文件中？（答案格式：call-db）"><a href="#0x05-嫌疑人手机通讯录数据存放在那个数据库文件中？（答案格式：call-db）" class="headerlink" title="0x05.嫌疑人手机通讯录数据存放在那个数据库文件中？（答案格式：call.db）"></a>0x05.嫌疑人手机通讯录数据存放在那个数据库文件中？（答案格式：call.db）</h4><p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309161638859.png" srcset="/img/loading.gif" lazyload alt="image-20230916163819749"></p>
+<p>contacts.db</p>
+<h4 id="0x06-嫌疑人手机一共使用过多少个应用？（答案格式：22）"><a href="#0x06-嫌疑人手机一共使用过多少个应用？（答案格式：22）" class="headerlink" title="0x06.嫌疑人手机一共使用过多少个应用？（答案格式：22）"></a>0x06.嫌疑人手机一共使用过多少个应用？（答案格式：22）</h4><p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309161639789.png" srcset="/img/loading.gif" lazyload alt="image-20230916163848680"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%8F%96%E8%AF%81/" class="category-chain-item">取证</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%93%9D%E5%B8%BD%E6%9D%AF/" class="print-no-link">#蓝帽杯</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【蓝帽杯2023】半决赛</div>
+      <div>https://leekosss.github.io/2023/09/16/[蓝帽杯2023]半决赛/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>leekos</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年9月16日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年9月16日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/09/17/%5BBUUCTF%5Dweb(%E7%AC%AC5%E9%A1%B5wp)/" title="【BUUCTF】web(第5页wp)">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【BUUCTF】web(第5页wp)</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/09/14/%5Bctfshow%E5%8F%96%E8%AF%81%5D/" title="ctfshow取证">
+                        <span class="hidden-mobile">ctfshow取证</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"e5J90iDkXMWhU5UNlEX1I2hO-gzGzoHsz","appKey":"esLROw9j3xLk2nV4tQkKaih1","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      赣ICP备2022008842号-2
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
