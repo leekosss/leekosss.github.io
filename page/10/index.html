@@ -238,6 +238,128 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2023/08/24/%5BGYCTF2020%5DEasyThinking/" target="_blank">
+          【GYCTF2020】EasyThinking
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5BGYCTF2020%5DEasyThinking/" target="_blank">
+        <div>
+          [GYCTF2020]EasyThinking使用御剑扫描发现了 www.zip，我们直接把源码下载下来 访问一个不存在的目录，发现是 thinkphp6.0.0  网上搜一下，发现有很多漏洞复现文章：   thinkphp6.0存在任意文件写入漏洞 简单的说就是会根据 PHPSESSID的值来创建对应值的文件（需要长度等于32） 我们先注册一个账号，然后登录的时候修改PHPSESSID=0123
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-24 23:43" pubdate>
+              2023-08-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/wp/" class="category-chain-item">wp</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E3%80%90GYCTF2020%E3%80%91EasyThinking/">#【GYCTF2020】EasyThinking</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/08/24/%5BGWCTF%202019%5Dmypassword/" target="_blank">
+          【GWCTF 2019】mypassword
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5BGWCTF%202019%5Dmypassword/" target="_blank">
+        <div>
+          [GWCTF 2019]mypassword主页发现js文件   12345678910111213if (document.cookie &amp;&amp; document.cookie != &#x27;&#x27;) &#123;	var cookies = document.cookie.split(&#x27;; &#x27;);	var cookie = &#123;&#125;;
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-24 23:43" pubdate>
+              2023-08-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/wp/" class="category-chain-item">wp</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E3%80%90GWCTF-2019%E3%80%91mypassword/">#【GWCTF 2019】mypassword</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2023/08/24/%5BGKCTF%202021%5Deasycms/" target="_blank">
           【GKCTF 2021】easycms
         </a>
@@ -713,128 +835,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/%E3%80%90BUUCTF%E3%80%91web-%E7%AC%AC4%E9%A1%B5wp/">#【BUUCTF】web(第4页wp)</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/08/24/%5BBUUCTF%5Dweb(%E7%AC%AC3%E9%A1%B5wp)/" target="_blank">
-          【BUUCTF】web(第3页wp)
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5BBUUCTF%5Dweb(%E7%AC%AC3%E9%A1%B5wp)/" target="_blank">
-        <div>
-          [TOC] [CISCN2019 华北赛区 Day1 Web1]Dropbox首页有一个文件上传页面，可以上传文件，经过测试说只能上传gif、png、jpg图片，但是我们修改一下MIME属性就成功绕过了：  但是会将文件进行重命名，变为gif、jpg、png后缀，导致我们正常文件上传思路中断了，但是这有一个下载按钮，测试后发现任意文件下载漏洞：  目录穿越漏洞，成功获得index.php源码。同样
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 23:43" pubdate>
-              2023-08-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/wp/" class="category-chain-item">wp</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E3%80%90BUUCTF%E3%80%91web-%E7%AC%AC3%E9%A1%B5wp/">#【BUUCTF】web(第3页wp)</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/08/24/%5BBUUCTF%5Dweb(%E7%AC%AC1%E9%A1%B5wp)/" target="_blank">
-          【BUUCTF】web(第1页wp)
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%5BBUUCTF%5Dweb(%E7%AC%AC1%E9%A1%B5wp)/" target="_blank">
-        <div>
-          [TOC] [极客大挑战 2019]EasySQL 我们登录的时候使用bp抓包，我们尝试从密码进行sql注入  由于密码是字符串，所以我们尝试使用单引号闭合，然后使用万能密码 or 1=1 # 直接成功了 payload: 1&#x27; or 1=1%23			//%23是#unicode编码      [HCTF 2018]WarmUp  进来后看到一个表情，我们查看源代码:     提示我们
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 23:43" pubdate>
-              2023-08-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/wp/" class="category-chain-item">wp</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E3%80%90BUUCTF%E3%80%91web-%E7%AC%AC1%E9%A1%B5wp/">#【BUUCTF】web(第1页wp)</a>
             
           </div>
         

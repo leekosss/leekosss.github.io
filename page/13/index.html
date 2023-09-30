@@ -238,6 +238,128 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2023/08/24/%E9%97%BD%E7%9B%BE%E6%9D%AF%E5%88%9D%E8%B5%9B/" target="_blank">
+          闽盾杯初赛
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%E9%97%BD%E7%9B%BE%E6%9D%AF%E5%88%9D%E8%B5%9B/" target="_blank">
+        <div>
+          【闽盾杯】wpdns流量分析 流量包里全是dns协议，但是观察一下请求包：  这里是zip压缩文件的16进制形式，我们使用tshark提取出来： 1tshark -r flow.pcapng -T fields -Y &quot;dns.flags.response == 1&quot; -e dns.qry.name &gt; data.txt  123456789101112131415161
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-24 22:38" pubdate>
+              2023-08-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E9%97%BD%E7%9B%BE%E6%9D%AF%E5%88%9D%E8%B5%9B/">#闽盾杯初赛</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/08/24/%E8%93%9D%E5%B1%8F%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" target="_blank">
+          蓝屏漏洞复现
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/%E8%93%9D%E5%B1%8F%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" target="_blank">
+        <div>
+          【ms12-020】蓝屏漏洞复现前期准备 工具：msf 攻击机：kali ，ip：192.168.56.128 靶机：win server 2003，ip：192.168.56.132  漏洞利用首先打开工具msf 1msfconsole    然后搜索 ms12-020  1search ms12-020   发现有两个模块，我们先使用模块0，去检测是否存在该漏洞 1use 0  查看一下需要配
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-24 22:38" pubdate>
+              2023-08-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%93%9D%E5%B1%8F%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">#蓝屏漏洞复现</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2023/08/24/%E9%AB%98%E6%98%8E%E7%9A%84%E9%BB%91%E5%AE%A2/" target="_blank">
           高明的黑客
         </a>
@@ -713,128 +835,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/SSRF%E6%89%93FastCGI/">#SSRF打FastCGI</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/08/24/SSRF%E6%BC%8F%E6%B4%9E/" target="_blank">
-          SSRF漏洞
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/SSRF%E6%BC%8F%E6%B4%9E/" target="_blank">
-        <div>
-          SSRF 漏洞SSRF漏洞介绍： 　　SSRF漏洞（服务器端请求伪造）：是一种由攻击者构造形成由服务端发起请求的一个安全漏洞。一般情况下，SSRF攻击的目标是从外网无法访问的内部系统。（正是因为它是由服务端发起的，所以它能够请求到与它相连而与外网隔离的内部系统）。  SSRF漏洞原理： 　　SSRF形成的原因大都是由于服务端提供了从其他服务器应用获取数据的功能且没有对目标地址做过滤与限制。比如从指
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 22:38" pubdate>
-              2023-08-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/SSRF%E6%BC%8F%E6%B4%9E/" class="category-chain-item">SSRF漏洞</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/SSRF%E6%BC%8F%E6%B4%9E/">#SSRF漏洞</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/08/24/Unfinish/" target="_blank">
-          Unfinish
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/24/Unfinish/" target="_blank">
-        <div>
-          [网鼎杯2018]Unfinish登录进去，发现login.php，然后目录扫描发现 register.php 注册后登陆进去，发现显示出来了我们的用户名username，这个是二次注入     我们猜测插入数据库的语句为： 1insert into xxx values(email,username,password);    这里又学到一个新的东西： 1select &#x27;&#x27;+
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-08-24 22:38" pubdate>
-              2023-08-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/wp/" class="category-chain-item">wp</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Unfinish/">#Unfinish</a>
             
           </div>
         
