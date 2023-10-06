@@ -1,0 +1,787 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/leekos.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="leekos">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="[TOC] 0x01.Modbus协议使用modbus过滤，选择长度最长的modbus协议数据包获得flag  0x02.MMS协议分析找到长度最长的数据包  base64解码得到一张png图片，得到flag 0x03.大工UDP协议过滤器：udp contains &quot;flag&quot;   16进制解码一下就行 0x04.工控蜜罐日志分析 工控安全分析人员在互联网上部署了工控仿真蜜罐">
+<meta property="og:type" content="article">
+<meta property="og:title" content="纵横网络靶场">
+<meta property="og:url" content="https://leekosss.github.io/2023/10/05/%E7%BA%B5%E6%A8%AA%E7%BD%91%E7%BB%9C%E9%9D%B6%E5%9C%BA/index.html">
+<meta property="og:site_name" content="Tranquility">
+<meta property="og:description" content="[TOC] 0x01.Modbus协议使用modbus过滤，选择长度最长的modbus协议数据包获得flag  0x02.MMS协议分析找到长度最长的数据包  base64解码得到一张png图片，得到flag 0x03.大工UDP协议过滤器：udp contains &quot;flag&quot;   16进制解码一下就行 0x04.工控蜜罐日志分析 工控安全分析人员在互联网上部署了工控仿真蜜罐">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310052147484.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310052144193.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310061410186.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310061442954.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310061444542.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310061444298.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310061550089.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310061552895.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310061603806.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310061548308.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310061632237.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310061630863.png">
+<meta property="article:published_time" content="2023-10-05T13:43:22.090Z">
+<meta property="article:modified_time" content="2023-10-06T08:42:32.196Z">
+<meta property="article:author" content="leekos">
+<meta property="article:tag" content="xss漏洞">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310052147484.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>纵横网络靶场 - Tranquility</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Tranquility</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="纵横网络靶场"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-10-05 21:43" pubdate>
+          2023年10月5日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          18 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">纵横网络靶场</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年10月6日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>[TOC]</p>
+<h3 id="0x01-Modbus协议"><a href="#0x01-Modbus协议" class="headerlink" title="0x01.Modbus协议"></a>0x01.Modbus协议</h3><p>使用<code>modbus</code>过滤，选择长度最长的modbus协议数据包获得flag</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310052147484.png" srcset="/img/loading.gif" lazyload alt="image-20231005214721301"></p>
+<h3 id="0x02-MMS协议分析"><a href="#0x02-MMS协议分析" class="headerlink" title="0x02.MMS协议分析"></a>0x02.MMS协议分析</h3><p>找到长度最长的数据包</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310052144193.png" srcset="/img/loading.gif" lazyload alt="image-20231005214442962"></p>
+<p>base64解码得到一张png图片，得到flag</p>
+<h3 id="0x03-大工UDP协议"><a href="#0x03-大工UDP协议" class="headerlink" title="0x03.大工UDP协议"></a>0x03.大工UDP协议</h3><p>过滤器：<code>udp contains &quot;flag&quot;</code></p>
+<img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310061410186.png" srcset="/img/loading.gif" lazyload alt="image-20231006141033117" style="zoom:50%;" />
+
+<p>16进制解码一下就行</p>
+<h3 id="0x04-工控蜜罐日志分析"><a href="#0x04-工控蜜罐日志分析" class="headerlink" title="0x04.工控蜜罐日志分析"></a>0x04.工控蜜罐日志分析</h3><blockquote>
+<p>工控安全分析人员在互联网上部署了工控仿真蜜罐，通过蜜罐可抓取并分析互联网上针对工业资产的扫描行为，将存在高危扫描行为的IP加入防火墙黑名单可有效减少工业企业对于互联网的攻击面。</p>
+<p>分析出日志中针对西门子私有通信协议扫描最多的IP，分析该扫描组织,Flag为该IP的域名,，flag形式为 flag{}。</p>
+</blockquote>
+<p>首先查询西门子私有通信协议：</p>
+<img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310061442954.png" srcset="/img/loading.gif" lazyload alt="image-20231006144232371" style="zoom: 33%;" />
+
+<p>s7协议，我们只需要写一个脚本就行：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># -*- coding = utf-8 -*-</span><br><span class="hljs-keyword">import</span> re<br><br>f = <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;honeypot.log&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>)<br><br>dic = &#123;&#125;<br>lst = []<br><br><span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> f.readlines():<br>    line = line.replace(<span class="hljs-string">&quot;\n&quot;</span>, <span class="hljs-string">&quot;&quot;</span>)<br>    <span class="hljs-comment"># print(line)</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;s7&quot;</span> <span class="hljs-keyword">in</span> line.lower():<br>        ip = re.findall(<span class="hljs-string">r&quot;[0-9]&#123;1,3&#125;\.[0-9]&#123;1,3&#125;\.[0-9]&#123;1,3&#125;\.[0-9]&#123;1,3&#125;&quot;</span>, line) <span class="hljs-comment"># ip正则</span><br>        lst += ip  <span class="hljs-comment"># 列表可以使用+合并</span><br>f.close()<br><br><span class="hljs-comment"># print(lst)</span><br><span class="hljs-keyword">for</span> l <span class="hljs-keyword">in</span> lst:<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> dic.get(l):<br>        dic[l] = <span class="hljs-number">1</span><br>    <span class="hljs-keyword">else</span>:<br>        dic[l] += <span class="hljs-number">1</span><br><br>sorted_dict = <span class="hljs-built_in">dict</span>(<span class="hljs-built_in">sorted</span>(dic.items(), key=<span class="hljs-keyword">lambda</span> item: item[<span class="hljs-number">1</span>],reverse=<span class="hljs-literal">True</span>)) <span class="hljs-comment"># 根据值排序</span><br><span class="hljs-built_in">print</span>(sorted_dict)<br></code></pre></td></tr></table></figure>
+
+<img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310061444542.png" srcset="/img/loading.gif" lazyload alt="image-20231006144421492" style="zoom:50%;" />
+
+<p>ip反查域名即可：<a target="_blank" rel="noopener" href="https://www.dynu.com/zh-CN/NetworkTools/ReverseLookup">https://www.dynu.com/zh-CN/NetworkTools/ReverseLookup</a></p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310061444298.png" srcset="/img/loading.gif" lazyload alt="image-20231006144456234"></p>
+<h3 id="0x05-隐信道数据安全分析"><a href="#0x05-隐信道数据安全分析" class="headerlink" title="0x05.隐信道数据安全分析"></a>0x05.隐信道数据安全分析</h3><blockquote>
+<p>安全分析人员截获间谍发的秘密邮件，该邮件只有一个MP3文件，安全人员怀疑间谍通过某种private的方式将信息传递出去，尝试分析该文件，获取藏在文件中的数据？flag形式为 flag{}。</p>
+</blockquote>
+<p>拿到一个MP3文件，无从下手，但是题目提示：<code>private的方式将信息传递出去</code></p>
+<p>说明信息藏在<code>private</code>中，我们010打开MP3<code>视图-&gt;模板结果</code></p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310061550089.png" srcset="/img/loading.gif" lazyload alt="image-20231006155022988"></p>
+<p>我们注意到<code>private_bit</code>都有一个值<code>0</code> 、<code>1</code></p>
+<p>这些二进制组合起来就形成了flag，我们现在需要知道如何获取准确的位置</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310061552895.png" srcset="/img/loading.gif" lazyload alt="image-20231006155229817"></p>
+<p>首先观察到数据是从<code>1C1B8</code>开始的，16进制转为10进制就是<code>115128</code>字节</p>
+<p>也就是<code>struct MPEG_HEADER mpeg_hdr</code>（4字节）的起始位置为<code>115128</code>字节，然后我们计算<code>private_bit</code>的起始字节。</p>
+<p>这个块内的bit依次为：<code>12+1+2+1+4+2+1+1</code>，到了<code>private_bit</code>就刚好是第24个bit，也就是</p>
+<p>第三个字节了，于是我们的<code>private_bit</code>的起始位置就是<code>115130</code>字节了</p>
+<p>算出了起始位置之后我们需要知道每一个<code>struct MPEG_FRAME mf</code>的大小了</p>
+<p>可以看到是<code>414h</code>，也就是<code>1044</code>字节大小</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310061603806.png" srcset="/img/loading.gif" lazyload alt="image-20231006160317142"></p>
+<p>知道这些就可以写脚本读出来了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># -*- coding = utf-8 -*-</span><br><br>f = <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;flag-woody.mp3&quot;</span>, <span class="hljs-string">&quot;rb&quot;</span>)<br>n = <span class="hljs-number">115130</span>  <span class="hljs-comment"># private_bit起始字节</span><br>data = <span class="hljs-string">&quot;&quot;</span><br><span class="hljs-keyword">while</span> n &lt; <span class="hljs-number">2000000</span>:<br>    f.seek(n, <span class="hljs-number">0</span>)   <span class="hljs-comment"># 将文件指针从0位置移动115130字节</span><br>    n += <span class="hljs-number">1044</span>   <span class="hljs-comment"># struct MPEG_FRAME mf 大小为1044Byte</span><br>    private_bit = f.read(<span class="hljs-number">1</span>)  <span class="hljs-comment"># 读出1个字节大小内容</span><br>    bit = <span class="hljs-built_in">bin</span>(<span class="hljs-built_in">ord</span>(private_bit))[-<span class="hljs-number">1</span>]  <span class="hljs-comment"># 先转为ascii码，再转为2进制，取最后1bit，即：private_bit</span><br>    data += bit<br>    <span class="hljs-comment"># print(data)</span><br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(data), <span class="hljs-number">8</span>):<br>    rel = <span class="hljs-built_in">int</span>(data[i:i + <span class="hljs-number">8</span>], <span class="hljs-number">2</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-built_in">chr</span>(rel), end=<span class="hljs-string">&quot;&quot;</span>)  <span class="hljs-comment"># 将二进制转为字符</span><br></code></pre></td></tr></table></figure>
+
+<img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310061548308.png" srcset="/img/loading.gif" lazyload alt="image-20231006154810258" style="zoom:33%;" />
+
+
+
+<h3 id="0x06-工控安全取证"><a href="#0x06-工控安全取证" class="headerlink" title="0x06.工控安全取证"></a>0x06.工控安全取证</h3><blockquote>
+<p>有黑客入侵工控设备后在内网发起了大量扫描，而且扫描次数不止一次。 请分析日志，指出对方第4次发起扫描时的数据包的编号，flag形式为 flag{}</p>
+</blockquote>
+<p>首先我们需要将文件后缀改为<code>pcap</code></p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310061632237.png" srcset="/img/loading.gif" lazyload alt="image-20231006163150630"></p>
+<p>然后我们一般扫描都是先使用<code>ping</code>，即icmp协议，这里有四波扫描，第四波是从155987开始</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310061630863.png" srcset="/img/loading.gif" lazyload alt="image-20231006163014994"></p>
+<p>为什么flag是<code>155989</code>，因为前面两个ip主机号都是<code>1、254</code>，</p>
+<p>一般首位地址和末尾地址用于特殊设备使用，因此推测第四次扫描编号为155989</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%B7%A5%E6%8E%A7/" class="category-chain-item">工控</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/xss%E6%BC%8F%E6%B4%9E/" class="print-no-link">#xss漏洞</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>纵横网络靶场</div>
+      <div>https://leekosss.github.io/2023/10/05/纵横网络靶场/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>leekos</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年10月5日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年10月6日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/10/04/%E4%BB%8E%E4%B8%80%E9%A2%98%E5%AD%A6%E4%B9%A0htaccess/" title="从一题学习.htaccess">
+                        <span class="hidden-mobile">从一题学习.htaccess</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"e5J90iDkXMWhU5UNlEX1I2hO-gzGzoHsz","appKey":"esLROw9j3xLk2nV4tQkKaih1","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      赣ICP备2022008842号
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
