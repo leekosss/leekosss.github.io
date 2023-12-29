@@ -1,0 +1,1592 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/leekos.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="leekos">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Linux操作系统笔记文件与目录基本操作文件名长度 • 一般允许1-255个字符  • 有些UNIX不支持长文件名，但至少支持1-14个字符 取名的合法字符 • 除斜线(“&#x2F;“)外的所有字符都是命名的合法字符 • 不可打印字符也可以做文件名(除了字节0)  • 斜线(“&#x2F;“)留作路径名分隔符  • 建议文件名中只包含字母、数字和下划线 touch命令touch 是一个在 Uni">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux操作系统笔记">
+<meta property="og:url" content="https://leekosss.github.io/2023/10/01/Linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Tranquility">
+<meta property="og:description" content="Linux操作系统笔记文件与目录基本操作文件名长度 • 一般允许1-255个字符  • 有些UNIX不支持长文件名，但至少支持1-14个字符 取名的合法字符 • 除斜线(“&#x2F;“)外的所有字符都是命名的合法字符 • 不可打印字符也可以做文件名(除了字节0)  • 斜线(“&#x2F;“)留作路径名分隔符  • 建议文件名中只包含字母、数字和下划线 touch命令touch 是一个在 Uni">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310062048344.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310062124073.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310062136720.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310130812713.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310130835500.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310130836606.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310130836081.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310130838610.png">
+<meta property="og:image" content="c:\Users\LIKE\AppData\Roaming\Typora\typora-user-images\image-20231013083908986.png">
+<meta property="article:published_time" content="2023-10-01T14:00:00.000Z">
+<meta property="article:modified_time" content="2023-12-29T00:29:47.624Z">
+<meta property="article:author" content="leekos">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/leekosss/photoBed/master/202310062048344.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Linux操作系统笔记 - Tranquility</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"leekosss.github.io","root":"/","version":"1.9.5-a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Tranquility</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Linux操作系统笔记"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-10-01 22:00" pubdate>
+          2023年10月1日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          19k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          162 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Linux操作系统笔记</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年12月29日 早上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="Linux操作系统笔记"><a href="#Linux操作系统笔记" class="headerlink" title="Linux操作系统笔记"></a>Linux操作系统笔记</h2><h3 id="文件与目录基本操作"><a href="#文件与目录基本操作" class="headerlink" title="文件与目录基本操作"></a>文件与目录基本操作</h3><p><strong>文件名长度</strong></p>
+<p>• 一般允许1-255个字符 </p>
+<p>• 有些UNIX不支持长文件名，但至少支持1-14个字符</p>
+<p><strong>取名的合法字符</strong></p>
+<p>• 除斜线(“&#x2F;“)外的所有字符都是命名的合法字符</p>
+<p>• 不可打印字符也可以做文件名(除了字节0) </p>
+<p>• 斜线(“&#x2F;“)留作路径名分隔符 </p>
+<p>• 建议文件名中只包含字母、数字和下划线</p>
+<h4 id="touch命令"><a href="#touch命令" class="headerlink" title="touch命令"></a>touch命令</h4><p><code>touch</code> 是一个在 Unix 和类 Unix 操作系统中常用的命令，用于创建空文件或者更新文件的访问和修改时间戳。以下是 <code>touch</code> 命令的基本用法和选项：</p>
+<h5 id="基本用法："><a href="#基本用法：" class="headerlink" title="基本用法："></a>基本用法：</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">touch</span> [选项] 文件名<br></code></pre></td></tr></table></figure>
+
+<h5 id="选项："><a href="#选项：" class="headerlink" title="选项："></a>选项：</h5><ol>
+<li><p><strong>-a，–time&#x3D;atime，–time&#x3D;access，–time&#x3D;use</strong>：只更改访问时间。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">touch</span> -a filename<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>-c，–no-create</strong>：不创建任何文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">touch</span> -c filename<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>-d，–date&#x3D;字符串</strong>：使用指定的日期时间字符串，而不是当前时间。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">touch</span> -d <span class="hljs-string">&quot;2023-01-01 12:00:00&quot;</span> filename<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>-m，–time&#x3D;mtime，–time&#x3D;modification</strong>：只更改修改时间。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">touch</span> -m filename<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>-t，–time&#x3D;时间戳</strong>：使用指定的时间戳，格式为 <code>[[CC]YY]MMDDhhmm[.ss]</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">touch</span> -t 202301011200.00 filename<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>–help</strong>：显示帮助信息。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">touch</span> --<span class="hljs-built_in">help</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>–version</strong>：显示版本信息。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">touch</span> --version<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h5 id="示例："><a href="#示例：" class="headerlink" title="示例："></a>示例：</h5><ol>
+<li><p>创建一个新文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">touch</span> newfile.txt<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>更改文件的访问和修改时间：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">touch</span> filename<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>使用指定的日期时间字符串：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">touch</span> -d <span class="hljs-string">&quot;2023-01-01 12:00:00&quot;</span> filename<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>使用指定的时间戳：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">touch</span> -t 202301011200.00 filename<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>只更新访问时间：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">touch</span> -a filename<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>只更新修改时间：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">touch</span> -m filename<br></code></pre></td></tr></table></figure></li>
+</ol>
+<p><code>touch</code> 命令的主要功能是更新文件的时间戳，但它也可以用来创建新文件，如果文件不存在的话。</p>
+<h4 id="mkdir命令"><a href="#mkdir命令" class="headerlink" title="mkdir命令"></a>mkdir命令</h4><p><code>mkdir</code> 是用于在 Unix 和类 Unix 操作系统中创建目录（文件夹）的命令。以下是 <code>mkdir</code> 命令的基本用法和选项：</p>
+<h5 id="基本用法：-1"><a href="#基本用法：-1" class="headerlink" title="基本用法："></a>基本用法：</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> [选项] 目录名<br></code></pre></td></tr></table></figure>
+
+<h5 id="选项：-1"><a href="#选项：-1" class="headerlink" title="选项："></a>选项：</h5><ol>
+<li><p><strong>-m，–mode&#x3D;模式</strong>：设置权限模式（类似于 <code>chmod</code> 命令）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> -m 755 mydirectory<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>-p，–parents</strong>：递归创建目录，如果上层目录不存在也会创建。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> -p /path/to/my/directory<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>–help</strong>：显示帮助信息。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> --<span class="hljs-built_in">help</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>–version</strong>：显示版本信息。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> --version<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h5 id="示例：-1"><a href="#示例：-1" class="headerlink" title="示例："></a>示例：</h5><ol>
+<li><p>创建一个新目录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> mydirectory<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>设置权限模式：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> -m 755 mydirectory<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>递归创建目录及其父目录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> -p /path/to/my/directory<br></code></pre></td></tr></table></figure></li>
+</ol>
+<p><code>mkdir</code> 命令是创建目录的标准工具。通过指定目录名，您可以创建一个新的目录。如果要创建多级目录，可以使用 <code>-p</code> 选项，这样如果上层目录不存在，也会被创建。</p>
+<h4 id="cp命令"><a href="#cp命令" class="headerlink" title="cp命令"></a>cp命令</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell">cp fly fly2 #复制文件<br>cp -i fly fly2 #复制时询问是否覆盖已有文件<br>cp -p fly fly3 #复制时保持文件属性不变<br>cp fly butterfly doc #复制多个文件至一个目录<br>cp fly bak/fly.bak<br>cp doc/* bak #复制doc中的所有文件到bak中<br>cp -R /usr/share/doc/pam-1.1.8/ doc #递归复制目录<br>cp -a /usr/share/doc/pam-1.1.8/ doc #同上且保持文件属性<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="mv命令"><a href="#mv命令" class="headerlink" title="mv命令"></a>mv命令</h4><p><code>mv</code> 命令是在 Unix 和类 Unix 操作系统中用于移动或重命名文件或目录的命令。以下是 <code>mv</code> 命令的基本用法和选项：</p>
+<h5 id="基本用法：-2"><a href="#基本用法：-2" class="headerlink" title="基本用法："></a>基本用法：</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mv</span> [选项] 源文件/目录 目标文件/目录<br></code></pre></td></tr></table></figure>
+
+<ol>
+<li><p>移动文件到另一个目录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mv</span> file.txt /path/to/destination/<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>重命名文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mv</span> oldfile.txt newfile.txt<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>移动并覆盖目标文件（无提示）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mv</span> -f source.txt /path/to/destination/<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>移动文件并为目标文件创建备份：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mv</span> -b file.txt /path/to/backup/<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>交互式地移动文件，避免覆盖目标文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mv</span> -i file.txt /path/to/destination/<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>仅在源文件较新或目标文件不存在时执行移动操作：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mv</span> -u file.txt /path/to/destination/<br></code></pre></td></tr></table></figure></li>
+</ol>
+<p><code>mv</code> 命令不仅可以用于移动文件，还可以用于重命名文件。其选项提供了一些额外的控制，例如备份、强制覆盖和交互式提示等。</p>
+<h4 id="rm命令"><a href="#rm命令" class="headerlink" title="rm命令"></a>rm命令</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">rm doc/fly #删除文件<br>rm -i doc/fly&#123;2,4&#125; #删除前询问<br>rm -f doc/fly4 #强行删除<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="rmdir命令"><a href="#rmdir命令" class="headerlink" title="rmdir命令"></a>rmdir命令</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">mkdir -p a1/b1/c1 a2/b2/c2 a3/b3/c3<br>rmdir a1/b1/c1 		#删除空目录<br>rmdir -p a2/b2/c2 	#删除多层空目录<br>rmdir -p a3/b3 		#error<br>rm -rf a3 			#删除目录及其内的文件<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="wc命令"><a href="#wc命令" class="headerlink" title="wc命令"></a>wc命令</h4><p><code>wc</code>（word count）命令是用于计算文件中字数、行数和字符数的命令。</p>
+<h5 id="基本用法：-3"><a href="#基本用法：-3" class="headerlink" title="基本用法："></a>基本用法：</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">wc</span> [选项] 文件名<br></code></pre></td></tr></table></figure>
+
+<h5 id="选项：-2"><a href="#选项：-2" class="headerlink" title="选项："></a>选项：</h5><ol>
+<li><p><strong>-c，–bytes：</strong> 打印文件的字节数。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">wc</span> -c filename<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>-w，–words：</strong> 打印文件的字数。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">wc</span> -w filename<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>-l，–lines：</strong> 打印文件的行数。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">wc</span> -l filename<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>–help：</strong> 显示帮助信息。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">wc</span> --<span class="hljs-built_in">help</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>–version：</strong> 显示版本信息。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">wc</span> --version<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h5 id="示例：-2"><a href="#示例：-2" class="headerlink" title="示例："></a>示例：</h5><ol>
+<li><p>计算文件的字节数、字数和行数：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">wc</span> filename<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>只显示文件的字节数：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">wc</span> -c filename<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>只显示文件的字数：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">wc</span> -w filename<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>只显示文件的行数：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">wc</span> -l filename<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>同时统计多个文件的字节数、字数和行数：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">wc</span> file1.txt file2.txt<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="搜索文件"><a href="#搜索文件" class="headerlink" title="搜索文件"></a>搜索文件</h3><h4 id="find命令"><a href="#find命令" class="headerlink" title="find命令"></a>find命令</h4><p><code>find</code> 命令是查找文件和目录的命令。它支持强大的搜索功能，</p>
+<h5 id="基本用法：-4"><a href="#基本用法：-4" class="headerlink" title="基本用法："></a>基本用法：</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find 目录 -选项 [条件]<br></code></pre></td></tr></table></figure>
+
+<h5 id="常见选项和条件："><a href="#常见选项和条件：" class="headerlink" title="常见选项和条件："></a>常见选项和条件：</h5><ol>
+<li><p><strong>-name “模式”：</strong> 按文件名进行匹配，可以使用通配符。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find /path/to/search -name <span class="hljs-string">&quot;*.txt&quot;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>-type 类型：</strong> 按文件类型进行匹配，如 <code>f</code> 表示文件，<code>d</code> 表示目录。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find /path/to/search -<span class="hljs-built_in">type</span> f<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>-size [+&#x2F;-]大小：</strong> 按文件大小进行匹配，加号表示大于，减号表示小于，没有符号表示等于。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find /path/to/search -size +1M<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>-mtime [+&#x2F;-]天数：</strong> 按文件修改时间进行匹配，加号表示更早，减号表示更近。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find /path/to/search -mtime -7<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>-exec 命令 {} ;：</strong> 对匹配到的文件执行指定的命令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find /path/to/search -name <span class="hljs-string">&quot;*.log&quot;</span> -<span class="hljs-built_in">exec</span> <span class="hljs-built_in">rm</span> &#123;&#125; \;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>-print：</strong> 将匹配到的文件路径打印到标准输出。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find /path/to/search -name <span class="hljs-string">&quot;*.txt&quot;</span> -<span class="hljs-built_in">print</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>-maxdepth 深度：</strong> 限制查找的最大深度。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find /path/to/search -name <span class="hljs-string">&quot;*.txt&quot;</span> -maxdepth 2<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>-mindepth 深度：</strong> 限制查找的最小深度。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find /path/to/search -name <span class="hljs-string">&quot;*.txt&quot;</span> -mindepth 2<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h5 id="示例：-3"><a href="#示例：-3" class="headerlink" title="示例："></a>示例：</h5><ol>
+<li><p>查找所有以 <code>.txt</code> 结尾的文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find /path/to/search -name <span class="hljs-string">&quot;*.txt&quot;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>查找文件并执行操作（例如删除）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find /path/to/search -name <span class="hljs-string">&quot;*.log&quot;</span> -<span class="hljs-built_in">exec</span> <span class="hljs-built_in">rm</span> &#123;&#125; \;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>查找指定类型的文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find /path/to/search -<span class="hljs-built_in">type</span> f<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>查找大于 1MB 的文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find /path/to/search -size +1M<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>查找最近 7 天内修改过的文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find /path/to/search -mtime -7<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="xargs"><a href="#xargs" class="headerlink" title="xargs"></a>xargs</h4><p><code>xargs</code> 是一个命令，用于从标准输入或者其他命令的输出中读取数据，并将其作为参数传递给指定的命令。<code>xargs</code> 可以帮助处理由其他命令生成的大量输入，并将其转换为命令行参数。</p>
+<h5 id="基本用法：-5"><a href="#基本用法：-5" class="headerlink" title="基本用法："></a>基本用法：</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">command</span> | xargs [选项] 命令<br></code></pre></td></tr></table></figure>
+
+<h5 id="常见选项："><a href="#常见选项：" class="headerlink" title="常见选项："></a>常见选项：</h5><ol>
+<li><p><strong>-0，–null：</strong> 使用空字符（null）作为定界符，用于处理文件名中可能包含空格等特殊字符的情况。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find /path/to/files -<span class="hljs-built_in">type</span> f -print0 | xargs -0 <span class="hljs-built_in">rm</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>-n 数目，–max-args&#x3D;数目：</strong> 指定每个命令行调用使用的参数的最大数目。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">ls</span> | xargs -n 2<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>-i，–replace[&#x3D;替代字符串]：</strong> 使用替代字符串替代命令中的 <code>&#123;&#125;</code>，或者使用指定的替代字符串。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;file1 file2 file3&quot;</span> | xargs -i <span class="hljs-built_in">cp</span> &#123;&#125; /destination/path<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>-p，–interactive：</strong> 在执行命令之前，提示用户确认是否继续。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find /path/to/files -<span class="hljs-built_in">type</span> f | xargs -p <span class="hljs-built_in">rm</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>–help：</strong> 显示帮助信息。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">xargs --<span class="hljs-built_in">help</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>–version：</strong> 显示版本信息。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">xargs --version<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h5 id="示例：-4"><a href="#示例：-4" class="headerlink" title="示例："></a>示例：</h5><ol>
+<li><p>使用 <code>xargs</code> 将文件列表传递给 <code>rm</code> 命令删除文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find /path/to/files -name <span class="hljs-string">&quot;*.txt&quot;</span> | xargs <span class="hljs-built_in">rm</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>使用 <code>-exec</code> 与 <code>xargs</code> 结合，删除大量文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find /path/to/files -name <span class="hljs-string">&quot;*.log&quot;</span> -<span class="hljs-built_in">exec</span> <span class="hljs-built_in">rm</span> &#123;&#125; +<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>使用 <code>xargs</code> 处理包含空格的文件名：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find /path/to/files -<span class="hljs-built_in">type</span> f -print0 | xargs -0 <span class="hljs-built_in">rm</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>使用 <code>xargs</code> 交互式地执行命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find /path/to/files -name <span class="hljs-string">&quot;*.tmp&quot;</span> | xargs -p <span class="hljs-built_in">rm</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>使用 <code>-i</code> 替代字符串：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;file1 file2 file3&quot;</span> | xargs -i <span class="hljs-built_in">cp</span> &#123;&#125; /destination/path<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="find与xargs协作"><a href="#find与xargs协作" class="headerlink" title="find与xargs协作"></a>find与xargs协作</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">默认情况下xargs会将每个输入作为参数附加到命令最后</span><br>find . -type f -name &quot;*.txt&quot; | xargs rm -f<br><span class="hljs-meta prompt_"># </span><span class="language-bash">要把输入放在命令的其他位置，需用占位符，-I可指定占位符</span><br>find . -name &#x27;*.mp3&#x27; | xargs -I&#123;&#125; mv &#123;&#125; songs<br>find . -name &#x27;*.mp3&#x27; | xargs -Ix mv x songs # 同上<br><span class="hljs-meta prompt_">#</span><span class="language-bash">为处理文件名含有特殊字符(如空格)的情况，一般会结合find的-print0</span><br>和xargs的-0来避免出错，find的-print0将用&#x27;\0&#x27;作为分隔符分割每个文<br>件名，而xargs的-0则以&#x27;\0&#x27;作为分隔符来读取文件名。<br>find . -name &#x27;*.mp3&#x27; -print0 | xargs -Imp3 -0 mv mp3 songs<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="压缩和解压缩文件"><a href="#压缩和解压缩文件" class="headerlink" title="压缩和解压缩文件"></a>压缩和解压缩文件</h3><h4 id="1-tar-命令（打包-解包）"><a href="#1-tar-命令（打包-解包）" class="headerlink" title="1. tar 命令（打包&#x2F;解包）"></a>1. <strong>tar 命令（打包&#x2F;解包）</strong></h4><ul>
+<li><p><strong>打包文件或目录：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">tar -cvf archive.tar file1 file2 directory1<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>解包文件：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">tar -xvf archive.tar<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>打包并压缩（使用 gzip）：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">tar -czvf archive.tar.gz file1 file2 directory1<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>解压缩并解包（使用 gzip）：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">tar -xzvf archive.tar.gz<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-gzip-和-gunzip-命令"><a href="#2-gzip-和-gunzip-命令" class="headerlink" title="2. gzip 和 gunzip 命令"></a>2. <strong>gzip 和 gunzip 命令</strong></h4><ul>
+<li><p><strong>压缩文件：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gzip filename<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>解压缩文件：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gunzip filename.gz<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="3-bzip2-和-bunzip2-命令"><a href="#3-bzip2-和-bunzip2-命令" class="headerlink" title="3. bzip2 和 bunzip2 命令"></a>3. <strong>bzip2 和 bunzip2 命令</strong></h4><ul>
+<li><p><strong>压缩文件：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">bzip2 filename<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>解压缩文件：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">bunzip2 filename.bz2<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="4-zip-和-unzip-命令"><a href="#4-zip-和-unzip-命令" class="headerlink" title="4. zip 和 unzip 命令"></a>4. <strong>zip 和 unzip 命令</strong></h4><ul>
+<li><p><strong>压缩文件或目录：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">zip archive.zip file1 file2 directory1<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>解压缩文件或目录：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">unzip archive.zip<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="示例：-5"><a href="#示例：-5" class="headerlink" title="示例："></a>示例：</h4><ol>
+<li><p><strong>使用 tar 打包和解包：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 打包</span><br>tar -cvf archive.tar file1 file2 directory1<br><br><span class="hljs-comment"># 解包</span><br>tar -xvf archive.tar<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>使用 tar 打包并压缩（gzip）：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 打包并压缩</span><br>tar -czvf archive.tar.gz file1 file2 directory1<br><br><span class="hljs-comment"># 解压缩并解包</span><br>tar -xzvf archive.tar.gz<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>使用 gzip 进行压缩和解压缩：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 压缩</span><br>gzip filename<br><br><span class="hljs-comment"># 解压缩</span><br>gunzip filename.gz<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>使用 bzip2 进行压缩和解压缩：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 压缩</span><br>bzip2 filename<br><br><span class="hljs-comment"># 解压缩</span><br>bunzip2 filename.bz2<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>使用 zip 进行压缩和解压缩：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 压缩</span><br>zip archive.zip file1 file2 directory1<br><br><span class="hljs-comment"># 解压缩</span><br>unzip archive.zip<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="分割与合并文件"><a href="#分割与合并文件" class="headerlink" title="分割与合并文件"></a>分割与合并文件</h3><h4 id="split"><a href="#split" class="headerlink" title="split"></a>split</h4><p>有时网站、U盘等对文件大小有限制，需要把大文件 拆分成更小的文件。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs shell">tar -czf bak.tar.gz /usr/share/doc/<br>split -b 5M bak.tar.gz # 以5M大小为单位进行拆分<br><span class="hljs-meta prompt_"># </span><span class="language-bash">默认情况下拆分得到的文件名以x开头，后面跟从aa开始的两位字母</span><br>split -b 5M -d -a 3 bak.tar.gz docs.tar.gz.part.<br><span class="hljs-meta prompt_"># </span><span class="language-bash">-d 使用数字后缀</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">-a 3 数字后缀长度为3位</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">拆分后的文件名均以doc.tar.gz.part.开头</span><br>cat docs.* &gt;docs.tar.gz # 合并<br>cmp bak.tar.gz docs.tar.gz # 比较<br>echo &#x27;passwd 123456&#x27; &gt;secret<br>cat sunrise.jpg secret &gt;sun.jpg<br>tail sun.jpg<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h3 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h3><h4 id="0x01-grep-行过滤"><a href="#0x01-grep-行过滤" class="headerlink" title="0x01.grep 行过滤"></a>0x01.grep 行过滤</h4><p>grep可以过滤行</p>
+<p>grep选项：</p>
+<ul>
+<li><code>-i</code>	忽略大小写</li>
+<li><code>-n</code>    添加行号</li>
+<li><code>-v</code>    反向过滤，<code>grep -v &#39;abc&#39; myfile</code> 过滤出除了有abc的行</li>
+<li><code>-c</code>    记录出符合的行中总字符数</li>
+</ul>
+<h5 id="基本正则表达式-grep"><a href="#基本正则表达式-grep" class="headerlink" title="基本正则表达式 grep"></a>基本正则表达式 grep</h5><ul>
+<li><p>. 表示单个任意字符（换行符除外）</p>
+</li>
+<li><p>[…] 表示单个括号中的任意字符</p>
+</li>
+<li><p>x* 表示x出现0次或0次以上</p>
+</li>
+<li><p>^x 锚定行首字符x，其中^代表行首</p>
+</li>
+<li><p>x$ 锚定行尾字符x，其中$代表行尾</p>
+</li>
+</ul>
+<h5 id="扩展正则表达式-egrep"><a href="#扩展正则表达式-egrep" class="headerlink" title="扩展正则表达式 egrep"></a>扩展正则表达式 egrep</h5><blockquote>
+<p>grep默认把 ERE 元字符按普通字符处理，在其 前面有反斜杠时才按元字符处理，这一点正好与 扩展正则表达式元字符相反！</p>
+</blockquote>
+<p>扩展正则表达式元字符 :  <code>?、+、|、&#123; &#125;、( )</code></p>
+<p>• grep -E </p>
+<p>• egrep</p>
+<h6 id="x-表示-x-出现-1-次以上"><a href="#x-表示-x-出现-1-次以上" class="headerlink" title="x+ 表示 x 出现 1 次以上"></a>x+ 表示 x 出现 1 次以上</h6><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs elixir"><span class="hljs-variable">$ </span>grep <span class="hljs-string">&#x27;^[0-9]\+$&#x27;</span> rfile<br><span class="hljs-variable">$ </span>grep -E <span class="hljs-string">&#x27;^[0-9]+$&#x27;</span> rfile<br><span class="hljs-variable">$ </span>egrep <span class="hljs-string">&#x27;^[0-9]+$&#x27;</span> rfile<br></code></pre></td></tr></table></figure>
+
+
+
+<h6 id="x-表示-x-出现-0-次或-1-次"><a href="#x-表示-x-出现-0-次或-1-次" class="headerlink" title="x? 表示 x 出现 0 次或 1 次"></a>x? 表示 x 出现 0 次或 1 次</h6><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">grep</span> &#x27;^[<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]*\.\?[<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]\+$&#x27; rfile<br><span class="hljs-attribute">grep</span> -E &#x27;^[<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]*.?[<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]+$&#x27; rfile<br></code></pre></td></tr></table></figure>
+
+
+
+<h6 id="x-y-表示-x-或-y"><a href="#x-y-表示-x-或-y" class="headerlink" title="x|y 表示 x 或 y"></a>x|y 表示 x 或 y</h6><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs perl"><span class="hljs-keyword">grep</span> <span class="hljs-string">&#x27;html\|HTML&#x27;</span> rfile  <span class="hljs-comment"># 注意在|两侧不能加空格</span><br><span class="hljs-keyword">grep</span> -E <span class="hljs-string">&#x27;html|HTML&#x27;</span> rfile<br></code></pre></td></tr></table></figure>
+
+
+
+<h6 id="x-n-表示-x-正好出现-n-次"><a href="#x-n-表示-x-正好出现-n-次" class="headerlink" title="x{n} 表示 x 正好出现 n 次"></a>x{n} 表示 x 正好出现 n 次</h6><h6 id="x-n-表示-x-出现-n-次以上"><a href="#x-n-表示-x-出现-n-次以上" class="headerlink" title="x{n,} 表示 x 出现 n 次以上"></a>x{n,} 表示 x 出现 n 次以上</h6><h6 id="x-m-n-表示-x-出现-m-到-n-次-m"><a href="#x-m-n-表示-x-出现-m-到-n-次-m" class="headerlink" title="x{m,n} 表示 x 出现 m 到 n 次 (m&lt;n)"></a>x{m,n} 表示 x 出现 m 到 n 次 (m&lt;n)</h6><h4 id="0x02-cut-列过滤"><a href="#0x02-cut-列过滤" class="headerlink" title="0x02.cut 列过滤"></a>0x02.cut 列过滤</h4><p>cut可以过滤列，</p>
+<p>cut选项：</p>
+<ul>
+<li>-c 指定提取的字符列表，-c3 表示提取每列的第3个字符</li>
+<li>-f 提取指定的字段列表  ，-f1,3 表示提取第1和第3个字段</li>
+<li>-d 指定字段的分隔符，<code>-d &#39;,&#39;</code> 以逗号分隔字段</li>
+<li>-b 按字节位置提取文件内容，可以指定一个范围</li>
+</ul>
+<img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310062048344.png" srcset="/img/loading.gif" lazyload alt="image-20231006204806001" style="zoom:50%;" />
+
+
+
+<h4 id="0x03-tr-字符转换"><a href="#0x03-tr-字符转换" class="headerlink" title="0x03.tr 字符转换"></a>0x03.tr 字符转换</h4><p>tr只能通过<code>stdin</code>标准输入</p>
+<h5 id="小写转大写"><a href="#小写转大写" class="headerlink" title="小写转大写"></a>小写转大写</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">[f23a16@localhost ~]$ <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;leekos haha&quot;</span> | <span class="hljs-built_in">tr</span> <span class="hljs-string">&#x27;a-z&#x27;</span> <span class="hljs-string">&#x27;A-Z&#x27;</span><br>LEEKOS HAHA<br></code></pre></td></tr></table></figure>
+
+
+
+<h5 id="空格转tab"><a href="#空格转tab" class="headerlink" title="空格转tab"></a>空格转tab</h5><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs powershell">[<span class="hljs-type">f23a16</span>@<span class="hljs-type">localhost</span> ~]<span class="hljs-variable">$</span> <span class="hljs-built_in">cat</span> myfile <br>like <span class="hljs-built_in">man</span> <span class="hljs-number">20</span> <span class="hljs-number">182</span><br>leekos booy <span class="hljs-number">19</span> <span class="hljs-number">180</span><br>bob male <span class="hljs-number">22</span> <span class="hljs-number">172</span><br>[<span class="hljs-type">f23a16</span>@<span class="hljs-type">localhost</span> ~]<span class="hljs-variable">$</span> tr <span class="hljs-string">&#x27; &#x27;</span> <span class="hljs-string">&#x27;\t&#x27;</span> &lt; myfile <br>like    <span class="hljs-built_in">man</span>     <span class="hljs-number">20</span>      <span class="hljs-number">182</span><br>leekos  booy    <span class="hljs-number">19</span>      <span class="hljs-number">180</span><br>bob     male    <span class="hljs-number">22</span>      <span class="hljs-number">172</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h5 id="tr-d-删除字符"><a href="#tr-d-删除字符" class="headerlink" title="tr -d 删除字符"></a>tr -d 删除字符</h5><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs elixir">[f23a16<span class="hljs-variable">@localhost</span> ~]<span class="hljs-variable">$ </span>tr -d <span class="hljs-string">&#x27;0-9&#x27;</span> &lt; myfile   <span class="hljs-comment"># 删除数字</span><br>like man  <br>leekos booy  <br>bob male <br></code></pre></td></tr></table></figure>
+
+
+
+<h5 id="tr-c-取反"><a href="#tr-c-取反" class="headerlink" title="tr -c 取反"></a>tr -c 取反</h5><p><code>tr -c</code> 可以进行取指定字符的补集，类似正则的<code>^</code></p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs elixir">[f23a16<span class="hljs-variable">@localhost</span> ~]<span class="hljs-variable">$ </span>tr -cd <span class="hljs-string">&#x27;0-9&#x27;</span> &lt; myfile   <span class="hljs-comment"># 使用-d删除字符，-c取反，可以删除非数字</span><br><span class="hljs-number">201821918022172</span>[f23a16<span class="hljs-variable">@localhost</span> ~]$<br></code></pre></td></tr></table></figure>
+
+
+
+<h5 id="tr-s-压缩重复字符"><a href="#tr-s-压缩重复字符" class="headerlink" title="tr -s 压缩重复字符"></a>tr -s 压缩重复字符</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">[f23a16@localhost ~]$  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;flaaaaaag is here&quot;</span> | <span class="hljs-built_in">tr</span> -s <span class="hljs-string">&#x27;a&#x27;</span>  <span class="hljs-comment"># 压缩重复的a</span><br>flag is here<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="0x04-sort-排序"><a href="#0x04-sort-排序" class="headerlink" title="0x04.sort 排序"></a>0x04.sort 排序</h4><p><code>sort</code>命令用于对文本文件的行进行排序操作。它可以按照不同的排序规则和顺序对行进行排序，并将结果输出到标准输出或指定的文件中。</p>
+<p>以下是<code>sort</code>命令的一些常见选项：</p>
+<ul>
+<li><code>-r, --reverse</code>：以逆序排序，即降序排序。</li>
+<li><code>-n, --numeric-sort</code>：按照数值进行排序而不是按照字典顺序。适用于包含数值的行。</li>
+<li><code>-f, --ignore-case</code>：在排序时忽略大小写，即不区分大小写进行排序。</li>
+<li><code>-u, --unique</code>：去除重复的行，仅保留唯一的行。</li>
+<li><code>-k, --key=KEYDEF</code>：按照指定的键定义进行排序。可以指定多个键定义以进行复合排序。</li>
+<li><code>-t, --field-separator=SEP</code>：指定字段分隔符。默认情况下，字段分隔符是空白字符（空格或制表符）。</li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-variable">$</span> <span class="hljs-built_in">sort</span> booklist <span class="hljs-comment">#按字典序排序</span><br><span class="hljs-variable">$</span> <span class="hljs-built_in">sort</span> <span class="hljs-literal">-t</span>^ <span class="hljs-literal">-k3</span> booklist <span class="hljs-comment">#按出版年份排序</span><br><span class="hljs-variable">$</span> <span class="hljs-built_in">sort</span> <span class="hljs-literal">-t</span>^ <span class="hljs-literal">-k4</span>.<span class="hljs-number">2</span> booklist <span class="hljs-comment">#按价格排序 !?</span><br><span class="hljs-variable">$</span> <span class="hljs-built_in">sort</span> <span class="hljs-literal">-t</span>^ <span class="hljs-literal">-k4</span>.<span class="hljs-number">2</span> <span class="hljs-literal">-nr</span> booklist <span class="hljs-comment">#按价格从高到低排序</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight parser3"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs parser3"><span class="language-xml">[f23a16@localhost ~]$ cat booklist </span><br><span class="language-xml">All the light we cannot see</span><span class="hljs-keyword">^Anthony</span><span class="language-xml"> Doerr</span><span class="hljs-keyword">^2014</span><span class="language-xml">^</span><span class="hljs-variable">$15.29</span><span class="language-xml"></span><br><span class="language-xml">Red queen</span><span class="hljs-keyword">^Victoria</span><span class="language-xml"> Aveyard</span><span class="hljs-keyword">^2015</span><span class="language-xml">^</span><span class="hljs-variable">$10.58</span><span class="language-xml"></span><br><span class="language-xml">Saga,Vol</span><span class="hljs-number">.1</span><span class="hljs-keyword">^Brian</span><span class="language-xml"> K. Vaughan</span><span class="hljs-keyword">^2012</span><span class="language-xml">^</span><span class="hljs-variable">$8.46</span><span class="language-xml"></span><br><span class="language-xml">The blood of Olympus</span><span class="hljs-keyword">^Pick</span><span class="language-xml"> Piordan</span><span class="hljs-keyword">^2014</span><span class="language-xml">^</span><span class="hljs-variable">$11.99</span><span class="language-xml"></span><br><span class="language-xml">The day the crayons quit</span><span class="hljs-keyword">^Drew</span><span class="language-xml"> Daywalt</span><span class="hljs-keyword">^2013</span><span class="language-xml">^</span><span class="hljs-variable">$10.32</span><span class="language-xml"></span><br><span class="language-xml">The girl on the train</span><span class="hljs-keyword">^Paula</span><span class="language-xml"> Hawkins</span><span class="hljs-keyword">^2015</span><span class="language-xml">^</span><span class="hljs-variable">$14.01</span><span class="language-xml"></span><br><span class="language-xml">Winter(Lunar)</span><span class="hljs-keyword">^Marissa</span><span class="language-xml"> Meyer</span><span class="hljs-keyword">^2015</span><span class="language-xml">^</span><span class="hljs-variable">$13.84</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h5 id="sort-r-t-k"><a href="#sort-r-t-k" class="headerlink" title="sort -r -t -k"></a>sort -r -t -k</h5><ul>
+<li>-r 降序排列</li>
+<li>-t 指定字段分隔符</li>
+<li>-k 指定排序字段</li>
+</ul>
+<figure class="highlight parser3"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs parser3"><span class="language-xml">[f23a16@localhost ~]$ sort -rt^ -k3 booklist  # 降序排列，以^分隔字段，以第三列排序</span><br><span class="language-xml">The girl on the train</span><span class="hljs-keyword">^Paula</span><span class="language-xml"> Hawkins</span><span class="hljs-keyword">^2015</span><span class="language-xml">^</span><span class="hljs-variable">$14.01</span><span class="language-xml"></span><br><span class="language-xml">Winter(Lunar)</span><span class="hljs-keyword">^Marissa</span><span class="language-xml"> Meyer</span><span class="hljs-keyword">^2015</span><span class="language-xml">^</span><span class="hljs-variable">$13.84</span><span class="language-xml"></span><br><span class="language-xml">Red queen</span><span class="hljs-keyword">^Victoria</span><span class="language-xml"> Aveyard</span><span class="hljs-keyword">^2015</span><span class="language-xml">^</span><span class="hljs-variable">$10.58</span><span class="language-xml"></span><br><span class="language-xml">All the light we cannot see</span><span class="hljs-keyword">^Anthony</span><span class="language-xml"> Doerr</span><span class="hljs-keyword">^2014</span><span class="language-xml">^</span><span class="hljs-variable">$15.29</span><span class="language-xml"></span><br><span class="language-xml">The blood of Olympus</span><span class="hljs-keyword">^Pick</span><span class="language-xml"> Piordan</span><span class="hljs-keyword">^2014</span><span class="language-xml">^</span><span class="hljs-variable">$11.99</span><span class="language-xml"></span><br><span class="language-xml">The day the crayons quit</span><span class="hljs-keyword">^Drew</span><span class="language-xml"> Daywalt</span><span class="hljs-keyword">^2013</span><span class="language-xml">^</span><span class="hljs-variable">$10.32</span><span class="language-xml"></span><br><span class="language-xml">Saga,Vol</span><span class="hljs-number">.1</span><span class="hljs-keyword">^Brian</span><span class="language-xml"> K. Vaughan</span><span class="hljs-keyword">^2012</span><span class="language-xml">^</span><span class="hljs-variable">$8.46</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h5 id="sort-k-n"><a href="#sort-k-n" class="headerlink" title="sort -k -n"></a>sort -k -n</h5><ul>
+<li>-n 以数值大小排序，而不是以字典排序</li>
+<li>-k 指定排序字段，加小数点，表示从第几位开始算</li>
+</ul>
+<p><code>sort -n -t^ -k4.2 booklist</code> </p>
+<p>-n表示以数值大小排序，<code>-k4.2</code>表示以第4个字段的第2位排序</p>
+<img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310062124073.png" srcset="/img/loading.gif" lazyload alt="image-20231006212444700" style="zoom:50%;" />
+
+
+
+<h5 id="sort-可通过多个-k多列排序"><a href="#sort-可通过多个-k多列排序" class="headerlink" title="sort 可通过多个-k多列排序"></a>sort 可通过多个<code>-k</code>多列排序</h5><p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310062136720.png" srcset="/img/loading.gif" lazyload alt="image-20231006213654589"></p>
+<ul>
+<li><code>-k1.3,1.4</code>：这个键定义表示按照第一个字段的第三个字符和第四个字符进行排序。它将会对这个范围内的字符进行排序，而忽略其他字符。</li>
+<li><code>-k3nr</code>：这个键定义表示按照第三个字段进行逆序排序。<code>n</code>选项指示对字段进行数值排序，<code>r</code>选项表示逆序排序。</li>
+<li><code>-k2nr</code>：这个键定义表示按照第二个字段进行逆序排序，同样使用了<code>n</code>选项进行数值排序和<code>r</code>选项进行逆序排序。</li>
+</ul>
+<p>整个命令的作用是首先按照第一个字段的第三个和第四个字符进行排序，然后在相同的排序结果中，按照第三个字段进行逆序排序，最后在相同的排序结果中，按照第二个字段进行逆序排序。</p>
+<h4 id="0x05-uniq"><a href="#0x05-uniq" class="headerlink" title="0x05.uniq"></a>0x05.uniq</h4><ul>
+<li><code>-c, --count</code>：在输出中显示每行重复出现的次数。</li>
+<li><code>-d, --repeated</code>：仅显示重复的行。</li>
+<li><code>-u, --unique</code>：仅显示不重复的行。</li>
+<li><code>-i, --ignore-case</code>：在比较行时忽略大小写。</li>
+<li><code>-f, --skip-fields=N</code>：跳过前面的 N 个字段，仅考虑从第 N+1 个字段开始的内容。</li>
+<li><code>-s, --skip-chars=N</code>：跳过前面的 N 个字符，仅考虑从第 N+1 个字符开始的内容。</li>
+</ul>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs crystal">[f23a16<span class="hljs-variable">@localhost</span> ~]<span class="hljs-variable">$ </span>cat numlist <br><span class="hljs-number">123</span><br><span class="hljs-number">56</span><br><span class="hljs-number">123</span><br><span class="hljs-number">123</span><br><span class="hljs-number">78</span><br><span class="hljs-number">78</span><br><span class="hljs-number">30</span><br>[f23a16<span class="hljs-variable">@localhost</span> ~]<span class="hljs-variable">$ </span>uniq numlist<br><span class="hljs-number">123</span><br><span class="hljs-number">56</span><br><span class="hljs-number">123</span><br><span class="hljs-number">78</span><br><span class="hljs-number">30</span><br>[f23a16<span class="hljs-variable">@localhost</span> ~]<span class="hljs-variable">$ </span>sort numlist <br><span class="hljs-number">123</span><br><span class="hljs-number">123</span><br><span class="hljs-number">123</span><br><span class="hljs-number">30</span><br><span class="hljs-number">56</span><br><span class="hljs-number">78</span><br><span class="hljs-number">78</span><br>[f23a16<span class="hljs-variable">@localhost</span> ~]<span class="hljs-variable">$ </span>sort numlist | uniq <br><span class="hljs-number">123</span><br><span class="hljs-number">30</span><br><span class="hljs-number">56</span><br><span class="hljs-number">78</span><br>[f23a16<span class="hljs-variable">@localhost</span> ~]<span class="hljs-variable">$ </span>sort numlist | uniq -d<br><span class="hljs-number">123</span><br><span class="hljs-number">78</span><br>[f23a16<span class="hljs-variable">@localhost</span> ~]<span class="hljs-variable">$ </span>sort numlist | uniq -u<br><span class="hljs-number">30</span><br><span class="hljs-number">56</span><br>[f23a16<span class="hljs-variable">@localhost</span> ~]<span class="hljs-variable">$ </span>sort numlist | uniq -c<br>      <span class="hljs-number">3</span> <span class="hljs-number">123</span><br>      <span class="hljs-number">1</span> <span class="hljs-number">30</span><br>      <span class="hljs-number">1</span> <span class="hljs-number">56</span><br>      <span class="hljs-number">2</span> <span class="hljs-number">78</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h4 id="sed"><a href="#sed" class="headerlink" title="sed"></a>sed</h4><blockquote>
+<p><code>sed</code>是一种流编辑器（stream editor），在Unix和类Unix系统中广泛使用。它用于处理文本流，可以在读取输入流时对文本进行转换和编辑，然后将结果输出到标准输出流。</p>
+<p><code>sed</code>通过一系列编辑命令来实现对文本的处理。这些命令可以用于插入、删除、替换和转换文本，以及执行其他各种编辑操作。<code>sed</code>的编辑命令可以通过脚本文件或命令行直接提供。</p>
+</blockquote>
+<h5 id="sed命令格式"><a href="#sed命令格式" class="headerlink" title="sed命令格式"></a>sed命令格式</h5><figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs prolog">$ sed [选项]... <span class="hljs-string">&#x27;脚本&#x27;</span> 文件...<br>$ sed [选项]... -e <span class="hljs-string">&#x27;脚本1&#x27;</span> -e <span class="hljs-string">&#x27;脚本2&#x27;</span>... 文件...<br>$ sed [选项]... -f 脚本文件 文件...<br></code></pre></td></tr></table></figure>
+
+<p>-e 可以用来执行多个脚本，-f代表从脚本文件中执行脚本</p>
+<h5 id="sed工作原理"><a href="#sed工作原理" class="headerlink" title="sed工作原理"></a>sed工作原理</h5><ol>
+<li><code>sed</code>从输入流中逐行读取文本。</li>
+<li>对于每一行，<code>sed</code>检查是否有与之匹配的编辑命令。</li>
+<li>如果有匹配的命令，<code>sed</code>执行该命令对文本进行转换和编辑。</li>
+<li><code>sed</code>将转换后的文本输出到标准输出流。</li>
+<li>重复步骤2到步骤4，直到处理完所有的输入行</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310130812713.png" srcset="/img/loading.gif" lazyload alt="image-20231013081134585"></p>
+<h5 id="sed常用选项"><a href="#sed常用选项" class="headerlink" title="sed常用选项"></a>sed常用选项</h5><ol>
+<li><code>-n</code>：禁止自动打印模式空间内容。默认情况下，<code>sed</code>会将每一行的内容打印到标准输出流，但使用<code>-n</code>选项后，只有通过<code>p</code>命令显式指定打印的行才会被输出。</li>
+<li><code>-i</code>：直接在原始文件中进行编辑，即原地修改文件。使用此选项后，<code>sed</code>会将编辑后的结果直接写回到原始文件中，而不是将结果输出到标准输出流。</li>
+<li><code>-e script</code>：在命令行中指定编辑脚本。使用此选项可以直接在命令行中提供一系列编辑命令，而不是使用脚本文件。</li>
+<li><code>-f script-file</code>：从指定的脚本文件中读取编辑命令。使用此选项可以将编辑命令保存在一个脚本文件中，然后通过<code>-f</code>选项指定该文件来执行编辑操作。</li>
+<li><code>-r</code>：启用扩展正则表达式语法。默认情况下，<code>sed</code>使用基本正则表达式语法，但使用<code>-r</code>选项后，可以使用更强大的扩展正则表达式语法。</li>
+<li><code>-s</code>：对每个输入文件分别处理。默认情况下，<code>sed</code>会将所有输入文件视为单个连续的文本流进行处理，而使用<code>-s</code>选项后，<code>sed</code>会将每个输入文件视为独立的文本流进行处理。</li>
+<li><code>-u</code>：即时刷新输出。默认情况下，<code>sed</code>会将输出缓冲起来，然后一次性输出。使用<code>-u</code>选项后，<code>sed</code>会立即刷新输出，以实现更及时的输出。</li>
+</ol>
+<h5 id="sed行选择"><a href="#sed行选择" class="headerlink" title="sed行选择"></a>sed行选择</h5><p> 命令前面可以附加地址作为执行条件</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs awk">n <span class="hljs-comment">#第n行</span><br>m~n <span class="hljs-comment">#第m+kn行，如1~2表示所有奇数行</span><br>$ <span class="hljs-comment">#末行</span><br><span class="hljs-regexp">/re/</span> <span class="hljs-comment">#与正则表达式re匹配的行</span><br>\%re% <span class="hljs-comment">#同上，%可替换为其他字符</span><br><span class="hljs-regexp">/re/</span>! <span class="hljs-comment">#不与re匹配的行</span><br></code></pre></td></tr></table></figure>
+
+
+
+<ol>
+<li><p>第n行：</p>
+<ul>
+<li><p>选择第5行并打印：</p>
+<figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs delphi">sed <span class="hljs-string">&#x27;5p&#x27;</span> <span class="hljs-keyword">file</span>.txt<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>第m+kn行：</p>
+<ul>
+<li><p>选择所有奇数行并打印：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">sed</span> &#x27;<span class="hljs-number">1</span>~<span class="hljs-number">2</span>p&#x27; file.txt<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>选择所有3的倍数行并打印：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">sed</span> &#x27;<span class="hljs-number">1</span>~<span class="hljs-number">3</span>p&#x27; file.txt<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>末行：</p>
+<ul>
+<li><p>选择末行并打印：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">sed</span> <span class="hljs-string">&#x27;<span class="hljs-variable">$p</span>&#x27;</span> file.txt<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>与正则表达式re匹配的行：</p>
+<ul>
+<li><p>选择包含单词”apple”的行并打印：</p>
+<figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs delphi">sed <span class="hljs-string">&#x27;/apple/p&#x27;</span> <span class="hljs-keyword">file</span>.txt<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>与正则表达式re匹配的行（使用%作为定界符）：</p>
+<ul>
+<li><p>选择以”example”开头的行并打印：</p>
+<figure class="highlight cos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cos">sed &#x27;\%<span class="hljs-symbol">^example</span><span class="hljs-built_in">%p</span>&#x27; file.txt<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>不与正则表达式re匹配的行：</p>
+<ul>
+<li><p>选择不包含单词”apple”的行并打印：</p>
+<figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs delphi">sed <span class="hljs-string">&#x27;/apple/!p&#x27;</span> <span class="hljs-keyword">file</span>.txt<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<h5 id="sed范围选择"><a href="#sed范围选择" class="headerlink" title="sed范围选择"></a>sed范围选择</h5><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk">m,n <span class="hljs-comment">#从第m行至第n行</span><br>n,<span class="hljs-regexp">/re/</span> <span class="hljs-comment">#从第n行往后至与regexp匹配的第一行</span><br><span class="hljs-regexp">/re1/</span>,<span class="hljs-regexp">/re2/</span> <span class="hljs-comment">#从匹配re1的行开始到匹配re2的第一行为止</span><br>m,n! <span class="hljs-comment">#从m~n行之外的行</span><br></code></pre></td></tr></table></figure>
+
+<p>当使用<code>sed</code>时，以下是使用给范围选择的示例：</p>
+<ol>
+<li><p>从第m行至第n行：</p>
+<ul>
+<li><p>选择从第3行到第7行并打印：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sed &#x27;3,7p&#x27; file.txt<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>从第n行往后至与正则表达式re匹配的第一行：</p>
+<ul>
+<li><p>选择从第5行往后，直到遇到包含单词”apple”的第一行，并打印：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sed &#x27;5,/apple/p&#x27; file.txt<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>从匹配re1的行开始到匹配re2的第一行为止：</p>
+<ul>
+<li><p>选择从包含”start”的行开始，一直到遇到包含”end”的第一行，并打印：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sed &#x27;/start/,/end/p&#x27; file.txt<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>从m~n行之外的行：</p>
+<ul>
+<li><p>选择不在第2行到第5行范围内的行，并打印：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sed &#x27;2,5!p&#x27; file.txt<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<h5 id="sed常用命令"><a href="#sed常用命令" class="headerlink" title="sed常用命令"></a>sed常用命令</h5><ol>
+<li><code>#</code>：注释命令，用于添加注释，对脚本没有实际影响。</li>
+</ol>
+<ul>
+<li><p>示例：</p>
+   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sed &#x27;s/old/new/&#x27; file.txt  # 替换文件中的字符串，忽略注释行<br></code></pre></td></tr></table></figure></li>
+</ul>
+<ol start="2">
+<li><p><code>q</code>：退出命令，用于在满足条件后退出<code>sed</code>的执行。</p>
+<ul>
+<li><p>示例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sed &#x27;/pattern/q&#x27; file.txt  # 匹配到指定模式后退出，并打印之前的内容<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><code>d</code>：删除命令，用于删除模式空间的内容，并立即开始新的循环。</p>
+<ul>
+<li><p>示例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sed &#x27;/pattern/d&#x27; file.txt  # 删除包含指定模式的行<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><code>p</code>：打印命令，用于打印模式空间的内容。</p>
+</li>
+</ol>
+<ul>
+<li><p>示例：</p>
+   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sed -n &#x27;2,5p&#x27; file.txt  # 打印文件中第2行到第5行的内容<br></code></pre></td></tr></table></figure></li>
+</ul>
+<ol start="5">
+<li><p><code>n</code>：读取下一行命令，用于替换模式空间的内容为文件的下一行。</p>
+<ul>
+<li><p>示例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sed -n &#x27;/start/,/end/p;n&#x27; file.txt<br></code></pre></td></tr></table></figure></li>
+</ul>
+<p>这个示例将打印位于”start”和”end”之间的行，并在打印后读取下一行。这样可以确保在每次打印匹配行后，都会继续处理下一行</p>
+</li>
+<li><p><code>&#123;cmd1; cmd2; ...&#125;</code>：命令组，用于在地址匹配时执行多个命令。</p>
+<ul>
+<li><p>示例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sed &#x27;/pattern/&#123;s/foo/bar/; s/apple/orange/&#125;&#x27; file.txt  # 匹配到指定模式后执行多个替换操作<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<h5 id="sed示例"><a href="#sed示例" class="headerlink" title="sed示例"></a>sed示例</h5><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs elixir"><span class="hljs-variable">$ </span>sed <span class="hljs-string">&#x27;&#x27;</span> students.db <span class="hljs-comment">#空脚本，默认输出</span><br><span class="hljs-variable">$ </span>sed -n <span class="hljs-string">&#x27;&#x27;</span> students.db <span class="hljs-comment">#空脚本，关闭默认输出</span><br><span class="hljs-variable">$ </span>sed -n <span class="hljs-string">&#x27;1,$p&#x27;</span> students.db <span class="hljs-comment">#显式打印每一行</span><br><span class="hljs-variable">$ </span>sed <span class="hljs-string">&#x27;5q&#x27;</span> students.db <span class="hljs-comment">#打印前10行后退出</span><br><span class="hljs-variable">$ </span>sed -n <span class="hljs-string">&#x27;$p&#x27;</span> students.db <span class="hljs-comment">#打印最后一行</span><br><span class="hljs-variable">$ </span>sed <span class="hljs-string">&#x27;/^$/d&#x27;</span> .bash_profile <span class="hljs-comment">#删除空行</span><br><span class="hljs-variable">$ </span>sed <span class="hljs-string">&#x27;\|^#|d&#x27;</span> .bash_profile <span class="hljs-comment">#删除以#开头的行</span><br><span class="hljs-variable">$ </span>sed -n <span class="hljs-string">&#x27;n;p&#x27;</span> students.db <span class="hljs-comment">#打印偶数行</span><br><span class="hljs-variable">$ </span>sed -n -e <span class="hljs-string">&#x27;n&#x27;</span> -e <span class="hljs-string">&#x27;p&#x27;</span> students.db <span class="hljs-comment">#同上</span><br><span class="hljs-variable">$ </span>sed <span class="hljs-string">&#x27;1~2d&#x27;</span> students.db <span class="hljs-comment">#同上</span><br><span class="hljs-variable">$ </span>sed <span class="hljs-string">&#x27;2~2!d&#x27;</span> students.db <span class="hljs-comment">#同上</span><br><span class="hljs-variable">$ </span>sed -n <span class="hljs-string">&#x27;2,10&#123;n;p&#125;&#x27;</span> students.db <span class="hljs-comment">#从第3行开始隔行打印</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h5 id="sed-s命令"><a href="#sed-s命令" class="headerlink" title="sed s命令"></a>sed s命令</h5><p><code>sed</code>中的<code>s</code>命令是用于替换字符串的常见命令。它的语法为：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sed &#x27;s/old/new/&#x27; file.txt<br></code></pre></td></tr></table></figure>
+
+<p>其中，<code>old</code>是要替换的旧字符串，<code>new</code>是替换为的新字符串。<code>s</code>命令默认只替换每行中第一个匹配的字符串，如果要<strong>替换所有</strong>匹配的字符串，可以添加<code>g</code>标志（全局替换）：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sed &#x27;s/old/new/g&#x27; file.txt<br></code></pre></td></tr></table></figure>
+
+<p>以下是一些示例，展示了<code>s</code>命令的用法：</p>
+<ol>
+<li><p>替换单个字符串：</p>
+<ul>
+<li><p>将文件中的所有”apple”替换为”orange”：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sed &#x27;s/apple/orange/g&#x27; file.txt<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>使用正则表达式进行替换：</p>
+<ul>
+<li><p>将文件中以”apple”开头的单词替换为”orange”：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sed &#x27;s/^apple/orange/g&#x27; file.txt<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>引用捕获组进行替换：</p>
+<ul>
+<li><p>将文件中的日期格式”DD&#x2F;MM&#x2F;YYYY”替换为”YYYY-MM-DD”：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sed &#x27;s/\([0-9]\&#123;2\&#125;\)\/\([0-9]\&#123;2\&#125;\)\/\([0-9]\&#123;4\&#125;\)/\3-\2-\1/g&#x27; file.txt<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>替换特定行中的字符串：</p>
+<ul>
+<li><p>只将第5行中的”apple”替换为”orange”：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sed &#x27;5s/apple/orange/g&#x27; file.txt<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<h4 id="sed高级"><a href="#sed高级" class="headerlink" title="sed高级"></a>sed高级</h4><h5 id="N"><a href="#N" class="headerlink" title="N"></a>N</h5><ul>
+<li>读下一行 </li>
+<li>若读取失败则直接退出sed（不再执行其后的命令） </li>
+<li>若读取成功则在模式空间尾部添加换行符\n，并将 新行附加在后面</li>
+</ul>
+<img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310130835500.png" srcset="/img/loading.gif" lazyload alt="image-20231013083550354" style="zoom:50%;" />
+
+
+
+<h5 id="P"><a href="#P" class="headerlink" title="P"></a>P</h5><p>打印模式空间内容至第一个换行符 (包括该换行符)</p>
+<img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310130836606.png" srcset="/img/loading.gif" lazyload alt="image-20231013083615416" style="zoom:50%;" />
+
+
+
+<h5 id="D"><a href="#D" class="headerlink" title="D"></a>D</h5><p>如果模式空间中不含\n，则与<code>d命令</code>相同，否则删除 模式空间中直到第一个\n的内容(包含该\n)，然后对 模式空间中的剩余内容执行新一轮循环(不读入新行)</p>
+<img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310130836081.png" srcset="/img/loading.gif" lazyload alt="image-20231013083653831" style="zoom:50%;" />
+
+<h5 id="sed高级命令示例"><a href="#sed高级命令示例" class="headerlink" title="sed高级命令示例"></a>sed高级命令示例</h5><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">sed</span> <span class="hljs-string">&#x27;N;D&#x27;</span> students.db 	<span class="hljs-comment">#打印末行</span><br></code></pre></td></tr></table></figure>
+
+<img src="https://raw.githubusercontent.com/leekosss/photoBed/master/202310130838610.png" srcset="/img/loading.gif" lazyload alt="image-20231013083839411" style="zoom:50%;" />
+
+
+
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">sed</span> -n <span class="hljs-string">&#x27;N;P&#x27;</span> students.db 	<span class="hljs-comment">#打印奇数行</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="C:\Users\LIKE\AppData\Roaming\Typora\typora-user-images\image-20231013083908986.png" srcset="/img/loading.gif" lazyload alt="image-20231013083908986"></p>
+<h5 id="sed空间"><a href="#sed空间" class="headerlink" title="sed空间"></a>sed空间</h5><p>sed同时维护两个内存缓冲区<br>• 模式空间(pattern space)<br>• 保持空间(hold space)，也译为暂存空间</p>
+<p><strong>模式空间</strong><br>• 不断从输入获取新行<br>• 可通过sed脚本修改其内容<br>• 每次执行完sed脚本后会被清空(有些命令如D除外)</p>
+<p><strong>暂存空间</strong><br>• 只能从模式空间获得内容<br>• 其内容既不能直接修改也不会自动被清空<br>• 其内容需导入模式空间后才能被修改</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs sql">x – exchange<br>• 交换模式空间和保持空间的内容。<br>• h – <span class="hljs-keyword">hold</span> <span class="hljs-keyword">pattern</span> space<br>• 保存模式空间的内容至保持空间 (覆盖)<br>• H – <span class="hljs-keyword">Hold</span> <span class="hljs-keyword">pattern</span> space<br>• 保存模式空间的内容至保持空间尾部 (用换行符分隔)<br>• g – <span class="hljs-keyword">get</span> contents <span class="hljs-keyword">of</span> <span class="hljs-keyword">hold</span> area<br>• 获取保持空间的内容到模式空间 (覆盖)<br>• G – <span class="hljs-keyword">Get</span> contents <span class="hljs-keyword">of</span> <span class="hljs-keyword">hold</span> area<br>• 获取保持空间的内容至模式空间尾部 (用换行符分隔)<br></code></pre></td></tr></table></figure>
+
+
+
+<h5 id="sed流程控制"><a href="#sed流程控制" class="headerlink" title="sed流程控制"></a>sed流程控制</h5><p>• 标签</p>
+<figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs delphi">: <span class="hljs-keyword">label</span> #为跳转语句设置跳转标签<span class="hljs-keyword">label</span><br></code></pre></td></tr></table></figure>
+
+<p>分支(branch)跳转</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">b</span> <span class="hljs-selector-tag">label</span> #跳转到标签<span class="hljs-selector-tag">label</span>位置<br><span class="hljs-selector-tag">b</span> #跳转到脚本结束位置<br></code></pre></td></tr></table></figure>
+
+<p>测试(test)跳转</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">t <span class="hljs-keyword">label</span><span class="language-bash"> <span class="hljs-comment">#仅当读取最新输入行(或执行条件跳转)之后成功执行了</span></span><br>s命令，才跳转到标签<span class="hljs-keyword">label</span><span class="language-bash">位置</span><br>t <span class="hljs-comment">#同上，但跳转到脚本结束位置</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h3 id="awk"><a href="#awk" class="headerlink" title="awk"></a>awk</h3><p><code>awk</code> 是一种强大的文本处理工具，通常用于从文件或者输入流中抽取和处理数据。它是一种类似于编程语言的工具，用于按照指定的规则处理文本行。</p>
+<h5 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">awk &#x27;pattern &#123; action &#125;&#x27; filename<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>pattern：</strong> 模式，用于匹配文本行。</li>
+<li><strong>action：</strong> 在匹配模式的情况下执行的操作。</li>
+</ul>
+<h5 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h5><ol>
+<li><p><strong>显示文件的第一列：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">awk <span class="hljs-string">&#x27;&#123;print $1&#125;&#x27;</span> filename.txt<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>计算文件的总行数：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">awk <span class="hljs-string">&#x27;END &#123;print NR&#125;&#x27;</span> filename.txt<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>计算文件的总和：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">awk <span class="hljs-string">&#x27;&#123;sum += $2&#125; END &#123;print &quot;Sum:&quot;, sum&#125;&#x27;</span> filename.txt<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>查找并打印包含特定文本的行：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">awk <span class="hljs-string">&#x27;/pattern/ &#123;print&#125;&#x27;</span> filename.txt<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>显示文件中每行的字符数：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">awk <span class="hljs-string">&#x27;&#123;print length($0)&#125;&#x27;</span> filename.txt<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>过滤并打印满足条件的行：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">awk <span class="hljs-string">&#x27;$3 &gt; 50 &#123;print&#125;&#x27;</span> filename.txt<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>在列中查找最大值：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">awk <span class="hljs-string">&#x27;max &lt; $2 &#123;max = $2&#125; END &#123;print &quot;Max value:&quot;, max&#125;&#x27;</span> filename.txt<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>计算平均值并显示小数：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">awk <span class="hljs-string">&#x27;&#123;sum += $3&#125; END &#123;print &quot;Average:&quot;, sum/NR&#125;&#x27;</span> filename.txt<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>删除空白行：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">awk NF filename.txt<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>在特定列中查找并替换值：</strong></p>
+   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">awk <span class="hljs-string">&#x27;$4 == &quot;old_value&quot; &#123;$4 = &quot;new_value&quot;&#125; &#123;print&#125;&#x27;</span> filename.txt<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>逐行执行多个操作：</strong></p>
+   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">awk <span class="hljs-string">&#x27;&#123;if ($2 &gt; 50) &#123;print $1 &quot; Pass&quot;&#125; else &#123;print $1 &quot; Fail&quot;&#125;&#125;&#x27;</span> scores.txt<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>按列合并两个文件：</strong></p>
+   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">awk <span class="hljs-string">&#x27;NR==FNR&#123;a[$1]=$2; next&#125; &#123;print $0, a[$1]&#125;&#x27;</span> file1.txt file2.txt<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>在两个文件中查找并显示匹配行：</strong></p>
+   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">awk <span class="hljs-string">&#x27;NR==FNR&#123;a[$1]=$0; next&#125; $1 in a &#123;print a[$1], $0&#125;&#x27;</span> file1.txt file2.txt<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="用户组和权限管理"><a href="#用户组和权限管理" class="headerlink" title="用户组和权限管理"></a>用户组和权限管理</h3><h4 id="用户账户"><a href="#用户账户" class="headerlink" title="用户账户"></a>用户账户</h4><p><strong>用户帐号代表用户身份，具有唯一的UID</strong></p>
+<h5 id="根账户-root"><a href="#根账户-root" class="headerlink" title="根账户(root)"></a>根账户(root)</h5><p>• 超级用户root可以不受限制地执行所有任务<br>• UID：0<br>• 主目录：&#x2F;root</p>
+<h5 id="系统账户"><a href="#系统账户" class="headerlink" title="系统账户"></a>系统账户</h5><p>• 系统或应用程序使用的账户，供服务使用的也称服务账户<br>• UID：1-999、65534<br>• 主目录：各有不同</p>
+<h5 id="普通账户"><a href="#普通账户" class="headerlink" title="普通账户"></a>普通账户</h5><p>• 供实际普通用户登录使用的账户<br>• UID：从1000开始顺序编号<br>• 主目录：&#x2F;home&#x2F;username<br>• 普通用户默认无法访问其他用户的主目录</p>
+<h4 id="用户配置文件"><a href="#用户配置文件" class="headerlink" title="用户配置文件"></a>用户配置文件</h4><p> 用户账户配置文件</p>
+<h5 id="etc-passwd"><a href="#etc-passwd" class="headerlink" title="&#x2F;etc&#x2F;passwd"></a>&#x2F;etc&#x2F;passwd</h5><ul>
+<li>存放除密码之外的账户信息</li>
+<li>所有用户均可读取</li>
+<li>记录格式：man 5 passwd</li>
+<li>用户密码配置文件</li>
+</ul>
+<h5 id="etc-shadow"><a href="#etc-shadow" class="headerlink" title="&#x2F;etc&#x2F;shadow"></a>&#x2F;etc&#x2F;shadow</h5><ul>
+<li>存放与用户密码相关的信息</li>
+<li>CentOS 7默认使用sha512哈希算法加密用户口令</li>
+<li>除root外，所有用户均无法读取</li>
+<li>记录格式：man 5 shadow</li>
+</ul>
+<h4 id="组账户"><a href="#组账户" class="headerlink" title="组账户"></a>组账户</h4><p> 组是用户的集合，具有唯一GID。可以以组为单位分配权限，则组内成员自动获得所分配权限</p>
+<ul>
+<li><p>一个用户可以同时属于多个组</p>
+<p> 一个主要组(Primary Group)，也叫初始组(InitialGroup)，即用户的默认组，创建用户时默认会自动创建一个与用户同名的组作为其主要组(默认组)<br> 若干次要组<br> 用户可以在不同组身份之间进行切换</p>
+</li>
+<li><p>Linux不支持嵌套组</p>
+<p>组成员只能是用户，不能是其他组</p>
+</li>
+</ul>
+<h4 id="组的类别"><a href="#组的类别" class="headerlink" title="组的类别"></a>组的类别</h4><h5 id="超级组-Superuser-Group"><a href="#超级组-Superuser-Group" class="headerlink" title="超级组(Superuser Group)"></a>超级组(Superuser Group)</h5><p>• 组名：root<br>• GID：0<br>• 不像root用户一样具有超级权限</p>
+<h5 id="系统组-System-Group"><a href="#系统组-System-Group" class="headerlink" title="系统组(System Group)"></a>系统组(System Group)</h5><p>• 由系统或应用程序使用<br>• GID：1-999、65534</p>
+<h5 id="自定义组"><a href="#自定义组" class="headerlink" title="自定义组"></a>自定义组</h5><p>• 由管理员创建<br>• GID：默认从1000开始顺序编号<br>• 私有组：创建用户时自动创建的同名自定义组<br>• 标准组：私有组之外的自定义组</p>
+<h4 id="组配置文件"><a href="#组配置文件" class="headerlink" title="组配置文件"></a>组配置文件</h4><p>组账户配置文件</p>
+<h5 id="etc-group"><a href="#etc-group" class="headerlink" title="&#x2F;etc&#x2F;group"></a>&#x2F;etc&#x2F;group</h5><ul>
+<li>存放除密码之外的组账户信息</li>
+<li>所有用户均可读取</li>
+<li>记录格式：man 5 group</li>
+</ul>
+<p>组密码配置文件</p>
+<h5 id="etc-gshadow"><a href="#etc-gshadow" class="headerlink" title="&#x2F;etc&#x2F;gshadow"></a>&#x2F;etc&#x2F;gshadow</h5><ul>
+<li>存放与组密码相关的信息</li>
+<li>除root外，所有用户均无法读取</li>
+<li>记录格式：man 5 gshadow</li>
+</ul>
+<h4 id="验证账号文件的一致性"><a href="#验证账号文件的一致性" class="headerlink" title="验证账号文件的一致性"></a>验证账号文件的一致性</h4><p>不建议直接编辑修改系统账户文件，直接编辑账户文件后建议检测账号文件的一致性</p>
+<h5 id="pwck"><a href="#pwck" class="headerlink" title="pwck"></a>pwck</h5><p>检测&#x2F;etc&#x2F;passwd和&#x2F;etc&#x2F;shadow的字段格式和值</p>
+<h5 id="grpck"><a href="#grpck" class="headerlink" title="grpck"></a>grpck</h5><p>检测&#x2F;etc&#x2F;group和&#x2F;etc&#x2F;gshadow的字段格式和值</p>
+<h4 id="useradd-添加用户"><a href="#useradd-添加用户" class="headerlink" title="useradd 添加用户"></a>useradd 添加用户</h4><ul>
+<li>-g 指定新用户的主（私有）组</li>
+<li>-G 指定新用户的附加组</li>
+<li>-d 指定新用户的主目录</li>
+<li>-s 指定新用户使用的Shell,默认为bash</li>
+<li>-e 指定用户的登录失效时间，如08&#x2F;10&#x2F;2001</li>
+</ul>
+<h4 id="passwd-修改密码"><a href="#passwd-修改密码" class="headerlink" title="passwd 修改密码"></a>passwd 修改密码</h4><p>passwd</p>
+<p>让用户免密码进行本地登录的两种方法： </p>
+<ul>
+<li>将&#x2F;etc&#x2F;passwd 文件中的密码字段清空 </li>
+<li>将&#x2F;etc&#x2F;shadow 文件中的密码字段清空</li>
+</ul>
+<p>远程用户必须设置了登录密码才允许登录!</p>
+<h4 id="id-查询用户信息"><a href="#id-查询用户信息" class="headerlink" title="id 查询用户信息"></a>id 查询用户信息</h4><h4 id="usermod-修改用户账户"><a href="#usermod-修改用户账户" class="headerlink" title="usermod 修改用户账户"></a>usermod 修改用户账户</h4><h4 id="userdel-删除用户"><a href="#userdel-删除用户" class="headerlink" title="userdel 删除用户"></a>userdel 删除用户</h4><h4 id="groupadd-添加组"><a href="#groupadd-添加组" class="headerlink" title="groupadd 添加组"></a>groupadd 添加组</h4><h4 id="gpasswd-设置组密码"><a href="#gpasswd-设置组密码" class="headerlink" title="gpasswd 设置组密码"></a>gpasswd 设置组密码</h4><h4 id="groupmod-修改组"><a href="#groupmod-修改组" class="headerlink" title="groupmod 修改组"></a>groupmod 修改组</h4><h4 id="groupdel-删除组"><a href="#groupdel-删除组" class="headerlink" title="groupdel 删除组"></a>groupdel 删除组</h4><h4 id="groups-查询组信息"><a href="#groups-查询组信息" class="headerlink" title="groups 查询组信息"></a>groups 查询组信息</h4><h4 id="用户权限"><a href="#用户权限" class="headerlink" title="用户权限"></a>用户权限</h4><h5 id="chmod"><a href="#chmod" class="headerlink" title="chmod"></a>chmod</h5><p>更改权限</p>
+<p>仅文件所有者和 root 用户有权修改文件权限</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">chmod</span> u=rw-,g=r--,o=r-- file <span class="hljs-comment"># 字符绝对设置法</span></span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">chmod</span> g+w,o-r file <span class="hljs-comment"># 字符相对设置法</span></span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">chmod</span> a+x file</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">chmod</span> 644 file <span class="hljs-comment"># 八进制设置法</span></span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">chmod</span> 600 file</span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">chmod</span> 700 <span class="hljs-built_in">dir</span></span><br><span class="hljs-meta prompt_">$ </span><span class="language-bash"><span class="hljs-built_in">chmod</span> -R 755 <span class="hljs-built_in">dir</span> <span class="hljs-comment"># 递归设置权限</span></span><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h5 id="chown"><a href="#chown" class="headerlink" title="chown"></a>chown</h5><p>改变文件的所有者和属组</p>
+<p>• 只有root用户才能改变文件的所有者 </p>
+<p>• 只有root用户或所有者才能改变文件所属的组 (所有者必须是该组成员)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash"><span class="hljs-built_in">chown</span> root file <span class="hljs-comment"># 设置file为root所有</span></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash"><span class="hljs-built_in">chown</span> root:<span class="hljs-built_in">users</span> file <span class="hljs-comment"># 设置file为root所有，属users组</span></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash"><span class="hljs-built_in">chown</span> root: file <span class="hljs-comment"># 设置file为root所有，属root组</span></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash"><span class="hljs-built_in">chown</span> :<span class="hljs-built_in">users</span> file <span class="hljs-comment"># 设置file属users组</span></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash"><span class="hljs-built_in">chown</span> -R root:<span class="hljs-built_in">users</span> <span class="hljs-built_in">dir</span> <span class="hljs-comment"># 递归处理</span></span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash"><span class="hljs-built_in">chgrp</span> <span class="hljs-built_in">users</span> file <span class="hljs-comment"># 设置file属users组</span></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash"><span class="hljs-built_in">chgrp</span> -R <span class="hljs-built_in">users</span> <span class="hljs-built_in">dir</span> <span class="hljs-comment"># 递归处理</span></span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="进程与作业管理"><a href="#进程与作业管理" class="headerlink" title="进程与作业管理"></a>进程与作业管理</h3><h4 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h4><ul>
+<li><p>进程由程序产生，是动态的概念，代表一个运行着的、 要占用系统运行资源的程序。</p>
+</li>
+<li><p>内核通过进程控制块(Process Control Block, PCB) 来管理每个进程，每个PCB都具有一个唯一的进程标 识符，即PID。</p>
+</li>
+</ul>
+<h4 id="父进程与子进程"><a href="#父进程与子进程" class="headerlink" title="父进程与子进程"></a>父进程与子进程</h4><p>一个进程启动另一个进程，就成为父进程，被启动的 进程就是该父进程的子进程</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs crystal"><span class="hljs-variable">$ </span>pstree 	<span class="hljs-comment"># 打印进程树</span><br><span class="hljs-variable">$ </span>pstree -c <span class="hljs-comment"># 打印时不合并重复子树</span><br><span class="hljs-variable">$ </span>pstree -p <span class="hljs-comment"># 打印时显示进程PID</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="ps-查看进程"><a href="#ps-查看进程" class="headerlink" title="ps 查看进程"></a>ps 查看进程</h4><p>ps (process status)：显示进程列表及其状态</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-variable">$</span> <span class="hljs-built_in">ps</span> <span class="hljs-comment"># 查看当前 shell 执行的进程</span><br><span class="hljs-variable">$</span> <span class="hljs-built_in">ps</span> aux <span class="hljs-comment"># 查看所有进程 (BSD 风格)</span><br><span class="hljs-variable">$</span> <span class="hljs-built_in">ps</span> <span class="hljs-literal">-ef</span> <span class="hljs-comment"># 查看所有进程 (System V 风格)</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="搜索进程"><a href="#搜索进程" class="headerlink" title="搜索进程"></a>搜索进程</h4><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-variable">$</span> <span class="hljs-built_in">ps</span> aux | grep sshd 	<span class="hljs-comment"># 搜索sshd进程</span><br><span class="hljs-variable">$</span> <span class="hljs-built_in">ps</span> <span class="hljs-literal">-C</span> sshd <span class="hljs-literal">-o</span> pid 	<span class="hljs-comment"># 打印sshd进程的pid列</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="top-查看动态的进程信息"><a href="#top-查看动态的进程信息" class="headerlink" title="top 查看动态的进程信息"></a>top 查看动态的进程信息</h4><h4 id="nohup-后台运行进程"><a href="#nohup-后台运行进程" class="headerlink" title="nohup 后台运行进程"></a>nohup 后台运行进程</h4><ul>
+<li>通常当用户注销后，所有属于该用户的进程将全 部被终止(SIGHUP)</li>
+<li>如果希望程序在退出系统后仍然能够继续运行， 可以使用 nohup 命令启动该进程。</li>
+<li><strong>nohup 命令 [选项] [参数] [输出文件] &amp;</strong></li>
+</ul>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs crystal"><span class="hljs-variable">$ </span>nohup ping www.baidu.com &amp;<br><span class="hljs-comment"># 若程序有结果输出，输出结果将会被保存到当前目录下的一个文件名</span><br>为 nohup.<span class="hljs-keyword">out</span> 的文件中<br><span class="hljs-comment"># 若用户在当前目录没有写的权限，则结果将会被保存到用户主目录下</span><br>的 nohup.<span class="hljs-keyword">out</span> 文件中<br><span class="hljs-comment"># 也可以用输出重定向指定结果保存位置</span><br><span class="hljs-variable">$ </span>nohup ping www.baidu.com &gt;ping.<span class="hljs-keyword">out</span> <span class="hljs-number">2</span>&gt;<span class="hljs-regexp">/dev/null</span> &amp;<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="lsof-查看进程打开的文件"><a href="#lsof-查看进程打开的文件" class="headerlink" title="lsof 查看进程打开的文件"></a>lsof 查看进程打开的文件</h4><blockquote>
+<p>lsof：list open files</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">lsof /dev/pts/0 <span class="hljs-comment"># 由文件名查找进程</span></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">lsof -d 0 <span class="hljs-comment"># 由文件描述符查找进程</span></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">lsof -p 1234 <span class="hljs-comment"># 由PID查找打开的文件</span></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">lsof -u tom <span class="hljs-comment"># 查看某一用户打开的文件</span></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">lsof -i:22 <span class="hljs-comment"># 由端口号查找进程</span></span><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="shell脚本编程"><a href="#shell脚本编程" class="headerlink" title="shell脚本编程"></a>shell脚本编程</h3><h4 id="执行shell脚本"><a href="#执行shell脚本" class="headerlink" title="执行shell脚本"></a>执行shell脚本</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sh">sh &lt;script.sh<br>sh script.sh<br>. script.sh<br><span class="hljs-built_in">source</span> script.sh<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="与位置参数有关的变量"><a href="#与位置参数有关的变量" class="headerlink" title="与位置参数有关的变量"></a>与位置参数有关的变量</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-variable">$0</span> 					<span class="hljs-comment"># 当前脚本路径名</span><br><span class="hljs-variable">$1</span>, <span class="hljs-variable">$2</span>, ..., <span class="hljs-variable">$9</span> 	 <span class="hljs-comment"># 位置参数</span><br><span class="hljs-variable">$&#123;10&#125;</span> 				<span class="hljs-comment"># 第 10 个位置参数</span><br>$* 					<span class="hljs-comment"># 所有位置参数(不包括$0)</span><br><span class="hljs-variable">$@</span> 					<span class="hljs-comment"># 所有位置参数(不包括$0)</span><br><span class="hljs-variable">$#</span> 					<span class="hljs-comment"># 位置参数个数(不包括$0)</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="shift"><a href="#shift" class="headerlink" title="shift"></a>shift</h4><p>shift [n]：所有位置参数左移n位(默认左移1位)</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs sh">$ <span class="hljs-built_in">cat</span> shiftarg<br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;arg counts: <span class="hljs-variable">$#</span>&quot;</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;args: <span class="hljs-variable">$@</span>&quot;</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;first arg: <span class="hljs-variable">$1</span>&quot;</span><br><span class="hljs-built_in">shift</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;shift&quot;</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;arg counts: <span class="hljs-variable">$#</span>&quot;</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;args: <span class="hljs-variable">$@</span>&quot;</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;first arg: <span class="hljs-variable">$1</span>&quot;</span><br><span class="hljs-built_in">shift</span> 3<br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;shift 3&quot;</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;arg counts: <span class="hljs-variable">$#</span>&quot;</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;args: <span class="hljs-variable">$@</span>&quot;</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;first arg: <span class="hljs-variable">$1</span>&quot;</span><br>$ shiftarg 1 2 3 4 5 6 7 8 9<br></code></pre></td></tr></table></figure>
+
+<p>由于一共使用<code>shift</code>将位置参数左移4位，所以最后只剩<code>5 6 7 8 9</code>参数了</p>
+<h4 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h4><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">x</span>=<span class="hljs-number">100</span> 		<span class="hljs-comment"># 变量无需声明，=两边不能加空格！</span><br></code></pre></td></tr></table></figure>
+
+<p>shell中的变量默认是字符串</p>
+<h5 id="unset-删除变量"><a href="#unset-删除变量" class="headerlink" title="unset 删除变量"></a>unset 删除变量</h5><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-built_in">unset</span> x; <br><span class="hljs-built_in">echo</span> <span class="hljs-variable">$x</span><br></code></pre></td></tr></table></figure>
+
+<p>此时x变量是没有定义的、没有值</p>
+<h5 id="decalre-声明变量"><a href="#decalre-声明变量" class="headerlink" title="decalre 声明变量"></a>decalre 声明变量</h5><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-built_in">declare</span> -i y; <span class="hljs-built_in">echo</span> <span class="hljs-variable">$y</span> 		<span class="hljs-comment"># 声明变量为整型变量</span><br><span class="hljs-built_in">declare</span> -r y; y=123 		<span class="hljs-comment"># 声明变量为只读变量</span><br><span class="hljs-built_in">declare</span> -p y 			    <span class="hljs-comment"># 显示变量声明及其值</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="特殊变量"><a href="#特殊变量" class="headerlink" title="特殊变量"></a>特殊变量</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$</span><span class="language-bash">? 		<span class="hljs-comment"># 上一条命令的退出码</span></span><br><span class="hljs-meta prompt_">$</span><span class="language-bash">- 		<span class="hljs-comment"># bash选项，查看help set了解选项含义</span></span><br><span class="hljs-meta prompt_">$</span><span class="language-bash">$ 		<span class="hljs-comment"># 当前进程的PID</span></span><br><span class="hljs-meta prompt_">$</span><span class="language-bash">! 		<span class="hljs-comment"># 上一个后台进程的PID</span></span><br><span class="hljs-meta prompt_">$</span><span class="language-bash">_ 		<span class="hljs-comment"># 上一条命令的最后一个参数(详细参看man bash)</span></span><br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="命令替换"><a href="#命令替换" class="headerlink" title="命令替换"></a>命令替换</h4><p><code>$()</code>，在这里面可以执行命令，或者使用反引号**&#96;**也可以进行命令替换</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sh">$ <span class="hljs-built_in">date</span>=<span class="hljs-string">&#x27;04/10/2020&#x27;</span><br>$ <span class="hljs-built_in">echo</span> <span class="hljs-variable">$&#123;date&#125;</span> 		<span class="hljs-comment"># 变量替换,这里会输出date变量的值</span><br>$ <span class="hljs-built_in">echo</span> $(<span class="hljs-built_in">date</span>) 		<span class="hljs-comment"># 命令替换,这里会输出date命令运行后的结果</span><br>$ <span class="hljs-built_in">echo</span> `<span class="hljs-built_in">date</span>` 		<span class="hljs-comment"># 命令替换,这里会输出date命令运行后的结果</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="变量替换"><a href="#变量替换" class="headerlink" title="变量替换"></a>变量替换</h4><p>在双引号<code>&quot;&quot;</code>中，可以使用<code>$&#123;&#125;</code>的形式来在字符串中替换变量的值(使用<code>&#123;&#125;</code>括起来可以精确表示变量的开始范围)</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sh">$ a=teach<br>$ <span class="hljs-built_in">echo</span> <span class="hljs-variable">$a</span><br>$ <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;he is a <span class="hljs-variable">$aer</span>&quot;</span>		<span class="hljs-comment"># 此时输出 he is a  与后面的er混淆了，没有$aer变量</span><br>$ <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;he is a <span class="hljs-variable">$&#123;a&#125;</span>er&quot;</span> 	<span class="hljs-comment"># 此时输出 he is a teacher</span><br>$ <span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;he is a $&#123;a&#125;er&#x27;</span> 	<span class="hljs-comment"># 单引号不能替换</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h5 id="条件变量替换"><a href="#条件变量替换" class="headerlink" title="条件变量替换"></a>条件变量替换</h5><blockquote>
+<p>以下变量替换中如果包含冒号”:”，则检查变量是否 存在或其值是否为null，如果不包含冒号，则仅检查 变量是否存在。</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-variable">$&#123;a:-b&#125;</span> 使用默认值<br>若a存在且非空，则返回a的值，否则返回b的值<br><span class="hljs-variable">$&#123;a:=b&#125;</span> 赋值为默认值<br>若a存在且非空，则返回a的值，否则将a赋值为b并返回a的新值<br><span class="hljs-variable">$&#123;a:?b&#125;</span> 报告错误<br>若a存在且非空，则返回a的值，否则将b写入标准错误（对于非交互式<br>shell则直接退出shell）<br><span class="hljs-variable">$&#123;a:+b&#125;</span> 使用替换值<br>若a存在且非空，则返回b的值，否则返回空<br></code></pre></td></tr></table></figure>
+
+
+
+<h5 id="截断变量替换"><a href="#截断变量替换" class="headerlink" title="截断变量替换"></a>截断变量替换</h5><p>以下变量替换并未改变变量本身的值</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-variable">$&#123;a%b&#125;</span><br>从a值的右端去掉与b值的最短匹配，返回剩下的部分<br><span class="hljs-variable">$&#123;a%%b&#125;</span><br>从a值的右端去掉与b值的最长匹配，返回剩下的部分<br><span class="hljs-variable">$&#123;a#b&#125;</span><br>从a值的左端去掉与b值的最短匹配，返回剩下的部分<br><span class="hljs-variable">$&#123;a##b&#125;</span><br>从a值的左端去掉与b值的最长匹配，返回剩下的部分<br></code></pre></td></tr></table></figure>
+
+
+
+<h5 id="获取变量长度"><a href="#获取变量长度" class="headerlink" title="获取变量长度"></a>获取变量长度</h5><p>在变量前面加个#可以计算变量长度 &#96;$</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Linux/" class="category-chain-item">Linux</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Linux/" class="print-no-link">#Linux</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Linux操作系统笔记</div>
+      <div>https://leekosss.github.io/2023/10/01/Linux操作系统笔记/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>leekos</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年10月1日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年12月29日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/10/02/NSSRound#8/" title="NSSRound#8">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">NSSRound#8</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/09/30/%5B%E7%BE%8A%E5%9F%8E%E6%9D%AF%202020%5Da_piece_of_java/" title="【羊城杯 2020】a_piece_of_java">
+                        <span class="hidden-mobile">【羊城杯 2020】a_piece_of_java</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"e5J90iDkXMWhU5UNlEX1I2hO-gzGzoHsz","appKey":"esLROw9j3xLk2nV4tQkKaih1","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      赣ICP备2022008842号
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
